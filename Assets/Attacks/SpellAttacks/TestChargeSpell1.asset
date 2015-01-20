@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02760695d81f2854f9afec88a8f29201, type: 3}
+  m_Name: TestChargeSpell1
+  m_EditorClassIdentifier: 
+  playerSpeedMod: 0
+  vulnerableTime: 0
+  attackAnim: {fileID: 7400008, guid: d7f1c0a3279264755861914a9d348a68, type: 3}
+  routineFrameEvents:
+  - spells:
+    - {fileID: 11400000, guid: fda99c613c9e38e48adce6b954a0337d, type: 2}
+    castAnim: {fileID: 7400006, guid: d7f1c0a3279264755861914a9d348a68, type: 3}
+    frame: 15
+    usedThisLoop: 0
+  routineLength: 4
+  endSpellEvent:
+    spells:
+    - {fileID: 11400000, guid: fda99c613c9e38e48adce6b954a0337d, type: 2}
+    castAnim: {fileID: 7400006, guid: d7f1c0a3279264755861914a9d348a68, type: 3}
+  maxChargeTime: 5

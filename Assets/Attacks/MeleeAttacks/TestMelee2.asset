@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c755009d7f3499ea2e5ebf54fb2e8b, type: 3}
+  m_Name: TestMelee2
+  m_EditorClassIdentifier: 
+  colliderType: 1
+  damageType: 0
+  baseDamage: 35
+  intensityRating: 1
+  defensePenetration: 0
+  playerSpeedMod: .300000012
+  vulnerableTime: .100000001
+  attackAnim: {fileID: 7400014, guid: d7f1c0a3279264755861914a9d348a68, type: 3}
+  vfx: {fileID: 0}
+  possibleNextHits:
+  - hitType: 0
+    attack: {fileID: 11400000, guid: 35a7a5fd9640649fab3fb45f901ee0f5, type: 2}
+    frameWindow:
+      start: 0
+      end: 35
+  - hitType: 1
+    attack: {fileID: 11400000, guid: 7f4789e3ec8d5418784404ae621f9992, type: 2}
+    frameWindow:
+      start: 10
+      end: 35
+  collisionInfos:
+  - boneLocations: 05000000
+    colliderScale: .400000006
+    frameWindow:
+      start: 10
+      end: 35
