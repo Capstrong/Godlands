@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FogOfWar : MonoBehaviour
 {
-	public GameObject cloudPrefab;
+	public GameObject[] cloudPrefabs;
 	public GameObject colliderPrefab;
 
 	public float radius;
@@ -22,12 +23,49 @@ public class FogOfWar : MonoBehaviour
 
 	private new Transform transform;
 
-	void Awake()
+	public void Awake()
 	{
 		transform = GetComponent<Transform>();
 	}
 
 	void Start()
+	{
+		GenerateFogOfWar();
+	}
+
+	public void GenerateFogOfWar()
+	{
+		ClearFogOfWar();
+		GenerateClouds();
+		GenerateColliders();
+	}
+
+	public void ClearFogOfWar( bool inEditor = false )
+	{
+		// destroy all children
+		var children = new List<GameObject>();
+		foreach ( Transform child in transform ) children.Add( child.gameObject );
+		children.ForEach( child => Destroy( child ) );
+	}
+
+#region Editor Helpers
+	public void GenerateFogOfWarEditor()
+	{
+		ClearFogOfWarEditor();
+		GenerateClouds();
+		GenerateColliders();
+	}
+
+	public void ClearFogOfWarEditor()
+	{
+		// destroy all children
+		var children = new List<GameObject>();
+		foreach ( Transform child in transform ) children.Add( child.gameObject );
+		children.ForEach( child => DestroyImmediate( child ) );
+	}
+#endregion
+
+	private void GenerateClouds()
 	{
 		Vector3 baseOffset = Vector3.forward;
 		Quaternion rotation = Quaternion.Euler( 0.0f, cloudIncrement, 0.0f );
@@ -40,7 +78,7 @@ public class FogOfWar : MonoBehaviour
 				+ Vector3.up * Random.Range( 0.0f, height );
 
 			Transform cloud = ( GameObject.Instantiate(
-				cloudPrefab,
+				cloudPrefabs[Random.Range( 0, cloudPrefabs.Length )],
 				cloudOffset ,
 				Quaternion.identity ) as GameObject ).GetComponent<Transform>();
 			cloud.localScale = new Vector3( Random.Range( minScale, maxScale ),
@@ -48,11 +86,14 @@ public class FogOfWar : MonoBehaviour
 			                                Random.Range( minScale, maxScale ) );
 			cloud.SetParent( transform, false );
 		}
+	}
 
+	private void GenerateColliders()
+	{
 		// build colliders
 		float increment = 360.0f / numColliders;
-		baseOffset = Vector3.forward;
-		rotation = Quaternion.Euler( 0.0f, increment, 0.0f );
+		Vector3 baseOffset = Vector3.forward;
+		Quaternion rotation = Quaternion.Euler( 0.0f, increment, 0.0f );
 		for ( int count = 0; count < numColliders; ++count )
 		{
 			baseOffset = rotation * baseOffset;
@@ -71,5 +112,27 @@ public class FogOfWar : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		Gizmos.DrawIcon(GetComponent<Transform>().position + Vector3.up * .5f, "S.png", true);
+	}
+}
+
+[CustomEditor( typeof( FogOfWar ) )]
+public class FoWEditor : Editor
+{
+	public override void OnInspectorGUI()
+	{
+		DrawDefaultInspector();
+
+		FogOfWar fogOfWar = (FogOfWar)target;
+		fogOfWar.Awake();
+
+		if ( GUILayout.Button( "Generator Fog of War" ) )
+		{
+			fogOfWar.GenerateFogOfWarEditor();
+		}
+
+		if ( GUILayout.Button( "Clear Fog of War" ) )
+		{
+			fogOfWar.ClearFogOfWarEditor();
+		}
 	}
 }

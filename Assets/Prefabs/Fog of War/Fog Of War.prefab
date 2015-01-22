@@ -39,7 +39,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d41527aeaaa1e48bdf0b8ffc796649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloudPrefab: {fileID: 115662, guid: c1eda58837bd2b2469b8300200cb5410, type: 2}
+  cloudPrefabs:
+  - {fileID: 115662, guid: c1eda58837bd2b2469b8300200cb5410, type: 2}
+  - {fileID: 115662, guid: f036c4e7c2725e54eac6ae5a8bb1cfe4, type: 2}
+  - {fileID: 115662, guid: 386de9f2549493841a189f487227fd17, type: 2}
+  - {fileID: 115662, guid: 9c4992d5350bb724782e4858a9988f92, type: 2}
   colliderPrefab: {fileID: 102650, guid: 590ad24dafbc93943a2aa6f918722397, type: 2}
   radius: 25
   radiusError: 10
@@ -47,7 +51,7 @@ MonoBehaviour:
   cloudIncrement: 23
   minScale: 6.5
   maxScale: 7.5
-  numClouds: 800
+  numClouds: 1000
   numColliders: 50
 --- !u!1001 &100100000
 Prefab:
