@@ -28,6 +28,7 @@ public class Actor : MonoBehaviour
 	ActorPhysics actorPhysics;
 	ActorCamera actorCamera;
 	ActorCombat actorCombat;
+	ActorResources actorResources;
 
 	Animator anim;
 
@@ -36,10 +37,12 @@ public class Actor : MonoBehaviour
 		actorPhysics = GetComponent<ActorPhysics>();
 		actorCamera = GetComponent<ActorCamera>();
 		actorCombat = GetComponent<ActorCombat>();
+		actorResources = GetComponent<ActorResources>();
 
 		actorPhysics.SetActor(this);
 		actorCamera.SetActor(this);
 		actorCombat.SetActor(this);
+		actorResources.SetActor(this);
 	}
 
 	public ActorPhysics GetPhysics()

@@ -294,6 +294,17 @@ public static class WadeUtils
 	{
 		return transform.TransformDirection (x, y, z);
 	}
+
+	public static void ResetTransform(this Transform transform, bool keepScale = false)
+	{
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+
+		if(!keepScale)
+		{
+			transform.localScale = Vector3.one;
+		}
+	}
 	
 	///////////////////////////
 	/////	PHYSICS	///////////

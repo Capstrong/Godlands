@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcePrefab: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  beaconPrefab: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
   total: 5
   radius: 5
 --- !u!4 &4180866
@@ -116,7 +117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &254780966
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcePrefab: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+  beaconPrefab: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
   total: 5
   radius: 5
 --- !u!4 &714392357
@@ -339,6 +341,10 @@ Prefab:
       propertyPath: resourcePrefab
       value: 
       objectReference: {fileID: 100000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: beaconPrefab
+      value: 
+      objectReference: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 1707331541}
@@ -448,7 +454,7 @@ RectTransform:
   - {fileID: 1660440464}
   - {fileID: 1920333042}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -465,7 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -614,7 +619,7 @@ Transform:
   m_Children:
   - {fileID: 1464660875}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!114 &1310913088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,6 +941,10 @@ Prefab:
       propertyPath: resourcePrefab
       value: 
       objectReference: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: beaconPrefab
+      value: 
+      objectReference: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 714392355}
@@ -1084,6 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcePrefab: {fileID: 100000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
+  beaconPrefab: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
   total: 5
   radius: 5
 --- !u!4 &1707331543
@@ -1097,7 +1107,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1001 &1764761400
 Prefab:
   m_ObjectHideFlags: 0
@@ -1137,6 +1147,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: beaconPrefab
+      value: 
+      objectReference: {fileID: 133876, guid: 150de70a49d890c4d9436087af232214, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 4180864}
