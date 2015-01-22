@@ -14,8 +14,7 @@ public class resourceSpawner : MonoBehaviour
 		
 		for (int i = 0; i < total; i++)
 		{
-			Vector3 position = transform.position + Random.insideUnitSphere * radius;
-			position.y = 0;
+			Vector3 position = transform.position + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)) * radius;
 			
 			GameObject resource = WadeUtils.Instantiate(resourcePrefab, position, Quaternion.identity);
 			resource.AddComponent<rotator>();
