@@ -82,8 +82,6 @@ public class ActorResources : ActorComponent
 	{
 		if(Input.GetMouseButtonDown(0) && heldResourceTypes.Count > 0)
 		{
-			Debug.Log("CastRay");
-
 			RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo(transform.position, 
 			                                                 actor.GetCamera().transform.forward, 
 			                                                 buddyLayer,
@@ -93,7 +91,6 @@ public class ActorResources : ActorComponent
 				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 				if(buddyStats)
 				{
-					Debug.Log("Give Resource");
 					GiveResource(buddyStats);
 				}
 			}
@@ -102,7 +99,7 @@ public class ActorResources : ActorComponent
 	
 	void GiveResource(BuddyStats buddyStats)
 	{
-		buddyStats.GiveResource(heldResourceTypes[resourceIndex]);
+		buddyStats.GiveResource(actor.GetPhysics(), heldResourceTypes[resourceIndex]);
 		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
 
 		UpdateResourceList();
@@ -161,8 +158,11 @@ public class ActorResources : ActorComponent
 	void OnTriggerEnter(Collider other)
 	{
 		resource resourceComponent = other.gameObject.GetComponent<resource>();
-		if (resourceComponent)
+		if (resourceComponent && !resourceComponent.used)
 		{
+			resourceComponent.used = true;
+
+			Debug.Log(other.gameObject.name);
 			PickupResource(resourceComponent.resourceData);
 
 			Destroy(other.gameObject);

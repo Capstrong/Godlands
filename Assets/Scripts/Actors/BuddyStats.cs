@@ -10,9 +10,10 @@ public class BuddyStats : MonoBehaviour
 	{
 	}
 
-	public void GiveResource(ResourceData resourceData)
+	public void GiveResource(ActorPhysics actorPhysics, ResourceData resourceData)
 	{
 		currentStats++;
 		rigidbody.AddForce(transform.up * jumpForce);
+		actorPhysics.jumpForce *= 1.15f;
 	}
 }
