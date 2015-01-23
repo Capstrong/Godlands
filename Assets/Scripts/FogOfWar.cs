@@ -115,7 +115,7 @@ public class FogOfWar : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawIcon(GetComponent<Transform>().position + Vector3.up * .5f, "S.png", true);
+		Gizmos.DrawIcon(GetComponent<Transform>().position + Vector3.up * .5f, "FoW.png", true);
 	}
 }
 
