@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -115,6 +119,7 @@ public class FogOfWar : MonoBehaviour
 	}
 }
 
+#if UNITY_EDITOR
 [CustomEditor( typeof( FogOfWar ) )]
 public class FoWEditor : Editor
 {
@@ -136,3 +141,4 @@ public class FoWEditor : Editor
 		}
 	}
 }
+#endif

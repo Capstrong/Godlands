@@ -6,22 +6,30 @@ public class ActorResources : ActorComponent
 {
 	[SerializeField] GameObject inventoryBarPrefab;
 	InventoryScrollBar inventoryBar;
-	
+
+	[SerializeField] GameObject resourcePopPrefab;
+
+	// possible types to get (might want to instead load this from folder)
 	[SerializeField] ResourceData[] resourceTypes;
 
-	Dictionary<ResourceData, int> heldResources = new Dictionary<ResourceData, int>();
+	// types and current count
+	Dictionary<ResourceData, int> resourceTypeCounts = new Dictionary<ResourceData, int>();
+
+	// currently held types to show on UI bar
 	List<ResourceData> heldResourceTypes = new List<ResourceData>();
-
+	
 	int resourceIndex = 0;
-
 	GameObject heldResource;
+
+	[SerializeField] LayerMask buddyLayer;
+	[SerializeField] float maxGiveDistance = 2f;
 
 	// Use this for initialization
 	void Start () 
 	{
 		foreach(ResourceData resourceData in resourceTypes)
 		{
-			heldResources.Add(resourceData, 0);
+			resourceTypeCounts.Add(resourceData, 0);
 		}
 
 		inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
@@ -30,9 +38,6 @@ public class ActorResources : ActorComponent
 			GameObject ibgo = WadeUtils.Instantiate(inventoryBarPrefab);
 			inventoryBar = ibgo.GetComponent<InventoryScrollBar>();
 		}
-
-		// Not ready for this yet
-		// PickupResource(resourceTypes[0]);
 
 		if(heldResourceTypes.Count > 0)
 		{
@@ -43,12 +48,21 @@ public class ActorResources : ActorComponent
 	// Update is called once per frame
 	void Update () 
 	{
+		CheckScroll();
+		CheckGiveResource();
+	}
+
+	void CheckScroll()
+	{
 		float scrollAmount = Input.GetAxis("Scroll" + WadeUtils.platformName);
 		if((scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER) & heldResourceTypes.Count > 0)
 		{
-			int nextIndex = resourceIndex + Mathf.CeilToInt(Mathf.Clamp(scrollAmount, -1f, 1f));
+			// Need to do this so >0 rounds up and <0 rounds down
+			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.CeilToInt(Mathf.Clamp(scrollAmount, -1f, 1f)) : 
+																Mathf.FloorToInt(Mathf.Clamp(scrollAmount, -1f, 1f));
+			
 			int numResources = heldResourceTypes.Count;
-
+			
 			// keep within bounds
 			if(nextIndex > numResources - 1)
 			{
@@ -59,22 +73,68 @@ public class ActorResources : ActorComponent
 				nextIndex = numResources - ((-nextIndex) % numResources);
 			}
 			
-			resourceIndex = Mathf.FloorToInt(Mathf.Clamp(nextIndex, 0, heldResources.Count - 1));
+			resourceIndex = Mathf.FloorToInt(Mathf.Clamp(nextIndex, 0, heldResourceTypes.Count - 1));
 			SpawnResourceObject();
 		}
 	}
 
+	void CheckGiveResource()
+	{
+		if(Input.GetMouseButtonDown(0) && heldResourceTypes.Count > 0)
+		{
+			RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo(transform.position, 
+			                                                 actor.GetCamera().transform.forward, 
+			                                                 buddyLayer,
+			                                                 maxGiveDistance);
+			if(hitInfo.transform)
+			{
+				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
+				if(buddyStats)
+				{
+					GiveResource(buddyStats);
+				}
+			}
+		}
+	}
+	
+	void GiveResource(BuddyStats buddyStats)
+	{
+		buddyStats.GiveResource(actor.GetPhysics(), heldResourceTypes[resourceIndex]);
+		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
+
+		UpdateResourceList();
+	}
+
 	void PickupResource(ResourceData addedResource)
 	{
-		heldResources[addedResource]++;
-		heldResourceTypes.Clear();
+		resourceTypeCounts[addedResource]++;
+		UpdateResourceList();
+	}
 
+	void UpdateResourceList()
+	{
+		heldResourceTypes.Clear();
+		
 		foreach(ResourceData resourceData in resourceTypes)
 		{
-			if(heldResources[resourceData] > 0)
+			if(resourceTypeCounts[resourceData] > 0)
 			{
 				heldResourceTypes.Add(resourceData);
 			}
+		}
+
+		if(heldResourceTypes.Count == 0)
+		{
+			if(heldResource)
+			{
+				Destroy(heldResource);
+			}
+
+			inventoryBar.NullInventoryBar();
+		}
+		else if(heldResourceTypes.Count == 1)
+		{
+			SpawnResourceObject();
 		}
 	}
 
@@ -92,6 +152,21 @@ public class ActorResources : ActorComponent
 			heldResource = WadeUtils.Instantiate(heldResourceTypes[resourceIndex].prefab);
 			heldResource.transform.parent = actor.GetBoneAtLocation(BoneLocation.RHand);
 			WadeUtils.ResetTransform(heldResource.transform, true);
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		resource resourceComponent = other.gameObject.GetComponent<resource>();
+		if (resourceComponent && !resourceComponent.used)
+		{
+			resourceComponent.used = true;
+
+			Debug.Log(other.gameObject.name);
+			PickupResource(resourceComponent.resourceData);
+
+			Destroy(other.gameObject);
+			WadeUtils.TempInstantiate(resourcePopPrefab, other.transform.position, Quaternion.identity, 1f);
 		}
 	}
 }
