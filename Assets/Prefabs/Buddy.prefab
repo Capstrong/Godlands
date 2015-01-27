@@ -13,6 +13,9 @@ GameObject:
   - 23: {fileID: 2376348}
   - 54: {fileID: 5476348}
   - 114: {fileID: 11423312}
+  - 114: {fileID: 11474254}
+  - 114: {fileID: 11483758}
+  - 114: {fileID: 11414764}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -448,7 +451,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &6576348
 BoxCollider:
@@ -486,6 +489,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11414764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6183acf6cd1c7e340afe4e757ff6c70a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIdleTime: 2
+  maxIdleTime: 7
+  minIdleWalkRadius: 2
+  maxIdleWalkRadius: 5
 --- !u!114 &11423312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,6 +516,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 50
+--- !u!114 &11474254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aea8e1c437294544920e1c31a0f89f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behavior: {fileID: 11400000, guid: 6dcae8667890c724ba26ba9a0a3e0152, type: 2}
+--- !u!114 &11483758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a439980ccf5d144581a119a3f05d39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {x: 0, y: 0, z: 0}
+  followTarget: {fileID: 0}
+  moveSpeed: 2
+  watchDistance: 10
 --- !u!135 &13587202
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LildudeInfo : MonoBehaviour
+/**
+ * @brief Holder container for info used by the behavior tree nodes.
+ */
+public class BuddyInfo : MonoBehaviour
 {
-	public float moveSpeed;
-
 	public float minIdleTime;
 	public float maxIdleTime;
 	public float minIdleWalkRadius;
 	public float maxIdleWalkRadius;
-
-	public Vector3 destination;
 }

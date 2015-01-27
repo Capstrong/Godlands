@@ -5,21 +5,21 @@ public class MoveToTarget : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private GodInfo info;
+	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<GodInfo>();
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		Vector3 direction = info.destination.position - transform.position;
-		transform.Translate( direction.normalized * 10.0f * Time.deltaTime );
+		Vector3 direction = info.followTarget.position - transform.position;
+		transform.Translate( direction.normalized * info.moveSpeed * Time.deltaTime );
 
-		if ( Vector3.Distance( transform.position, info.destination.position ) < 0.5f )
+		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
 		{
 			return NodeStatus.SUCCESS;
 		}
@@ -90,31 +90,33 @@ public class ChooseResourceTarget : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private GodInfo info;
+	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<GodInfo>();
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		info.destination = null;
 		NodeStatus status = NodeStatus.FAILURE;
-		foreach ( GameObject resource in GameObject.FindGameObjectsWithTag( "Resource" ) )
+		resource[] gameObjects = GameObject.FindObjectsOfType<resource>();
+
+		if ( gameObjects.Length > 0 )
+		{
+			info.destination = gameObjects[0].GetComponent<Transform>().position;
+		}
+
+		for ( int index = 1; index < gameObjects.Length; ++index )
 		{
 			status = NodeStatus.SUCCESS;
-			Transform resourceTransform = resource.GetComponent<Transform>();
-			if ( info.destination == null )
+			Transform resourceTransform = gameObjects[index].GetComponent<Transform>();
+			if ( ( transform.position - resourceTransform.position ).sqrMagnitude <
+			     ( transform.position - info.destination ).sqrMagnitude )
 			{
-				info.destination = resourceTransform;
-			}
-			else if ( ( transform.position - resourceTransform.position ).sqrMagnitude <
-			          ( transform.position - info.destination.position ).sqrMagnitude )
-			{
-				info.destination = resourceTransform;
+				info.destination = resourceTransform.position;
 			}
 		}
 		return status;
@@ -130,18 +132,18 @@ public class ChooseResourceTarget : LeafNode
 public class GodsWithinWatchDistance : LeafNode
 {
 	private Transform transform;
-	private GodInfo info;
+	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		GameObject gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<GodInfo>();
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		foreach ( GameObject god in GameObject.FindGameObjectsWithTag( "Enemy God" ) )
+		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
 		{
 			if ( ( transform.position - god.GetComponent<Transform>().position )
 				.sqrMagnitude < info.watchDistance * info.watchDistance )
@@ -156,23 +158,23 @@ public class GodsWithinWatchDistance : LeafNode
 public class ChooseTargetGod : LeafNode
 {
 	private Transform transform;
-	private GodInfo info;
+	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		GameObject gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<GodInfo>();
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		foreach ( GameObject god in GameObject.FindGameObjectsWithTag( "Enemy God" ) )
+		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
 		{
 			if ( ( transform.position - god.GetComponent<Transform>().position )
 				.sqrMagnitude < info.watchDistance * info.watchDistance )
 			{
-				info.destination = god.GetComponent<Transform>();
+				info.followTarget = god.GetComponent<Transform>();
 				return NodeStatus.SUCCESS;
 			}
 		}

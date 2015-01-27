@@ -7,7 +7,7 @@ public class Idle : LeafNode
 
 	public override void Init( Hashtable data )
 	{
-		LildudeInfo info = ( (GameObject)data["gameObject"] ).GetComponent<LildudeInfo>();
+		BuddyInfo info = ( (GameObject)data["gameObject"] ).GetComponent<BuddyInfo>();
 		_time = Random.Range( info.minIdleTime, info.maxIdleTime );
 	}
 
@@ -29,22 +29,24 @@ public class PickRandomDestinationInRadius : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private LildudeInfo info;
+	private BehaviorTreeInfo baseInfo;
+	private BuddyInfo buddyInfo;
 
 	public override void Init( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<LildudeInfo>();
+		baseInfo = gameObject.GetComponent<BehaviorTreeInfo>();
+		buddyInfo = gameObject.GetComponent<BuddyInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
 		Vector3 offset = Random.insideUnitCircle
-			* Random.Range( info.minIdleWalkRadius, info.maxIdleWalkRadius );
+			* Random.Range( buddyInfo.minIdleWalkRadius, buddyInfo.maxIdleWalkRadius );
 		offset.z = offset.y;
 		offset.y = 0;
-		info.destination = transform.position + offset;
+		baseInfo.destination = transform.position + offset;
 
 		return NodeStatus.SUCCESS;
 	}
@@ -54,13 +56,13 @@ public class MoveToDestination : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private LildudeInfo info;
+	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<LildudeInfo>();
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
