@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class resource : MonoBehaviour 
+public class Resource : MonoBehaviour 
 {
     public ResourceData resourceData;
     public int amount = 1;
