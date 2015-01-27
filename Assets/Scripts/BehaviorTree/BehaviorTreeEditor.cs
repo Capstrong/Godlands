@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
 
+#if UNITY_EDITOR
 public class BehaviorTreeEditor : EditorWindow
 {
 	public static Type[] nodeTypes;
 	public static String[] nodeTypeNames;
 
 	private BehaviorTree _behaviorTree;
+
 
 	/**
 	 * @brief Add a menu item in the editor for creating new behavior tree assets.
@@ -62,6 +68,7 @@ public class BehaviorTreeEditor : EditorWindow
 		}
 	}
 
+
 	void CreateTypeLists()
 	{
 		// get list of possible node types
@@ -85,3 +92,4 @@ public class BehaviorTreeEditor : EditorWindow
 		return (TreeNode)Activator.CreateInstance( nodeType );
 	}
 }
+#endif
