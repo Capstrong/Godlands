@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class resourceSpawner : MonoBehaviour 
+public class ResourceSpawner : MonoBehaviour 
 {
 	public GameObject resourcePrefab;
 	[SerializeField] GameObject beaconPrefab;

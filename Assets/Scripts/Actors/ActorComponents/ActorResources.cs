@@ -157,7 +157,7 @@ public class ActorResources : ActorComponent
 
 	void OnTriggerEnter(Collider other)
 	{
-		resource resourceComponent = other.gameObject.GetComponent<resource>();
+		Resource resourceComponent = other.gameObject.GetComponent<Resource>();
 		if (resourceComponent && !resourceComponent.used)
 		{
 			resourceComponent.used = true;
