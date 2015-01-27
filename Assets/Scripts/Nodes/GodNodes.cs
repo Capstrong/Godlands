@@ -1,35 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoveToTarget : LeafNode
-{
-	private GameObject gameObject;
-	private Transform transform;
-	private BehaviorTreeInfo info;
-
-	public override void Init( Hashtable data )
-	{
-		gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
-	}
-
-	public override NodeStatus Tick()
-	{
-		Vector3 direction = info.followTarget.position - transform.position;
-		transform.Translate( direction.normalized * info.moveSpeed * Time.deltaTime );
-
-		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
-		{
-			return NodeStatus.SUCCESS;
-		}
-		else
-		{
-			return NodeStatus.RUNNING;
-		}
-	}
-}
-
 public class CollectAdjacentResources : LeafNode
 {
 	private GodInfo info;
@@ -120,64 +91,5 @@ public class ChooseResourceTarget : LeafNode
 			}
 		}
 		return status;
-	}
-}
-
-/**
- * @brief Check if any gods are within the watch distance.
- *
- * @details
- *     Status is FAILURE if no other gods, SUCCESS otherwise.
- */
-public class GodsWithinWatchDistance : LeafNode
-{
-	private Transform transform;
-	private BehaviorTreeInfo info;
-
-	public override void Init( Hashtable data )
-	{
-		GameObject gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
-	}
-
-	public override NodeStatus Tick()
-	{
-		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
-		{
-			if ( ( transform.position - god.GetComponent<Transform>().position )
-				.sqrMagnitude < info.watchDistance * info.watchDistance )
-			{
-				return NodeStatus.SUCCESS;
-			}
-		}
-		return NodeStatus.FAILURE;
-	}
-}
-
-public class ChooseTargetGod : LeafNode
-{
-	private Transform transform;
-	private BehaviorTreeInfo info;
-
-	public override void Init( Hashtable data )
-	{
-		GameObject gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
-	}
-
-	public override NodeStatus Tick()
-	{
-		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
-		{
-			if ( ( transform.position - god.GetComponent<Transform>().position )
-				.sqrMagnitude < info.watchDistance * info.watchDistance )
-			{
-				info.followTarget = god.GetComponent<Transform>();
-				return NodeStatus.SUCCESS;
-			}
-		}
-		return NodeStatus.FAILURE;
 	}
 }

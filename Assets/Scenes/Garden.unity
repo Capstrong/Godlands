@@ -2798,6 +2798,10 @@ GameObject:
   - 114: {fileID: 473457334}
   - 114: {fileID: 473457335}
   - 114: {fileID: 473457333}
+  - 114: {fileID: 473457336}
+  - 114: {fileID: 473457340}
+  - 114: {fileID: 473457339}
+  - 114: {fileID: 473457338}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -2832,7 +2836,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!23 &473457329
 Renderer:
@@ -2934,6 +2938,101 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   moveSpeed: 2
   watchDistance: 10
+--- !u!114 &473457336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11481498, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 969009519}
+  m_GameObject: {fileID: 473457326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  maxSpeed: 40
+  groundedMoveSpeed: 8.5
+  jumpMoveSpeed: 8.5
+  rollMoveSpeed: 6
+  moveSpeedMod: 1
+  stoppingSpeed: .00100000005
+  jumpForce: 8.5
+  jumpCheckDistance: 1.29999995
+  jumpCheckRadius: .699999988
+  jumpLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpColCheckTime: .5
+  lateJumpTime: .200000003
+  stopMoveTime: .300000012
+  rollTime: 1
+  rollCooldownTime: 1
+  rotCorrectionTime: 7
+  slideTurnSpeed: 7
+  model: {fileID: 473457332}
+--- !u!114 &473457338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401732, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 969009519}
+  m_GameObject: {fileID: 473457326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24caee78a42d24a67b29c1197a0fa443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &473457339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401730, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 969009519}
+  m_GameObject: {fileID: 473457326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29f1d16d77624ff1aefb56e3cf4f798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  cam: {fileID: 0}
+  followSpeed: 15
+  zoomSpeed: 100
+  defaultCamDist: 10.6000004
+  minCamDist: 5
+  camLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hitPosOffsetDist: .5
+  rotSpeed: {x: 1, y: 1}
+  rotBounds:
+    min: 40
+    max: 350
+--- !u!114 &473457340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401728, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 969009519}
+  m_GameObject: {fileID: 473457326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a60772e4c454b86b835ce3499e94e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  attackCooldownTime: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  inputCooldownTime: .100000001
+  spellAttacks: []
 --- !u!1001 &482877628
 Prefab:
   m_ObjectHideFlags: 0
@@ -5896,6 +5995,10 @@ GameObject:
   - 114: {fileID: 982286116}
   - 114: {fileID: 982286117}
   - 114: {fileID: 982286115}
+  - 114: {fileID: 982286118}
+  - 114: {fileID: 982286122}
+  - 114: {fileID: 982286121}
+  - 114: {fileID: 982286120}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -5917,7 +6020,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!23 &982286110
 Renderer:
@@ -6032,6 +6135,101 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   moveSpeed: 2
   watchDistance: 10
+--- !u!114 &982286118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11481498, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1611164284}
+  m_GameObject: {fileID: 982286108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  maxSpeed: 40
+  groundedMoveSpeed: 8.5
+  jumpMoveSpeed: 8.5
+  rollMoveSpeed: 6
+  moveSpeedMod: 1
+  stoppingSpeed: .00100000005
+  jumpForce: 8.5
+  jumpCheckDistance: 1.29999995
+  jumpCheckRadius: .699999988
+  jumpLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpColCheckTime: .5
+  lateJumpTime: .200000003
+  stopMoveTime: .300000012
+  rollTime: 1
+  rollCooldownTime: 1
+  rotCorrectionTime: 7
+  slideTurnSpeed: 7
+  model: {fileID: 982286113}
+--- !u!114 &982286120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401732, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1611164284}
+  m_GameObject: {fileID: 982286108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24caee78a42d24a67b29c1197a0fa443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &982286121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401730, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1611164284}
+  m_GameObject: {fileID: 982286108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29f1d16d77624ff1aefb56e3cf4f798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  cam: {fileID: 0}
+  followSpeed: 15
+  zoomSpeed: 100
+  defaultCamDist: 10.6000004
+  minCamDist: 5
+  camLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hitPosOffsetDist: .5
+  rotSpeed: {x: 1, y: 1}
+  rotBounds:
+    min: 40
+    max: 350
+--- !u!114 &982286122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401728, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1611164284}
+  m_GameObject: {fileID: 982286108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a60772e4c454b86b835ce3499e94e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  attackCooldownTime: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  inputCooldownTime: .100000001
+  spellAttacks: []
 --- !u!1 &1029053625
 GameObject:
   m_ObjectHideFlags: 0
@@ -7500,6 +7698,10 @@ GameObject:
   - 114: {fileID: 1453939214}
   - 114: {fileID: 1453939215}
   - 114: {fileID: 1453939213}
+  - 114: {fileID: 1453939216}
+  - 114: {fileID: 1453939220}
+  - 114: {fileID: 1453939219}
+  - 114: {fileID: 1453939218}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -7534,7 +7736,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!23 &1453939209
 Renderer:
@@ -7636,6 +7838,101 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   moveSpeed: 2
   watchDistance: 10
+--- !u!114 &1453939216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11481498, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766749383}
+  m_GameObject: {fileID: 1453939206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  maxSpeed: 40
+  groundedMoveSpeed: 8.5
+  jumpMoveSpeed: 8.5
+  rollMoveSpeed: 6
+  moveSpeedMod: 1
+  stoppingSpeed: .00100000005
+  jumpForce: 8.5
+  jumpCheckDistance: 1.29999995
+  jumpCheckRadius: .699999988
+  jumpLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpColCheckTime: .5
+  lateJumpTime: .200000003
+  stopMoveTime: .300000012
+  rollTime: 1
+  rollCooldownTime: 1
+  rotCorrectionTime: 7
+  slideTurnSpeed: 7
+  model: {fileID: 1453939212}
+--- !u!114 &1453939218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401732, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766749383}
+  m_GameObject: {fileID: 1453939206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24caee78a42d24a67b29c1197a0fa443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1453939219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401730, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766749383}
+  m_GameObject: {fileID: 1453939206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29f1d16d77624ff1aefb56e3cf4f798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  cam: {fileID: 0}
+  followSpeed: 15
+  zoomSpeed: 100
+  defaultCamDist: 10.6000004
+  minCamDist: 5
+  camLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hitPosOffsetDist: .5
+  rotSpeed: {x: 1, y: 1}
+  rotBounds:
+    min: 40
+    max: 350
+--- !u!114 &1453939220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11401728, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1766749383}
+  m_GameObject: {fileID: 1453939206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a60772e4c454b86b835ce3499e94e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  attackCooldownTime: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  inputCooldownTime: .100000001
+  spellAttacks: []
 --- !u!1 &1468173373
 GameObject:
   m_ObjectHideFlags: 0

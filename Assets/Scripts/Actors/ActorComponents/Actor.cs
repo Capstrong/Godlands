@@ -39,10 +39,10 @@ public class Actor : MonoBehaviour
 		actorCombat = GetComponent<ActorCombat>();
 		actorResources = GetComponent<ActorResources>();
 
-		actorPhysics.SetActor(this);
-		actorCamera.SetActor(this);
-		actorCombat.SetActor(this);
-		actorResources.SetActor(this);
+		if ( actorPhysics ) actorPhysics.SetActor(this);
+		if ( actorCamera ) actorCamera.SetActor(this);
+		if ( actorCombat ) actorCombat.SetActor(this);
+		if ( actorResources ) actorResources.SetActor(this);
 	}
 
 	public ActorPhysics GetPhysics()

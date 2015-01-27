@@ -36,7 +36,7 @@ public class ActorCombat : ActorComponent
 		attackCollider = new GameObject("AttackCollider");
 		attackCollider.transform.parent = transform;
 
-		currentSpellAttack = spellAttacks[0];
+		//currentSpellAttack = spellAttacks[0];
 
 		foreach(SpellAttack spellAttack in spellAttacks)
 		{
@@ -291,9 +291,9 @@ public class ActorCombat : ActorComponent
 		attackCooldownTime = currentAttack.vulnerableTime;
 		attackCooldownTimer = 0f;
 
-		if(currentAttack is SpellChargeAttack)
+		if( currentAttack is SpellChargeAttack )
 		{
-			StartCoroutine(QueueSpellEvent(currentAttack as SpellChargeAttack));
+			StartCoroutine( QueueSpellEvent( currentAttack as SpellChargeAttack ) );
 		}
 		else
 		{
@@ -303,20 +303,20 @@ public class ActorCombat : ActorComponent
 
 	void EnableAnimatorIsAttacking()
 	{
-		actor.GetAnimator().SetBool("isAttacking", true);
+		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool( "isAttacking", true );
 	}
 
 	void DisableAnimatorIsAttacking()
 	{
-		actor.GetAnimator().SetBool("isAttacking", false);
+		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool( "isAttacking", false );
 	}
 
 	void DisableAnimatorCastingSpellEvent()
 	{
-		actor.GetAnimator().SetBool("isCastingSpellEvent", false);
+		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool( "isCastingSpellEvent", false );
 	}
 
-	IEnumerator QueueSpellEvent(SpellChargeAttack chargeSpell)
+	IEnumerator QueueSpellEvent( SpellChargeAttack chargeSpell )
 	{
 		while(actor.GetAnimator().GetBool("isCastingSpellEvent") && attackCooldownTimer < attackCooldownTime)
 		{

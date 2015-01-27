@@ -16,6 +16,10 @@ GameObject:
   - 114: {fileID: 11474254}
   - 114: {fileID: 11483758}
   - 114: {fileID: 11414764}
+  - 114: {fileID: 11481498}
+  - 114: {fileID: 11401728}
+  - 114: {fileID: 11401730}
+  - 114: {fileID: 11401732}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -451,7 +455,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &6576348
 BoxCollider:
@@ -489,6 +493,65 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11401728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a60772e4c454b86b835ce3499e94e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  attackCooldownTime: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  inputCooldownTime: .100000001
+  spellAttacks: []
+--- !u!114 &11401730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29f1d16d77624ff1aefb56e3cf4f798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  cam: {fileID: 0}
+  followSpeed: 15
+  zoomSpeed: 100
+  defaultCamDist: 10.6000004
+  minCamDist: 5
+  camLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hitPosOffsetDist: .5
+  rotSpeed: {x: 1, y: 1}
+  rotBounds:
+    min: 40
+    max: 350
+--- !u!114 &11401732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24caee78a42d24a67b29c1197a0fa443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11414764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,6 +591,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behavior: {fileID: 11400000, guid: 6dcae8667890c724ba26ba9a0a3e0152, type: 2}
+--- !u!114 &11481498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  maxSpeed: 40
+  groundedMoveSpeed: 8.5
+  jumpMoveSpeed: 8.5
+  rollMoveSpeed: 6
+  moveSpeedMod: 1
+  stoppingSpeed: .00100000005
+  jumpForce: 8.5
+  jumpCheckDistance: 1.29999995
+  jumpCheckRadius: .699999988
+  jumpLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpColCheckTime: .5
+  lateJumpTime: .200000003
+  stopMoveTime: .300000012
+  rollTime: 1
+  rollCooldownTime: 1
+  rotCorrectionTime: 7
+  slideTurnSpeed: 7
+  model: {fileID: 476348}
 --- !u!114 &11483758
 MonoBehaviour:
   m_ObjectHideFlags: 1

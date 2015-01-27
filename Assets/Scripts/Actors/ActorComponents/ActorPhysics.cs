@@ -172,7 +172,7 @@ public class ActorPhysics : ActorComponent
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
 		
-		actor.GetAnimator().SetBool("isMoving", false);
+		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool("isMoving", false);
 
 		if(jumpColCheckTimer > jumpColCheckTime)
 		{
@@ -193,7 +193,7 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 	
-	void MoveAtSpeed(Vector3 inputVec, float appliedMoveSpeed)
+	public void MoveAtSpeed(Vector3 inputVec, float appliedMoveSpeed)
 	{
 		rigidbody.useGravity = true;
 
@@ -205,13 +205,16 @@ public class ActorPhysics : ActorComponent
 		lastVelocity = moveVec;
 		rigidbody.velocity = moveVec;
 		
-		actor.GetAnimator().SetBool("isMoving", true);
+		if ( actor.GetAnimator() != null )
+		{
+			actor.GetAnimator().SetBool( "isMoving", true );
+		}
 	}
 
 	Vector3 GetInputDirection()
 	{
 		Vector3 inputVec = new Vector3(Input.GetAxis("Horizontal" + WadeUtils.platformName), 0.0f, Input.GetAxis("Vertical" + WadeUtils.platformName));
-		if(actor.GetCamera())
+		if( actor.GetCamera() != null )
 		{
 			inputVec = actor.GetCamera().transform.TransformDirection(inputVec);
 			inputVec.y = 0f;
@@ -259,7 +262,10 @@ public class ActorPhysics : ActorComponent
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
 			
-			actor.GetAnimator().SetBool("isMoving", true);
+			if ( actor.GetAnimator() )
+			{
+				actor.GetAnimator().SetBool("isMoving", true);
+			}
 		}
 	}
 
@@ -323,8 +329,12 @@ public class ActorPhysics : ActorComponent
 		}
 		else if(!IsInState(ActorStates.Jumping) && !IsInState(ActorStates.Rolling)) // if not currently being launched
 		{
-			actor.GetAnimator().SetBool("isJumping", true);
-			//actor.GetAnimator().SetBool("isSliding", false);
+			if ( actor.GetAnimator() != null )
+			{
+				actor.GetAnimator().SetBool("isJumping", true);
+				//actor.GetAnimator().SetBool("isSliding", false);
+			}
+
 			ChangeState(ActorStates.Jumping);
 		}
 		

@@ -51,33 +51,3 @@ public class PickRandomDestinationInRadius : LeafNode
 		return NodeStatus.SUCCESS;
 	}
 }
-
-public class MoveToDestination : LeafNode
-{
-	private GameObject gameObject;
-	private Transform transform;
-	private BehaviorTreeInfo info;
-
-	public override void Init( Hashtable data )
-	{
-		gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
-	}
-
-	public override NodeStatus Tick()
-	{
-		Vector3 translation = ( info.destination - transform.position ).normalized
-			* info.moveSpeed * Time.deltaTime;
-		transform.Translate( translation );
-
-		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
-		{
-			return NodeStatus.SUCCESS;
-		}
-		else
-		{
-			return NodeStatus.RUNNING;
-		}
-	}
-}
