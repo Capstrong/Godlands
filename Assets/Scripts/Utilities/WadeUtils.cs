@@ -366,6 +366,20 @@ public static class WadeUtils
 		return (GameObject)MonoBehaviour.Instantiate (obj, pos, rot);
 	}
 
+	public static GameObject TempInstantiate(GameObject obj, float time)
+	{
+		GameObject go = (GameObject)MonoBehaviour.Instantiate (obj);
+		MonoBehaviour.Destroy(go, time);
+		return go;
+	}
+
+	public static GameObject TempInstantiate(GameObject obj, Vector3 pos, Quaternion rot, float time)
+	{
+		GameObject go = (GameObject)MonoBehaviour.Instantiate (obj, pos, rot);
+		MonoBehaviour.Destroy(go, time);
+		return go;
+	}
+
 	/////////////////////////////////
 	//////  FRAME CHECKING   ////////
 	/////////////////////////////////

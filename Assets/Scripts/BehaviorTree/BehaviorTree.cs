@@ -1,5 +1,10 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +23,10 @@ public class BehaviorTree : ScriptableObject, ISerializationCallbackReceiver
 
 	public List<SerializedNode> _serializedNodes;
 
+
 	public void OnBeforeSerialize()
 	{
+		#if UNITY_EDITOR
 		_serializedNodes = new List<SerializedNode>();
 		if ( root != null )
 		{
@@ -27,7 +34,9 @@ public class BehaviorTree : ScriptableObject, ISerializationCallbackReceiver
 		}
 
 		EditorUtility.SetDirty( this );
+		#endif
 	}
+
 
 	public void OnAfterDeserialize()
 	{
@@ -67,6 +76,7 @@ public abstract class TreeNode
 
 #region Decorators
 
+
 public abstract class Decorator : TreeNode
 {
 	public TreeNode _child = new NullNode();
@@ -95,8 +105,10 @@ public abstract class Decorator : TreeNode
 		_child = childs[0];
 	}
 
+
 	public override void OnGUI()
 	{
+		#if UNITY_EDITOR
 		++EditorGUI.indentLevel;
 
 		Type resultType = BehaviorTreeEditor.CreateNodeTypeSelector( _child );
@@ -108,7 +120,9 @@ public abstract class Decorator : TreeNode
 		_child.OnGUI();
 
 		--EditorGUI.indentLevel;
+		#endif
 	}
+
 
 	public override void Init( Hashtable data )
 	{
@@ -230,8 +244,10 @@ public abstract class Compositor : TreeNode
 		_children = childs;
 	}
 
+
 	public override void OnGUI()
 	{
+		#if UNITY_EDITOR
 		++EditorGUI.indentLevel;
 
 		for ( int childIndex = 0; childIndex < _children.Count; ++childIndex )
@@ -251,7 +267,9 @@ public abstract class Compositor : TreeNode
 		}
 
 		--EditorGUI.indentLevel;
+		#endif
 	}
+
 
 	public override void Init( Hashtable data )
 	{

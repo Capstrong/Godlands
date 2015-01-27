@@ -34,7 +34,7 @@ public class ActorPhysics : ActorComponent
 	float currStoppingPower = 0.0f;
 	
 	// Jumping
-	[SerializeField] float jumpForce = 8.5f;
+	public float jumpForce = 8.5f;
 	
 	[SerializeField] float jumpCheckDistance = 1.3f;
 	[SerializeField] float jumpCheckRadius = 0.7f;
