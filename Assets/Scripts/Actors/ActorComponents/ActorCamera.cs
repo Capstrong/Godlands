@@ -5,16 +5,14 @@ public class ActorCamera : ActorComponent
 {
 	public Camera cam;
 
-	[SerializeField] float followSpeed = 15f;
 	[SerializeField] float zoomSpeed = 100f;
 
 	[SerializeField] float defaultCamDist = 10.6f;
 	[SerializeField] float minCamDist = 5f;
 	float currentCamDist;
 
-	[SerializeField] LayerMask camLayer;
-	[SerializeField] LayerMask groundLayer;
-	[SerializeField] LayerMask waterLayer;
+	[SerializeField] LayerMask camLayer = 0;
+	[SerializeField] LayerMask waterLayer = 0;
 
 	bool underWater = false;
 
@@ -29,10 +27,10 @@ public class ActorCamera : ActorComponent
 	[SerializeField] Vector2 rotSpeed = Vector2.one;
 	[SerializeField] MinMax rotBounds = new MinMax(40f, 350f);
 
-	Renderer modelRend;
-
-	void Awake()
+	public override void Awake()
 	{
+		base.Awake();
+
 		currentCamDist = defaultCamDist;
 		camOffset = camOffsetRatio.normalized;
 	}

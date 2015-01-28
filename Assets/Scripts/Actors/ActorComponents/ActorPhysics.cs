@@ -11,34 +11,37 @@ public enum ActorStates
 
 public class ActorPhysics : ActorComponent
 {
+	public delegate void ActorStateMethod();
+
 	ActorStates currentState = ActorStates.Jumping;
 
-	delegate void ActorStateMethod();
-	ActorStateMethod CurrentStateMethod;
+	protected ActorStateMethod CurrentStateMethod;
 
-	Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
+	public Vector3 inputVec = Vector3.zero;
+
+	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
 
 	// Movement
 	[SerializeField] float maxSpeed = 40f;
-	[SerializeField] float groundedMoveSpeed = 8.5f;
-	[SerializeField] float jumpMoveSpeed = 8.5f;
-	[SerializeField] float rollMoveSpeed = 6f;
+	[SerializeField] float _groundedMoveSpeed = 8.5f;
+	[SerializeField] protected float jumpMoveSpeed = 8.5f;
+	[SerializeField] protected float rollMoveSpeed = 6f;
 
 	public float moveSpeedMod = 1f;
 
-	Vector3 lastVelocity = Vector3.zero;
-	Vector3 inputVec = Vector3.zero;
-	Vector3 moveVec = Vector3.zero;
+	protected Vector3 lastVelocity = Vector3.zero;
+	protected Vector3 moveVec = Vector3.zero;
 	
-	[Range (0.001f, 1000f)][SerializeField] float stoppingSpeed = 0.001f;
-	float currStoppingPower = 0.0f;
+	[SerializeField, Range( 0.001f, 1000f )]
+	protected float stoppingSpeed = 0.001f;
+	protected float currStoppingPower = 0.0f;
 	
 	// Jumping
 	public float jumpForce = 8.5f;
 	
 	[SerializeField] float jumpCheckDistance = 1.3f;
 	[SerializeField] float jumpCheckRadius = 0.7f;
-	[SerializeField] LayerMask jumpLayer;
+	[SerializeField] LayerMask jumpLayer = 0;
 	
 	[SerializeField] float jumpColCheckTime = 0.5f;
 	float jumpColCheckTimer = 0.0f;
@@ -54,63 +57,20 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
 
-	[SerializeField] float rotCorrectionTime = 7f;
 	[SerializeField] float slideTurnSpeed = 7f;
 	
 	public Transform model;
-	Vector3 modelOffset;
+	protected Vector3 modelOffset;
 
-	void Awake()
+	public override void Awake()
 	{
-		SetupStateMethodMap();
-		ChangeState(ActorStates.Grounded);
+		base.Awake();
 
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
 	}
 
-	void SetupStateMethodMap()
-	{;
-		stateMethodMap.Add(ActorStates.Jumping, 	Jumping);
-		stateMethodMap.Add(ActorStates.Grounded, 	Grounded);
-		stateMethodMap.Add(ActorStates.Rolling, 	Rolling);
-	}
-	
-	void Update ()
-	{
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
-
-		CurrentStateMethod();
-		ModelControl();
-	}
-
-	void Grounded()
-	{
-		JumpCheck();
-		RollCheck();
-
-		GroundMovement();
-	}
-
-	void Jumping()
-	{
-		JumpCheck();
-		RollCheck();
-
-		JumpMovement();
-	}
-
-	void Rolling()
-	{
-		RollCheck();
-		
-		MoveAtSpeed(inputVec.normalized, rollMoveSpeed);
-	}
-
-	void ChangeState(ActorStates toState)
+	protected void ChangeState(ActorStates toState)
 	{
 		StartCoroutine(ChangeStateRoutine(toState));
 	}
@@ -162,26 +122,26 @@ public class ActorPhysics : ActorComponent
 		ChangeState(endState);
 	}
 
-	void ComeToStop()
+	public void ComeToStop()
 	{
 		currStoppingPower -= Time.deltaTime;
-		currStoppingPower = Mathf.Clamp(currStoppingPower, 0.0f, stoppingSpeed);
+		currStoppingPower = Mathf.Clamp( currStoppingPower, 0.0f, stoppingSpeed );
 		
 		moveVec = lastVelocity * currStoppingPower/stoppingSpeed;
 		
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
 		
-		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool("isMoving", false);
+		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool( "isMoving", false );
 
-		if(jumpColCheckTimer > jumpColCheckTime)
+		if( jumpColCheckTimer > jumpColCheckTime )
 		{
-			if(IsInState(ActorStates.Grounded))
+			if( IsInState( ActorStates.Grounded ) )
 			{
-				if(stopMoveTimer >= stopMoveTime)
+				if( stopMoveTimer >= stopMoveTime )
 				{
 					rigidbody.useGravity = false;
-					SetFallSpeed(0f);
+					SetFallSpeed( 0.0f );
 				}
 				
 				stopMoveTimer += Time.deltaTime;
@@ -193,7 +153,7 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 	
-	public void MoveAtSpeed(Vector3 inputVec, float appliedMoveSpeed)
+	public void MoveAtSpeed( Vector3 inputVec, float appliedMoveSpeed )
 	{
 		rigidbody.useGravity = true;
 
@@ -211,18 +171,6 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	Vector3 GetInputDirection()
-	{
-		Vector3 inputVec = new Vector3(Input.GetAxis("Horizontal" + WadeUtils.platformName), 0.0f, Input.GetAxis("Vertical" + WadeUtils.platformName));
-		if( actor.GetCamera() != null )
-		{
-			inputVec = actor.GetCamera().transform.TransformDirection(inputVec);
-			inputVec.y = 0f;
-		}
-
-		return inputVec;
-	}
-
 	void SetFallSpeed(float fallSpeed)
 	{
 		Vector3 moveVec = rigidbody.velocity;
@@ -230,60 +178,21 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = moveVec;
 	}
 
-	void GroundMovement()
+	public void RollCheck()
 	{
-		inputVec = GetInputDirection();
-
-		if(	Mathf.Abs(inputVec.magnitude) < WadeUtils.SMALLNUMBER)
+		if ( IsInState( ActorStates.Rolling ) )
 		{
-			ComeToStop();
-		}
-		else
-		{
-			MoveAtSpeed(inputVec, groundedMoveSpeed);
-		}
-	}
-
-	void JumpMovement()
-	{
-		inputVec = GetInputDirection();
-		
-		if(	Mathf.Abs(inputVec.magnitude) < WadeUtils.SMALLNUMBER)
-		{
-			ComeToStop();
-		}
-		else
-		{
-			currStoppingPower = stoppingSpeed;
-			
-			moveVec = inputVec * jumpMoveSpeed;
-			moveVec.y = rigidbody.velocity.y;
-			
-			lastVelocity = moveVec;
-			rigidbody.velocity = moveVec;
-			
-			if ( actor.GetAnimator() )
+			if( rollCooldownTimer >= rollTime )
 			{
-				actor.GetAnimator().SetBool("isMoving", true);
+				ChangeState( ActorStates.Jumping );
+				actor.GetAnimator().SetBool( "isRolling", false );
 			}
 		}
-	}
-
-	void RollCheck()
-	{
-		if(IsInState(ActorStates.Rolling))
+		else if( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) && 
+		         rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER )
 		{
-			if(rollCooldownTimer >= rollTime)
-			{
-				ChangeState(ActorStates.Jumping);
-				actor.GetAnimator().SetBool("isRolling", false);
-			}
-		}
-		else if(Input.GetButtonDown("Roll" + WadeUtils.platformName) && 
-		        rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER)
-		{
-			ChangeState(ActorStates.Rolling);
-			actor.GetAnimator().SetBool("isRolling", true);
+			ChangeState( ActorStates.Rolling );
+			actor.GetAnimator().SetBool( "isRolling", true );
 
 			rollCooldownTimer = 0f;
 		}
@@ -295,7 +204,7 @@ public class ActorPhysics : ActorComponent
 	{
 	}
 	
-	void JumpCheck()
+	public void JumpCheck()
 	{
 		RaycastHit hit;
 		bool isOnGround = Physics.SphereCast(new Ray(transform.position, -Vector3.up), jumpCheckRadius, out hit, jumpCheckDistance, jumpLayer);
@@ -353,23 +262,6 @@ public class ActorPhysics : ActorComponent
 		        (WadeUtils.platformName != "_OSX" && Input.GetAxis("Grab" + WadeUtils.platformName) > WadeUtils.SMALLNUMBER));
 	}
 
-	void ModelControl()
-	{
-		model.position = transform.position - modelOffset; // this might be important so don't delete it
-		//transform.position = model.position + modelOffset;
-
-		if(Mathf.Abs(Input.GetAxisRaw("Horizontal" + WadeUtils.platformName)) > WadeUtils.SMALLNUMBER || Mathf.Abs(Input.GetAxisRaw("Vertical" + WadeUtils.platformName)) > WadeUtils.SMALLNUMBER)
-		{
-			Vector3 lookVec = moveVec;
-			lookVec.y = 0.0f;
-			
-			if(lookVec != Vector3.zero)
-			{
-				model.rotation = Quaternion.LookRotation(lookVec * 10.0f, transform.up);
-			}
-		}
-	}
-
 	void SlideModelControl()
 	{
 		model.position = transform.position - modelOffset; // this might be important so don't delete it
@@ -403,5 +295,10 @@ public class ActorPhysics : ActorComponent
 
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position - Vector3.up, jumpCheckRadius);
+	}
+
+	public float groundedMoveSpeed
+	{
+		get { return _groundedMoveSpeed; }
 	}
 }

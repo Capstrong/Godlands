@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ActorResources : ActorComponent 
+[RequireComponent( typeof( ActorCamera ) )]
+public class ActorResources : ActorComponent
 {
-	[SerializeField] GameObject inventoryBarPrefab;
+	[SerializeField] GameObject inventoryBarPrefab = null;
 	InventoryScrollBar inventoryBar;
 
-	[SerializeField] GameObject resourcePopPrefab;
+	[SerializeField] GameObject resourcePopPrefab = null;
 
 	// possible types to get (might want to instead load this from folder)
-	[SerializeField] ResourceData[] resourceTypes;
+	[SerializeField] ResourceData[] resourceTypes = null;
 
 	// types and current count
 	Dictionary<ResourceData, int> resourceTypeCounts = new Dictionary<ResourceData, int>();
@@ -21,8 +22,17 @@ public class ActorResources : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	[SerializeField] LayerMask buddyLayer;
+	private ActorCamera _actorCamera;
+
+	[SerializeField] LayerMask buddyLayer = 0;
 	[SerializeField] float maxGiveDistance = 2f;
+
+	public override void Awake()
+	{
+		base.Awake();
+
+		_actorCamera = GetComponent<ActorCamera>();
+	}
 
 	// Use this for initialization
 	void Start () 
@@ -80,12 +90,12 @@ public class ActorResources : ActorComponent
 
 	void CheckGiveResource()
 	{
-		if(Input.GetMouseButtonDown(0) && heldResourceTypes.Count > 0)
+		if( Input.GetMouseButtonDown(0) && heldResourceTypes.Count > 0 )
 		{
-			RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo(transform.position, 
-			                                                 actor.GetCamera().transform.forward, 
-			                                                 buddyLayer,
-			                                                 maxGiveDistance);
+			RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
+			                                                  _actorCamera.cam.transform.forward,
+			                                                  buddyLayer,
+			                                                  maxGiveDistance );
 			if(hitInfo.transform)
 			{
 				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
@@ -99,7 +109,7 @@ public class ActorResources : ActorComponent
 	
 	void GiveResource(BuddyStats buddyStats)
 	{
-		buddyStats.GiveResource(actor.GetPhysics(), heldResourceTypes[resourceIndex]);
+		buddyStats.GiveResource(actor.actorPhysics, heldResourceTypes[resourceIndex]);
 		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
 
 		UpdateResourceList();

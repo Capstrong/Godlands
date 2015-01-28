@@ -21,53 +21,27 @@ public enum BoneLocation
 }
 
 [RequireComponent(typeof(ActorPhysics))]
-[RequireComponent(typeof(ActorCamera))]
-[RequireComponent(typeof(ActorCombat))]
 public class Actor : MonoBehaviour
 {
-	ActorPhysics actorPhysics;
-	ActorCamera actorCamera;
-	ActorCombat actorCombat;
-	ActorResources actorResources;
+	ActorPhysics _actorPhysics;
+	ActorResources _actorResources;
 
 	Animator anim;
 
-	void Awake()
+	public virtual void Awake()
 	{
-		actorPhysics = GetComponent<ActorPhysics>();
-		actorCamera = GetComponent<ActorCamera>();
-		actorCombat = GetComponent<ActorCombat>();
-		actorResources = GetComponent<ActorResources>();
-
-		if ( actorPhysics ) actorPhysics.SetActor(this);
-		if ( actorCamera ) actorCamera.SetActor(this);
-		if ( actorCombat ) actorCombat.SetActor(this);
-		if ( actorResources ) actorResources.SetActor(this);
+		_actorPhysics = GetComponent<ActorPhysics>();
+		_actorResources = GetComponent<ActorResources>();
 	}
 
-	public ActorPhysics GetPhysics()
+	public ActorPhysics actorPhysics
 	{
-		return actorPhysics;
-	}
-
-	public ActorCamera GetCameraScript()
-	{
-		return actorCamera;
-	}
-
-	public ActorCombat GetCombatScript()
-	{
-		return actorCombat;
-	}
-
-	public Camera GetCamera()
-	{
-		return actorCamera.cam;
+		get { return _actorPhysics; }
 	}
 
 	public Transform GetModel()
 	{
-		return actorPhysics.model;
+		return _actorPhysics.model;
 	}
 
 	public Animator GetAnimator()
@@ -109,10 +83,5 @@ public class Actor : MonoBehaviour
 		}
 
 		return null;
-	}
-
-	public void OnAttacked(Attack attack)
-	{
-
 	}
 }

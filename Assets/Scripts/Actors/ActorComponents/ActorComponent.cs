@@ -6,8 +6,8 @@ public class ActorComponent : MonoBehaviour
 	[HideInInspector]
 	public Actor actor;
 
-	public void SetActor(Actor actor)
+	public virtual void Awake()
 	{
-		this.actor = actor;
+		actor = GetComponent<Actor>();
 	}
 }
