@@ -169,6 +169,8 @@ public class ActorPhysics : ActorComponent
 		{
 			actor.animator.SetBool( "isMoving", true );
 		}
+
+		ModelControl();
 	}
 
 	void SetFallSpeed(float fallSpeed)
@@ -254,6 +256,19 @@ public class ActorPhysics : ActorComponent
 
 		lateJumpTimer += Time.deltaTime;
 		rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
+	}
+
+	public void ModelControl()
+	{
+		model.position = transform.position - modelOffset;
+
+		Vector3 lookVec = moveVec;
+		lookVec.y = 0.0f;
+
+		if(lookVec != Vector3.zero)
+		{
+			model.rotation = Quaternion.LookRotation(lookVec * 10.0f, transform.up);
+		}
 	}
 
 	public bool IsGrabbing()

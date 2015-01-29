@@ -1776,6 +1776,7 @@ GameObject:
   - 114: {fileID: 298744671}
   - 114: {fileID: 298744672}
   - 114: {fileID: 298744673}
+  - 114: {fileID: 298744669}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1814,6 +1815,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &298744669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 298744666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &298744670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +2846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 300
 --- !u!54 &473457328
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5812,7 +5823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 300
 --- !u!114 &982286115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7196,7 +7206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 300
 --- !u!54 &1453939208
 Rigidbody:
   m_ObjectHideFlags: 0
