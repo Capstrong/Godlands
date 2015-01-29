@@ -96,24 +96,6 @@ public class PlayerActorPhysics : ActorPhysics
 		}
 	}
 
-	void ModelControl()
-	{
-		model.position = transform.position - modelOffset; // this might be important so don't delete it
-		//transform.position = model.position + modelOffset;
-
-		if ( Mathf.Abs( Input.GetAxisRaw( "Horizontal" + WadeUtils.platformName ) ) > WadeUtils.SMALLNUMBER ||
-		     Mathf.Abs( Input.GetAxisRaw( "Vertical" + WadeUtils.platformName ) ) > WadeUtils.SMALLNUMBER )
-		{
-			Vector3 lookVec = moveVec;
-			lookVec.y = 0.0f;
-
-			if ( lookVec != Vector3.zero )
-			{
-				model.rotation = Quaternion.LookRotation( lookVec * 10.0f, transform.up );
-			}
-		}
-	}
-
 	Vector3 GetInputDirection()
 	{
 		Vector3 inputVec = new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
