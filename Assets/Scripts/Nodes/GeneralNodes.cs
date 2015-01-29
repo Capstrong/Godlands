@@ -24,6 +24,7 @@ public class MoveToDestination : LeafNode
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
 		{
 			info.destination = Vector3.zero;
+			actorPhysics.ComeToStop();
 			return NodeStatus.SUCCESS;
 		}
 		else
@@ -56,6 +57,7 @@ public class FollowTarget : LeafNode
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
 		{
 			info.followTarget = null;
+			actorPhysics.ComeToStop();
 			return NodeStatus.SUCCESS;
 		}
 		else
