@@ -290,12 +290,6 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	public bool IsGrabbing()
-	{
-		return ((WadeUtils.platformName == "_OSX" && Input.GetAxis("Grab" + WadeUtils.platformName) > WadeUtils.SMALLNUMBER) ||
-		        (WadeUtils.platformName != "_OSX" && Input.GetAxis("Grab" + WadeUtils.platformName) > WadeUtils.SMALLNUMBER));
-	}
-
 	void SlideModelControl()
 	{
 		model.position = transform.position - modelOffset; // this might be important so don't delete it
