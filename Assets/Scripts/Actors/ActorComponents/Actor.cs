@@ -20,69 +20,42 @@ public enum BoneLocation
 	RFoot		= 14
 }
 
-[RequireComponent(typeof(ActorPhysics))]
-[RequireComponent(typeof(ActorCamera))]
-[RequireComponent(typeof(ActorCombat))]
+[RequireComponent( typeof( ActorPhysics ) )]
 public class Actor : MonoBehaviour
 {
-	ActorPhysics actorPhysics;
-	ActorCamera actorCamera;
-	ActorCombat actorCombat;
-	ActorResources actorResources;
-
-	Animator anim;
-
-	void Awake()
+	public virtual void Awake()
 	{
-		actorPhysics = GetComponent<ActorPhysics>();
-		actorCamera = GetComponent<ActorCamera>();
-		actorCombat = GetComponent<ActorCombat>();
-		actorResources = GetComponent<ActorResources>();
-
-		actorPhysics.SetActor(this);
-		actorCamera.SetActor(this);
-		actorCombat.SetActor(this);
-		actorResources.SetActor(this);
+		_actorPhysics = GetComponent<ActorPhysics>();
+	}
+	
+	ActorPhysics _actorPhysics;
+	public ActorPhysics actorPhysics
+	{
+		get { return _actorPhysics; }
 	}
 
-	public ActorPhysics GetPhysics()
+	public Transform model
 	{
-		return actorPhysics;
+		get { return _actorPhysics.model; }
 	}
 
-	public ActorCamera GetCameraScript()
+	Animator _animator;
+	public Animator animator
 	{
-		return actorCamera;
-	}
-
-	public ActorCombat GetCombatScript()
-	{
-		return actorCombat;
-	}
-
-	public Camera GetCamera()
-	{
-		return actorCamera.cam;
-	}
-
-	public Transform GetModel()
-	{
-		return actorPhysics.model;
-	}
-
-	public Animator GetAnimator()
-	{
-		if(!anim)
+		get
 		{
-			anim = GetComponentInChildren<Animator>();
-		}
+			if( !_animator )
+			{
+				_animator = GetComponentInChildren<Animator>();
+			}
 
-		return anim;
+			return _animator;
+		}
 	}
 
-	public bool AreRenderersOn()
+	public bool isRendererOn
 	{
-		return GetComponentInChildren<Renderer>().enabled;
+		get { return GetComponentInChildren<Renderer>().enabled; }
 	}
 
 	public Renderer[] GetRenderers()
@@ -90,29 +63,24 @@ public class Actor : MonoBehaviour
 		return GetComponentsInChildren<Renderer>();
 	}
 
-	public void ToggleRenderers(bool setOn)
+	public void SetRenderers( bool setOn )
 	{
-		foreach(Renderer r in GetRenderers())
+		foreach( Renderer r in GetRenderers() )
 		{
 			r.enabled = setOn;
 		}
 	}
 
-	public Transform GetBoneAtLocation(BoneLocation boneLocation)
+	public Transform GetBoneAtLocation( BoneLocation boneLocation )
 	{
-		foreach(BoneLocationTag boneTag in GetComponentsInChildren<BoneLocationTag>())
+		foreach( BoneLocationTag boneTag in GetComponentsInChildren<BoneLocationTag>() )
 		{
-			if(boneTag.boneLocation == boneLocation)
+			if( boneTag.boneLocation == boneLocation )
 			{
 				return boneTag.transform;
 			}
 		}
 
 		return null;
-	}
-
-	public void OnAttacked(Attack attack)
-	{
-
 	}
 }

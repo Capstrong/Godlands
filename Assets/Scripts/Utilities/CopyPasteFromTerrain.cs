@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CopyPasteFromTerrain : MonoBehaviour 
 {
-	[SerializeField] Terrain terrain;
+	[SerializeField] Terrain terrain = null;
 
 	void Start ()
 	{

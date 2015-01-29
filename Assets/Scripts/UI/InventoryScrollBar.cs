@@ -12,7 +12,6 @@ public class InventoryScrollBar : MonoBehaviour
 
 	public void UpdateInventoryBar(int currentIndex, ResourceData[] resourceData)
 	{
-		Debug.Log(currentIndex);
 		SetIcon(currentItemIcon, resourceData[currentIndex].icon);
 		// tell player to hold item
 
@@ -31,7 +30,14 @@ public class InventoryScrollBar : MonoBehaviour
 		SetIcon(nextItemIcon, resourceData[nextIndex].icon);
 	}
 
-	void SetIcon(Image image, Sprite icon)
+	public void NullInventoryBar()
+	{
+		SetIcon(prevItemIcon);
+		SetIcon(currentItemIcon);
+		SetIcon(nextItemIcon);
+	}
+
+	void SetIcon(Image image, Sprite icon = null)
 	{
 		if(icon)
 		{
