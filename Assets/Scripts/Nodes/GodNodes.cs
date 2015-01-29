@@ -73,7 +73,7 @@ public class ChooseResourceTarget : LeafNode
 	public override NodeStatus Tick()
 	{
 		NodeStatus status = NodeStatus.FAILURE;
-		resource[] gameObjects = GameObject.FindObjectsOfType<resource>();
+		Resource[] gameObjects = GameObject.FindObjectsOfType<Resource>();
 
 		if ( gameObjects.Length > 0 )
 		{
