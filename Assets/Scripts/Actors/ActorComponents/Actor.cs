@@ -24,14 +24,12 @@ public enum BoneLocation
 public class Actor : MonoBehaviour
 {
 	ActorPhysics _actorPhysics;
-	ActorResources _actorResources;
 
 	Animator anim;
 
 	public virtual void Awake()
 	{
 		_actorPhysics = GetComponent<ActorPhysics>();
-		_actorResources = GetComponent<ActorResources>();
 	}
 
 	public ActorPhysics actorPhysics
