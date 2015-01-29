@@ -3,30 +3,28 @@ using System.Collections;
 
 public class CollectAdjacentResources : LeafNode
 {
-	private GodInfo info;
-	private GameObject gameObject;
-	private Transform transform;
+	//private GameObject gameObject;
+	//private Transform transform;
 
 	public override void Init( Hashtable data )
 	{
-		gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<GodInfo>();
+		//gameObject = (GameObject)data["gameObject"];
+		//transform = gameObject.GetComponent<Transform>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		foreach ( GameObject resource in GameObject.FindGameObjectsWithTag( "Resource" ) )
-		{
-			float distanceSquared = ( resource.GetComponent<Transform>().position - transform.position ).sqrMagnitude;
-			if ( distanceSquared < ( info.resourceCollectionDistance * info.resourceCollectionDistance ) )
-			{
-				// collect resource
-				++info.resources;
-				GameObject.Destroy( resource );
-				return NodeStatus.SUCCESS;
-			}
-		}
+		//foreach ( GameObject resource in GameObject.FindGameObjectsWithTag( "Resource" ) )
+		//{
+		//	float distanceSquared = ( resource.GetComponent<Transform>().position - transform.position ).sqrMagnitude;
+		//	if ( distanceSquared < ( info.resourceCollectionDistance * info.resourceCollectionDistance ) )
+		//	{
+		//		// collect resource
+		//		++info.resources;
+		//		GameObject.Destroy( resource );
+		//		return NodeStatus.SUCCESS;
+		//	}
+		//}
 
 		return NodeStatus.FAILURE;
 	}

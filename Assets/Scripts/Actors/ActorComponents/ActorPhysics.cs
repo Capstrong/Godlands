@@ -132,7 +132,7 @@ public class ActorPhysics : ActorComponent
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
 		
-		if ( actor.GetAnimator() ) actor.GetAnimator().SetBool( "isMoving", false );
+		if ( actor.animator ) actor.animator.SetBool( "isMoving", false );
 
 		if( jumpColCheckTimer > jumpColCheckTime )
 		{
@@ -165,9 +165,9 @@ public class ActorPhysics : ActorComponent
 		lastVelocity = moveVec;
 		rigidbody.velocity = moveVec;
 		
-		if ( actor.GetAnimator() != null )
+		if ( actor.animator != null )
 		{
-			actor.GetAnimator().SetBool( "isMoving", true );
+			actor.animator.SetBool( "isMoving", true );
 		}
 	}
 
@@ -185,14 +185,14 @@ public class ActorPhysics : ActorComponent
 			if( rollCooldownTimer >= rollTime )
 			{
 				ChangeState( ActorStates.Jumping );
-				actor.GetAnimator().SetBool( "isRolling", false );
+				actor.animator.SetBool( "isRolling", false );
 			}
 		}
 		else if( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) && 
 		         rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER )
 		{
 			ChangeState( ActorStates.Rolling );
-			actor.GetAnimator().SetBool( "isRolling", true );
+			actor.animator.SetBool( "isRolling", true );
 
 			rollCooldownTimer = 0f;
 		}
@@ -231,16 +231,16 @@ public class ActorPhysics : ActorComponent
 					//GainControl();
 				}
 
-				actor.GetAnimator().SetBool("isJumping", false);
+				actor.animator.SetBool("isJumping", false);
 				//actor.GetAnimator().SetBool("isSliding", false);
 				lateJumpTimer = 0.0f;
 			}
 		}
 		else if(!IsInState(ActorStates.Jumping) && !IsInState(ActorStates.Rolling)) // if not currently being launched
 		{
-			if ( actor.GetAnimator() != null )
+			if ( actor.animator != null )
 			{
-				actor.GetAnimator().SetBool("isJumping", true);
+				actor.animator.SetBool("isJumping", true);
 				//actor.GetAnimator().SetBool("isSliding", false);
 			}
 

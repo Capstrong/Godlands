@@ -85,7 +85,7 @@ public class GodsWithinWatchDistance : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
+		foreach ( GodTag god in GameObject.FindObjectsOfType<GodTag>() )
 		{
 			if ( ( transform.position - god.GetComponent<Transform>().position )
 				.sqrMagnitude < info.watchDistance * info.watchDistance )
@@ -111,7 +111,7 @@ public class ChooseTargetGod : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		foreach ( GodInfo god in GameObject.FindObjectsOfType<GodInfo>() )
+		foreach ( GodTag god in GameObject.FindObjectsOfType<GodTag>() )
 		{
 			if ( ( transform.position - god.GetComponent<Transform>().position )
 				.sqrMagnitude < info.watchDistance * info.watchDistance )

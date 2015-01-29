@@ -20,41 +20,42 @@ public enum BoneLocation
 	RFoot		= 14
 }
 
-[RequireComponent(typeof(ActorPhysics))]
+[RequireComponent( typeof( ActorPhysics ) )]
 public class Actor : MonoBehaviour
 {
-	ActorPhysics _actorPhysics;
-
-	Animator anim;
-
 	public virtual void Awake()
 	{
 		_actorPhysics = GetComponent<ActorPhysics>();
 	}
-
+	
+	ActorPhysics _actorPhysics;
 	public ActorPhysics actorPhysics
 	{
 		get { return _actorPhysics; }
 	}
 
-	public Transform GetModel()
+	public Transform model
 	{
-		return _actorPhysics.model;
+		get { return _actorPhysics.model; }
 	}
 
-	public Animator GetAnimator()
+	Animator _animator;
+	public Animator animator
 	{
-		if(!anim)
+		get
 		{
-			anim = GetComponentInChildren<Animator>();
-		}
+			if( !_animator )
+			{
+				_animator = GetComponentInChildren<Animator>();
+			}
 
-		return anim;
+			return _animator;
+		}
 	}
 
-	public bool AreRenderersOn()
+	public bool isRendererOn
 	{
-		return GetComponentInChildren<Renderer>().enabled;
+		get { return GetComponentInChildren<Renderer>().enabled; }
 	}
 
 	public Renderer[] GetRenderers()
@@ -62,19 +63,19 @@ public class Actor : MonoBehaviour
 		return GetComponentsInChildren<Renderer>();
 	}
 
-	public void ToggleRenderers(bool setOn)
+	public void SetRenderers( bool setOn )
 	{
-		foreach(Renderer r in GetRenderers())
+		foreach( Renderer r in GetRenderers() )
 		{
 			r.enabled = setOn;
 		}
 	}
 
-	public Transform GetBoneAtLocation(BoneLocation boneLocation)
+	public Transform GetBoneAtLocation( BoneLocation boneLocation )
 	{
-		foreach(BoneLocationTag boneTag in GetComponentsInChildren<BoneLocationTag>())
+		foreach( BoneLocationTag boneTag in GetComponentsInChildren<BoneLocationTag>() )
 		{
-			if(boneTag.boneLocation == boneLocation)
+			if( boneTag.boneLocation == boneLocation )
 			{
 				return boneTag.transform;
 			}

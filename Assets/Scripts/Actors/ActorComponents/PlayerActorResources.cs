@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent( typeof( ActorCamera ) )]
-public class ActorResources : ActorComponent
+public class PlayerActorResources : ActorComponent
 {
 	[SerializeField] GameObject inventoryBarPrefab = null;
 	InventoryScrollBar inventoryBar;

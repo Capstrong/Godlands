@@ -104,13 +104,13 @@ public class ActorCamera : ActorComponent
 
 			GetMinCameraDistance();
 
-			if(actor.AreRenderersOn() && currentCamDist < minCamDist)
+			if(actor.isRendererOn && currentCamDist < minCamDist)
 			{
-				actor.ToggleRenderers(false);
+				actor.SetRenderers( false );
 			}
-			else if (!actor.AreRenderersOn() && currentCamDist >= minCamDist)
+			else if (!actor.isRendererOn && currentCamDist >= minCamDist)
 			{
-				actor.ToggleRenderers(true);
+				actor.SetRenderers( true );
 			}
 
 			Vector3 currentOffset = camOffset * currentCamDist;

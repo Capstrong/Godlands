@@ -89,9 +89,9 @@ public class PlayerActorPhysics : ActorPhysics
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
 			
-			if ( actor.GetAnimator() )
+			if ( actor.animator )
 			{
-				actor.GetAnimator().SetBool( "isMoving", true );
+				actor.animator.SetBool( "isMoving", true );
 			}
 		}
 	}
