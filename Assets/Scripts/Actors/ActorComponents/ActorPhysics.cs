@@ -4,137 +4,116 @@ using System.Collections.Generic;
 
 public enum ActorStates
 {
-	Grounded		= 0,
+	Grounded = 0,
 	Jumping,
 	Rolling
 }
 
 public class ActorPhysics : ActorComponent
 {
+	public delegate void ActorStateMethod();
+
 	ActorStates currentState = ActorStates.Jumping;
 
-	delegate void ActorStateMethod();
-	ActorStateMethod CurrentStateMethod;
+	protected ActorStateMethod CurrentStateMethod;
 
-	Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
+	public Vector3 inputVec = Vector3.zero;
+
+	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
 
 	// Movement
 	[SerializeField] float maxSpeed = 40f;
-	[SerializeField] float groundedMoveSpeed = 8.5f;
-	[SerializeField] float jumpMoveSpeed = 8.5f;
-	[SerializeField] float rollMoveSpeed = 6f;
+
+	[SerializeField] float _groundedMoveSpeed = 8.5f;
+	public float groundedMoveSpeed
+	{
+		get { return _groundedMoveSpeed; }
+	}
+
+	[SerializeField]
+	protected float jumpMoveSpeed = 8.5f;
+
+	[SerializeField]
+	protected float rollMoveSpeed = 6f;
 
 	public float moveSpeedMod = 1f;
 
-	Vector3 lastVelocity = Vector3.zero;
-	Vector3 inputVec = Vector3.zero;
-	Vector3 moveVec = Vector3.zero;
-	
-	[Range (0.001f, 1000f)][SerializeField] float stoppingSpeed = 0.001f;
-	float currStoppingPower = 0.0f;
-	
+	protected Vector3 lastVelocity = Vector3.zero;
+	protected Vector3 moveVec = Vector3.zero;
+
+	[SerializeField, Range( 0.001f, 1000f )] protected float stoppingSpeed = 0.001f;
+	protected float currStoppingPower = 0.0f;
+
 	// Jumping
 	public float jumpForce = 8.5f;
+
+	[SerializeField]
+	float jumpCheckDistance = 1.3f;
 	
-	[SerializeField] float jumpCheckDistance = 1.3f;
-	[SerializeField] float jumpCheckRadius = 0.7f;
-	[SerializeField] LayerMask jumpLayer;
+	[SerializeField]
+	float jumpCheckRadius = 0.7f;
 	
-	[SerializeField] float jumpColCheckTime = 0.5f;
+	[SerializeField]
+	LayerMask jumpLayer = 0;
+
+	[SerializeField]
+	float jumpColCheckTime = 0.5f;
 	float jumpColCheckTimer = 0.0f;
-	
-	[SerializeField] float lateJumpTime = 0.2f;
+
+	[SerializeField]
+	float lateJumpTime = 0.2f;
 	float lateJumpTimer = 0.0f;
-	
-	[SerializeField] float stopMoveTime = 0.3f;
+
+	[SerializeField]
+	float stopMoveTime = 0.3f;
 	float stopMoveTimer = 0f;
 
 	// Rolling
-	[SerializeField] float rollTime = 1f;
-	[SerializeField] float rollCooldownTime = 1f;
+	[SerializeField]
+	float rollTime = 1f;
+	
+	[SerializeField]
+	float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
 
-	[SerializeField] float rotCorrectionTime = 7f;
 	[SerializeField] float slideTurnSpeed = 7f;
-	
-	public Transform model;
-	Vector3 modelOffset;
 
-	void Awake()
+	public Transform model;
+	protected Vector3 modelOffset;
+
+	public override void Awake()
 	{
-		SetupStateMethodMap();
-		ChangeState(ActorStates.Grounded);
+		base.Awake();
 
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
 	}
 
-	void SetupStateMethodMap()
-	{;
-		stateMethodMap.Add(ActorStates.Jumping, 	Jumping);
-		stateMethodMap.Add(ActorStates.Grounded, 	Grounded);
-		stateMethodMap.Add(ActorStates.Rolling, 	Rolling);
-	}
-	
-	void Update ()
+	protected void ChangeState( ActorStates toState )
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
-
-		CurrentStateMethod();
-		ModelControl();
-	}
-
-	void Grounded()
-	{
-		JumpCheck();
-		RollCheck();
-
-		GroundMovement();
-	}
-
-	void Jumping()
-	{
-		JumpCheck();
-		RollCheck();
-
-		JumpMovement();
-	}
-
-	void Rolling()
-	{
-		RollCheck();
-		
-		MoveAtSpeed(inputVec.normalized, rollMoveSpeed);
-	}
-
-	void ChangeState(ActorStates toState)
-	{
-		StartCoroutine(ChangeStateRoutine(toState));
+		StartCoroutine( ChangeStateRoutine( toState ) );
 	}
 
 	public bool CanAttack()
 	{
-		return !IsInState(ActorStates.Rolling);
+		return !IsInState( ActorStates.Rolling );
 	}
 
-	bool IsInState(ActorStates checkState)
+	bool IsInState( ActorStates checkState )
 	{
 		return currentState == checkState;
 	}
 
-	IEnumerator ChangeStateRoutine(ActorStates toState)
+	IEnumerator ChangeStateRoutine( ActorStates toState )
 	{
-		switch(currentState)
+		switch ( currentState )
 		{
 		case ActorStates.Grounded:
 			break;
 		default:
 			break;
 		}
-		
+
 		currentState = toState;
 		CurrentStateMethod = stateMethodMap[currentState];
 
@@ -142,48 +121,48 @@ public class ActorPhysics : ActorComponent
 	}
 
 	// Do temporary state and then return to previous state
-	void EnterTemporaryState(float waitTime, ActorStates tempState)
+	void EnterTemporaryState( float waitTime, ActorStates tempState )
 	{
-		StartCoroutine(EnterTemporaryStateRoutine(waitTime, tempState, currentState));
+		StartCoroutine( EnterTemporaryStateRoutine( waitTime, tempState, currentState ) );
 	}
 
 	// Do temporary state and then move on to new state
-	void EnterTemporaryState(float waitTime, ActorStates tempState, ActorStates endState)
+	void EnterTemporaryState( float waitTime, ActorStates tempState, ActorStates endState )
 	{
-		StartCoroutine(EnterTemporaryStateRoutine(waitTime, tempState, endState));
+		StartCoroutine( EnterTemporaryStateRoutine( waitTime, tempState, endState ) );
 	}
 
-	IEnumerator EnterTemporaryStateRoutine(float waitTime, ActorStates tempState, ActorStates endState)
+	IEnumerator EnterTemporaryStateRoutine( float waitTime, ActorStates tempState, ActorStates endState )
 	{
-		ChangeState(tempState);
+		ChangeState( tempState );
 
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSeconds( waitTime );
 
-		ChangeState(endState);
+		ChangeState( endState );
 	}
 
-	void ComeToStop()
+	public void ComeToStop()
 	{
 		currStoppingPower -= Time.deltaTime;
-		currStoppingPower = Mathf.Clamp(currStoppingPower, 0.0f, stoppingSpeed);
-		
-		moveVec = lastVelocity * currStoppingPower/stoppingSpeed;
-		
+		currStoppingPower = Mathf.Clamp( currStoppingPower, 0.0f, stoppingSpeed );
+
+		moveVec = lastVelocity * currStoppingPower / stoppingSpeed;
+
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
-		
-		actor.GetAnimator().SetBool("isMoving", false);
 
-		if(jumpColCheckTimer > jumpColCheckTime)
+		if ( actor.animator ) actor.animator.SetBool( "isMoving", false );
+
+		if ( jumpColCheckTimer > jumpColCheckTime )
 		{
-			if(IsInState(ActorStates.Grounded))
+			if ( IsInState( ActorStates.Grounded ) )
 			{
-				if(stopMoveTimer >= stopMoveTime)
+				if ( stopMoveTimer >= stopMoveTime )
 				{
 					rigidbody.useGravity = false;
-					SetFallSpeed(0f);
+					SetFallSpeed( 0.0f );
 				}
-				
+
 				stopMoveTimer += Time.deltaTime;
 			}
 			else
@@ -192,92 +171,49 @@ public class ActorPhysics : ActorComponent
 			}
 		}
 	}
-	
-	void MoveAtSpeed(Vector3 inputVec, float appliedMoveSpeed)
+
+	public void MoveAtSpeed( Vector3 inputVec, float appliedMoveSpeed )
 	{
 		rigidbody.useGravity = true;
 
 		currStoppingPower = stoppingSpeed;
-		
+
 		moveVec = inputVec * appliedMoveSpeed * moveSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
-		
+
 		lastVelocity = moveVec;
 		rigidbody.velocity = moveVec;
-		
-		actor.GetAnimator().SetBool("isMoving", true);
-	}
 
-	Vector3 GetInputDirection()
-	{
-		Vector3 inputVec = new Vector3(Input.GetAxis("Horizontal" + WadeUtils.platformName), 0.0f, Input.GetAxis("Vertical" + WadeUtils.platformName));
-		if(actor.GetCamera())
+		if ( actor.animator != null )
 		{
-			inputVec = actor.GetCamera().transform.TransformDirection(inputVec);
-			inputVec.y = 0f;
+			actor.animator.SetBool( "isMoving", true );
 		}
 
-		return inputVec;
+		ModelControl();
 	}
 
-	void SetFallSpeed(float fallSpeed)
+	void SetFallSpeed( float fallSpeed )
 	{
 		Vector3 moveVec = rigidbody.velocity;
 		moveVec.y = fallSpeed;
 		rigidbody.velocity = moveVec;
 	}
 
-	void GroundMovement()
+	public void RollCheck()
 	{
-		inputVec = GetInputDirection();
-
-		if(	Mathf.Abs(inputVec.magnitude) < WadeUtils.SMALLNUMBER)
+		if ( IsInState( ActorStates.Rolling ) )
 		{
-			ComeToStop();
-		}
-		else
-		{
-			MoveAtSpeed(inputVec, groundedMoveSpeed);
-		}
-	}
-
-	void JumpMovement()
-	{
-		inputVec = GetInputDirection();
-		
-		if(	Mathf.Abs(inputVec.magnitude) < WadeUtils.SMALLNUMBER)
-		{
-			ComeToStop();
-		}
-		else
-		{
-			currStoppingPower = stoppingSpeed;
-			
-			moveVec = inputVec * jumpMoveSpeed;
-			moveVec.y = rigidbody.velocity.y;
-			
-			lastVelocity = moveVec;
-			rigidbody.velocity = moveVec;
-			
-			actor.GetAnimator().SetBool("isMoving", true);
-		}
-	}
-
-	void RollCheck()
-	{
-		if(IsInState(ActorStates.Rolling))
-		{
-			if(rollCooldownTimer >= rollTime)
+			if ( rollCooldownTimer >= rollTime )
 			{
-				ChangeState(ActorStates.Jumping);
-				actor.GetAnimator().SetBool("isRolling", false);
+				ChangeState( ActorStates.Jumping );
+				actor.animator.SetBool( "isRolling", false );
 			}
 		}
-		else if(Input.GetButtonDown("Roll" + WadeUtils.platformName) && 
-		        rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER)
+		else if ( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) &&
+		          rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER )
 		{
-			ChangeState(ActorStates.Rolling);
-			actor.GetAnimator().SetBool("isRolling", true);
+			ChangeState( ActorStates.Rolling );
+			actor.animator.SetBool( "isRolling", true );
 
 			rollCooldownTimer = 0f;
 		}
@@ -288,15 +224,15 @@ public class ActorPhysics : ActorComponent
 	void AttackCheck()
 	{
 	}
-	
-	void JumpCheck()
+
+	public void JumpCheck()
 	{
 		RaycastHit hit;
-		bool isOnGround = Physics.SphereCast(new Ray(transform.position, -Vector3.up), jumpCheckRadius, out hit, jumpCheckDistance, jumpLayer);
+		bool isOnGround = Physics.SphereCast( new Ray( transform.position, -Vector3.up ), jumpCheckRadius, out hit, jumpCheckDistance, jumpLayer );
 
-		if((isOnGround || lateJumpTimer < lateJumpTime))
+		if ( ( isOnGround || lateJumpTimer < lateJumpTime ) )
 		{
-			if(Input.GetButtonDown("Jump" + WadeUtils.platformName))
+			if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
 			{
 				Vector3 curVelocity = rigidbody.velocity;
 				curVelocity.y = jumpForce;
@@ -306,29 +242,33 @@ public class ActorPhysics : ActorComponent
 				jumpColCheckTimer = 0.0f;
 				//actor.GetAnimator().SetBool("isSliding", false);
 			}
-			else if(jumpColCheckTimer > jumpColCheckTime && isOnGround && !IsInState(ActorStates.Rolling))
+			else if ( jumpColCheckTimer > jumpColCheckTime && isOnGround && !IsInState( ActorStates.Rolling ) )
 			{
-				if(!IsInState(ActorStates.Grounded))
+				if ( !IsInState( ActorStates.Grounded ) )
 				{
 					// if !launching
-					ChangeState(ActorStates.Grounded);
+					ChangeState( ActorStates.Grounded );
 					stopMoveTimer = 0f;
 					//GainControl();
 				}
 
-				actor.GetAnimator().SetBool("isJumping", false);
+				actor.animator.SetBool( "isJumping", false );
 				//actor.GetAnimator().SetBool("isSliding", false);
 				lateJumpTimer = 0.0f;
 			}
 		}
-		else if(!IsInState(ActorStates.Jumping) && !IsInState(ActorStates.Rolling)) // if not currently being launched
+		else if ( !IsInState( ActorStates.Jumping ) && !IsInState( ActorStates.Rolling ) ) // if not currently being launched
 		{
-			actor.GetAnimator().SetBool("isJumping", true);
-			//actor.GetAnimator().SetBool("isSliding", false);
-			ChangeState(ActorStates.Jumping);
+			if ( actor.animator != null )
+			{
+				actor.animator.SetBool( "isJumping", true );
+				//actor.GetAnimator().SetBool("isSliding", false);
+			}
+
+			ChangeState( ActorStates.Jumping );
 		}
-		
-		if(!IsInState(ActorStates.Grounded))
+
+		if ( !IsInState( ActorStates.Grounded ) )
 		{
 			jumpColCheckTimer += Time.deltaTime;
 		}
@@ -337,26 +277,16 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
 	}
 
-	public bool IsGrabbing()
+	public void ModelControl()
 	{
-		return ((WadeUtils.platformName == "_OSX" && Input.GetAxis("Grab" + WadeUtils.platformName) > WadeUtils.SMALLNUMBER) ||
-		        (WadeUtils.platformName != "_OSX" && Input.GetAxis("Grab" + WadeUtils.platformName) > WadeUtils.SMALLNUMBER));
-	}
+		model.position = transform.position - modelOffset;
 
-	void ModelControl()
-	{
-		model.position = transform.position - modelOffset; // this might be important so don't delete it
-		//transform.position = model.position + modelOffset;
+		Vector3 lookVec = moveVec;
+		lookVec.y = 0.0f;
 
-		if(Mathf.Abs(Input.GetAxisRaw("Horizontal" + WadeUtils.platformName)) > WadeUtils.SMALLNUMBER || Mathf.Abs(Input.GetAxisRaw("Vertical" + WadeUtils.platformName)) > WadeUtils.SMALLNUMBER)
+		if(lookVec != Vector3.zero)
 		{
-			Vector3 lookVec = moveVec;
-			lookVec.y = 0.0f;
-			
-			if(lookVec != Vector3.zero)
-			{
-				model.rotation = Quaternion.LookRotation(lookVec * 10.0f, transform.up);
-			}
+			model.rotation = Quaternion.LookRotation(lookVec * 10.0f, transform.up);
 		}
 	}
 
@@ -366,12 +296,12 @@ public class ActorPhysics : ActorComponent
 
 		Vector3 lookVec = rigidbody.velocity.normalized;
 		lookVec.y = 0.0f;
-		
-		if(lookVec != Vector3.zero)
+
+		if ( lookVec != Vector3.zero )
 		{
-			model.rotation = Quaternion.Lerp(model.rotation, 
-			                                 Quaternion.LookRotation(lookVec * 10.0f, transform.up),
-			                                 Time.deltaTime * slideTurnSpeed);
+			model.rotation = Quaternion.Lerp( model.rotation,
+			                                  Quaternion.LookRotation( lookVec * 10.0f, transform.up ),
+			                                  Time.deltaTime * slideTurnSpeed );
 		}
 	}
 
@@ -382,16 +312,24 @@ public class ActorPhysics : ActorComponent
 
 	void OnLandFromLaunch()
 	{
-		ChangeState(ActorStates.Grounded);
+		ChangeState( ActorStates.Grounded );
 	}
 
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere(transform.position + Vector3.up * 0.5f, 0.5f);
-		Gizmos.DrawWireSphere(transform.position - Vector3.up * 0.5f, 0.5f);
+		Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
+		Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
 
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position - Vector3.up, jumpCheckRadius);
+		Gizmos.DrawWireSphere( transform.position - Vector3.up, jumpCheckRadius );
+	}
+
+	public bool isGrabbing
+	{
+		get
+		{
+			return Input.GetAxis( "Grab" + WadeUtils.platformName ) > WadeUtils.SMALLNUMBER;
+		}
 	}
 }
