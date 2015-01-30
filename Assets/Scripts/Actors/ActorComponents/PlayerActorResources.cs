@@ -68,9 +68,7 @@ public class PlayerActorResources : ActorComponent
 		if((scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER) & heldResourceTypes.Count > 0)
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
-			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.CeilToInt(Mathf.Clamp(scrollAmount, -1f, 1f)) : 
-																Mathf.FloorToInt(Mathf.Clamp(scrollAmount, -1f, 1f));
-			
+			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.Clamp(scrollAmount, -1, 1) : Mathf.Clamp(scrollAmount, -1, 1);
 			int numResources = heldResourceTypes.Count;
 			
 			// keep within bounds
@@ -83,7 +81,7 @@ public class PlayerActorResources : ActorComponent
 				nextIndex = numResources - ((-nextIndex) % numResources);
 			}
 			
-			resourceIndex = Mathf.FloorToInt(Mathf.Clamp(nextIndex, 0, heldResourceTypes.Count - 1));
+			resourceIndex = Mathf.FloorToInt( Mathf.Clamp(nextIndex, 0, heldResourceTypes.Count - 1) );
 			SpawnResourceObject();
 		}
 	}
@@ -96,26 +94,26 @@ public class PlayerActorResources : ActorComponent
 			                                                  _actorCamera.cam.transform.forward,
 			                                                  buddyLayer,
 			                                                  maxGiveDistance );
-			if(hitInfo.transform)
+			if( hitInfo.transform )
 			{
 				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
-				if(buddyStats)
+				if( buddyStats )
 				{
-					GiveResource(buddyStats);
+					GiveResource( buddyStats );
 				}
 			}
 		}
 	}
 	
-	void GiveResource(BuddyStats buddyStats)
+	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource(actor.actorPhysics, heldResourceTypes[resourceIndex]);
+		buddyStats.GiveResource( actor.actorPhysics, heldResourceTypes[resourceIndex] );
 		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
 
 		UpdateResourceList();
 	}
 
-	void PickupResource(ResourceData addedResource)
+	void PickupResource( ResourceData addedResource )
 	{
 		resourceTypeCounts[addedResource]++;
 		UpdateResourceList();
@@ -125,24 +123,24 @@ public class PlayerActorResources : ActorComponent
 	{
 		heldResourceTypes.Clear();
 		
-		foreach(ResourceData resourceData in resourceTypes)
+		foreach( ResourceData resourceData in resourceTypes )
 		{
-			if(resourceTypeCounts[resourceData] > 0)
+			if( resourceTypeCounts[resourceData] > 0 )
 			{
-				heldResourceTypes.Add(resourceData);
+				heldResourceTypes.Add( resourceData );
 			}
 		}
 
-		if(heldResourceTypes.Count == 0)
+		if( heldResourceTypes.Count == 0 )
 		{
-			if(heldResource)
+			if( heldResource )
 			{
-				Destroy(heldResource);
+				Destroy( heldResource );
 			}
 
 			inventoryBar.NullInventoryBar();
 		}
-		else if(heldResourceTypes.Count == 1)
+		else if( heldResourceTypes.Count == 1 )
 		{
 			SpawnResourceObject();
 		}
@@ -152,27 +150,26 @@ public class PlayerActorResources : ActorComponent
 	{
 		inventoryBar.UpdateInventoryBar(resourceIndex, heldResourceTypes.ToArray());
 
-		if(heldResource)
+		if( heldResource )
 		{
-			Destroy(heldResource);
+			Destroy( heldResource );
 		}
 
 		if(heldResourceTypes[resourceIndex].prefab)
 		{
-			heldResource = WadeUtils.Instantiate(heldResourceTypes[resourceIndex].prefab);
-			heldResource.transform.parent = actor.GetBoneAtLocation(BoneLocation.RHand);
-			WadeUtils.ResetTransform(heldResource.transform, true);
+			heldResource = WadeUtils.Instantiate( heldResourceTypes[resourceIndex].prefab );
+			heldResource.transform.parent = actor.GetBoneAtLocation( BoneLocation.RHand );
+			WadeUtils.ResetTransform( heldResource.transform, true );
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter( Collider other )
 	{
 		Resource resourceComponent = other.gameObject.GetComponent<Resource>();
 		if (resourceComponent && !resourceComponent.used)
 		{
 			resourceComponent.used = true;
 
-			Debug.Log(other.gameObject.name);
 			PickupResource(resourceComponent.resourceData);
 
 			Destroy(other.gameObject);

@@ -45,7 +45,7 @@ public class ActorPhysics : ActorComponent
 	// Slope limit
 
 	protected float groundSlopeSpeedMod = 1f;
-	[SerializeField] MinMax slopeLimits = new MinMax( 0.28f, 0.72f );
+	[SerializeField] MinMaxF slopeLimits = new MinMaxF( 0.28f, 0.72f );
 	[SerializeField] float groundSlopeCheckRadius = 0.2f;
 	[SerializeField] float groundSlopeRayHeight = 0.7f;
 
@@ -72,6 +72,11 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float rollTime = 1f;
 	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
+
+	public bool isGrabbing
+	{
+		get{ return WadeUtils.ValidAxisInput("Grab"); }
+	}
 
 	[SerializeField] float slideTurnSpeed = 7f;
 	public Vector3 rigVelocity; // used to visualize velocity in inspector
@@ -306,23 +311,20 @@ public class ActorPhysics : ActorComponent
 
 	void OnDrawGizmos()
 	{
+		// ColliderVis
 		Gizmos.color = Color.white;
 		Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
 		Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
 
+		// JumpCheck
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere( transform.position + groundPosOffset, jumpCheckRadius );
 
+		// SlopeCheck
 		Gizmos.color = Color.blue;
 		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
 		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
 	}
 
-	public bool isGrabbing
-	{
-		get
-		{
-			return Input.GetAxis( "Grab" + WadeUtils.platformName ) > WadeUtils.SMALLNUMBER;
-		}
-	}
+
 }
