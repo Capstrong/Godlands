@@ -1385,11 +1385,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11480136, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: slopeLimits.min
-      value: .5
+      value: .280000001
       objectReference: {fileID: 0}
     - target: {fileID: 11480136, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: slopeLimits.max
-      value: 1
+      value: .720000029
       objectReference: {fileID: 0}
     - target: {fileID: 11480136, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: jumpCheckRadius
@@ -2342,8 +2342,8 @@ MonoBehaviour:
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
   slopeLimits:
-    min: .5
-    max: 1
+    min: .280000001
+    max: .720000029
   groundSlopeCheckRadius: .200000003
   groundSlopeRayHeight: .699999988
   jumpForce: 8.5

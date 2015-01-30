@@ -25,13 +25,13 @@ public class ActorPhysics : ActorComponent
 	protected float dualInputMod = 0.7071f;
 	[SerializeField] float maxSpeed = 40f;
 
-	[SerializeField] float _groundedMoveSpeed = 8.5f;
+	[SerializeField] float _groundedMoveSpeed = 6f;
 	public float groundedMoveSpeed
 	{
 		get { return _groundedMoveSpeed; }
 	}
 
-	[SerializeField] protected float jumpMoveSpeed = 8.5f;
+	[SerializeField] protected float jumpMoveSpeed = 6f;
 	[SerializeField] protected float rollMoveSpeed = 6f;
 
 	public float moveSpeedMod = 1f;
@@ -45,7 +45,7 @@ public class ActorPhysics : ActorComponent
 	// Slope limit
 
 	protected float groundSlopeSpeedMod = 1f;
-	[SerializeField] MinMax slopeLimits = new MinMax( 0.3f, 0.7f );
+	[SerializeField] MinMax slopeLimits = new MinMax( 0.28f, 0.72f );
 	[SerializeField] float groundSlopeCheckRadius = 0.2f;
 	[SerializeField] float groundSlopeRayHeight = 0.7f;
 
@@ -53,29 +53,24 @@ public class ActorPhysics : ActorComponent
 	public float jumpForce = 8.5f;
 
 	[SerializeField] float jumpCheckDistance = 1.3f;
-	[SerializeField] Vector3 groundPosOffset = Vector3.zero;
+	[SerializeField] Vector3 groundPosOffset = new Vector3(0f, -1f, 0f);
 	
-	[SerializeField] float jumpCheckRadius = 0.7f;
+	[SerializeField] float jumpCheckRadius = 1.2f;
 	[SerializeField] LayerMask jumpLayer = 0;
 	[SerializeField] float minJumpDot = 0.4f;
 
 	[SerializeField] float jumpColCheckTime = 0.5f;
 	float jumpColCheckTimer = 0.0f;
 
-	[SerializeField]
-	float lateJumpTime = 0.2f;
+	[SerializeField] float lateJumpTime = 0.2f;
 	float lateJumpTimer = 0.0f;
 
-	[SerializeField]
-	float stopMoveTime = 0.3f;
+	[SerializeField] float stopMoveTime = 0.3f;
 	float stopMoveTimer = 0f;
 
 	// Rolling
-	[SerializeField]
-	float rollTime = 1f;
-	
-	[SerializeField]
-	float rollCooldownTime = 1f;
+	[SerializeField] float rollTime = 1f;
+	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
 
 	[SerializeField] float slideTurnSpeed = 7f;
