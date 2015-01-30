@@ -186,8 +186,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.5999985, y: .800000012, z: 141}
+  m_LocalRotation: {x: 0, y: -.258819133, z: 0, w: .965925813}
+  m_LocalPosition: {x: 103.300003, y: .699999988, z: 138.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497488}
@@ -291,7 +291,7 @@ Transform:
   m_GameObject: {fileID: 197486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .455951005, y: 1, z: .381152987}
+  m_LocalScale: {x: .702251852, y: 1.28378248, z: .381152987}
   m_Children: []
   m_Father: {fileID: 497488}
   m_RootOrder: 1
@@ -441,7 +441,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 369cb6b46b7354bbcb032bc9db77f0b6, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -523,7 +523,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: .75, y: 1.29999995, z: .75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6587206
 BoxCollider:
@@ -644,18 +644,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .300000012
+    max: .699999988
+  groundAngleCheckRadius: .200000003
+  groundAngleRayHeight: .5
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
     m_Bits: 0
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  myVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 476348}
 --- !u!114 &11483758
 MonoBehaviour:
