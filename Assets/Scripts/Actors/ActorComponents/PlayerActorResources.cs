@@ -68,7 +68,8 @@ public class PlayerActorResources : ActorComponent
 		if((scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER) & heldResourceTypes.Count > 0)
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
-			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.Clamp(scrollAmount, -1, 1) : Mathf.Clamp(scrollAmount, -1, 1);
+			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 ) : 
+																Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 );
 			int numResources = heldResourceTypes.Count;
 			
 			// keep within bounds
