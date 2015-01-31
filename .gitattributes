@@ -1,0 +1,6 @@
+*.unity  merge=unity
+*.prefab merge=unity
+
+[merge "unity"]
+	name = Unity merge
+	driver = wscript.exe "merge-unity.js" %O %A %B //E:jscript
