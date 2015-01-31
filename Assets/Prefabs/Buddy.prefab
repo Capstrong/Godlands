@@ -675,18 +675,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 476348}
 --- !u!114 &11483758
 MonoBehaviour:

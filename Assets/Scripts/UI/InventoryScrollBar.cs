@@ -8,8 +8,6 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] Image currentItemIcon;
 	[SerializeField] Image nextItemIcon;
 
-	int currentIndex = 0;
-
 	public void UpdateInventoryBar(int currentIndex, ResourceData[] resourceData)
 	{
 		SetIcon(currentItemIcon, resourceData[currentIndex].icon);
