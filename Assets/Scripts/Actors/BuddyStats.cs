@@ -14,10 +14,16 @@ public class BuddyStats : MonoBehaviour
 
 	[SerializeField] int apples = 0;
 
+	public Material heartMaterial;
+
+	int currentStats = 0;
+	ParticleSystem _particles;
+
 	void Awake()
 	{
 		name = "Buddy " + GetRandomName();
 		currResourceTimer = decreaseResourcesTime;
+		_particles = GetComponentInChildren<ParticleSystem>();
 	}
 
 	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
@@ -40,16 +46,6 @@ public class BuddyStats : MonoBehaviour
 			apples--;
 			currResourceTimer = decreaseResourcesTime;
 		}
-	}
-
-	public Material heartMaterial;
-
-	int currentStats = 0;
-	ParticleSystem _particles;
-
-	void Awake()
-	{
-		_particles = GetComponentInChildren<ParticleSystem>();
 	}
 
 	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )

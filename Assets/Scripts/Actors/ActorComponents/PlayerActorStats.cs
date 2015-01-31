@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerActorStats : ActorComponent {
 
@@ -10,6 +11,7 @@ public class PlayerActorStats : ActorComponent {
 	[SerializeField] float _currMaxStamina = 0.0f;
 	[SerializeField] float _currStamina = 0.0f;
 	[SerializeField] bool _isUsingStamina = false;
+	[SerializeField] Text _staminaText = null;
 
 	public override void Awake()
 	{
@@ -59,6 +61,8 @@ public class PlayerActorStats : ActorComponent {
 				_currStamina = _currMaxStamina;
 			}
 		}
+
+		_staminaText.text = "Stamina: " + _currStamina;
 	}
 
 }
