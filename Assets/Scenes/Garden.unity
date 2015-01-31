@@ -2297,18 +2297,26 @@ MonoBehaviour:
   rollMoveSpeed: 5
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
+  groundPosOffset: {x: 0, y: -1, z: 0}
   jumpCheckRadius: .00999999978
   jumpLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 2027639171}
 --- !u!114 &298744672
 MonoBehaviour:
@@ -2702,7 +2710,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .800000012
+      value: 1.82000005
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2812,6 +2820,11 @@ Prefab:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11474254, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: behavior
+      value: 
+      objectReference: {fileID: 11400000, guid: 33793bc93fedab44992215068088e2c3,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 430bb384d018f438083cae6e1236532d, type: 2}
   m_RootGameObject: {fileID: 982286108}
@@ -3808,7 +3821,7 @@ Transform:
   m_PrefabInternal: {fileID: 969009519}
   m_GameObject: {fileID: 473457326}
   m_LocalRotation: {x: 0, y: -.923879504, z: 0, w: .382683575}
-  m_LocalPosition: {x: 101.699997, y: 1.10000002, z: 149.199997}
+  m_LocalPosition: {x: 101.699997, y: 2.11999989, z: 149.199997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1049940185}
@@ -3880,18 +3893,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 473457332}
 --- !u!114 &473457338
 MonoBehaviour:
@@ -6206,7 +6227,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.19000006
+      value: 2.21000004
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -10366,7 +10387,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.10000002
+      value: 2.11999989
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -10532,7 +10553,7 @@ Transform:
   m_PrefabInternal: {fileID: 340208924}
   m_GameObject: {fileID: 982286108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.5999985, y: .800000012, z: 141}
+  m_LocalPosition: {x: 97.5999985, y: 1.82000005, z: 141}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 716644341}
@@ -10580,7 +10601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aea8e1c437294544920e1c31a0f89f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behavior: {fileID: 11400000, guid: 6dcae8667890c724ba26ba9a0a3e0152, type: 2}
+  behavior: {fileID: 11400000, guid: 33793bc93fedab44992215068088e2c3, type: 2}
 --- !u!114 &982286117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10617,18 +10638,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 982286113}
 --- !u!114 &982286120
 MonoBehaviour:
@@ -10655,7 +10684,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.09000003
+      value: 2.1099999
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -13501,7 +13530,7 @@ Transform:
   m_PrefabInternal: {fileID: 1766749383}
   m_GameObject: {fileID: 1453939206}
   m_LocalRotation: {x: 0, y: -.258819133, z: 0, w: .965925813}
-  m_LocalPosition: {x: 103.300003, y: .699999988, z: 138.5}
+  m_LocalPosition: {x: 103.300003, y: 1.72000003, z: 138.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 59045506}
@@ -13573,18 +13602,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 1453939212}
 --- !u!114 &1453939218
 MonoBehaviour:
@@ -14033,7 +14070,7 @@ Transform:
   m_PrefabInternal: {fileID: 988696729}
   m_GameObject: {fileID: 1525860105}
   m_LocalRotation: {x: 0, y: -.258818984, z: 0, w: .965925872}
-  m_LocalPosition: {x: 98.8899994, y: 1.09000003, z: 142.660004}
+  m_LocalPosition: {x: 98.8899994, y: 2.1099999, z: 142.660004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1656905322}
@@ -14118,18 +14155,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 1525860106}
 --- !u!114 &1525860112
 MonoBehaviour:
@@ -15762,7 +15807,7 @@ Transform:
   m_PrefabInternal: {fileID: 662768022}
   m_GameObject: {fileID: 1579209395}
   m_LocalRotation: {x: 0, y: -.923879445, z: 0, w: .382683754}
-  m_LocalPosition: {x: 97.2900009, y: 1.19000006, z: 153.360001}
+  m_LocalPosition: {x: 97.2900009, y: 2.21000004, z: 153.360001}
   m_LocalScale: {x: .99999994, y: 1, z: .99999994}
   m_Children:
   - {fileID: 1009308850}
@@ -15847,18 +15892,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 1579209396}
 --- !u!114 &1579209402
 MonoBehaviour:
@@ -18529,7 +18582,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.19000006
+      value: 2.21000004
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -18819,7 +18872,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .699999988
+      value: 1.72000003
       objectReference: {fileID: 0}
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -20196,7 +20249,7 @@ Transform:
   m_PrefabInternal: {fileID: 1709031202}
   m_GameObject: {fileID: 1994536953}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 93.1900024, y: 1.19000006, z: 145.160004}
+  m_LocalPosition: {x: 93.1900024, y: 2.21000004, z: 145.160004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1073662467}
@@ -20281,18 +20334,26 @@ MonoBehaviour:
   rollMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .699999988
+  groundPosOffset: {x: 0, y: -.699999988, z: 0}
+  jumpCheckRadius: .25
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967039
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 1994536954}
 --- !u!114 &1994536960
 MonoBehaviour:
