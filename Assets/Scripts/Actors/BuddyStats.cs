@@ -6,6 +6,11 @@ public class BuddyStats : MonoBehaviour
 	public Material heartMaterial;
 
 	bool _isAlive = true;
+	public bool isAlive
+	{
+		get { return _isAlive; }
+	}
+
 	int currentStats = 0;
 	ParticleSystem _particles;
 
