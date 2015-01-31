@@ -25,7 +25,7 @@ public class ActorCamera : ActorComponent
 	[SerializeField] float hitPosOffsetDist = 0.5f;
 
 	[SerializeField] Vector2 rotSpeed = Vector2.one;
-	[SerializeField] MinMax rotBounds = new MinMax(40f, 350f);
+	[SerializeField] MinMaxF rotBounds = new MinMaxF(40f, 350f);
 
 	public override void Awake()
 	{

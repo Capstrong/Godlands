@@ -37,9 +37,44 @@ public static class WadeUtils
 	public static float SMALLNUMBER = 0.00000001f;
 	public static float LARGENUMBER = 100000000f;
 
+	public static bool ValidAxisInput(string axisName)
+	{
+		return Mathf.Abs(Input.GetAxis(axisName + platformName)) > SMALLNUMBER;
+	}
+
+	public static bool PositiveAxisInput(string axisName)
+	{
+		return Input.GetAxis(axisName + platformName) > SMALLNUMBER;
+	}
+
+	public static bool NegativeAxisInput(string axisName)
+	{
+		return Input.GetAxis(axisName + platformName) < -SMALLNUMBER;
+	}
+
 	///////////////////////
 	////	FLOATS	 /////
 	//////////////////////
+
+	public static bool IsZero( float num )
+	{
+		return Mathf.Abs( num ) < SMALLNUMBER;
+	}
+
+	public static bool IsNotZero( float num )
+	{
+		return Mathf.Abs( num ) > SMALLNUMBER;
+	}
+
+	public static bool GreaterThanZero( float num )
+	{
+		return num > SMALLNUMBER;
+	}
+
+	public static bool LessThanZero( float num )
+	{
+		return num < -SMALLNUMBER;
+	}
 
 	public static void Clamp(ref float value, float min, float max)
 	{
@@ -245,46 +280,6 @@ public static class WadeUtils
 		transform.rotation = Quaternion.Lerp (currentRot, lookRot, t);
 	}
 
-	public static void LookAtWithAxisControl(this Transform transform, Transform target, bool xRotate, bool yRotate)
-	{
-		transform.LookAtWithAxisControl (target.position, xRotate, yRotate);
-	}
-
-	public static void LookAtWithAxisControl(this Transform transform, Vector3 targetPos, bool xRotate, bool yRotate)
-	{
-		if(!xRotate && !yRotate)
-		{
-			Debug.LogError("Error: No LookAt because both axes are disabled");
-			Debug.DebugBreak();
-		}
-		
-		Vector3 lookPos = targetPos;
-		lookPos.y = xRotate ? targetPos.y : transform.position.y;
-		lookPos.x = yRotate ? targetPos.x : transform.position.x;
-		
-		transform.LookAt(lookPos);
-	}
-
-	public static void LerpLookAtWithAxisControl(this Transform transform, Transform target, bool xRotate, bool yRotate, float t)
-	{
-		transform.LerpLookAtWithAxisControl(target.position, xRotate, yRotate, t);
-	}
-
-	public static void LerpLookAtWithAxisControl(this Transform transform, Vector3 targetPos, bool xRotate, bool yRotate, float t)
-	{
-		if(!xRotate && !yRotate)
-		{
-			Debug.LogError("Error: No LookAt because both axes are disabled");
-			Debug.DebugBreak();
-		}
-		
-		Vector3 lookPos = targetPos;
-		lookPos.y = xRotate ? targetPos.y : transform.position.y;
-		lookPos.x = yRotate ? targetPos.x : transform.position.x;
-		
-		transform.LerpLookAt(lookPos, t);
-	}
-
 	public static Vector3 SetVectorRelative(this Transform transform, Vector3 vec)
 	{
 		return transform.TransformDirection (vec);
@@ -384,16 +379,16 @@ public static class WadeUtils
 	//////  FRAME CHECKING   ////////
 	/////////////////////////////////
 
-	public static bool IsWithinFrame(float currentFrame, int targetFrame)
+	public static bool IsWithinFrame(float currentFrame, int targetFrame) // this seems so jank
 	{
 		return Mathf.Abs(currentFrame - targetFrame) <= 1f;
 	}
 }
 
 [System.Serializable]
-public struct MinMax
+public struct MinMaxF
 {
-	public MinMax(float _min, float _max)
+	public MinMaxF(float _min, float _max)
 	{
 		min = _min;
 		max = _max;
@@ -401,4 +396,17 @@ public struct MinMax
 
 	public float min;
 	public float max;
+}
+
+[System.Serializable]
+public struct MinMaxI
+{
+	public MinMaxI(int _min, int _max)
+	{
+		min = _min;
+		max = _max;
+	}
+	
+	public int min;
+	public int max;
 }
