@@ -5,6 +5,7 @@ public class BuddyStats : MonoBehaviour
 {
 	public Material heartMaterial;
 
+	bool _isAlive = true;
 	int currentStats = 0;
 	ParticleSystem _particles;
 
@@ -13,10 +14,21 @@ public class BuddyStats : MonoBehaviour
 		_particles = GetComponentInChildren<ParticleSystem>();
 	}
 
+	void Update()
+	{
+		if ( Input.GetKeyDown( KeyCode.K ) )
+		{
+			Kill();
+		}
+	}
+
 	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
 	{
-		currentStats++;
-		Emote( heartMaterial );
+		if ( _isAlive )
+		{
+			currentStats++;
+			Emote( heartMaterial );
+		}
 	}
 
 	public void Emote( Material emoteMaterial )
@@ -24,5 +36,12 @@ public class BuddyStats : MonoBehaviour
 		_particles.Clear();
 		_particles.renderer.material = emoteMaterial;
 		_particles.Emit( 1 );
+	}
+
+	public void Kill()
+	{
+		_isAlive = false;
+		Destroy( GetComponent<AIController>() );
+		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 }
