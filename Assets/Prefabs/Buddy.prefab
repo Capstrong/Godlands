@@ -186,8 +186,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
-  m_LocalRotation: {x: 0, y: -.258819133, z: 0, w: .965925813}
-  m_LocalPosition: {x: 103.300003, y: .699999988, z: 138.5}
+  m_LocalRotation: {x: 0, y: -.923879504, z: 0, w: .382683575}
+  m_LocalPosition: {x: 101.699997, y: 1.10000002, z: 149.199997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497488}
@@ -241,8 +241,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187202}
-  m_LocalRotation: {x: .0199230257, y: .0109434398, z: -.0516779125, w: .998405159}
-  m_LocalPosition: {x: -.147907451, y: .10188996, z: .0583898947}
+  m_LocalRotation: {x: -.113242693, y: -.074947834, z: -.131635547, w: .981952667}
+  m_LocalPosition: {x: -.147908211, y: .10188999, z: .0583860055}
   m_LocalScale: {x: .215348139, y: .0701346397, z: .0413852669}
   m_Children: []
   m_Father: {fileID: 487196}
@@ -253,8 +253,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 187204}
-  m_LocalRotation: {x: .0209837109, y: .0087389797, z: .055917643, w: .998176634}
-  m_LocalPosition: {x: .0940945745, y: .107889868, z: .0533776656}
+  m_LocalRotation: {x: .0221011918, y: .00531235384, z: .21299009, w: .976789951}
+  m_LocalPosition: {x: .0940921828, y: .107889868, z: .0533786342}
   m_LocalScale: {x: .215348139, y: .0701346397, z: .0413852707}
   m_Children: []
   m_Father: {fileID: 487196}
@@ -441,7 +441,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 369cb6b46b7354bbcb032bc9db77f0b6, type: 2}
+  - {fileID: 2100000, guid: a5649c67af36f4f2da3eb5879f04de42, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -642,13 +642,14 @@ MonoBehaviour:
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
+  climbMoveSpeed: 6
   moveSpeedMod: 1
   stoppingSpeed: .00100000005
   slopeLimits:
     min: .300000012
     max: .699999988
-  groundAngleCheckRadius: .200000003
-  groundAngleRayHeight: .5
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: .5
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -663,7 +664,7 @@ MonoBehaviour:
   rollTime: 1
   rollCooldownTime: 1
   slideTurnSpeed: 7
-  myVelocity: {x: 0, y: 0, z: 0}
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 476348}
 --- !u!114 &11483758
 MonoBehaviour:

@@ -6,7 +6,8 @@ public enum ActorStates
 {
 	Grounded = 0,
 	Jumping,
-	Rolling
+	Rolling,
+	Climbing
 }
 
 public class ActorPhysics : ActorComponent
@@ -33,6 +34,7 @@ public class ActorPhysics : ActorComponent
 
 	[SerializeField] protected float jumpMoveSpeed = 6f;
 	[SerializeField] protected float rollMoveSpeed = 6f;
+	[SerializeField] protected float climbMoveSpeed = 6f;
 
 	public float moveSpeedMod = 1f;
 
@@ -72,6 +74,10 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float rollTime = 1f;
 	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
+
+	// Climbing
+	Transform climbSurface = null;
+
 
 	public bool isGrabbing
 	{
@@ -133,9 +139,54 @@ public class ActorPhysics : ActorComponent
 				rigidbody.useGravity = true;
 			}
 		}
+
+		ModelControl();
 	}
 
-	public void MoveAtSpeed( Vector3 inputVec, float appliedMoveSpeed )
+	public void ClimbSurface()
+	{
+		if(climbSurface)
+		{
+			rigidbody.useGravity = false;
+			currStoppingPower = stoppingSpeed;
+
+			moveVec = climbSurface.SetVectorRelative( inputVec ) * climbMoveSpeed * moveSpeedMod;
+
+			lastVelocity = moveVec;
+			rigidbody.velocity = moveVec;
+
+			if ( actor.animator != null )
+			{
+				actor.animator.SetBool( "isMoving", true );
+			}
+			
+			//ModelControl(); // to be replaced with climbing model control?
+
+			model.rotation = Quaternion.LookRotation( -climbSurface.up, Vector3.up );
+		}
+		else
+		{
+			Debug.LogError("Cannot climb, surface is null");
+		}
+	}
+
+	void CheckIfClimbSurface(Collider col)
+	{
+		ClimbableTag ct = col.GetComponent<ClimbableTag>();
+		if( ct && isGrabbing )
+		{
+			climbSurface = col.transform;
+			ChangeState( ActorStates.Climbing );
+		}
+	}
+	
+	public void StopClimbing()
+	{
+		climbSurface = null;
+		ChangeState( ActorStates.Grounded );
+	}
+
+	public void MoveAtSpeed( Vector3 inVec, float appliedMoveSpeed )
 	{
 		rigidbody.useGravity = true;
 
@@ -143,7 +194,7 @@ public class ActorPhysics : ActorComponent
 	
 		CheckGroundSlope();
 
-		moveVec = inputVec * appliedMoveSpeed * moveSpeedMod * groundSlopeSpeedMod;
+		moveVec = inVec * appliedMoveSpeed * moveSpeedMod * groundSlopeSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
 
 		lastVelocity = moveVec;
@@ -309,7 +360,7 @@ public class ActorPhysics : ActorComponent
 		ChangeState( ActorStates.Grounded );
 	}
 
-	void OnDrawGizmos()
+	void OnDrawGizmosSelected()
 	{
 		// ColliderVis
 		Gizmos.color = Color.white;
@@ -326,5 +377,28 @@ public class ActorPhysics : ActorComponent
 		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
 	}
 
+	void OnTriggerEnter( Collider col )
+	{
+		if( !climbSurface )
+		{
+			CheckIfClimbSurface( col );
+		}
+	}
 
+	void OnTriggerStay( Collider col )
+	{
+		if( !climbSurface )
+		{
+			CheckIfClimbSurface( col );
+		}
+	}
+
+	void OnTriggerExit( Collider col )
+	{
+		ClimbableTag ct = col.GetComponent<ClimbableTag>();
+		if( ct )
+		{
+			StopClimbing();
+		}
+	}
 }
