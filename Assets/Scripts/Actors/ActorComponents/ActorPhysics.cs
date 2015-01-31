@@ -41,18 +41,17 @@ public class ActorPhysics : ActorComponent
 	protected Vector3 lastVelocity = Vector3.zero;
 	protected Vector3 moveVec = Vector3.zero;
 
-	[SerializeField, Range( 0.001f, 1000f )] protected float stoppingSpeed = 0.001f;
+	protected float stoppingSpeed = 0.001f;
 	protected float currStoppingPower = 0.0f;
 
-	// Slope limit
-
-	protected float groundSlopeSpeedMod = 1f;
+	[Space(10), Header("Slope Checking")]
 	[SerializeField] MinMaxF slopeLimits = new MinMaxF( 0.28f, 0.72f );
 	[SerializeField] float groundSlopeCheckRadius = 0.2f;
 	[SerializeField] float groundSlopeRayHeight = 0.7f;
+	protected float groundSlopeSpeedMod = 1f;
 
-	// Jumping
-	public float jumpForce = 8.5f;
+	[Space(10), Header("Jumping")]
+	[SerializeField] public float jumpForce = 8.5f;
 
 	[SerializeField] float jumpCheckDistance = 1.3f;
 	[SerializeField] Vector3 groundPosOffset = new Vector3(0f, -1f, 0f);
@@ -70,7 +69,7 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float stopMoveTime = 0.3f;
 	float stopMoveTimer = 0f;
 
-	// Rolling
+	[Space(10), Header("Rolling")]
 	[SerializeField] float rollTime = 1f;
 	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
@@ -96,6 +95,13 @@ public class ActorPhysics : ActorComponent
 
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
+
+		SetupStateMethodMap();
+	}
+
+	public virtual void SetupStateMethodMap()
+	{
+
 	}
 
 	protected void ChangeState( ActorStates toState )
@@ -150,7 +156,8 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = false;
 			currStoppingPower = stoppingSpeed;
 
-			moveVec = climbSurface.SetVectorRelative( inputVec ) * climbMoveSpeed * moveSpeedMod;
+			Vector3 adjInput = climbSurface.InverseTransformDirection( inputVec );
+			moveVec = transform.rotation * adjInput * climbMoveSpeed * moveSpeedMod;
 
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
@@ -162,7 +169,7 @@ public class ActorPhysics : ActorComponent
 			
 			//ModelControl(); // to be replaced with climbing model control?
 
-			model.rotation = Quaternion.LookRotation( -climbSurface.up, Vector3.up );
+			model.rotation = Quaternion.LookRotation( climbSurface.right, Vector3.up );
 		}
 		else
 		{
@@ -172,18 +179,24 @@ public class ActorPhysics : ActorComponent
 
 	void CheckIfClimbSurface(Collider col)
 	{
-		ClimbableTag ct = col.GetComponent<ClimbableTag>();
-		if( ct && isGrabbing )
+		if(stateMethodMap.ContainsKey(ActorStates.Climbing))
 		{
-			climbSurface = col.transform;
-			ChangeState( ActorStates.Climbing );
+			ClimbableTag ct = col.GetComponent<ClimbableTag>();
+			if( ct && isGrabbing )
+			{
+				climbSurface = col.transform;
+				ChangeState( ActorStates.Climbing );
+			}
 		}
 	}
 	
 	public void StopClimbing()
 	{
-		climbSurface = null;
-		ChangeState( ActorStates.Grounded );
+		if(climbSurface)
+		{
+			climbSurface = null;
+			ChangeState( ActorStates.Grounded );
+		}
 	}
 
 	public void MoveAtSpeed( Vector3 inVec, float appliedMoveSpeed )

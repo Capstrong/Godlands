@@ -11,8 +11,6 @@ public class PlayerActorPhysics : ActorPhysics
 		base.Awake();
 
 		_actor = GetComponent<PlayerActor>();
-
-		SetupStateMethodMap();
 		ChangeState( ActorStates.Grounded );
 	}
 
@@ -28,7 +26,7 @@ public class PlayerActorPhysics : ActorPhysics
 		CurrentStateMethod();
 	}
 
-	void SetupStateMethodMap()
+	public override void SetupStateMethodMap()
 	{
 		stateMethodMap.Add( ActorStates.Jumping, Jumping );
 		stateMethodMap.Add( ActorStates.Grounded, Grounded );
