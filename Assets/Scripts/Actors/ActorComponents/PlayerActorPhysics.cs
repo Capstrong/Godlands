@@ -19,12 +19,14 @@ public class PlayerActorPhysics : ActorPhysics
 		ChangeState( ActorStates.Grounded );
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
 		}
+
+		rigVelocity = rigidbody.velocity;
 
 		CurrentStateMethod();
 		ModelControl();
@@ -96,7 +98,9 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			currStoppingPower = stoppingSpeed;
 
-			moveVec = inputVec * jumpMoveSpeed;
+			CheckGroundSlope();
+
+			moveVec = inputVec * jumpMoveSpeed * groundSlopeSpeedMod;
 			moveVec.y = rigidbody.velocity.y;
 
 			lastVelocity = moveVec;
@@ -114,6 +118,12 @@ public class PlayerActorPhysics : ActorPhysics
 		Vector3 inputVec = new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
 		                                0.0f,
 		                                Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+
+		if( Mathf.Abs( inputVec.x ) > WadeUtils.SMALLNUMBER && Mathf.Abs( inputVec.z ) > WadeUtils.SMALLNUMBER )
+		{
+			inputVec *= dualInputMod; // this reduces speed of diagonal movement
+		}
+
 		if ( _actor.actorCamera.cam )
 		{
 			inputVec = _actor.actorCamera.cam.transform.TransformDirection( inputVec );
