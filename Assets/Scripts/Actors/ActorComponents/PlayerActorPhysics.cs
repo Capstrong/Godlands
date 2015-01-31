@@ -2,15 +2,18 @@
 using System.Collections;
 
 [RequireComponent( typeof( PlayerActor ) )]
+[RequireComponent( typeof( PlayerActorStats ) )]
 public class PlayerActorPhysics : ActorPhysics
 {
 	PlayerActor _actor;
+	PlayerActorStats _actorStats;
 
 	public override void Awake()
 	{
 		base.Awake();
 
 		_actor = GetComponent<PlayerActor>();
+		_actorStats = GetComponent<PlayerActorStats>();
 
 		SetupStateMethodMap();
 		ChangeState( ActorStates.Grounded );
@@ -60,6 +63,16 @@ public class PlayerActorPhysics : ActorPhysics
 	void GroundMovement()
 	{
 		inputVec = GetInputDirection();
+
+		if ( Input.GetKeyDown(KeyCode.J) )
+		{
+			_actorStats.StartUsingStamina();
+		}
+
+		if (Input.GetKeyUp(KeyCode.J))
+		{
+			_actorStats.StopUsingStamina();
+		}
 
 		if ( Mathf.Abs( inputVec.magnitude ) < WadeUtils.SMALLNUMBER )
 		{
