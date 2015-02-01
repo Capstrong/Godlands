@@ -157,7 +157,8 @@ public class ActorPhysics : ActorComponent
 			currStoppingPower = stoppingSpeed;
 
 			Vector3 adjInput = climbSurface.InverseTransformDirection( inputVec );
-			moveVec = transform.rotation * adjInput * climbMoveSpeed * moveSpeedMod;
+			adjInput = new Vector3( adjInput.x, adjInput.z, adjInput.y );
+			moveVec = climbSurface.rotation * adjInput * climbMoveSpeed * moveSpeedMod;
 
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
@@ -169,7 +170,7 @@ public class ActorPhysics : ActorComponent
 			
 			//ModelControl(); // to be replaced with climbing model control?
 
-			model.rotation = Quaternion.LookRotation( climbSurface.right, Vector3.up );
+			model.rotation = Quaternion.LookRotation( climbSurface.forward, Vector3.up );
 		}
 		else
 		{
