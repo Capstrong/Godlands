@@ -13,6 +13,12 @@ public class PlayerActorResources : ActorComponent
 	// possible types to get (might want to instead load this from folder)
 	[SerializeField] ResourceData[] resourceTypes = null;
 
+	[SerializeField] List<BuddyTag> _buddies = new List<BuddyTag>();
+	public List<BuddyTag> buddies
+	{
+		get { return _buddies; }
+	}
+
 	// types and current count
 	Dictionary<ResourceData, int> resourceTypeCounts = new Dictionary<ResourceData, int>();
 
@@ -99,7 +105,9 @@ public class PlayerActorResources : ActorComponent
 			if ( hitInfo.transform )
 			{
 				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
-				if ( buddyStats && buddyStats.isAlive )
+				if ( buddyStats &&
+				     buddyStats.isAlive &&
+				     ( buddyStats.owner == null || buddyStats.owner == GetComponent<GodTag>() ) )
 				{
 					GiveResource( buddyStats );
 				}

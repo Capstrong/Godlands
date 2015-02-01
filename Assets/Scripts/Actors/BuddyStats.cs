@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
+	public GodTag owner;
+
 	public Material heartMaterial;
 
 	bool _isAlive = true;
