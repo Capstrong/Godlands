@@ -70,7 +70,6 @@ public class PlayerActorResources : ActorComponent
 			// Need to do this so >0 rounds up and <0 rounds down
 			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.CeilToInt( Mathf.Clamp( scrollAmount, -1f, 1f ) ) :
 			                                                    Mathf.FloorToInt( Mathf.Clamp( scrollAmount, -1f, 1f ) );
-
 			int numResources = heldResourceTypes.Count;
 
 			// keep within bounds
@@ -96,6 +95,7 @@ public class PlayerActorResources : ActorComponent
 			                                                  _actorCamera.cam.transform.forward,
 			                                                  buddyLayer,
 			                                                  maxGiveDistance );
+
 			if ( hitInfo.transform )
 			{
 				BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
