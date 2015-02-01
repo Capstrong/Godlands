@@ -2,45 +2,45 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class InventoryScrollBar : MonoBehaviour 
+public class InventoryScrollBar : MonoBehaviour
 {
-	[SerializeField] Image prevItemIcon;
-	[SerializeField] Image currentItemIcon;
-	[SerializeField] Image nextItemIcon;
+	[SerializeField] Image prevItemIcon = null;
+	[SerializeField] Image currentItemIcon = null;
+	[SerializeField] Image nextItemIcon = null;
 
-	public void UpdateInventoryBar(int currentIndex, ResourceData[] resourceData)
+	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData )
 	{
-		SetIcon(currentItemIcon, resourceData[currentIndex].icon);
+		SetIcon( currentItemIcon, inventoryItemData[currentIndex].icon );
 		// tell player to hold item
 
 		int prevIndex = currentIndex - 1;
-		if(prevIndex < 0)
+		if ( prevIndex < 0 )
 		{
-			prevIndex = resourceData.Length - 1;
+			prevIndex = inventoryItemData.Length - 1;
 		}
-		SetIcon(prevItemIcon, resourceData[prevIndex].icon);
+		SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
 
 		int nextIndex = currentIndex + 1;
-		if(nextIndex > resourceData.Length - 1)
+		if ( nextIndex > inventoryItemData.Length - 1 )
 		{
 			nextIndex = 0;
 		}
-		SetIcon(nextItemIcon, resourceData[nextIndex].icon);
+		SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
 	}
 
 	public void NullInventoryBar()
 	{
-		SetIcon(prevItemIcon);
-		SetIcon(currentItemIcon);
-		SetIcon(nextItemIcon);
+		SetIcon( prevItemIcon );
+		SetIcon( currentItemIcon );
+		SetIcon( nextItemIcon );
 	}
 
-	void SetIcon(Image image, Sprite icon = null)
+	void SetIcon( Image image, Sprite icon = null )
 	{
-		if(icon)
+		if ( icon )
 		{
 			image.sprite = icon;
-			image.color = Color.white;	
+			image.color = Color.white;
 		}
 		else
 		{

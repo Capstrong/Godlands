@@ -4,7 +4,7 @@ using System.Collections;
 public class ResourceSpawner : MonoBehaviour 
 {
 	public GameObject resourcePrefab;
-	[SerializeField] GameObject beaconPrefab;
+	[SerializeField] GameObject beaconPrefab = null;
 	
 	public int total;
 	public float radius;

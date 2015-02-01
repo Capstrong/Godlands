@@ -4,7 +4,7 @@ using System.Collections;
 public class ScrollUVs : MonoBehaviour 
 {
 	Vector2 currentOffset;
-	[SerializeField] Vector2 uvSpeed;
+	[SerializeField] Vector2 uvSpeed = Vector2.zero;
 
 	void Awake () 
 	{

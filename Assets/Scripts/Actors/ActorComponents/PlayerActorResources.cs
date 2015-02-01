@@ -10,9 +10,6 @@ public class PlayerActorResources : ActorComponent
 
 	[SerializeField] GameObject resourcePopPrefab = null;
 
-	// possible types to get (might want to instead load this from folder)
-	[SerializeField] ResourceData[] resourceTypes = null;
-
 	[SerializeField] List<BuddyTag> _buddies = new List<BuddyTag>();
 	public List<BuddyTag> buddies
 	{
@@ -20,10 +17,10 @@ public class PlayerActorResources : ActorComponent
 	}
 
 	// types and current count
-	Dictionary<ResourceData, int> resourceTypeCounts = new Dictionary<ResourceData, int>();
+	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
 
 	// currently held types to show on UI bar
-	List<ResourceData> heldResourceTypes = new List<ResourceData>();
+	List<InventoryItemData> heldResourceTypes = new List<InventoryItemData>();
 
 	int resourceIndex = 0;
 	GameObject heldResource;
@@ -43,11 +40,6 @@ public class PlayerActorResources : ActorComponent
 	// Use this for initialization
 	void Start()
 	{
-		foreach ( ResourceData resourceData in resourceTypes )
-		{
-			resourceTypeCounts.Add( resourceData, 0 );
-		}
-
 		inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
 		if ( !inventoryBar )
 		{
@@ -95,7 +87,9 @@ public class PlayerActorResources : ActorComponent
 
 	void CheckGiveResource()
 	{
-		if ( Input.GetMouseButtonDown( 0 ) && heldResourceTypes.Count > 0 )
+		if ( Input.GetMouseButtonDown( 0 ) &&
+		     heldResourceTypes.Count > 0 &&
+		     heldResourceTypes[resourceIndex] is ResourceData )
 		{
 			RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
 			                                                  _actorCamera.cam.transform.forward,
@@ -117,15 +111,20 @@ public class PlayerActorResources : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( actor.actorPhysics, heldResourceTypes[resourceIndex] );
-		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
+		buddyStats.GiveResource( actor.actorPhysics, (ResourceData)heldResourceTypes[resourceIndex] );
+		inventory[heldResourceTypes[resourceIndex]]--;
 
 		UpdateResourceList();
 	}
 
-	void PickupResource( ResourceData addedResource )
+	void PickupResource( InventoryItemData itemData )
 	{
-		resourceTypeCounts[addedResource]++;
+		if ( !inventory.ContainsKey( itemData ) )
+		{
+			inventory[itemData] = 0;
+		}
+
+		inventory[itemData]++;
 		UpdateResourceList();
 	}
 
@@ -133,12 +132,9 @@ public class PlayerActorResources : ActorComponent
 	{
 		heldResourceTypes.Clear();
 
-		foreach ( ResourceData resourceData in resourceTypes )
+		foreach ( InventoryItemData itemData in heldResourceTypes )
 		{
-			if ( resourceTypeCounts[resourceData] > 0 )
-			{
-				heldResourceTypes.Add( resourceData );
-			}
+			heldResourceTypes.Add( itemData );
 		}
 
 		if ( heldResourceTypes.Count == 0 )
@@ -175,13 +171,12 @@ public class PlayerActorResources : ActorComponent
 
 	void OnTriggerEnter( Collider other )
 	{
-		Resource resourceComponent = other.gameObject.GetComponent<Resource>();
-		if ( resourceComponent && !resourceComponent.used )
+		InventoryItem inventoryItem = other.gameObject.GetComponent<InventoryItem>();
+		if ( inventoryItem && !inventoryItem.used )
 		{
-			resourceComponent.used = true;
+			inventoryItem.used = true;
 
-			Debug.Log( other.gameObject.name );
-			PickupResource( resourceComponent.resourceData );
+			PickupResource( inventoryItem.resourceData );
 
 			Destroy( other.gameObject );
 			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
