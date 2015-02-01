@@ -29,11 +29,10 @@ public class BuddyStats : MonoBehaviour
 
 	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
 	{
-		if ( _isAlive )
-		{
-			currentStats++;
-			Emote( heartMaterial );
-		}
+		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
+
+		currentStats++;
+		Emote( heartMaterial );
 	}
 
 	public void Emote( Material emoteMaterial )
@@ -43,6 +42,15 @@ public class BuddyStats : MonoBehaviour
 		_particles.Emit( 1 );
 	}
 
+	/**
+	 * @brief Kill the buddy.
+	 * 
+	 * @details
+	 *     Killing the buddy means starting the death animation
+	 *     and ending (destroying) the behavior tree. Since neither
+	 *     of these can be recovered from, killing a buddy is a
+	 *     permanant thing and cannot be undone.
+	 */
 	public void Kill()
 	{
 		_isAlive = false;
