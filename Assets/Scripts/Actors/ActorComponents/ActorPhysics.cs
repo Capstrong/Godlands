@@ -6,7 +6,8 @@ public enum ActorStates
 {
 	Grounded = 0,
 	Jumping,
-	Rolling
+	Rolling,
+	Climbing
 }
 
 public class ActorPhysics : ActorComponent
@@ -22,61 +23,68 @@ public class ActorPhysics : ActorComponent
 	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
 
 	// Movement
+	protected float dualInputMod = 0.7071f;
 	[SerializeField] float maxSpeed = 40f;
 
-	[SerializeField] float _groundedMoveSpeed = 8.5f;
+	[SerializeField] float _groundedMoveSpeed = 6f;
 	public float groundedMoveSpeed
 	{
 		get { return _groundedMoveSpeed; }
 	}
 
-	[SerializeField]
-	protected float jumpMoveSpeed = 8.5f;
-
-	[SerializeField]
-	protected float rollMoveSpeed = 6f;
+	[SerializeField] protected float jumpMoveSpeed = 6f;
+	[SerializeField] protected float rollMoveSpeed = 6f;
+	[SerializeField] protected float climbMoveSpeed = 6f;
 
 	public float moveSpeedMod = 1f;
 
 	protected Vector3 lastVelocity = Vector3.zero;
 	protected Vector3 moveVec = Vector3.zero;
 
-	[SerializeField, Range( 0.001f, 1000f )] protected float stoppingSpeed = 0.001f;
+	protected float stoppingSpeed = 0.001f;
 	protected float currStoppingPower = 0.0f;
 
-	// Jumping
-	public float jumpForce = 8.5f;
+	[Space(10), Header("Slope Checking")]
+	[SerializeField] MinMaxF slopeLimits = new MinMaxF( 0.28f, 0.72f );
+	[SerializeField] float groundSlopeCheckRadius = 0.2f;
+	[SerializeField] float groundSlopeRayHeight = 0.7f;
+	protected float groundSlopeSpeedMod = 1f;
 
-	[SerializeField]
-	float jumpCheckDistance = 1.3f;
-	
-	[SerializeField]
-	float jumpCheckRadius = 0.7f;
-	
-	[SerializeField]
-	LayerMask jumpLayer = 0;
+	[Space(10), Header("Jumping")]
+	[SerializeField] public float jumpForce = 8.5f;
 
-	[SerializeField]
-	float jumpColCheckTime = 0.5f;
+	[SerializeField] float jumpCheckDistance = 1.3f;
+	[SerializeField] Vector3 groundPosOffset = new Vector3(0f, -1f, 0f);
+	
+	[SerializeField] float jumpCheckRadius = 1.2f;
+	[SerializeField] LayerMask jumpLayer = 0;
+	[SerializeField] float minJumpDot = 0.4f;
+
+	[SerializeField] float jumpColCheckTime = 0.5f;
 	float jumpColCheckTimer = 0.0f;
 
-	[SerializeField]
-	float lateJumpTime = 0.2f;
+	[SerializeField] float lateJumpTime = 0.2f;
 	float lateJumpTimer = 0.0f;
 
-	[SerializeField]
-	float stopMoveTime = 0.3f;
+	[SerializeField] float stopMoveTime = 0.3f;
 	float stopMoveTimer = 0f;
 
-	// Rolling
-	[SerializeField]
-	float rollTime = 1f;
-	
-	[SerializeField]
-	float rollCooldownTime = 1f;
+	[Space(10), Header("Rolling")]
+	[SerializeField] float rollTime = 1f;
+	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
 
+	// Climbing
+	Transform climbSurface = null;
+
+
+	public bool isGrabbing
+	{
+		get{ return WadeUtils.ValidAxisInput("Grab"); }
+	}
+
 	[SerializeField] float slideTurnSpeed = 7f;
+	public Vector3 rigVelocity; // used to visualize velocity in inspector
 
 	public Transform model;
 	protected Vector3 modelOffset;
@@ -87,16 +95,19 @@ public class ActorPhysics : ActorComponent
 
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
+
+		SetupStateMethodMap();
+	}
+
+	public virtual void SetupStateMethodMap()
+	{
+
 	}
 
 	protected void ChangeState( ActorStates toState )
 	{
-		StartCoroutine( ChangeStateRoutine( toState ) );
-	}
-
-	public bool CanAttack()
-	{
-		return !IsInState( ActorStates.Rolling );
+		currentState = toState;
+		CurrentStateMethod = stateMethodMap[currentState];
 	}
 
 	bool IsInState( ActorStates checkState )
@@ -104,49 +115,13 @@ public class ActorPhysics : ActorComponent
 		return currentState == checkState;
 	}
 
-	IEnumerator ChangeStateRoutine( ActorStates toState )
-	{
-		switch ( currentState )
-		{
-		case ActorStates.Grounded:
-			break;
-		default:
-			break;
-		}
-
-		currentState = toState;
-		CurrentStateMethod = stateMethodMap[currentState];
-
-		yield return 0;
-	}
-
-	// Do temporary state and then return to previous state
-	void EnterTemporaryState( float waitTime, ActorStates tempState )
-	{
-		StartCoroutine( EnterTemporaryStateRoutine( waitTime, tempState, currentState ) );
-	}
-
-	// Do temporary state and then move on to new state
-	void EnterTemporaryState( float waitTime, ActorStates tempState, ActorStates endState )
-	{
-		StartCoroutine( EnterTemporaryStateRoutine( waitTime, tempState, endState ) );
-	}
-
-	IEnumerator EnterTemporaryStateRoutine( float waitTime, ActorStates tempState, ActorStates endState )
-	{
-		ChangeState( tempState );
-
-		yield return new WaitForSeconds( waitTime );
-
-		ChangeState( endState );
-	}
-
 	public void ComeToStop()
 	{
 		currStoppingPower -= Time.deltaTime;
 		currStoppingPower = Mathf.Clamp( currStoppingPower, 0.0f, stoppingSpeed );
 
-		moveVec = lastVelocity * currStoppingPower / stoppingSpeed;
+		CheckGroundSlope();
+		moveVec = lastVelocity * currStoppingPower / stoppingSpeed * groundSlopeSpeedMod;
 
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
@@ -170,15 +145,69 @@ public class ActorPhysics : ActorComponent
 				rigidbody.useGravity = true;
 			}
 		}
+
+		ModelControl();
 	}
 
-	public void MoveAtSpeed( Vector3 inputVec, float appliedMoveSpeed )
+	public void ClimbSurface()
+	{
+		if(climbSurface)
+		{
+			rigidbody.useGravity = false;
+			currStoppingPower = stoppingSpeed;
+
+			Vector3 adjInput = climbSurface.InverseTransformDirection( inputVec );
+			moveVec = transform.rotation * adjInput * climbMoveSpeed * moveSpeedMod;
+
+			lastVelocity = moveVec;
+			rigidbody.velocity = moveVec;
+
+			if ( actor.animator != null )
+			{
+				actor.animator.SetBool( "isMoving", true );
+			}
+			
+			//ModelControl(); // to be replaced with climbing model control?
+
+			model.rotation = Quaternion.LookRotation( climbSurface.right, Vector3.up );
+		}
+		else
+		{
+			Debug.LogError("Cannot climb, surface is null");
+		}
+	}
+
+	void CheckIfClimbSurface(Collider col)
+	{
+		if(stateMethodMap.ContainsKey(ActorStates.Climbing))
+		{
+			ClimbableTag ct = col.GetComponent<ClimbableTag>();
+			if( ct && isGrabbing )
+			{
+				climbSurface = col.transform;
+				ChangeState( ActorStates.Climbing );
+			}
+		}
+	}
+	
+	public void StopClimbing()
+	{
+		if(climbSurface)
+		{
+			climbSurface = null;
+			ChangeState( ActorStates.Grounded );
+		}
+	}
+
+	public void MoveAtSpeed( Vector3 inVec, float appliedMoveSpeed )
 	{
 		rigidbody.useGravity = true;
 
 		currStoppingPower = stoppingSpeed;
+	
+		CheckGroundSlope();
 
-		moveVec = inputVec * appliedMoveSpeed * moveSpeedMod;
+		moveVec = inVec * appliedMoveSpeed * moveSpeedMod * groundSlopeSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
 
 		lastVelocity = moveVec;
@@ -190,6 +219,33 @@ public class ActorPhysics : ActorComponent
 		}
 
 		ModelControl();
+	}
+
+	protected void CheckGroundSlope()
+	{
+		float slopeSpeedMod = 1f;
+
+		RaycastHit hit;
+		Vector3 groundCheckPos = transform.position - Vector3.up * groundSlopeRayHeight;
+		Physics.CapsuleCast(groundCheckPos + model.right * 0.2f, groundCheckPos - model.right * 0.2f, 
+		                    groundSlopeCheckRadius, model.forward, out hit, 0.3f);
+
+		if( hit.transform )
+		{
+			/// Slope mode is based on the steepness of the surface normal
+			float groundDot = Vector3.Dot( Vector3.up, hit.normal );
+			slopeSpeedMod = Mathf.InverseLerp( slopeLimits.min, slopeLimits.max, groundDot ); // Not sure if I need this clamp
+			slopeSpeedMod = Mathf.Lerp( 0f, 1f, slopeSpeedMod );
+
+			if( slopeSpeedMod < 0.5f )
+			{
+				Vector3 curMoveVec = rigidbody.velocity;
+				curMoveVec.y -= Time.deltaTime * 30f;
+				rigidbody.velocity = curMoveVec;
+			}
+		}
+
+		groundSlopeSpeedMod = Mathf.MoveTowards( groundSlopeSpeedMod, slopeSpeedMod, Time.deltaTime * 2.5f );
 	}
 
 	void SetFallSpeed( float fallSpeed )
@@ -221,14 +277,16 @@ public class ActorPhysics : ActorComponent
 		rollCooldownTimer += Time.deltaTime;
 	}
 
-	void AttackCheck()
-	{
-	}
-
 	public void JumpCheck()
 	{
+		bool isOnGround = false;
+
 		RaycastHit hit;
-		bool isOnGround = Physics.SphereCast( new Ray( transform.position, -Vector3.up ), jumpCheckRadius, out hit, jumpCheckDistance, jumpLayer );
+		Physics.SphereCast( new Ray( transform.position, -Vector3.up ), jumpCheckRadius, out hit, jumpCheckDistance, jumpLayer );
+		if( hit.transform && Vector3.Dot(hit.normal, Vector3.up) > minJumpDot )
+		{
+			isOnGround = true;
+		}
 
 		if ( ( isOnGround || lateJumpTimer < lateJumpTime ) )
 		{
@@ -281,7 +339,7 @@ public class ActorPhysics : ActorComponent
 	{
 		model.position = transform.position - modelOffset;
 
-		Vector3 lookVec = moveVec;
+		Vector3 lookVec = inputVec;
 		lookVec.y = 0.0f;
 
 		if(lookVec != Vector3.zero)
@@ -315,21 +373,45 @@ public class ActorPhysics : ActorComponent
 		ChangeState( ActorStates.Grounded );
 	}
 
-	void OnDrawGizmos()
+	void OnDrawGizmosSelected()
 	{
+		// ColliderVis
 		Gizmos.color = Color.white;
 		Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
 		Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
 
+		// JumpCheck
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere( transform.position - Vector3.up, jumpCheckRadius );
+		Gizmos.DrawWireSphere( transform.position + groundPosOffset, jumpCheckRadius );
+
+		// SlopeCheck
+		Gizmos.color = Color.blue;
+		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
+		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
 	}
 
-	public bool isGrabbing
+	void OnTriggerEnter( Collider col )
 	{
-		get
+		if( !climbSurface )
 		{
-			return Input.GetAxis( "Grab" + WadeUtils.platformName ) > WadeUtils.SMALLNUMBER;
+			CheckIfClimbSurface( col );
+		}
+	}
+
+	void OnTriggerStay( Collider col )
+	{
+		if( !climbSurface )
+		{
+			CheckIfClimbSurface( col );
+		}
+	}
+
+	void OnTriggerExit( Collider col )
+	{
+		ClimbableTag ct = col.GetComponent<ClimbableTag>();
+		if( ct )
+		{
+			StopClimbing();
 		}
 	}
 }

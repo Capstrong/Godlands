@@ -11,27 +11,27 @@ public class PlayerActorPhysics : ActorPhysics
 		base.Awake();
 
 		_actor = GetComponent<PlayerActor>();
-
-		SetupStateMethodMap();
 		ChangeState( ActorStates.Grounded );
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
 		}
 
+		rigVelocity = rigidbody.velocity;
+
 		CurrentStateMethod();
-		ModelControl();
 	}
 
-	void SetupStateMethodMap()
+	public override void SetupStateMethodMap()
 	{
 		stateMethodMap.Add( ActorStates.Jumping, Jumping );
 		stateMethodMap.Add( ActorStates.Grounded, Grounded );
 		stateMethodMap.Add( ActorStates.Rolling, Rolling );
+		stateMethodMap.Add( ActorStates.Climbing, Climbing );
 	}
 
 	void Jumping()
@@ -47,6 +47,18 @@ public class PlayerActorPhysics : ActorPhysics
 		RollCheck();
 
 		MoveAtSpeed( inputVec.normalized, rollMoveSpeed );
+	}
+
+	void Climbing()
+	{
+		inputVec = GetInputDirection();
+
+		ClimbSurface();
+
+		if(!isGrabbing)
+		{
+			StopClimbing();
+		}
 	}
 
 	void Grounded()
@@ -83,7 +95,9 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			currStoppingPower = stoppingSpeed;
 
-			moveVec = inputVec * jumpMoveSpeed;
+			CheckGroundSlope();
+
+			moveVec = inputVec * jumpMoveSpeed * groundSlopeSpeedMod;
 			moveVec.y = rigidbody.velocity.y;
 
 			lastVelocity = moveVec;
@@ -93,6 +107,8 @@ public class PlayerActorPhysics : ActorPhysics
 			{
 				actor.animator.SetBool( "isMoving", true );
 			}
+
+			ModelControl();
 		}
 	}
 
@@ -101,6 +117,12 @@ public class PlayerActorPhysics : ActorPhysics
 		Vector3 inputVec = new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
 		                                0.0f,
 		                                Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+
+		if( Mathf.Abs( inputVec.x ) > WadeUtils.SMALLNUMBER && Mathf.Abs( inputVec.z ) > WadeUtils.SMALLNUMBER )
+		{
+			inputVec *= dualInputMod; // this reduces speed of diagonal movement
+		}
+
 		if ( _actor.actorCamera.cam )
 		{
 			inputVec = _actor.actorCamera.cam.transform.TransformDirection( inputVec );
