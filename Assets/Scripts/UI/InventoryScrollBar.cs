@@ -10,22 +10,22 @@ public class InventoryScrollBar : MonoBehaviour
 
 	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData )
 	{
-		SetIcon( currentItemIcon, inventoryItemData[currentIndex].icon );
-		// tell player to hold item
+		DebugUtils.Assert( inventoryItemData.Length > 0 );
 
-		int prevIndex = currentIndex - 1;
-		if ( prevIndex < 0 )
-		{
-			prevIndex = inventoryItemData.Length - 1;
-		}
-		SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
+		NullInventoryBar();
+		SetIcon( currentItemIcon, inventoryItemData[MathUtils.Mod( currentIndex, inventoryItemData.Length )].icon );
 
-		int nextIndex = currentIndex + 1;
-		if ( nextIndex > inventoryItemData.Length - 1 )
+		if ( inventoryItemData.Length > 1 )
 		{
-			nextIndex = 0;
+			int prevIndex = MathUtils.Mod( ( currentIndex - 1 ), inventoryItemData.Length );
+			SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
 		}
-		SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
+
+		if ( inventoryItemData.Length > 2 )
+		{
+			int nextIndex = MathUtils.Mod( ( currentIndex + 1 ), inventoryItemData.Length );
+			SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
+		}
 	}
 
 	public void NullInventoryBar()
@@ -37,14 +37,7 @@ public class InventoryScrollBar : MonoBehaviour
 
 	void SetIcon( Image image, Sprite icon = null )
 	{
-		if ( icon )
-		{
-			image.sprite = icon;
-			image.color = Color.white;
-		}
-		else
-		{
-			image.color = Color.white * 0f;
-		}
+		image.sprite = icon;
+		image.color = Color.white;
 	}
 }

@@ -302,8 +302,8 @@ public static class WadeUtils
 	}
 	
 	///////////////////////////
-	/////	PHYSICS	///////////
-	//////////////////////////
+	///////  PHYSICS  /////////
+	///////////////////////////
 
 	public static RaycastHit RaycastAndGetInfo(Ray ray, LayerMask layer, float dist = Mathf.Infinity)
 	{
