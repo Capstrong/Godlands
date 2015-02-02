@@ -15,4 +15,10 @@ public class MenuItems
 	{
 		ScriptableObjectUtility.CreateAsset<ResourceData>();
 	}
+
+	[MenuItem( "Assets/Create/Buddy Item" )]
+	public static void CreateBuddyItem()
+	{
+		ScriptableObjectUtility.CreateAsset<BuddyItemData>();
+	}
 }

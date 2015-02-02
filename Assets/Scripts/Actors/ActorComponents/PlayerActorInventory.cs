@@ -19,7 +19,7 @@ public class PlayerActorInventory : ActorComponent
 	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
 
 	// currently held types to show on UI bar
-	List<InventoryItemData> heldResourceTypes = new List<InventoryItemData>();
+	List<InventoryItemData> heldResources = new List<InventoryItemData>();
 
 	int resourceIndex = 0;
 	GameObject heldResource;
@@ -42,7 +42,7 @@ public class PlayerActorInventory : ActorComponent
 		inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
 		DebugUtils.Assert( inventoryBar, "There must be an InventoryScrollBar object in the scene." );
 
-		if ( heldResourceTypes.Count > 0 )
+		if ( heldResources.Count > 0 )
 		{
 			SpawnResourceObject();
 		}
@@ -52,33 +52,33 @@ public class PlayerActorInventory : ActorComponent
 	void Update()
 	{
 		CheckScroll();
-		CheckGiveItem();
+		CheckUseItem();
 	}
 
 	void CheckScroll()
 	{
 		float scrollAmount = Input.GetAxis( "Scroll" + WadeUtils.platformName );
-		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResourceTypes.Count > 0 )
+		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResources.Count > 0 )
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
 			int nextIndex = resourceIndex + Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 );
-			resourceIndex = MathUtils.Mod( nextIndex, heldResourceTypes.Count );
+			resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
 			SpawnResourceObject();
 		}
 	}
 
-	void CheckGiveItem()
+	void CheckUseItem()
 	{
 		if ( Input.GetMouseButtonDown( 0 ) &&
-		     heldResourceTypes.Count > 0 )
+		     heldResources.Count > 0 )
 		{
-			if ( heldResourceTypes[resourceIndex] is ResourceData )
+			if ( heldResources[resourceIndex] is ResourceData )
 			{
 				CheckGiveResources();
 			}
 			else
 			{
-				Debug.Log( "Maybe spawn a buddy?" );
+				SpawnBuddy();
 			}
 		}
 	}
@@ -104,9 +104,22 @@ public class PlayerActorInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( actor.actorPhysics, (ResourceData)heldResourceTypes[resourceIndex] );
-		inventory[heldResourceTypes[resourceIndex]]--;
+		buddyStats.GiveResource( actor.actorPhysics, (ResourceData)heldResources[resourceIndex] );
+		inventory[heldResources[resourceIndex]]--;
 
+		UpdateResourceList();
+	}
+
+	void SpawnBuddy()
+	{
+		BuddyItemData buddyItemData = (BuddyItemData)heldResources[resourceIndex];
+		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
+		                                     transform.position + transform.forward * 3.0f,
+		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
+		newBuddy.owner = GetComponent<GodTag>();
+		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
+
+		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
 	}
 
@@ -123,19 +136,19 @@ public class PlayerActorInventory : ActorComponent
 
 	void UpdateResourceList()
 	{
-		heldResourceTypes.Clear();
+		heldResources.Clear();
 
 		foreach ( InventoryItemData itemData in inventory.Keys )
 		{
 			if ( inventory[itemData] > 0 )
 			{
-				heldResourceTypes.Add( itemData );
+				heldResources.Add( itemData );
 			}
 		}
 
-		resourceIndex %= heldResourceTypes.Count;
+		resourceIndex = ( heldResources.Count > 0 ? resourceIndex % heldResources.Count : 0 );
 
-		if ( heldResourceTypes.Count == 0 )
+		if ( heldResources.Count == 0 )
 		{
 			if ( heldResource )
 			{
@@ -144,25 +157,25 @@ public class PlayerActorInventory : ActorComponent
 
 			inventoryBar.NullInventoryBar();
 		}
-		else if ( heldResourceTypes.Count > 0 )
+		else if ( heldResources.Count > 0 )
 		{
 			SpawnResourceObject();
-			inventoryBar.UpdateInventoryBar( resourceIndex, heldResourceTypes.ToArray() );
+			inventoryBar.UpdateInventoryBar( resourceIndex, heldResources.ToArray() );
 		}
 	}
 
 	void SpawnResourceObject()
 	{
-		inventoryBar.UpdateInventoryBar( resourceIndex, heldResourceTypes.ToArray() );
+		inventoryBar.UpdateInventoryBar( resourceIndex, heldResources.ToArray() );
 
 		if ( heldResource )
 		{
 			Destroy( heldResource );
 		}
 
-		if ( heldResourceTypes[resourceIndex].prefab )
+		if ( heldResources[resourceIndex].prefab )
 		{
-			heldResource = WadeUtils.Instantiate( heldResourceTypes[resourceIndex].prefab );
+			heldResource = WadeUtils.Instantiate( heldResources[resourceIndex].prefab );
 			heldResource.transform.parent = actor.GetBoneAtLocation( BoneLocation.RHand );
 			WadeUtils.ResetTransform( heldResource.transform, true );
 		}
