@@ -84,7 +84,6 @@ public class ActorPhysics : ActorComponent
 	}
 
 	[SerializeField] float slideTurnSpeed = 7f;
-	public Vector3 rigVelocity; // used to visualize velocity in inspector
 
 	public Transform model;
 	protected Vector3 modelOffset;

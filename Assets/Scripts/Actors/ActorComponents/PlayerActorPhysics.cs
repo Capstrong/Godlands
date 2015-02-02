@@ -20,9 +20,7 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			Application.Quit();
 		}
-
-		rigVelocity = rigidbody.velocity;
-
+	
 		CurrentStateMethod();
 	}
 

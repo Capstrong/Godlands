@@ -66,12 +66,12 @@ public static class WadeUtils
 		return Mathf.Abs( num ) > SMALLNUMBER;
 	}
 
-	public static bool GreaterThanZero( float num )
+	public static bool IsPositive( float num )
 	{
 		return num > SMALLNUMBER;
 	}
 
-	public static bool LessThanZero( float num )
+	public static bool IsNegative( float num )
 	{
 		return num < -SMALLNUMBER;
 	}
@@ -381,7 +381,7 @@ public static class WadeUtils
 
 	public static bool IsWithinFrame(float currentFrame, int targetFrame) // this seems so jank
 	{
-		return Mathf.Abs(currentFrame - targetFrame) <= 1f;
+		return Mathf.Abs(currentFrame - targetFrame) < 1f;
 	}
 }
 
