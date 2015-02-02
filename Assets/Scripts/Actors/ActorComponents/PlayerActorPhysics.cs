@@ -35,6 +35,7 @@ public class PlayerActorPhysics : ActorPhysics
 	void Jumping()
 	{
 		JumpCheck();
+		ClimbCheck();
 		RollCheck();
 
 		JumpMovement();
@@ -52,6 +53,7 @@ public class PlayerActorPhysics : ActorPhysics
 		inputVec = GetInputDirection();
 
 		ClimbSurface();
+		ClimbCheck();
 
 		if(!isGrabbing)
 		{
@@ -62,6 +64,7 @@ public class PlayerActorPhysics : ActorPhysics
 	void Grounded()
 	{
 		JumpCheck();
+		ClimbCheck();
 		RollCheck();
 
 		GroundMovement();

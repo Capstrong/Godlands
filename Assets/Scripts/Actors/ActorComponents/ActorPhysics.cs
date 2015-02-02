@@ -15,7 +15,6 @@ public class ActorPhysics : ActorComponent
 	public delegate void ActorStateMethod();
 
 	ActorStates currentState = ActorStates.Jumping;
-
 	protected ActorStateMethod CurrentStateMethod;
 
 	public Vector3 inputVec = Vector3.zero;
@@ -75,6 +74,11 @@ public class ActorPhysics : ActorComponent
 	float rollCooldownTimer = 0f;
 
 	// Climbing
+	[SerializeField] LayerMask climbLayer = (LayerMask)0;
+	[SerializeField] float climbCheckDistance = 0.5f;
+	[SerializeField] float climbCheckRadius = 0.7f;
+	[SerializeField] float climbCheckTime = 0.2f;
+	float climbCheckTimer = 1f;
 	Transform climbSurface = null;
 
 
@@ -157,19 +161,14 @@ public class ActorPhysics : ActorComponent
 
 			Vector3 adjInput = climbSurface.InverseTransformDirection( inputVec );
 			adjInput = new Vector3( adjInput.x, adjInput.z, adjInput.y );
-			moveVec = climbSurface.rotation * adjInput * climbMoveSpeed * moveSpeedMod;
+			moveVec = climbSurface.rotation * adjInput * climbMoveSpeed * moveSpeedMod + climbSurface.forward * 0.1f;
 
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
+		
+			// lerp position towards climbVolumePos + offset
 
-			if ( actor.animator != null )
-			{
-				actor.animator.SetBool( "isMoving", true );
-			}
-			
-			//ModelControl(); // to be replaced with climbing model control?
-
-			model.rotation = Quaternion.LookRotation( climbSurface.forward, Vector3.up );
+			model.rotation =  Quaternion.Lerp( model.rotation, Quaternion.LookRotation( climbSurface.forward, Vector3.up ), Time.deltaTime * 7f );
 		}
 		else
 		{
@@ -177,16 +176,14 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	void CheckIfClimbSurface(Collider col)
+	public void StartClimbing( Collider col )
 	{
-		if(stateMethodMap.ContainsKey(ActorStates.Climbing))
+		climbSurface = col.transform;
+		ChangeState( ActorStates.Climbing );
+
+		if ( actor.animator != null )
 		{
-			ClimbableTag ct = col.GetComponent<ClimbableTag>();
-			if( ct && isGrabbing )
-			{
-				climbSurface = col.transform;
-				ChangeState( ActorStates.Climbing );
-			}
+			actor.animator.SetBool( "isClimbing", true );
 		}
 	}
 	
@@ -196,6 +193,11 @@ public class ActorPhysics : ActorComponent
 		{
 			climbSurface = null;
 			ChangeState( ActorStates.Grounded );
+
+			if ( actor.animator != null )
+			{
+				actor.animator.SetBool( "isClimbing", false );
+			}
 		}
 	}
 
@@ -335,6 +337,51 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, maxSpeed);
 	}
 
+	public void ClimbCheck()
+	{
+		if(isGrabbing)
+		{
+			if(climbCheckTimer > climbCheckTime)
+			{
+				RaycastHit hit;
+				Physics.SphereCast( new Ray( transform.position, model.forward ), climbCheckRadius, out hit, climbCheckDistance, climbLayer);
+				if( hit.transform )
+				{
+					StartClimbing( hit.collider );
+				}
+				else
+				{
+					Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
+					if(cols.Length > 0)
+					{
+						Collider nearestCol = cols[0];
+						foreach(Collider col in cols)
+						{
+							if(Vector3.Distance( col.transform.position, transform.position ) < Vector3.Distance( nearestCol.transform.position, transform.position ))
+							{
+								nearestCol = col;
+							}
+						}
+
+						StartClimbing( nearestCol );
+					}
+					else
+					{
+						StopClimbing();
+					}
+				}
+
+				climbCheckTimer = 0f;
+			}
+		}
+		else if( climbSurface )
+		{
+			StopClimbing();
+		}
+
+		climbCheckTimer += Time.fixedDeltaTime;
+	}
+
 	public void ModelControl()
 	{
 		model.position = transform.position - modelOffset;
@@ -344,7 +391,7 @@ public class ActorPhysics : ActorComponent
 
 		if(lookVec != Vector3.zero)
 		{
-			model.rotation = Quaternion.LookRotation(lookVec * 10.0f, transform.up);
+			model.rotation = Quaternion.Lerp( model.rotation, Quaternion.LookRotation(lookVec * 10.0f, transform.up), Time.deltaTime * 7f );
 		}
 	}
 
@@ -388,30 +435,10 @@ public class ActorPhysics : ActorComponent
 		Gizmos.color = Color.blue;
 		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
 		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeRayHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
-	}
 
-	void OnTriggerEnter( Collider col )
-	{
-		if( !climbSurface )
-		{
-			CheckIfClimbSurface( col );
-		}
-	}
-
-	void OnTriggerStay( Collider col )
-	{
-		if( !climbSurface )
-		{
-			CheckIfClimbSurface( col );
-		}
-	}
-
-	void OnTriggerExit( Collider col )
-	{
-		ClimbableTag ct = col.GetComponent<ClimbableTag>();
-		if( ct )
-		{
-			StopClimbing();
-		}
+		// Climb check
+		Gizmos.color = Color.green;
+		Gizmos.DrawSphere( transform.position, climbCheckRadius );
+		Gizmos.DrawSphere( transform.position + model.forward * climbCheckDistance, climbCheckRadius );
 	}
 }
