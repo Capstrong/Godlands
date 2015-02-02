@@ -192,7 +192,7 @@ public class ActorPhysics : ActorComponent
 		if(climbSurface)
 		{
 			climbSurface = null;
-			ChangeState( ActorStates.Grounded );
+			ChangeState( ActorStates.Jumping );
 
 			if ( actor.animator != null )
 			{
