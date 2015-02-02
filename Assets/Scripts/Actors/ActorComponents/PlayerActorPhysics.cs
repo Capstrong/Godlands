@@ -15,7 +15,7 @@ public class PlayerActorPhysics : ActorPhysics
 		_actor = GetComponent<PlayerActor>();
 		_actorStats = GetComponent<PlayerActorStats>();
 
-		SetupStateMethodMap();
+		//SetupStateMethodMap();
 		ChangeState( ActorStates.Grounded );
 	}
 
@@ -32,11 +32,12 @@ public class PlayerActorPhysics : ActorPhysics
 		ModelControl();
 	}
 
-	void SetupStateMethodMap()
+	public override void SetupStateMethodMap()
 	{
 		stateMethodMap.Add( ActorStates.Jumping, Jumping );
 		stateMethodMap.Add( ActorStates.Grounded, Grounded );
 		stateMethodMap.Add( ActorStates.Rolling, Rolling );
+		stateMethodMap.Add( ActorStates.Climbing, Climbing );
 	}
 
 	void Jumping()
@@ -52,6 +53,18 @@ public class PlayerActorPhysics : ActorPhysics
 		RollCheck();
 
 		MoveAtSpeed( inputVec.normalized, rollMoveSpeed );
+	}
+
+	void Climbing()
+	{
+		inputVec = GetInputDirection();
+
+		ClimbSurface();
+
+		if(!isGrabbing)
+		{
+			StopClimbing();
+		}
 	}
 
 	void Grounded()
@@ -110,6 +123,8 @@ public class PlayerActorPhysics : ActorPhysics
 			{
 				actor.animator.SetBool( "isMoving", true );
 			}
+
+			ModelControl();
 		}
 	}
 

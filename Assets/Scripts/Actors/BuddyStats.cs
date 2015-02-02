@@ -15,9 +15,15 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int apples = 0;
 
 	public Material heartMaterial;
+	ParticleSystem _particles;
 
 	uint ID = 0;
-	ParticleSystem _particles;
+
+	bool _isAlive = true;
+	public bool isAlive
+	{
+		get { return _isAlive; }
+	}
 
 	void Awake()
 	{
@@ -52,14 +58,25 @@ public class BuddyStats : MonoBehaviour
 			apples--;
 			currResourceTimer = decreaseResourcesTime;
 		}
+
+		if ( Input.GetKeyDown( KeyCode.K ) )
+		{
+			Kill();
+		}
 	}
 
-	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData )
+	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
 	{
 		apples++;
 
 		actorStats.IncrementMaxStamina();
+	}
 
+	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
+	{
+		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
+
+		apples++;
 		Emote( heartMaterial );
 	}
 
@@ -68,5 +85,21 @@ public class BuddyStats : MonoBehaviour
 		_particles.Clear();
 		_particles.renderer.material = emoteMaterial;
 		_particles.Emit( 1 );
+	}
+
+	/**
+	 * @brief Kill the buddy.
+	 * 
+	 * @details
+	 *     Killing the buddy means starting the death animation
+	 *     and ending (destroying) the behavior tree. Since neither
+	 *     of these can be recovered from, killing a buddy is a
+	 *     permanant thing and cannot be undone.
+	 */
+	public void Kill()
+	{
+		_isAlive = false;
+		Destroy( GetComponent<AIController>() );
+		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 }
