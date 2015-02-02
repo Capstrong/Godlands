@@ -16,12 +16,13 @@ public class BuddyStats : MonoBehaviour
 
 	public Material heartMaterial;
 
-	int currentStats = 0;
+	uint ID = 0;
 	ParticleSystem _particles;
 
 	void Awake()
 	{
-		name = "Buddy " + GetRandomName();
+		ID = GetID(); // Grab the current unique ID
+		name = "Buddy " + GetRandomName( ID );
 		currResourceTimer = decreaseResourcesTime;
 		_particles = GetComponentInChildren<ParticleSystem>();
 	}
@@ -29,11 +30,16 @@ public class BuddyStats : MonoBehaviour
 	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
 	static uint uniqueID = 1;
 
-	static string GetRandomName()
+	static uint GetID()
 	{
-		int randIndex = Random.Range(0, names.Length);
+		return uniqueID++;
+	}
 
-		return names[randIndex] + uniqueID++;
+	static string GetRandomName( uint ID )
+	{
+		int randIndex = Random.Range( 0, names.Length );
+
+		return names[randIndex] + ID;
 	}
 
 	void Update()
@@ -48,10 +54,12 @@ public class BuddyStats : MonoBehaviour
 		}
 	}
 
-	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
+	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData )
 	{
 		apples++;
-		currentStats++;
+
+		actorStats.IncrementMaxStamina();
+
 		Emote( heartMaterial );
 	}
 
@@ -61,6 +69,4 @@ public class BuddyStats : MonoBehaviour
 		_particles.renderer.material = emoteMaterial;
 		_particles.Emit( 1 );
 	}
-
-
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent( typeof( ActorCamera ) )]
+[RequireComponent( typeof( ActorCamera ) ), RequireComponent( typeof( PlayerActorStats ) )]
 public class PlayerActorResources : ActorComponent
 {
 	[SerializeField] GameObject inventoryBarPrefab = null;
@@ -22,7 +22,8 @@ public class PlayerActorResources : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	private ActorCamera _actorCamera;
+	ActorCamera _actorCamera;
+	PlayerActorStats _actorStats;
 
 	[SerializeField] LayerMask buddyLayer = 0;
 	[SerializeField] float maxGiveDistance = 2f;
@@ -32,6 +33,7 @@ public class PlayerActorResources : ActorComponent
 		base.Awake();
 
 		_actorCamera = GetComponent<ActorCamera>();
+		_actorStats = GetComponent<PlayerActorStats>();
 	}
 
 	// Use this for initialization
@@ -109,7 +111,7 @@ public class PlayerActorResources : ActorComponent
 	
 	void GiveResource(BuddyStats buddyStats)
 	{
-		buddyStats.GiveResource(actor.actorPhysics, heldResourceTypes[resourceIndex]);
+		buddyStats.GiveResource(_actorStats, heldResourceTypes[resourceIndex]);
 		resourceTypeCounts[heldResourceTypes[resourceIndex]]--;
 
 		UpdateResourceList();
