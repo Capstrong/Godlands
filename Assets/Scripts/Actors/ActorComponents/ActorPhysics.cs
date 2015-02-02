@@ -156,19 +156,32 @@ public class ActorPhysics : ActorComponent
 	{
 		if(climbSurface)
 		{
-			rigidbody.useGravity = false;
-			currStoppingPower = stoppingSpeed;
+			ClimbableTag ct = climbSurface.GetComponent<ClimbableTag>();
+			if(ct)
+			{
+				rigidbody.useGravity = false;
+				currStoppingPower = stoppingSpeed;
 
-			Vector3 adjInput = climbSurface.InverseTransformDirection( inputVec );
-			adjInput = new Vector3( adjInput.x, adjInput.z, adjInput.y );
-			moveVec = climbSurface.rotation * adjInput * climbMoveSpeed * moveSpeedMod + climbSurface.forward * 0.1f;
+				Vector3 adjInput = inputVec;
+				adjInput = climbSurface.InverseTransformDirection( adjInput );
+				adjInput = new Vector3( adjInput.x, adjInput.z, adjInput.y );
 
-			lastVelocity = moveVec;
-			rigidbody.velocity = moveVec;
-		
-			// lerp position towards climbVolumePos + offset
+				if ( !ct.XMovement ) adjInput.x = 0f;
+				if ( !ct.YMovement ) adjInput.y = 0f;
 
-			model.rotation =  Quaternion.Lerp( model.rotation, Quaternion.LookRotation( climbSurface.forward, Vector3.up ), Time.deltaTime * 7f );
+				moveVec = climbSurface.rotation * adjInput * climbMoveSpeed * moveSpeedMod + climbSurface.forward * 0.1f;
+
+				lastVelocity = moveVec;
+				rigidbody.velocity = moveVec;
+			
+				// lerp position towards climbVolumePos + offset
+
+				model.rotation =  Quaternion.Lerp( model.rotation, Quaternion.LookRotation( climbSurface.forward, Vector3.up ), Time.deltaTime * 7f );
+			}
+			else
+			{
+				Debug.LogError("Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck");
+			}
 		}
 		else
 		{
@@ -191,6 +204,7 @@ public class ActorPhysics : ActorComponent
 	{
 		if(climbSurface)
 		{
+			rigidbody.useGravity = true;
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
 
