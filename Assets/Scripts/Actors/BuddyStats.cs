@@ -14,6 +14,8 @@ public class BuddyStats : MonoBehaviour
 
 	[SerializeField] int apples = 0;
 
+	public GodTag owner;
+
 	public Material heartMaterial;
 
 	bool _isAlive = true;
