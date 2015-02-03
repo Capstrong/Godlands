@@ -20,9 +20,7 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			Application.Quit();
 		}
-
-		rigVelocity = rigidbody.velocity;
-
+	
 		CurrentStateMethod();
 	}
 
@@ -37,6 +35,7 @@ public class PlayerActorPhysics : ActorPhysics
 	void Jumping()
 	{
 		JumpCheck();
+		ClimbCheck();
 		RollCheck();
 
 		JumpMovement();
@@ -54,6 +53,7 @@ public class PlayerActorPhysics : ActorPhysics
 		inputVec = GetInputDirection();
 
 		ClimbSurface();
+		ClimbCheck();
 
 		if(!isGrabbing)
 		{
@@ -64,6 +64,7 @@ public class PlayerActorPhysics : ActorPhysics
 	void Grounded()
 	{
 		JumpCheck();
+		ClimbCheck();
 		RollCheck();
 
 		GroundMovement();
@@ -118,9 +119,9 @@ public class PlayerActorPhysics : ActorPhysics
 		                                0.0f,
 		                                Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
 
-		if( Mathf.Abs( inputVec.x ) > WadeUtils.SMALLNUMBER && Mathf.Abs( inputVec.z ) > WadeUtils.SMALLNUMBER )
+		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ))
 		{
-			inputVec *= dualInputMod; // this reduces speed of diagonal movement
+			inputVec *= WadeUtils.DUALINPUTMOD; // this reduces speed of diagonal movement
 		}
 
 		if ( _actor.actorCamera.cam )
