@@ -9,9 +9,10 @@ public class BuddyStats : MonoBehaviour
 		Stamina,
 	}
 
+	[SerializeField] bool canDecreaseStamina = true;
 	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
 	[SerializeField] float currResourceTimer = 0.0f;
-
+	[SerializeField] int startingApples = 10;
 	[SerializeField] int apples = 0;
 
 	public GodTag owner = null;
@@ -35,6 +36,7 @@ public class BuddyStats : MonoBehaviour
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		currResourceTimer = decreaseResourcesTime;
+		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
 		SetGod(owner); // For owners set in the inspector
 	}
@@ -68,12 +70,22 @@ public class BuddyStats : MonoBehaviour
 		// Replace this with an invoke
 		currResourceTimer -= Time.deltaTime;
 
-		if (currResourceTimer < 0.0f)
+		if ( currResourceTimer < 0.0f && _isAlive )
 		{
 			// decrease resources
 			apples--;
-			_actorStats.DecrementMaxStamina();
+
+			if (canDecreaseStamina)
+			{
+				_actorStats.DecrementMaxStamina();
+			}
+			
 			currResourceTimer = decreaseResourcesTime;
+
+			if ( apples <= 0 )
+			{
+				Kill();
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.K))
