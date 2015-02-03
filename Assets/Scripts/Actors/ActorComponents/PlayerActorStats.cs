@@ -12,7 +12,9 @@ public class PlayerActorStats : ActorComponent {
 	[SerializeField] float _currMaxStamina = 0.0f;
 	[SerializeField] float _currStamina = 0.0f;
 	[SerializeField] bool _isUsingStamina = false;
-	[SerializeField] Text _staminaText = null;
+	[SerializeField] Image _currStaminaImage = null;
+	[SerializeField] Image _maxStaminaImage = null;
+	[SerializeField] float staminaToScaleRatio = 0.0f;
 
 	PlayerActorPhysics _actorPhysics = null;
 
@@ -26,11 +28,13 @@ public class PlayerActorStats : ActorComponent {
 	public void IncrementMaxStamina()
 	{
 		_currMaxStamina += _staminaMaxIncrement;
+		ScaleStaminaImage( _maxStaminaImage, _currMaxStamina );
 	}
 
 	public void DecrementMaxStamina()
 	{
-		_currMaxStamina = Mathf.Max(_currMaxStamina - _staminaMaxIncrement, 0.0f); // decrement and clamp at a minimum of 0
+		_currMaxStamina = Mathf.Max( _currMaxStamina - _staminaMaxIncrement, 0.0f ); // decrement and clamp at a minimum of 0
+		ScaleStaminaImage( _maxStaminaImage, _currMaxStamina );
 	}
 
 	public bool CanUseStamina()
@@ -74,7 +78,12 @@ public class PlayerActorStats : ActorComponent {
 			}
 		}
 
-		_staminaText.text = "Stamina: " + _currStamina;
+		ScaleStaminaImage( _currStaminaImage, _currStamina );
 	}
 
+	void ScaleStaminaImage( Image staminaImage, float stamina )
+	{
+		float scale = stamina * staminaToScaleRatio;
+		staminaImage.transform.SetScale( scale, scale, scale );
+	}
 }
