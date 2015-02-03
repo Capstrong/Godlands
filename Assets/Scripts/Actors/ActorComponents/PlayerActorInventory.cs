@@ -183,7 +183,7 @@ public class PlayerActorInventory : ActorComponent
 
 	void OnTriggerEnter( Collider other )
 	{
-		InventoryItem inventoryItem = other.gameObject.GetComponent<InventoryItem>();
+		InventoryItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryItem>();
 		if ( inventoryItem && !inventoryItem.used )
 		{
 			inventoryItem.used = true;
