@@ -67,11 +67,10 @@ public class PlayerActorResources : ActorComponent
 	void CheckScroll()
 	{
 		float scrollAmount = Input.GetAxis( "Scroll" + WadeUtils.platformName );
-		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResourceTypes.Count > 0 )
+		if((scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER) & heldResourceTypes.Count > 0)
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
-			int nextIndex = resourceIndex + scrollAmount > 0f ? Mathf.CeilToInt( Mathf.Clamp( scrollAmount, -1f, 1f ) ) :
-			                                                    Mathf.FloorToInt( Mathf.Clamp( scrollAmount, -1f, 1f ) );
+			int nextIndex = resourceIndex + Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 );
 			int numResources = heldResourceTypes.Count;
 
 			// keep within bounds
@@ -84,7 +83,7 @@ public class PlayerActorResources : ActorComponent
 				nextIndex = numResources - ( ( -nextIndex ) % numResources );
 			}
 
-			resourceIndex = Mathf.FloorToInt( Mathf.Clamp( nextIndex, 0, heldResourceTypes.Count - 1 ) );
+			resourceIndex = Mathf.Clamp( nextIndex, 0, heldResourceTypes.Count - 1 );
 			SpawnResourceObject();
 		}
 	}

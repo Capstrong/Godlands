@@ -15,15 +15,16 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int apples = 0;
 
 	public Material heartMaterial;
-	ParticleSystem _particles;
-
-	uint ID = 0;
 
 	bool _isAlive = true;
 	public bool isAlive
 	{
 		get { return _isAlive; }
 	}
+
+	ParticleSystem _particles;
+
+	uint ID = 0;
 
 	void Awake()
 	{
@@ -58,7 +59,10 @@ public class BuddyStats : MonoBehaviour
 			apples--;
 			currResourceTimer = decreaseResourcesTime;
 		}
+	}
 
+	void Update()
+	{
 		if ( Input.GetKeyDown( KeyCode.K ) )
 		{
 			Kill();
@@ -67,16 +71,11 @@ public class BuddyStats : MonoBehaviour
 
 	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
 	{
-		apples++;
-
-		actorStats.IncrementMaxStamina();
-	}
-
-	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
-	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
 
 		apples++;
+
+		actorStats.IncrementMaxStamina();
 		Emote( heartMaterial );
 	}
 
