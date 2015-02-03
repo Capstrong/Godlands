@@ -5,14 +5,14 @@ using System.Collections;
 public class PlayerActor : Actor
 {
 	ActorCamera _actorCamera;
-	PlayerActorResources _playerActorResources;
+	PlayerActorInventory _playerActorResources;
 
 	public override void Awake()
 	{
 		base.Awake();
 
 		_actorCamera = GetComponent<ActorCamera>();
-		_playerActorResources = GetComponent<PlayerActorResources>();
+		_playerActorResources = GetComponent<PlayerActorInventory>();
 	}
 
 	public ActorCamera actorCamera
@@ -20,7 +20,7 @@ public class PlayerActor : Actor
 		get { return _actorCamera; }
 	}
 
-	public PlayerActorResources actorResources
+	public PlayerActorInventory actorResources
 	{
 		get { return _playerActorResources; }
 	}

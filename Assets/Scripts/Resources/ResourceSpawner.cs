@@ -1,38 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ResourceSpawner : MonoBehaviour 
+public class ResourceSpawner : MonoBehaviour
 {
+	public ResourceHolder resourceHolderPrefab;
 	public GameObject resourcePrefab;
-	[SerializeField] GameObject beaconPrefab;
-	
+
 	public int total;
 	public float radius;
-	
-	// Use this for initialization
-	void Start () {
-		
-		for (int i = 0; i < total; i++)
-		{
-			Vector3 position = transform.position + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)) * radius;
-			
-			GameObject resource = WadeUtils.Instantiate(resourcePrefab, position, Quaternion.identity);
-			resource.AddComponent<rotator>();
 
-			GameObject beacon = WadeUtils.Instantiate(beaconPrefab);
-			beacon.transform.parent = resource.transform;
-			WadeUtils.ResetTransform(beacon.transform, true);
+	void Start()
+	{
+		// configure resource holder for the current resource type
+		resourceHolderPrefab.resource = resourcePrefab;
+
+		// spawn resource holders
+		for ( int i = 0; i < total; i++ )
+		{
+			Vector3 offset = Quaternion.Euler( -90.0f, 0.0f, 0.0f ) * (Vector3)Random.insideUnitCircle;
+			Vector3 position = transform.position + offset * radius;
+
+			Instantiate( resourceHolderPrefab, position, Quaternion.identity );
 		}
 	}
-	
+
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawIcon(transform.position + Vector3.up * .5f, "S.png", true);
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-		
+		Gizmos.DrawIcon( transform.position + Vector3.up * .5f, "S.png", true );
 	}
 }

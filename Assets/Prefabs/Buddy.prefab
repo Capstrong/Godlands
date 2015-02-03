@@ -33,6 +33,7 @@ GameObject:
   - 114: {fileID: 11474254}
   - 114: {fileID: 11483758}
   - 114: {fileID: 11414764}
+  - 114: {fileID: 11457846}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -644,6 +645,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
+--- !u!114 &11457846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c166cd4f85ecd429948e8025569488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11474254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -673,8 +685,8 @@ MonoBehaviour:
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
+  climbMoveSpeed: 6
   moveSpeedMod: 1
-  stoppingSpeed: .00100000005
   slopeLimits:
     min: .280000001
     max: .720000029

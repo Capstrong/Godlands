@@ -50,8 +50,7 @@ public class AudioPool
 
 public class SoundManager : SingletonBehaviour<SoundManager>
 {
-	[SerializeField] AudioPool[] audioPools;
-	[SerializeField] bool destroyOnLoad;
+	[SerializeField] AudioPool[] audioPools = null;
 
     // Use this for initialization
     void Awake()
