@@ -17,7 +17,7 @@ public class ResourceSpawner : MonoBehaviour
 			Vector3 position = transform.position + new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)) * radius;
 			
 			GameObject resource = WadeUtils.Instantiate(resourcePrefab, position, Quaternion.identity);
-			resource.AddComponent<rotator>();
+			resource.AddComponent<Rotator>();
 
 			GameObject beacon = WadeUtils.Instantiate(beaconPrefab);
 			beacon.transform.parent = resource.transform;
@@ -27,7 +27,7 @@ public class ResourceSpawner : MonoBehaviour
 	
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawIcon(transform.position + Vector3.up * .5f, "S.png", true);
+		Gizmos.DrawIcon(transform.position + Vector3.up * .5f, "ResourceSpawner.png", true);
 	}
 	
 	// Update is called once per frame
