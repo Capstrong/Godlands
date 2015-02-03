@@ -24,18 +24,12 @@ public class PlayerActorInventory : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	ActorCamera _actorCamera;
-	PlayerActorStats _actorStats;
-
 	[SerializeField] LayerMask buddyLayer = 0;
 	[SerializeField] float maxGiveDistance = 2f;
 
 	public override void Awake()
 	{
 		base.Awake();
-
-		_actorCamera = GetComponent<ActorCamera>();
-		_actorStats = GetComponent<PlayerActorStats>();
 	}
 
 	// Use this for initialization
@@ -88,7 +82,7 @@ public class PlayerActorInventory : ActorComponent
 	void CheckGiveResources()
 	{
 		RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
-		                                                  _actorCamera.cam.transform.forward,
+		                                                  (actor as PlayerActor).actorCamera.cam.transform.forward,
 		                                                  buddyLayer,
 		                                                  maxGiveDistance );
 
@@ -107,7 +101,7 @@ public class PlayerActorInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( _actorStats, (ResourceData)heldResources[resourceIndex] );
+		buddyStats.GiveResource( (actor as PlayerActor).actorStats, (ResourceData)heldResources[resourceIndex] );
 		inventory[heldResources[resourceIndex]]--;
 
 		UpdateResourceList();
