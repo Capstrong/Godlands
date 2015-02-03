@@ -8,7 +8,7 @@ public class PlayerActorResources : ActorComponent
 	[SerializeField] GameObject inventoryBarPrefab = null;
 	InventoryScrollBar inventoryBar;
 
-	[SerializeField] GameObject resourcePopPrefab = null;
+	[SerializeField] AudioSource resourcePopAudio = null;
 
 	// possible types to get (might want to instead load this from folder)
 	[SerializeField] ResourceData[] resourceTypes = null;
@@ -174,7 +174,7 @@ public class PlayerActorResources : ActorComponent
 			PickupResource( resourceComponent.resourceData );
 
 			Destroy( other.gameObject );
-			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
+			SoundManager.instance.Play3DSoundAtPosition( resourcePopAudio, other.transform.position );
 		}
 	}
 }

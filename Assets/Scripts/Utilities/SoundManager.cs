@@ -2,145 +2,116 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum AudioType
+public class SoundManager : SingletonBehaviour<SoundManager>
 {
-	Sound = 0,
-	Song = 1
-}
+	[HideInInspector] public GameObject audioObjHolder = null;
+	[HideInInspector] public GameObject loopObjHolder = null;
+	public List<AudioSource> audioObjs = new List<AudioSource>();
 
-[System.Serializable]
-public class AudioPool
-{
-	public string poolName; // Used to name holderObj in scene hierarchy
-	public AudioType poolType;
+	AudioSource defaultSource;
 
-	[HideInInspector] public GameObject audioObjHolder;
-	[HideInInspector] public GameObject loopObjHolder;
-	public List<AudioSource> audioObjs;
+    void Awake()
+    {
+		defaultSource = gameObject.AddComponent<AudioSource>();
+		defaultSource.playOnAwake = false;
+
+		SetupPool( gameObject );
+    }
 
 	public void SetupPool( GameObject soundManagerObj )
 	{
 		// Create object to hold sounders
-		audioObjHolder = new GameObject( poolName );
+		audioObjHolder = new GameObject( "AudioPool" );
 		audioObjHolder.transform.parent = soundManagerObj.transform;
-
-		loopObjHolder = new GameObject( string.Concat( poolName, "_Loops" ) );
+		
+		loopObjHolder = new GameObject( string.Concat( "AudioPool", "_Loops" ) );
 		loopObjHolder.transform.parent = soundManagerObj.transform;
 	}
-
+	
 	public AudioSource CreateAudioObj()
 	{
-		GameObject audioSourceObj = new GameObject( string.Concat( poolName, "_", audioObjs.Count.ToString() ), typeof( AudioSource ) );
+		GameObject audioSourceObj = new GameObject( string.Concat( "AudioPool", "_", audioObjs.Count.ToString() ), typeof( AudioSource ) );
 		audioSourceObj.transform.parent = audioObjHolder.transform;
-
+		
 		audioObjs.Add( audioSourceObj.audio );
 		audioSourceObj.audio.playOnAwake = false;
 		
 		return audioSourceObj.audio;
 	}
-}
-
-public class SoundManager : SingletonBehaviour<SoundManager>
-{
-	[SerializeField] AudioPool audioPool;
-
-    // Use this for initialization
-    void Awake()
-    {
-		audioPool.SetupPool( gameObject );
-    }
 
 	public AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )
     {
-		foreach ( AudioSource audioSource in audioPool.audioObjs )
+		foreach ( AudioSource audioSource in audioObjs )
 		{
+			Debug.Log( audioSource );
 			if ( !audioSource.isPlaying )
 			{
 		        audioSource.transform.position = position;
-				return PlayAudioObj( audioSource, sourceData );
+				return PlayAudioObj( sourceData, audioSource );
 			}
 		}
 
-		AudioSource newSource = audioPool.CreateAudioObj();
+		AudioSource newSource = CreateAudioObj();
 		newSource.transform.position = position;
-		audioPool.audioObjs.Add( newSource );
-		return PlayAudioObj( newSource, sourceData );
+		audioObjs.Add( newSource );
+
+		return PlayAudioObj( sourceData, newSource );
     }
 
 	public AudioSource Play3DSoundAndFollow( AudioSource sourceData, Transform target )
     {
-		foreach ( AudioSource audioSource in audioPool.audioObjs )
+		foreach ( AudioSource audioSource in audioObjs )
 		{
+			Debug.Log( audioSource );
 			if ( !audioSource.isPlaying )
 			{
 				audioSource.transform.position = target.position;
 				audioSource.transform.parent = target;
-				return PlayAudioObj( audioSource, sourceData );
+				return PlayAudioObj( sourceData, audioSource );
 			}
 		}
 
-		AudioSource newSource = audioPool.CreateAudioObj();
-
-        // Attach to target
+		AudioSource newSource = CreateAudioObj();
 		newSource.transform.position = target.position;
 		newSource.transform.parent = target;
-		audioPool.audioObjs.Add( newSource );
+		audioObjs.Add( newSource );
 
-		// Set up audio source
-		return PlayAudioObj( newSource, sourceData );
+		return PlayAudioObj( sourceData, newSource );
     }
 
-    public AudioSource Play2DSound( AudioSource sourceData )
+	public AudioSource Play2DSound( AudioSource sourceData )
     {
-		foreach ( AudioSource audioSource in audioPool.audioObjs )
+		foreach ( AudioSource audioSource in audioObjs )
 		{
+			Debug.Log( audioSource );
 			if ( !audioSource.isPlaying )
 			{
 				return PlayAudioObj( sourceData, audioSource );
 			}
 		}
 		
-		AudioSource newSource = audioPool.CreateAudioObj();
-		audioPool.audioObjs.Add( newSource );
+		AudioSource newSource = CreateAudioObj();
+		audioObjs.Add( newSource );
 
 		return PlayAudioObj( sourceData, newSource );
     }
 
-	AudioSource PlayAudioObj( AudioSource sourceInfo, AudioSource source, bool loop = false )
+	AudioSource PlayAudioObj( AudioSource sourceData, AudioSource source)
 	{
-        // Set up audio source
-		CopyAudioSource( sourceInfo, source );
+		source.GetCopyOf(sourceData);
 		source.Play();
 
-        // If this sound will loop forever, then replace it in the pool
-        if ( loop )
-        {
-			source.name = string.Concat( source.name, "_Looping" );
-        }
-        else
+        if ( !source.loop )
 		{
-			StartCoroutine( ReturnSourceToPool( source, audioPool.audioObjHolder.transform ) );
+			StartCoroutine( ReturnSourceToPool( source, audioObjHolder.transform ) );
 		}
 
         return source;
     }
-
-	void CopyAudioSource( AudioSource original, AudioSource destination )
-	{
-		System.Reflection.FieldInfo[] fields = typeof( AudioSource ).GetFields(); 
-		foreach ( System.Reflection.FieldInfo field in fields )
-		{
-			field.SetValue( destination, field.GetValue( original ) );
-		}
-
-		destination.name = original.name;
-	}
 	
 	void ResetSource( AudioSource source )
 	{
-		GameObject go = source.gameObject;
-		Destroy( source );
-		go.AddComponent<AudioSource>();
+		source.GetCopyOf( defaultSource );
 	}
 
     IEnumerator ReturnSourceToPool( AudioSource audioSource, Transform parent )

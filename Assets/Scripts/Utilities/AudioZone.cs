@@ -8,20 +8,15 @@ public class AudioZone : MonoBehaviour
 
 	void OnTriggerEnter( Collider col )
 	{
-		Debug.Log( "Do the thing" );
-
-		PlayerActor pa = col.GetComponent<PlayerActor>();
-		if ( pa )
+		if ( col.GetComponent<PlayerActor>() )
 		{
-
 			playingClip = SoundManager.instance.Play3DSoundAndFollow( sourceData, transform );
 		}
 	}
 
 	void OnTriggerExit( Collider col )
 	{
-		PlayerActor pa = col.GetComponent<PlayerActor>();
-		if ( pa && playingClip )
+		if ( col.GetComponent<PlayerActor>() && playingClip.gameObject )
 		{
 			playingClip.Stop();
 			playingClip = null;
