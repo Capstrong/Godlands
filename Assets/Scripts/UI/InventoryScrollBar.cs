@@ -2,49 +2,42 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class InventoryScrollBar : MonoBehaviour 
+public class InventoryScrollBar : MonoBehaviour
 {
-	[SerializeField] Image prevItemIcon;
-	[SerializeField] Image currentItemIcon;
-	[SerializeField] Image nextItemIcon;
+	[SerializeField] Image prevItemIcon = null;
+	[SerializeField] Image currentItemIcon = null;
+	[SerializeField] Image nextItemIcon = null;
 
-	public void UpdateInventoryBar(int currentIndex, ResourceData[] resourceData)
+	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData )
 	{
-		SetIcon(currentItemIcon, resourceData[currentIndex].icon);
-		// tell player to hold item
+		DebugUtils.Assert( inventoryItemData.Length > 0 );
 
-		int prevIndex = currentIndex - 1;
-		if(prevIndex < 0)
-		{
-			prevIndex = resourceData.Length - 1;
-		}
-		SetIcon(prevItemIcon, resourceData[prevIndex].icon);
+		NullInventoryBar();
+		SetIcon( currentItemIcon, inventoryItemData[MathUtils.Mod( currentIndex, inventoryItemData.Length )].icon );
 
-		int nextIndex = currentIndex + 1;
-		if(nextIndex > resourceData.Length - 1)
+		if ( inventoryItemData.Length > 1 )
 		{
-			nextIndex = 0;
+			int prevIndex = MathUtils.Mod( ( currentIndex - 1 ), inventoryItemData.Length );
+			SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
 		}
-		SetIcon(nextItemIcon, resourceData[nextIndex].icon);
+
+		if ( inventoryItemData.Length > 2 )
+		{
+			int nextIndex = MathUtils.Mod( ( currentIndex + 1 ), inventoryItemData.Length );
+			SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
+		}
 	}
 
 	public void NullInventoryBar()
 	{
-		SetIcon(prevItemIcon);
-		SetIcon(currentItemIcon);
-		SetIcon(nextItemIcon);
+		SetIcon( prevItemIcon );
+		SetIcon( currentItemIcon );
+		SetIcon( nextItemIcon );
 	}
 
-	void SetIcon(Image image, Sprite icon = null)
+	void SetIcon( Image image, Sprite icon = null )
 	{
-		if(icon)
-		{
-			image.sprite = icon;
-			image.color = Color.white;	
-		}
-		else
-		{
-			image.color = Color.white * 0f;
-		}
+		image.sprite = icon;
+		image.color = Color.white;
 	}
 }
