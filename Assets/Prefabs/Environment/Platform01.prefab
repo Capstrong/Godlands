@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 425444}
   - 33: {fileID: 3325444}
   - 23: {fileID: 2325444}
-  - 95: {fileID: 9525444}
   - 64: {fileID: 6480936}
   m_Layer: 0
   m_Name: Platform01
@@ -43,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 88f4891aa4381b64680c84231ba64ae3, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -71,21 +70,6 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300002, guid: 69909fb86e6641745ba7775f833a601f, type: 3}
---- !u!95 &9525444
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125444}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 69909fb86e6641745ba7775f833a601f, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
