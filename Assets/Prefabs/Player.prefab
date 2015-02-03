@@ -293,23 +293,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &180024
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 480024}
-  - 137: {fileID: 13780142}
-  - 163: {fileID: 16380144}
-  m_Layer: 8
-  m_Name: pasted__pPlane1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &180026
 GameObject:
   m_ObjectHideFlags: 1
@@ -1094,7 +1077,8 @@ GameObject:
   - 114: {fileID: 11480136}
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
-  - 114: {fileID: 11469444}
+  - 114: {fileID: 11480420}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1535,18 +1519,6 @@ Transform:
   - {fileID: 480014}
   m_Father: {fileID: 479998}
   m_RootOrder: 2
---- !u!4 &480024
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180024}
-  m_LocalRotation: {x: -.718019128, y: 0, z: -0, w: .696023405}
-  m_LocalPosition: {x: -.00181857042, y: -.317262858, z: -.0315920189}
-  m_LocalScale: {x: 1.1613822, y: 1, z: 1.38488269}
-  m_Children: []
-  m_Father: {fileID: 480064}
-  m_RootOrder: 0
 --- !u!4 &480026
 Transform:
   m_ObjectHideFlags: 1
@@ -1793,8 +1765,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: .00546876667, y: 1.2866292, z: .0264823604}
   m_LocalScale: {x: 4.25197077, y: 4.25197077, z: 5.22772646}
-  m_Children:
-  - {fileID: 480024}
+  m_Children: []
   m_Father: {fileID: 480002}
   m_RootOrder: 0
 --- !u!4 &480066
@@ -3228,7 +3199,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11469444
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3236,9 +3207,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 180122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 7659fc191e2966c46a9f8cbd511c7072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  _startingMaxStamina: 10
+  _staminaMaxIncrement: 1
+  _staminaUseRate: .159999996
+  _staminaRechargeRate: .159999996
+  _currMaxStamina: 10
+  _currStamina: 10
+  _isUsingStamina: 0
+  _staminaText: {fileID: 0}
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3422,11 +3402,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0cfff9efa041d7248a45f28eaa0b1977, type: 2}
   - {fileID: 11400000, guid: db3fc3251b4100e439adc06342ae6428, type: 2}
   - {fileID: 11400000, guid: 24c22c8c3fd33b4449aa1680917414b3, type: 2}
-  - {fileID: 11400000, guid: 773baa6db5518424db114ed1fbbea282, type: 2}
-  _buddies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   buddyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -3449,7 +3424,7 @@ MonoBehaviour:
   minCamDist: 1
   camLayer:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294966527
   waterLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -3471,17 +3446,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 6
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
-  moveSpeedMod: 1
+  model: {fileID: 480002}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -1, z: 0}
@@ -3492,12 +3470,15 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
-  slideTurnSpeed: 7
-  rigVelocity: {x: 0, y: 0, z: 0}
-  model: {fileID: 480002}
+  climbLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  climbCheckDistance: .5
+  climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
+  climbCheckTime: .200000003
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3533,6 +3514,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boneLocation: 14
+--- !u!114 &11480420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &13680142
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3559,52 +3551,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!137 &13780142
-SkinnedMeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180024}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 2100000, guid: 5d2b0e873e4cb8c43841bbf690d1b415, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  serializedVersion: 2
-  m_Quality: 0
-  m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300002, guid: d7f1c0a3279264755861914a9d348a68, type: 3}
-  m_Bones:
-  - {fileID: 479998}
-  - {fileID: 480022}
-  - {fileID: 480014}
-  - {fileID: 480062}
-  - {fileID: 480034}
-  - {fileID: 480074}
-  - {fileID: 480084}
-  - {fileID: 480102}
-  - {fileID: 480134}
-  - {fileID: 480018}
-  - {fileID: 480028}
-  - {fileID: 480010}
-  - {fileID: 480114}
-  - {fileID: 480088}
-  - {fileID: 480096}
-  m_BlendShapeWeights: []
-  m_RootBone: {fileID: 479998}
-  m_AABB:
-    m_Center: {x: .018233791, y: .111763209, z: -.00246155262}
-    m_Extent: {x: .350346744, y: .505209804, z: .307472765}
-  m_DirtyAABB: 0
 --- !u!137 &13780144
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -3667,280 +3613,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -.0584091693, y: -.0253244042, z: -.0171734989}
     m_Extent: {x: .464407444, y: .847284973, z: .573832989}
   m_DirtyAABB: 0
---- !u!163 &16380144
-SkinnedCloth:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180024}
-  m_Enabled: 1
-  m_BendingStiffness: 0
-  m_StretchingStiffness: 1
-  m_Damping: 1
-  m_Thickness: .200000003
-  m_UseGravity: 1
-  m_SelfCollision: 0
-  m_ExternalAcceleration: {x: 0, y: 0, z: 0}
-  m_RandomAcceleration: {x: 0, y: 0, z: 0}
-  m_WorldVelocityScale: .5
-  m_WorldAccelerationScale: 1
-  m_Coefficients:
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .100000001
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .100000001
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .100000001
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .200000003
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
-  - maxDistance: .300000012
-    maxDistanceBias: 0
-    collisionSphereRadius: .5
-    collisionSphereDistance: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
