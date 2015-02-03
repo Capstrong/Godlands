@@ -420,7 +420,7 @@ public class ActorPhysics : ActorComponent
 		Vector3 lookVec = inputVec;
 		lookVec.y = 0.0f;
 
-		if ( WadeUtils.IsZero( lookVec ) )
+		if ( !WadeUtils.IsZero( lookVec ) )
 		{
 			model.rotation = Quaternion.Lerp( model.rotation, 
 			                                  Quaternion.LookRotation(lookVec, transform.up), 

@@ -3561,17 +3561,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 6
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
-  moveSpeedMod: 1
+  model: {fileID: 2027639171}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -1, z: 0}
@@ -3582,7 +3585,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -3590,9 +3592,8 @@ MonoBehaviour:
     m_Bits: 512
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 2027639171}
 --- !u!114 &298744672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5077,17 +5078,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 473457332}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -5098,7 +5102,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -5106,9 +5109,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 473457332}
 --- !u!114 &473457338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9694,17 +9696,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 982286113}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -9715,7 +9720,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -9723,9 +9727,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 982286113}
 --- !u!114 &982286120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12919,17 +12922,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 1453939212}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -12940,7 +12946,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -12948,9 +12953,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 1453939212}
 --- !u!114 &1453939218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14587,17 +14591,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 1525860106}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -14608,7 +14615,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -14616,9 +14622,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 1525860106}
 --- !u!114 &1525860112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16385,17 +16390,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 1579209396}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -16406,7 +16414,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -16414,9 +16421,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 1579209396}
 --- !u!114 &1579209402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20733,17 +20739,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 8.5
   jumpMoveSpeed: 8.5
   rollMoveSpeed: 6
   climbMoveSpeed: 6
-  moveSpeedMod: 1
+  model: {fileID: 1994536954}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: 1
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
@@ -20754,7 +20763,6 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -20762,9 +20770,8 @@ MonoBehaviour:
     m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 1994536954}
 --- !u!114 &1994536960
 MonoBehaviour:
   m_ObjectHideFlags: 0
