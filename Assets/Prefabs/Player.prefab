@@ -1078,6 +1078,7 @@ GameObject:
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
   - 114: {fileID: 11480420}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -3198,6 +3199,26 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7659fc191e2966c46a9f8cbd511c7072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  _startingMaxStamina: 10
+  _staminaMaxIncrement: 1
+  _staminaUseRate: .159999996
+  _staminaRechargeRate: .159999996
+  _currMaxStamina: 10
+  _currStamina: 10
+  _isUsingStamina: 0
+  _staminaText: {fileID: 0}
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3425,17 +3446,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
+  moveSpeedMod: 1
+  stopMoveTime: .300000012
   maxSpeed: 40
   _groundedMoveSpeed: 6
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
-  moveSpeedMod: 1
+  model: {fileID: 480002}
+  modelTurnSpeed: 7
+  groundSlopeCheckRadius: .200000003
+  groundSlopeCheckHeight: .699999988
   slopeLimits:
     min: .280000001
     max: .720000029
-  groundSlopeCheckRadius: .200000003
-  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -1, z: 0}
@@ -3446,17 +3470,15 @@ MonoBehaviour:
   minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
-  stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   climbCheckDistance: .5
   climbCheckRadius: .699999988
+  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
-  slideTurnSpeed: 7
-  model: {fileID: 480002}
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1

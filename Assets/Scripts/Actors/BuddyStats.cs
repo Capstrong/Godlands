@@ -59,11 +59,8 @@ public class BuddyStats : MonoBehaviour
 			apples--;
 			currResourceTimer = decreaseResourcesTime;
 		}
-	}
 
-	void Update()
-	{
-		if ( Input.GetKeyDown( KeyCode.K ) )
+		if (Input.GetKeyDown(KeyCode.K))
 		{
 			Kill();
 		}
