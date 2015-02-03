@@ -89,11 +89,14 @@ public class PlayerActorInventory : ActorComponent
 		if ( hitInfo.transform )
 		{
 			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
+
+			GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
+
 			if ( buddyStats &&
 			     buddyStats.isAlive &&
-			     ( buddyStats.owner == null || buddyStats.owner == GetComponent<GodTag>() ) )
+			     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 			{
-				buddyStats.SetGod(GetComponent<GodTag>());
+				buddyStats.SetGod( godTag );
 				GiveResource( buddyStats );
 			}
 		}
