@@ -37,6 +37,8 @@ public static class WadeUtils
 	public static float SMALLNUMBER = 0.00000001f;
 	public static float LARGENUMBER = 100000000f;
 
+	public static float DUALINPUTMOD = 0.7071f;
+
 	public static bool ValidAxisInput(string axisName)
 	{
 		return Mathf.Abs(Input.GetAxis(axisName + platformName)) > SMALLNUMBER;
@@ -89,6 +91,31 @@ public static class WadeUtils
 	///////////////////////
 	////	VECTORS	 /////
 	//////////////////////
+
+	public static bool IsZero(Vector2 vec)
+	{
+		return IsZero( vec.x ) && IsZero( vec.y );
+	}
+
+	public static bool IsZero(Vector3 vec)
+	{
+		return IsZero( vec.x ) && IsZero( vec.y ) && IsZero( vec.z );
+	}
+
+	public static bool IsZero(Vector4 vec)
+	{
+		return IsZero( vec.x ) && IsZero( vec.y ) && IsZero( vec.z ) && IsZero( vec.w );
+	}
+
+	public static bool IsPositive(Vector4 vec)
+	{
+		return vec.magnitude > 0f;
+	}
+
+	public static bool IsNegative(Vector4 vec)
+	{
+		return vec.magnitude < 0f;
+	}
 
 	public static void Lerp(ref Vector2 from, Vector2 to, float t)
 	{
