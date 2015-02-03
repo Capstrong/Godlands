@@ -14,7 +14,9 @@ public class BuddyStats : MonoBehaviour
 
 	[SerializeField] int apples = 0;
 
-	public GodTag owner;
+	public GodTag owner = null;
+
+	PlayerActorStats _actorStats = null;
 
 	public Material heartMaterial;
 
@@ -34,6 +36,16 @@ public class BuddyStats : MonoBehaviour
 		name = "Buddy " + GetRandomName( ID );
 		currResourceTimer = decreaseResourcesTime;
 		_particles = GetComponentInChildren<ParticleSystem>();
+		SetGod(owner); // For owners set in the inspector
+	}
+
+	public void SetGod( GodTag _godTag )
+	{
+		if(_godTag)
+		{
+			owner = _godTag;
+			_actorStats = _godTag.gameObject.GetComponent<PlayerActorStats>();
+		}
 	}
 
 	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
@@ -53,12 +65,14 @@ public class BuddyStats : MonoBehaviour
 
 	void Update()
 	{
+		// Replace this with an invoke
 		currResourceTimer -= Time.deltaTime;
 
 		if (currResourceTimer < 0.0f)
 		{
 			// decrease resources
 			apples--;
+			_actorStats.DecrementMaxStamina();
 			currResourceTimer = decreaseResourcesTime;
 		}
 

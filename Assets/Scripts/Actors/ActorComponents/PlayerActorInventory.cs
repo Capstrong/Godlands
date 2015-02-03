@@ -99,6 +99,7 @@ public class PlayerActorInventory : ActorComponent
 			     buddyStats.isAlive &&
 			     ( buddyStats.owner == null || buddyStats.owner == GetComponent<GodTag>() ) )
 			{
+				buddyStats.SetGod(GetComponent<GodTag>());
 				GiveResource( buddyStats );
 			}
 		}
@@ -118,7 +119,7 @@ public class PlayerActorInventory : ActorComponent
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * 3.0f,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
-		newBuddy.owner = GetComponent<GodTag>();
+		newBuddy.SetGod( GetComponent<GodTag>() );
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
 		inventory[heldResources[resourceIndex]]--;

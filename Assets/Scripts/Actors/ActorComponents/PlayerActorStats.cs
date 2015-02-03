@@ -28,6 +28,11 @@ public class PlayerActorStats : ActorComponent {
 		_currMaxStamina += _staminaMaxIncrement;
 	}
 
+	public void DecrementMaxStamina()
+	{
+		_currMaxStamina = Mathf.Max(_currMaxStamina - _staminaMaxIncrement, 0.0f); // decrement and clamp at a minimum of 0
+	}
+
 	public bool CanUseStamina()
 	{
 		return ( _currStamina > 0.0f );
