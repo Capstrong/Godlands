@@ -3,6 +3,18 @@ using System.Collections;
 
 public class ClimbableTag : MonoBehaviour 
 {
+	[SerializeField] bool xMovement;
+	public bool XMovement
+	{
+		get { return xMovement; }
+	}
+
+	[SerializeField] bool yMovement;
+	public bool YMovement
+	{
+		get { return yMovement; }
+	}
+
 	void OnDrawGizmos()
 	{
 		Gizmos.matrix = transform.localToWorldMatrix;
