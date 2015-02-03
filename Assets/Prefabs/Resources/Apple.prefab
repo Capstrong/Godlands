@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 135: {fileID: 13500000}
-  - 114: {fileID: 11400002}
   - 33: {fileID: 3320362}
   - 23: {fileID: 2320362}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Untagged
@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceData: {fileID: 11400000, guid: a3e4faf8cac533a4591710afc072631e, type: 2}
   amount: 1
+  used: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1

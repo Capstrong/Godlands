@@ -1094,7 +1094,7 @@ GameObject:
   - 114: {fileID: 11480136}
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
-  - 114: {fileID: 11480144}
+  - 114: {fileID: 11469444}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -3228,6 +3228,17 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11469444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3411,6 +3422,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0cfff9efa041d7248a45f28eaa0b1977, type: 2}
   - {fileID: 11400000, guid: db3fc3251b4100e439adc06342ae6428, type: 2}
   - {fileID: 11400000, guid: 24c22c8c3fd33b4449aa1680917414b3, type: 2}
+  - {fileID: 11400000, guid: 773baa6db5518424db114ed1fbbea282, type: 2}
+  _buddies:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   buddyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -3428,16 +3444,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 0}
-  followSpeed: 15
   zoomSpeed: 100
   defaultCamDist: 3
   minCamDist: 1
   camLayer:
     serializedVersion: 2
     m_Bits: 4294967039
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
   waterLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -3460,24 +3472,31 @@ MonoBehaviour:
   actor: {fileID: 0}
   inputVec: {x: 0, y: 0, z: 0}
   maxSpeed: 40
-  _groundedMoveSpeed: 8.5
-  jumpMoveSpeed: 5
-  rollMoveSpeed: 5
+  _groundedMoveSpeed: 6
+  jumpMoveSpeed: 6
+  rollMoveSpeed: 6
+  climbMoveSpeed: 4
   moveSpeedMod: 1
-  stoppingSpeed: .00100000005
+  slopeLimits:
+    min: .280000001
+    max: .720000029
+  groundSlopeCheckRadius: .200000003
+  groundSlopeRayHeight: .699999988
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  jumpCheckRadius: .00999999978
+  groundPosOffset: {x: 0, y: -1, z: 0}
+  jumpCheckRadius: .119999997
   jumpLayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  minJumpDot: .400000006
   jumpColCheckTime: .5
   lateJumpTime: .200000003
   stopMoveTime: .300000012
   rollTime: 1
   rollCooldownTime: 1
-  rotCorrectionTime: 7
   slideTurnSpeed: 7
+  rigVelocity: {x: 0, y: 0, z: 0}
   model: {fileID: 480002}
 --- !u!114 &11480138
 MonoBehaviour:
@@ -3514,19 +3533,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boneLocation: 14
---- !u!114 &11480144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81e9aa170c350640a2376a19d142044, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resources: 0
-  resourceCollectionDistance: 0
 --- !u!136 &13680142
 CapsuleCollider:
   m_ObjectHideFlags: 1
