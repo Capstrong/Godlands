@@ -10,6 +10,7 @@ public enum ActorStates
 	Climbing
 }
 
+[RequireComponent(typeof(PlayerActorStats))]
 public class ActorPhysics : ActorComponent
 {
 	// States
@@ -99,6 +100,8 @@ public class ActorPhysics : ActorComponent
 
 	Transform climbSurface = null;
 
+	PlayerActorStats _actorStats = null;
+
 	public bool isGrabbing
 	{
 		get{ return WadeUtils.ValidAxisInput("Grab"); }
@@ -110,6 +113,8 @@ public class ActorPhysics : ActorComponent
 
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
+
+		_actorStats = GetComponent<PlayerActorStats>();
 
 		SetupStateMethodMap();
 	}
@@ -192,32 +197,40 @@ public class ActorPhysics : ActorComponent
 		{
 			if (climbCheckTimer > climbCheckTime)
 			{
-				RaycastHit hit;
-				Physics.SphereCast( new Ray( transform.position, model.forward ), climbCheckRadius, out hit, climbCheckDistance, climbLayer );
-				if ( hit.transform )
+				if (_actorStats.CanUseStamina())
 				{
-					StartClimbing( hit.collider );
-				}
-				else
-				{
-					Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
-					if (cols.Length > 0)
+					RaycastHit hit;
+					Physics.SphereCast(new Ray(transform.position, model.forward), climbCheckRadius, out hit, climbCheckDistance, climbLayer);
+					if (hit.transform)
 					{
-						Collider nearestCol = cols[0];
-						foreach(Collider col in cols)
-						{
-							if ( (col.transform.position - transform.position).sqrMagnitude < (nearestCol.transform.position - transform.position).sqrMagnitude )
-							{
-								nearestCol = col;
-							}
-						}
-						
-						StartClimbing( nearestCol );
+						StartClimbing(hit.collider);
 					}
 					else
 					{
-						StopClimbing();
+						Collider[] cols = Physics.OverlapSphere(transform.position, climbCheckRadius, climbLayer);
+						if (cols.Length > 0)
+						{
+							Collider nearestCol = cols[0];
+							foreach (Collider col in cols)
+							{
+								if ((col.transform.position - transform.position).sqrMagnitude < (nearestCol.transform.position - transform.position).sqrMagnitude)
+								{
+									nearestCol = col;
+								}
+							}
+
+							StartClimbing(nearestCol);
+						}
+						else
+						{
+							StopClimbing();
+						}
 					}
+				}
+				else
+				{
+					// out of stamina. We should probably revisit the logic layout here at some point
+					StopClimbing();
 				}
 				
 				climbCheckTimer = 0f;
@@ -273,6 +286,8 @@ public class ActorPhysics : ActorComponent
 
 	public void StartClimbing( Collider col )
 	{
+		_actorStats.StartUsingStamina();
+
 		climbSurface = col.transform;
 		ChangeState( ActorStates.Climbing );
 
@@ -289,6 +304,8 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
+
+			_actorStats.StopUsingStamina();
 
 			if ( actor.animator != null )
 			{
