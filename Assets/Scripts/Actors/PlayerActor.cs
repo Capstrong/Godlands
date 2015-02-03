@@ -1,19 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( ActorCamera ) )]
+[RequireComponent( typeof( ActorCamera ), typeof( PlayerActorStats) )]
 public class PlayerActor : Actor
 {
-	ActorCamera _actorCamera;
-	PlayerActorInventory _playerActorResources;
-
-	public override void Awake()
-	{
-		base.Awake();
-
-		_actorCamera = GetComponent<ActorCamera>();
-		_playerActorResources = GetComponent<PlayerActorInventory>();
-	}
+	ActorCamera _actorCamera = null;
+	PlayerActorStats _actorStats = null;
+	PlayerActorInventory _playerActorResources = null;
 
 	public ActorCamera actorCamera
 	{
@@ -23,5 +16,19 @@ public class PlayerActor : Actor
 	public PlayerActorInventory actorResources
 	{
 		get { return _playerActorResources; }
+	}
+
+	public PlayerActorStats actorStats
+	{
+		get { return _actorStats; }
+	}
+
+	public override void Awake()
+	{
+		base.Awake();
+
+		_actorCamera = GetComponent<ActorCamera>();
+		_actorStats = GetComponent<PlayerActorStats>();
+		_playerActorResources = GetComponent<PlayerActorInventory>();
 	}
 }
