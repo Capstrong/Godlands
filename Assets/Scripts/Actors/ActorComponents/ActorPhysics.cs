@@ -188,7 +188,7 @@ public class ActorPhysics : ActorComponent
 
 	public void ClimbCheck()
 	{
-		if (isGrabbing)
+		if (isGrabbing && ( ( actor as PlayerActor ) == null || ( actor as PlayerActor ).actorStats.CanUseStamina() ) )
 		{
 			if (climbCheckTimer > climbCheckTime)
 			{
@@ -201,17 +201,17 @@ public class ActorPhysics : ActorComponent
 				else
 				{
 					Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
-					if (cols.Length > 0)
+					if ( cols.Length > 0 )
 					{
 						Collider nearestCol = cols[0];
-						foreach(Collider col in cols)
+						foreach ( Collider col in cols )
 						{
-							if ( (col.transform.position - transform.position).sqrMagnitude < (nearestCol.transform.position - transform.position).sqrMagnitude )
+							if ( ( col.transform.position - transform.position ).sqrMagnitude < ( nearestCol.transform.position - transform.position ).sqrMagnitude )
 							{
 								nearestCol = col;
 							}
 						}
-						
+
 						StartClimbing( nearestCol );
 					}
 					else
@@ -219,7 +219,7 @@ public class ActorPhysics : ActorComponent
 						StopClimbing();
 					}
 				}
-				
+
 				climbCheckTimer = 0f;
 			}
 		}
@@ -273,6 +273,8 @@ public class ActorPhysics : ActorComponent
 
 	public void StartClimbing( Collider col )
 	{
+		( actor as PlayerActor).actorStats.StartUsingStamina();
+
 		climbSurface = col.transform;
 		ChangeState( ActorStates.Climbing );
 
@@ -289,6 +291,8 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
+
+			(actor as PlayerActor).actorStats.StopUsingStamina();
 
 			if ( actor.animator != null )
 			{
