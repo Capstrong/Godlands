@@ -10,8 +10,7 @@ public class MeshCombine : MonoBehaviour
 		MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
 		CombineInstance[] combine = new CombineInstance[meshFilters.Length];
 
-		int i = 0;
-		while ( i < meshFilters.Length ) 
+		for ( int i = 0; i < meshFilters.Length; i++ ) 
 		{
 			combine[i].mesh = meshFilters[i].sharedMesh;
 			combine[i].transform = meshFilters[i].transform.localToWorldMatrix;

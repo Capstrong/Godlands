@@ -6,17 +6,17 @@ public class AudioZone : MonoBehaviour
 	[SerializeField] AudioSource sourceData = null;
 	AudioSource playingClip = null;
 
-	void OnTriggerEnter( Collider col )
+	void OnTriggerEnter( Collider otherCol )
 	{
-		if ( col.GetComponent<PlayerActor>() )
+		if ( otherCol.GetComponent<PlayerActor>() )
 		{
 			playingClip = SoundManager.instance.Play3DSoundAndFollow( sourceData, transform );
 		}
 	}
 
-	void OnTriggerExit( Collider col )
+	void OnTriggerExit( Collider otherCol )
 	{
-		if ( col.GetComponent<PlayerActor>() && playingClip.gameObject )
+		if ( otherCol.GetComponent<PlayerActor>() && playingClip )
 		{
 			playingClip.Stop();
 			playingClip = null;

@@ -404,6 +404,34 @@ public static class WadeUtils
 		return go;
 	}
 
+	public static void MakeCopyOf<T>(this Component comp, T other) where T : Component
+	{
+		Type type = comp.GetType();
+		if (type != other.GetType()) 
+		{
+			return;
+		}
+		
+		BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+		PropertyInfo[] pinfos = type.GetProperties(flags);
+		int counter = 0;
+		foreach (PropertyInfo pinfo in pinfos) 
+		{
+			if (pinfo.CanWrite && 
+			    (type != typeof(AudioSource) || counter < 21)) // horrible hacked in solution to unsuppressible error caused by unity's shitty source
+			{
+				pinfo.SetValue(comp, pinfo.GetValue(other, null), null);
+				counter++;
+			}
+		}
+		
+		FieldInfo[] finfos = type.GetFields(flags);
+		foreach (FieldInfo finfo in finfos) 
+		{
+			finfo.SetValue(comp, finfo.GetValue(other));
+		}
+	}
+
 	public static T GetCopyOf<T>(this Component comp, T other) where T : Component
 	{
 		Type type = comp.GetType();

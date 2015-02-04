@@ -164,17 +164,17 @@ public class PlayerActorResources : ActorComponent
 		}
 	}
 
-	void OnTriggerEnter( Collider other )
+	void OnTriggerEnter( Collider otherCol )
 	{
-		Resource resourceComponent = other.gameObject.GetComponent<Resource>();
+		Resource resourceComponent = otherCol.gameObject.GetComponent<Resource>();
 		if ( resourceComponent && !resourceComponent.used )
 		{
 			resourceComponent.used = true;
 
 			PickupResource( resourceComponent.resourceData );
 
-			Destroy( other.gameObject );
-			SoundManager.instance.Play3DSoundAtPosition( resourcePopAudio, other.transform.position );
+			Destroy( otherCol.gameObject );
+			SoundManager.instance.Play3DSoundAtPosition( resourcePopAudio, otherCol.transform.position );
 		}
 	}
 }
