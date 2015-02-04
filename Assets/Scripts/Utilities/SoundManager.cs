@@ -115,7 +115,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		if( !audioSource.loop )
 		{
 			ResetSource( audioSource );
-	        audioSource.transform.position = parent.position;
+			audioSource.transform.position = parent.position;
 			audioSource.transform.parent = parent;
 		}
     }
