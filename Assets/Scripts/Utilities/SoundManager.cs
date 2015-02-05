@@ -18,7 +18,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		SetupPool( gameObject );
     }
 
-	public void SetupPool( GameObject soundManagerObj )
+	void SetupPool( GameObject soundManagerObj )
 	{
 		// Create object to hold sounders
 		audioObjHolder = new GameObject( "AudioPool" );
@@ -28,7 +28,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		loopObjHolder.transform.parent = soundManagerObj.transform;
 	}
 	
-	public AudioSource CreateAudioObj()
+	AudioSource CreateAudioObj()
 	{
 		GameObject audioSourceObj = new GameObject( "AudioPool_" + audioObjs.Count.ToString(), typeof( AudioSource ) );
 		audioSourceObj.transform.parent = audioObjHolder.transform;
@@ -39,7 +39,22 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		return audioSourceObj.audio;
 	}
 
-	public AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )
+	public static AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )
+	{
+		return instance.IPlay3DSoundAtPosition( sourceData, position );
+	}
+
+	public static AudioSource Play3DSoundAndFollow( AudioSource sourceData, Transform target )
+	{
+		return instance.IPlay3DSoundAndFollow( sourceData, target );
+	}
+
+	public static AudioSource Play2DSound( AudioSource sourceData )
+	{
+		return instance.IPlay2DSound( sourceData );
+	}
+
+	AudioSource IPlay3DSoundAtPosition( AudioSource sourceData, Vector3 position )
     {
 		AudioSource source = GetSource();
 
@@ -50,7 +65,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		return source;
     }
 
-	public AudioSource Play3DSoundAndFollow( AudioSource sourceData, Transform target )
+	AudioSource IPlay3DSoundAndFollow( AudioSource sourceData, Transform target )
     {
 		AudioSource source = GetSource();
 
@@ -62,7 +77,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		return source;
     }
 
-	public AudioSource Play2DSound( AudioSource sourceData )
+	AudioSource IPlay2DSound( AudioSource sourceData )
     {
 		AudioSource source = GetSource();
 

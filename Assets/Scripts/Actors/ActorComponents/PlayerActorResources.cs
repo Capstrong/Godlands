@@ -174,7 +174,7 @@ public class PlayerActorResources : ActorComponent
 			PickupResource( resourceComponent.resourceData );
 
 			Destroy( otherCol.gameObject );
-			SoundManager.instance.Play3DSoundAtPosition( resourcePopAudio, otherCol.transform.position );
+			SoundManager.Play3DSoundAtPosition( resourcePopAudio, otherCol.transform.position );
 		}
 	}
 }

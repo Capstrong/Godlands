@@ -10,7 +10,7 @@ public class AudioZone : MonoBehaviour
 	{
 		if ( otherCol.GetComponent<PlayerActor>() )
 		{
-			playingClip = SoundManager.instance.Play3DSoundAndFollow( sourceData, transform );
+			playingClip = SoundManager.Play3DSoundAndFollow( sourceData, transform );
 		}
 	}
 

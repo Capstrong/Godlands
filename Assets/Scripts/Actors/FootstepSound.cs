@@ -7,7 +7,7 @@ public class FootstepSound : MonoBehaviour
 
 	[SerializeField] void PlayerWalkSound()
 	{
-		SoundManager.instance.Play3DSoundAtPosition ( footstepSounds[Random.Range(0, footstepSounds.Length)],
-		                                              transform.position - transform.up );
+		SoundManager.Play3DSoundAtPosition ( footstepSounds[Random.Range(0, footstepSounds.Length)],
+		                                     transform.position - transform.up );
 	}
 }
