@@ -13,15 +13,13 @@ public class PlayerActorPhysics : ActorPhysics
 		_actor = GetComponent<PlayerActor>();
 		ChangeState( ActorStates.Grounded );
 	}
-	
-	void FixedUpdate()
+
+	void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
 		}
-	
-		CurrentStateMethod();
 	}
 
 	public override void SetupStateMethodMap()
@@ -96,17 +94,17 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			currStoppingPower = stoppingSpeed;
 
-			CheckGroundSlope();
+			//CheckGroundSlope();
 
-			moveVec = inputVec * jumpMoveSpeed * groundSlopeSpeedMod;
+			moveVec = inputVec * jumpMoveSpeed;// * groundSlopeSpeedMod;
 			moveVec.y = rigidbody.velocity.y;
 
 			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
 
-			if ( actor.animator )
+			if ( _actor.animator )
 			{
-				actor.animator.SetBool( "isMoving", true );
+				_actor.animator.SetBool( "isMoving", true );
 			}
 
 			ModelControl();

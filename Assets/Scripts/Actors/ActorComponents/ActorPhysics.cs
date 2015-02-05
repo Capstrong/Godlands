@@ -12,15 +12,19 @@ public enum ActorStates
 
 public class ActorPhysics : ActorComponent
 {
+	private new Transform transform;
+
 	// States
+	#region States
 	public delegate void ActorStateMethod();
 
 	ActorStates currentState = ActorStates.Jumping;
 	protected ActorStateMethod CurrentStateMethod;
 	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
-	
-	// Movement
-	[Header("Movement")]
+	#endregion
+
+	#region Movement
+	[Header( "Movement" )]
 	public Vector3 inputVec = Vector3.zero;
 	public float moveSpeedMod = 1f;
 
@@ -34,6 +38,7 @@ public class ActorPhysics : ActorComponent
 	float stopMoveTimer = 0f;
 
 	[SerializeField] float maxSpeed = 40f;
+
 	[SerializeField] float _groundedMoveSpeed = 6f;
 	public float groundedMoveSpeed
 	{
@@ -43,29 +48,25 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] protected float jumpMoveSpeed = 6f;
 	[SerializeField] protected float rollMoveSpeed = 6f;
 	[SerializeField] protected float climbMoveSpeed = 6f;
+	#endregion
 
-	// Model Info
-	[Space(10)][Header("Model Info")]
+	#region Collisions
+	[Space( 10 ), Header( "Collisions" )]
+	public SphereCollider lifter;
+	public SphereCollider bumper;
+
+	private float _lastY;
+	#endregion
+
+	#region Model Info
+	[Space( 10 ), Header( "Model Info" )]
 	public Transform model;
 	[SerializeField] float modelTurnSpeed = 7f;
 	protected Vector3 modelOffset;
+	#endregion
 
-	// Slope Checking
-	[Space(10)][Header("Slope Checking")]
-	[SerializeField] float groundSlopeCheckRadius = 0.2f;
-	[SerializeField] float groundSlopeCheckHeight = 0.7f;
-	float groundSlopeCapsuleWidth = 0.4f;
-	float groundSlopeCastDist = 0.3f;
-
-	float groundSlopeFallSpeed = -30f;
-
-	protected float groundSlopeSpeedMod = 1f;
-	float groundSlopeSpeedModeDelta = 2.5f;
-
-	[SerializeField] MinMaxF slopeLimits = new MinMaxF( 0.28f, 0.72f );
-
-	// Jumping
-	[Space(10)][Header("Jumping")]
+	#region Jumping
+	[Space( 10 ), Header( "Jumping" )]
 	[SerializeField] public float jumpForce = 8.5f;
 
 	[SerializeField] float jumpCheckDistance = 1.3f;
@@ -80,15 +81,17 @@ public class ActorPhysics : ActorComponent
 
 	[SerializeField] float lateJumpTime = 0.2f;
 	float lateJumpTimer = 0.0f;
+	#endregion
 
-	// Rolling
-	[Space(10)][Header("Rolling")]
+	#region Rolling
+	[Space( 10 ), Header( "Rolling" )]
 	[SerializeField] float rollTime = 1f;
 	[SerializeField] float rollCooldownTime = 1f;
 	float rollCooldownTimer = 0f;
+	#endregion
 
-	// Climbing
-	[Space(10)][Header("Climbing")]
+	#region Climbing
+	[Space( 10 ), Header( "Climbing" )]
 	[SerializeField] LayerMask climbLayer = (LayerMask)0;
 	[SerializeField] float climbCheckDistance = 0.5f;
 	[SerializeField] float climbCheckRadius = 0.7f;
@@ -103,32 +106,57 @@ public class ActorPhysics : ActorComponent
 	{
 		get{ return WadeUtils.ValidAxisInput("Grab"); }
 	}
+	#endregion
 
 	public override void Awake()
 	{
 		base.Awake();
 
+		transform = GetComponent<Transform>();
+
 		modelOffset = transform.position - model.position;
 		currStoppingPower = stoppingSpeed;
 
 		SetupStateMethodMap();
+
+		_lastY = transform.position.y;
 	}
 
-	public virtual void SetupStateMethodMap()
+	void FixedUpdate()
 	{
+		_lastY = transform.position.y;
 
+		CurrentStateMethod();
 	}
 
-	protected void ChangeState( ActorStates toState )
+	void OnCollisionStay( Collision collision )
 	{
-		currentState = toState;
-		CurrentStateMethod = stateMethodMap[currentState];
+		bool lifterCollision = false;
+		bool bumperCollision = false;
+		foreach ( ContactPoint contact in collision.contacts )
+		{
+			if ( contact.point.y > transform.position.y + bumper.center.y - bumper.radius )
+			{
+				Debug.DrawRay( contact.point, contact.normal * 5.0f );
+				bumperCollision = true;
+			}
+			else
+			{
+				lifterCollision = true;
+			}
+
+			// Only override y if the bumper collided but the lifter didn't
+			// The case being the player is going up an incline while
+			// rubbing along a wall, so the lifter should be lifting them
+			// up the incline and the bumper shouldn't negate that
+			if ( bumperCollision && !lifterCollision )
+			{
+				transform.SetPositionY( _lastY );
+			}
+		}
 	}
 
-	bool IsInState( ActorStates checkState )
-	{
-		return currentState == checkState;
-	}
+	public virtual void SetupStateMethodMap() { }
 
 	public void MoveAtSpeed( Vector3 inVec, float appliedMoveSpeed )
 	{
@@ -136,9 +164,9 @@ public class ActorPhysics : ActorComponent
 		
 		currStoppingPower = stoppingSpeed;
 		
-		CheckGroundSlope();
+		//CheckGroundSlope();
 		
-		moveVec = inVec * appliedMoveSpeed * moveSpeedMod * groundSlopeSpeedMod;
+		moveVec = inVec * appliedMoveSpeed * moveSpeedMod;// * groundSlopeSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
 		
 		lastVelocity = moveVec;
@@ -157,8 +185,8 @@ public class ActorPhysics : ActorComponent
 		currStoppingPower -= Time.deltaTime;
 		currStoppingPower = Mathf.Clamp( currStoppingPower, 0.0f, stoppingSpeed );
 
-		CheckGroundSlope();
-		moveVec = lastVelocity * currStoppingPower / stoppingSpeed * groundSlopeSpeedMod;
+		//CheckGroundSlope();
+		moveVec = lastVelocity * currStoppingPower / stoppingSpeed;// * groundSlopeSpeedMod;
 
 		moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = moveVec;
@@ -301,40 +329,6 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	protected void CheckGroundSlope()
-	{
-		float slopeSpeedMod = 1f;
-
-		RaycastHit hit;
-		Vector3 groundCheckPos = transform.position - Vector3.up * groundSlopeCheckHeight;
-
-		Vector3 capsuleRightOffset = model.right * groundSlopeCapsuleWidth/2f;
-		Physics.CapsuleCast(groundCheckPos + capsuleRightOffset, groundCheckPos - capsuleRightOffset, 
-		                    groundSlopeCheckRadius, model.forward, out hit, groundSlopeCastDist);
-
-		if ( hit.transform )
-		{
-			/// Slope mode is based on the steepness of the surface normal
-			float groundDot = Vector3.Dot( Vector3.up, hit.normal );
-			slopeSpeedMod = Mathf.InverseLerp( slopeLimits.min, slopeLimits.max, groundDot ); // Not sure if I need this clamp
-			slopeSpeedMod = Mathf.Lerp( 0f, 1f, slopeSpeedMod );
-
-			if ( slopeSpeedMod < 0.5f )
-			{
-				SetFallSpeed( Time.deltaTime * groundSlopeFallSpeed );
-			}
-		}
-
-		groundSlopeSpeedMod = Mathf.MoveTowards( groundSlopeSpeedMod, slopeSpeedMod, Time.deltaTime * groundSlopeSpeedModeDelta );
-	}
-
-	void SetFallSpeed( float fallSpeed )
-	{
-		Vector3 moveVec = rigidbody.velocity;
-		moveVec.y = fallSpeed;
-		rigidbody.velocity = moveVec;
-	}
-
 	public void RollCheck()
 	{
 		if ( IsInState( ActorStates.Rolling ) )
@@ -415,8 +409,6 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = Vector3.ClampMagnitude( rigidbody.velocity, maxSpeed );
 	}
 
-
-
 	public void ModelControl()
 	{
 		model.position = transform.position - modelOffset;
@@ -426,31 +418,76 @@ public class ActorPhysics : ActorComponent
 
 		if ( !WadeUtils.IsZero( lookVec ) )
 		{
-			model.rotation = Quaternion.Lerp( model.rotation, 
-			                                  Quaternion.LookRotation(lookVec, transform.up), 
+			model.rotation = Quaternion.Lerp( model.rotation,
+			                                  Quaternion.LookRotation( lookVec, transform.up ),
 			                                  Time.deltaTime * modelTurnSpeed );
 		}
 	}
 
-	void OnDrawGizmosSelected()
+	//protected void CheckGroundSlope()
+	//{
+	//	float slopeSpeedMod = 1f;
+
+	//	RaycastHit hit;
+	//	Vector3 groundCheckPos = transform.position - Vector3.up * groundSlopeCheckHeight;
+
+	//	Vector3 capsuleRightOffset = model.right * groundSlopeCapsuleWidth/2f;
+	//	Physics.CapsuleCast(groundCheckPos + capsuleRightOffset, groundCheckPos - capsuleRightOffset, 
+	//						groundSlopeCheckRadius, model.forward, out hit, groundSlopeCastDist);
+
+	//	if ( hit.transform )
+	//	{
+	//		/// Slope mode is based on the steepness of the surface normal
+	//		float groundDot = Vector3.Dot( Vector3.up, hit.normal );
+	//		slopeSpeedMod = Mathf.InverseLerp( slopeLimits.min, slopeLimits.max, groundDot ); // Not sure if I need this clamp
+	//		slopeSpeedMod = Mathf.Lerp( 0f, 1f, slopeSpeedMod );
+
+	//		if ( slopeSpeedMod < 0.5f )
+	//		{
+	//			SetFallSpeed( Time.deltaTime * groundSlopeFallSpeed );
+	//		}
+	//	}
+
+	//	groundSlopeSpeedMod = Mathf.MoveTowards( groundSlopeSpeedMod, slopeSpeedMod, Time.deltaTime * groundSlopeSpeedModeDelta );
+	//}
+
+	protected void ChangeState( ActorStates toState )
 	{
-		// ColliderVis
-		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
-		Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
-
-		// JumpCheck
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere( transform.position + groundPosOffset, jumpCheckRadius );
-
-		// SlopeCheck
-		Gizmos.color = Color.blue;
-		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
-		Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
-
-		// Climb check
-		Gizmos.color = Color.green;
-		Gizmos.DrawSphere( transform.position, climbCheckRadius );
-		Gizmos.DrawSphere( transform.position + model.forward * climbCheckDistance, climbCheckRadius );
+		currentState = toState;
+		CurrentStateMethod = stateMethodMap[currentState];
 	}
+
+	bool IsInState( ActorStates checkState )
+	{
+		return currentState == checkState;
+	}
+
+	void SetFallSpeed( float fallSpeed )
+	{
+		Vector3 moveVec = rigidbody.velocity;
+		moveVec.y = fallSpeed;
+		rigidbody.velocity = moveVec;
+	}
+
+	//void OnDrawGizmosSelected()
+	//{
+	//	// ColliderVis
+	//	Gizmos.color = Color.white;
+	//	Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
+	//	Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
+
+	//	// JumpCheck
+	//	Gizmos.color = Color.red;
+	//	Gizmos.DrawWireSphere( transform.position + groundPosOffset, jumpCheckRadius );
+
+	//	// SlopeCheck
+	//	Gizmos.color = Color.blue;
+	//	Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
+	//	Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
+
+	//	// Climb check
+	//	Gizmos.color = Color.green;
+	//	Gizmos.DrawSphere( transform.position, climbCheckRadius );
+	//	Gizmos.DrawSphere( transform.position + model.forward * climbCheckDistance, climbCheckRadius );
+	//}
 }

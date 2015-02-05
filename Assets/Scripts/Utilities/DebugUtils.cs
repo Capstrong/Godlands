@@ -8,7 +8,6 @@ public class DebugUtils
 		if ( !condition )
 		{
 			Debug.LogError( message );
-			System.Diagnostics.Debugger.Break();
 		}
 	}
 }
