@@ -24,16 +24,12 @@ public class PlayerActorInventory : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	ActorCamera _actorCamera;
-
 	[SerializeField] LayerMask buddyLayer = 0;
 	[SerializeField] float maxGiveDistance = 2f;
 
 	public override void Awake()
 	{
 		base.Awake();
-
-		_actorCamera = GetComponent<ActorCamera>();
 	}
 
 	// Use this for initialization
@@ -86,17 +82,21 @@ public class PlayerActorInventory : ActorComponent
 	void CheckGiveResources()
 	{
 		RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
-		                                                  _actorCamera.cam.transform.forward,
+		                                                  (actor as PlayerActor).actorCamera.cam.transform.forward,
 		                                                  buddyLayer,
 		                                                  maxGiveDistance );
 
 		if ( hitInfo.transform )
 		{
 			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
+
+			GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
+
 			if ( buddyStats &&
 			     buddyStats.isAlive &&
-			     ( buddyStats.owner == null || buddyStats.owner == GetComponent<GodTag>() ) )
+			     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 			{
+				buddyStats.SetGod( godTag );
 				GiveResource( buddyStats );
 			}
 		}
@@ -104,7 +104,7 @@ public class PlayerActorInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( actor.actorPhysics, (ResourceData)heldResources[resourceIndex] );
+		buddyStats.GiveResource( (actor as PlayerActor).actorStats, (ResourceData)heldResources[resourceIndex] );
 		inventory[heldResources[resourceIndex]]--;
 
 		UpdateResourceList();
@@ -116,7 +116,7 @@ public class PlayerActorInventory : ActorComponent
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * 3.0f,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
-		newBuddy.owner = GetComponent<GodTag>();
+		newBuddy.SetGod( GetComponent<GodTag>() );
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
 		inventory[heldResources[resourceIndex]]--;

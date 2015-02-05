@@ -13,7 +13,7 @@ public class PlayerActorPhysics : ActorPhysics
 		_actor = GetComponent<PlayerActor>();
 		ChangeState( ActorStates.Grounded );
 	}
-
+	
 	void FixedUpdate()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
