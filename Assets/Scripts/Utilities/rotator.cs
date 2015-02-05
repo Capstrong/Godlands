@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class rotator : MonoBehaviour {
+public class Rotator : MonoBehaviour 
+{
+	[SerializeField] Vector3 eulerRotation;
 
-    public float speed = 0.67f;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        transform.Rotate(Vector3.up, speed);
+	void Update () 
+	{
+		transform.rotation *= Quaternion.Euler( eulerRotation * Time.deltaTime );
 	}
 }
