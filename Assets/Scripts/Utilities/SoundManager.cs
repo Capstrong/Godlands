@@ -2,253 +2,136 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SounderTag : MonoBehaviour {}
-public class SongTag : MonoBehaviour {}
-
-public enum AudioType
+public class SoundManager : SingletonBehaviour<SoundManager>
 {
-	Sound = 0,
-	Song = 1
-}
+	[HideInInspector] public GameObject audioObjHolder = null;
+	[HideInInspector] public GameObject loopObjHolder = null;
+	public List<AudioSource> audioObjs = new List<AudioSource>();
 
-[System.Serializable]
-public class AudioPool
-{
-	public string poolName;
-	public AudioType poolType;
-	public AudioClip[] audioClips;
-	
-	[HideInInspector] public GameObject audioObjHolder;
-	[HideInInspector] public List<AudioSource> audioObjs;
+	AudioSource defaultSource;
 
-	public Dictionary<string, AudioClip> clipList = new Dictionary<string, AudioClip>();
-	public bool muted = false;
+    void Awake()
+    {
+		defaultSource = gameObject.AddComponent<AudioSource>();
+		defaultSource.playOnAwake = false;
 
-	public void SetMuted(bool mute)
-	{
-		muted = mute;
-	}
+		SetupPool( gameObject );
+    }
 
-	public void SetupPool(GameObject soundManagerObj)
+	void SetupPool( GameObject soundManagerObj )
 	{
 		// Create object to hold sounders
-		audioObjHolder = new GameObject(poolName);
+		audioObjHolder = new GameObject( "AudioPool" );
 		audioObjHolder.transform.parent = soundManagerObj.transform;
+		
+		loopObjHolder = new GameObject( "AudioPool_Loops" );
+		loopObjHolder.transform.parent = soundManagerObj.transform;
 	}
-
-	public AudioSource CreateAudioObj()
+	
+	AudioSource CreateAudioObj()
 	{
-		GameObject audioSourceObj = new GameObject(poolName, typeof(AudioSource));
+		GameObject audioSourceObj = new GameObject( "AudioPool_" + audioObjs.Count.ToString(), typeof( AudioSource ) );
 		audioSourceObj.transform.parent = audioObjHolder.transform;
-
-		audioObjs.Add(audioSourceObj.audio);
+		
+		audioObjs.Add( audioSourceObj.audio );
 		audioSourceObj.audio.playOnAwake = false;
 		
 		return audioSourceObj.audio;
 	}
-}
 
-public class SoundManager : SingletonBehaviour<SoundManager>
-{
-	[SerializeField] AudioPool[] audioPools = null;
-
-    // Use this for initialization
-    void Awake()
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			foreach(AudioClip audioClip in audioPool.audioClips)
-			{
-				audioPool.clipList.Add(audioClip.name, audioClip);
-			}
-
-			audioPool.SetupPool(gameObject);
-		}
-    }
-
-	public AudioSource PlaySoundAtPosition(string clip, Vector3 position)
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			if(audioPool.poolType == AudioType.Sound)
-			{
-				foreach(AudioSource audioSource in audioPool.audioObjs)
-				{
-					if(!audioSource.isPlaying)
-					{
-				        audioSource.transform.position = position;
-						return PlayAudioObj(audioSource, clip);
-					}
-				}
-
-				AudioSource newSource = audioPool.CreateAudioObj();
-				newSource.transform.position = position;
-				audioPool.audioObjs.Add(newSource);
-				return PlayAudioObj(newSource, clip);
-			}
-		}
-
-		return null;
-    }
-
-	public AudioSource PlaySoundAndFollow(string clip, Transform target)
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			if(audioPool.poolType == AudioType.Sound)
-			{
-				foreach(AudioSource audioSource in audioPool.audioObjs)
-				{
-					if(!audioSource.isPlaying)
-					{
-						audioSource.transform.position = target.position;
-						audioSource.transform.parent = target;
-						return PlayAudioObj(audioSource, clip);
-					}
-				}
-
-				AudioSource newSource = audioPool.CreateAudioObj();
-
-		        // Attach to target
-				newSource.transform.position = target.position;
-				newSource.transform.parent = target;
-				audioPool.audioObjs.Add(newSource);
-
-				// Set up audio source
-				return PlayAudioObj(newSource, clip);
-			}
-		}
-
-		return null;
-    }
-
-    public AudioSource Play2DSong(string clip)
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			if(audioPool.poolType == AudioType.Song)
-			{
-				foreach(AudioSource audioSource in audioPool.audioObjs)
-				{
-					if(!audioSource.isPlaying)
-					{
-						return PlayAudioObj(audioSource, clip);
-					}
-				}
-				
-				AudioSource newSource = audioPool.CreateAudioObj();
-				audioPool.audioObjs.Add(newSource);
-
-				return PlayAudioObj(newSource, clip);
-			}
-		}
-
-		return null;
-    }
-
-	public AudioSource PlaySongAtPosition(string clip, Vector3 position)
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			if(audioPool.poolType == AudioType.Sound)
-			{				
-				foreach(AudioSource audioSource in audioPool.audioObjs)
-				{
-					if(!audioSource.isPlaying)
-					{
-						audioSource.transform.position = position;
-						return PlayAudioObj(audioSource, clip);
-					}
-				}
-				
-				AudioSource newSource = audioPool.CreateAudioObj();
-				newSource.transform.position = position;
-				audioPool.audioObjs.Add(newSource);
-
-				return PlayAudioObj(newSource, clip);
-			}
-		}
-		
-		return null;
-    }
-
-	public AudioSource PlaySongAndFollow(string clip, Transform target)
-    {
-		foreach(AudioPool audioPool in audioPools)
-		{
-			if(audioPool.poolType == AudioType.Sound)
-			{
-				foreach(AudioSource audioSource in audioPool.audioObjs)
-				{
-					if(!audioSource.isPlaying)
-					{
-						audioSource.transform.position = target.position;
-						audioSource.transform.parent = target;
-						return PlayAudioObj(audioSource, clip);
-					}
-				}
-
-				AudioSource newSource = audioPool.CreateAudioObj();
-				newSource.transform.position = target.position;
-				newSource.transform.parent = target;
-				audioPool.audioObjs.Add(newSource);
-
-				return PlayAudioObj(newSource, clip);
-			}
-		}
-
-		return null;
+	public static AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )
+	{
+		return instance.IPlay3DSoundAtPosition( sourceData, position );
 	}
 
-	AudioSource PlayAudioObj(AudioSource audioSource, string clip, bool loop = false)
+	public static AudioSource Play3DSoundAndFollow( AudioSource sourceData, Transform target )
 	{
-		foreach(AudioPool audioPool in audioPools)
+		return instance.IPlay3DSoundAndFollow( sourceData, target );
+	}
+
+	public static AudioSource Play2DSound( AudioSource sourceData )
+	{
+		return instance.IPlay2DSound( sourceData );
+	}
+
+	AudioSource IPlay3DSoundAtPosition( AudioSource sourceData, Vector3 position )
+    {
+		AudioSource source = GetSource();
+
+		source.transform.position = position;
+		PlayAudioObj( sourceData, source );
+		audioObjs.Add( source );
+
+		return source;
+    }
+
+	AudioSource IPlay3DSoundAndFollow( AudioSource sourceData, Transform target )
+    {
+		AudioSource source = GetSource();
+
+		source.transform.position = target.position;
+		source.transform.parent = target;
+		PlayAudioObj( sourceData, source );
+		audioObjs.Add( source );
+
+		return source;
+    }
+
+	AudioSource IPlay2DSound( AudioSource sourceData )
+    {
+		AudioSource source = GetSource();
+
+		PlayAudioObj( sourceData, source );
+		audioObjs.Add( source );
+
+		return source;
+    }
+
+	AudioSource GetSource()
+	{
+		AudioSource returnSource = null;
+
+		foreach ( AudioSource audioSource in audioObjs )
 		{
-			if(audioPool.clipList.ContainsKey(clip))
+			if ( !audioSource.isPlaying )
 			{
-		        // Set up audio source
-				audioSource.clip = audioPool.clipList[clip];
-				audioSource.Play();
-
-		        // If this sound will loop forever, then replace it in the pool
-		        if (loop)
-		        {
-					audioSource.transform.parent = null;
-					audioSource.name = "AudioLoop_" + clip;
-
-					audioPool.audioObjs.Remove(audioSource);
-
-					GameObject replacementObj = new GameObject("AudioObj", typeof(AudioSource));
-					audioPool.audioObjs.Add(replacementObj.audio);
-
-					replacementObj.audio.playOnAwake = false;
-					replacementObj.transform.parent = audioPool.audioObjHolder.transform;
-		        }
-		        else
-				{
-		            StartCoroutine(ReturnSourceToPool(audioSource, audioPool.audioObjHolder.transform));
-				}
-
-		        return audioSource;
+				returnSource = audioSource;
 			}
 		}
 
-		return null;
+		if(!returnSource)
+		{
+			returnSource = CreateAudioObj();
+		}
+
+		return returnSource;
+	}
+
+	void PlayAudioObj( AudioSource sourceData, AudioSource source)
+	{
+		source.MakeCopyOf(sourceData);
+		source.Play();
+
+        if ( !source.loop )
+		{
+			StartCoroutine( ReturnSourceToPool( source, audioObjHolder.transform ) );
+		}
     }
 	
-	void ResetSource(AudioSource source)
+	void ResetSource( AudioSource source )
 	{
-		source.volume = 1f;
-		source.pitch = 1f;
-		source.loop = false;
+		source.GetCopyOf( defaultSource );
 	}
 
-    IEnumerator ReturnSourceToPool(AudioSource audioSource, Transform parent)
+    IEnumerator ReturnSourceToPool( AudioSource audioSource, Transform parent )
     {
-		yield return new WaitForSeconds(audioSource.clip.length);
+		yield return new WaitForSeconds( audioSource.clip.length );
 
-		ResetSource(audioSource);
-        audioSource.transform.position = parent.position;
-		audioSource.transform.parent = parent;
+		if( !audioSource.loop )
+		{
+			ResetSource( audioSource );
+			audioSource.transform.position = parent.position;
+			audioSource.transform.parent = parent;
+		}
     }
 }
