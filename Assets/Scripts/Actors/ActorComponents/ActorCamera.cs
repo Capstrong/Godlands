@@ -52,6 +52,11 @@ public class ActorCamera : ActorComponent
 		{
 			Screen.lockCursor = true;
 		}
+
+		if ( Input.GetKeyDown( KeyCode.T ) )
+		{
+			Application.CaptureScreenshot( "Screenshot_" + System.DateTime.Now.ToString( "yyyy.MM.dd.HH.mm.ss" ) + ".png", 4 );
+		}
 	}
 
 	void ToggleUnderWaterMode(bool setOn)

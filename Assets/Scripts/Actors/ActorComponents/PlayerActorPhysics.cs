@@ -32,7 +32,11 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Jumping()
 	{
-		JumpCheck();
+		// TODO should we be doing JumpCheck() while jumping?
+		if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
+		{
+			JumpCheck();
+		}
 		ClimbCheck();
 		RollCheck();
 
@@ -61,7 +65,10 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Grounded()
 	{
-		JumpCheck();
+		if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
+		{
+			JumpCheck();
+		}
 		ClimbCheck();
 		RollCheck();
 
