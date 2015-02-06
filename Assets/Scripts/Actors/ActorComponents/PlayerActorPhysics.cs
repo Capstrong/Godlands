@@ -101,9 +101,7 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			currStoppingPower = stoppingSpeed;
 
-			//CheckGroundSlope();
-
-			moveVec = inputVec * jumpMoveSpeed;// * groundSlopeSpeedMod;
+			moveVec = inputVec * jumpMoveSpeed;
 			moveVec.y = rigidbody.velocity.y;
 
 			lastVelocity = moveVec;
@@ -113,8 +111,6 @@ public class PlayerActorPhysics : ActorPhysics
 			{
 				_actor.animator.SetBool( "isMoving", true );
 			}
-
-			ModelControl();
 		}
 	}
 

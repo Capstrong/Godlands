@@ -13,6 +13,7 @@ public enum ActorStates
 public class ActorPhysics : ActorComponent
 {
 	private new Transform transform;
+	private new Rigidbody rigidbody;
 
 	// States
 	#region States
@@ -50,24 +51,17 @@ public class ActorPhysics : ActorComponent
 
 	#region Collisions
 	[Space( 10 ), Header( "Collisions" )]
-	public SphereCollider lifter;
 	public SphereCollider bumper;
 	private Transform _bumperTransform;
 	private Rigidbody _bumperRigidbody;
-
-	[Tooltip( "Force used to negate lift created by the bumper" )]
-	public float bumpForce = 1.0f;
-
-	public float velocityLerp = 0.5f;
-
-	private float _lastY;
 	#endregion
 
 	#region Model Info
 	[Space( 10 ), Header( "Model Info" )]
 	public Transform model;
 	[SerializeField] float modelTurnSpeed = 7f;
-	protected Vector3 modelOffset;
+
+	private Vector3 _lastPos;
 	#endregion
 
 	#region Jumping
@@ -75,7 +69,6 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] public float jumpForce = 8.5f;
 
 	[SerializeField] float jumpCheckDistance = 1.0f;
-	[SerializeField] Vector3 groundPosOffset = new Vector3(0f, -1f, 0f);
 
 	[SerializeField] LayerMask jumpLayer = 0;
 	[SerializeField] float minJumpDot = 0.4f;
@@ -114,26 +107,25 @@ public class ActorPhysics : ActorComponent
 		base.Awake();
 
 		transform = GetComponent<Transform>();
+		rigidbody = GetComponent<Rigidbody>();
 
-		modelOffset = transform.position - model.position;
+		_lastPos = transform.position;
 		currStoppingPower = stoppingSpeed;
-
-		SetupStateMethodMap();
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
 		_bumperTransform.parent = null;
-		_lastY = transform.position.y;
+
+		SetupStateMethodMap();
 	}
 
 	void FixedUpdate()
 	{
 		FollowBumper();
-
 		CurrentStateMethod();
-		_lastY = transform.position.y;
-
 		ConstrainBumper();
+
+		OrientSelf();
 	}
 
 	//void OnCollisionStay( Collision collision )
@@ -192,10 +184,8 @@ public class ActorPhysics : ActorComponent
 		rigidbody.useGravity = true;
 		
 		currStoppingPower = stoppingSpeed;
-		
-		//CheckGroundSlope();
-		
-		moveVec = inVec * appliedMoveSpeed * moveSpeedMod;// * groundSlopeSpeedMod;
+
+		moveVec = inVec * appliedMoveSpeed * moveSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
 
 		lastVelocity = moveVec;
@@ -205,8 +195,6 @@ public class ActorPhysics : ActorComponent
 		{
 			actor.animator.SetBool( "isMoving", true );
 		}
-		
-		ModelControl();
 	}
 
 	public void ComeToStop()
@@ -239,8 +227,6 @@ public class ActorPhysics : ActorComponent
 				rigidbody.useGravity = true;
 			}
 		}
-
-		ModelControl();
 	}
 
 	public void ClimbCheck()
@@ -441,47 +427,28 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	public void ModelControl()
+	/**
+	 * @brief Orients the model to face the direction of movement
+	 * 
+	 * @details
+	 *     Orientation is reactive to velocity, meaning the
+	 *     model will face the direction of movement, rather
+	 *     than the input direction.
+	 */
+	public void OrientSelf()
 	{
-		model.position = transform.position - modelOffset;
-
-		Vector3 lookVec = inputVec;
+		Vector3 lookVec = transform.position - _lastPos;
 		lookVec.y = 0.0f;
 
-		if ( !WadeUtils.IsZero( lookVec ) )
+		if ( !lookVec.IsZero() )
 		{
-			model.rotation = Quaternion.Lerp( model.rotation,
+			transform.rotation = Quaternion.Lerp( transform.rotation,
 			                                  Quaternion.LookRotation( lookVec, transform.up ),
 			                                  Time.deltaTime * modelTurnSpeed );
 		}
+
+		_lastPos = transform.position;
 	}
-
-	//protected void CheckGroundSlope()
-	//{
-	//	float slopeSpeedMod = 1f;
-
-	//	RaycastHit hit;
-	//	Vector3 groundCheckPos = transform.position - Vector3.up * groundSlopeCheckHeight;
-
-	//	Vector3 capsuleRightOffset = model.right * groundSlopeCapsuleWidth/2f;
-	//	Physics.CapsuleCast(groundCheckPos + capsuleRightOffset, groundCheckPos - capsuleRightOffset, 
-	//						groundSlopeCheckRadius, model.forward, out hit, groundSlopeCastDist);
-
-	//	if ( hit.transform )
-	//	{
-	//		/// Slope mode is based on the steepness of the surface normal
-	//		float groundDot = Vector3.Dot( Vector3.up, hit.normal );
-	//		slopeSpeedMod = Mathf.InverseLerp( slopeLimits.min, slopeLimits.max, groundDot ); // Not sure if I need this clamp
-	//		slopeSpeedMod = Mathf.Lerp( 0f, 1f, slopeSpeedMod );
-
-	//		if ( slopeSpeedMod < 0.5f )
-	//		{
-	//			SetFallSpeed( Time.deltaTime * groundSlopeFallSpeed );
-	//		}
-	//	}
-
-	//	groundSlopeSpeedMod = Mathf.MoveTowards( groundSlopeSpeedMod, slopeSpeedMod, Time.deltaTime * groundSlopeSpeedModeDelta );
-	//}
 
 	protected void ChangeState( ActorStates toState )
 	{
@@ -501,25 +468,12 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = moveVec;
 	}
 
-	//void OnDrawGizmosSelected()
-	//{
-	//	// ColliderVis
-	//	Gizmos.color = Color.white;
-	//	Gizmos.DrawWireSphere( transform.position + Vector3.up * 0.5f, 0.5f );
-	//	Gizmos.DrawWireSphere( transform.position - Vector3.up * 0.5f, 0.5f );
-
-	//	// JumpCheck
-	//	Gizmos.color = Color.red;
-	//	Gizmos.DrawWireSphere( transform.position + groundPosOffset, jumpCheckRadius );
-
-	//	// SlopeCheck
-	//	Gizmos.color = Color.blue;
-	//	Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f + model.right * 0.2f, groundSlopeCheckRadius );
-	//	Gizmos.DrawSphere( transform.position - Vector3.up * groundSlopeCheckHeight + model.forward * 0.3f - model.right * 0.2f, groundSlopeCheckRadius );
-
-	//	// Climb check
-	//	Gizmos.color = Color.green;
-	//	Gizmos.DrawSphere( transform.position, climbCheckRadius );
-	//	Gizmos.DrawSphere( transform.position + model.forward * climbCheckDistance, climbCheckRadius );
-	//}
+	void OnDrawGizmosSelected()
+	{
+		if ( Application.isPlaying )
+		{
+			Gizmos.DrawWireSphere( GetComponent<Transform>().position + bumper.center,
+			                       bumper.radius );
+		}
+	}
 }
