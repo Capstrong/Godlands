@@ -2126,8 +2126,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .995970964, z: 0, w: -.0896764323}
-  m_LocalPosition: {x: -12.2299995, y: -19.2000008, z: -3.91000009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.46600008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3477,16 +3477,15 @@ MonoBehaviour:
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
-  lifter: {fileID: 13518824}
   bumper: {fileID: 13518822}
   model: {fileID: 480002}
   modelTurnSpeed: 7
+  lookDirLerp: .00200000009
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
-  groundPosOffset: {x: 0, y: -1, z: 0}
   jumpLayer:
     serializedVersion: 2
-    m_Bits: 4294966729
+    m_Bits: 4294963657
   minJumpDot: .400000006
   jumpColCheckTime: .5
   rollTime: 1

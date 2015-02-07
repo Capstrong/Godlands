@@ -60,6 +60,8 @@ public class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Model Info" )]
 	public Transform model;
 	[SerializeField] float modelTurnSpeed = 7f;
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float lookDirLerp = 0.002f;
 
 	private Vector3 _lastPos;
 	#endregion
@@ -437,8 +439,13 @@ public class ActorPhysics : ActorComponent
 	 */
 	public void OrientSelf()
 	{
-		Vector3 lookVec = transform.position - _lastPos;
-		lookVec.y = 0.0f;
+		Vector3 actualVelocity = transform.position - _lastPos;
+		actualVelocity.y = 0.0f;
+
+		Vector3 intendedVelocity = rigidbody.velocity;
+		intendedVelocity.y = 0.0f;
+
+		Vector3 lookVec = Vector3.Lerp( actualVelocity, intendedVelocity, lookDirLerp );
 
 		if ( !lookVec.IsZero() )
 		{
