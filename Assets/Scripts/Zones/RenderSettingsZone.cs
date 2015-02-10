@@ -3,13 +3,13 @@ using System.Collections;
 
 public class RenderSettingsZone : MonoBehaviour 
 {
-	[SerializeField] RenderSettingsData renderSettings;
+	[SerializeField] RenderSettingsData _renderSettings = null;
 	
 	void OnTriggerEnter( Collider otherCol )
 	{
 		if ( otherCol.GetComponent<PlayerActor>() )
 		{
-			RenderSettingsManager.ChangeTargetRenderSettings( renderSettings );
+			RenderSettingsManager.ChangeTargetRenderSettings( _renderSettings );
 		}
 	}
 	

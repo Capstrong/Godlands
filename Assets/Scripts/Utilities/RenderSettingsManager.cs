@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class LightSettings
 {
 	public Color color;
 	public float intensity;
 }
 
-[System.Serializable]
+[Serializable]
 public class FogSettings
 {
 	public Color color;
 	public float density;
 }
 
-[System.Serializable]
+[Serializable]
 public class RenderSettingsData
 {
 	public Color dayColor;
@@ -27,21 +28,20 @@ public class RenderSettingsData
 
 public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager> 
 {
-	[SerializeField] RenderSettingsData _curRenderSettings;
-
+	[SerializeField] RenderSettingsData _currentRenderSettings = null;
 	RenderSettingsData _targetRenderSettings = new RenderSettingsData();
 
-	[SerializeField] float settingShiftTime = 15f;
-	float settingShiftTimer = 0f;
+	[SerializeField] float _settingShiftTime = 15f;
+	float _settingShiftTimer = 0f;
 
-	Light dirLight;
+	Light _dirLight = null;
 
 	[Range(0, 1)]
 	public float timeOfDay; // This should not go in here. Eventually it will be with the Day Cycle
 
 	void Awake()
 	{
-		dirLight = GameObject.FindObjectOfType<Light>();
+		_dirLight = GameObject.FindObjectOfType<Light>();
 	}
 
 	void Update()
@@ -64,18 +64,18 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void ApplyRenderSettings()
 	{
-		Color skyboxColor = Color.Lerp( _curRenderSettings.dayColor,
-		                                _curRenderSettings.nightColor,
+		Color skyboxColor = Color.Lerp( _currentRenderSettings.dayColor,
+		                                _currentRenderSettings.nightColor,
 		                                timeOfDay );
 		RenderSettings.skybox.SetColor( "_Tint", skyboxColor );
 
-		RenderSettings.fogColor = _curRenderSettings.fogSettings.color;
-		RenderSettings.fogDensity = _curRenderSettings.fogSettings.density;
+		RenderSettings.fogColor = _currentRenderSettings.fogSettings.color;
+		RenderSettings.fogDensity = _currentRenderSettings.fogSettings.density;
 
-		if(dirLight)
+		if ( _dirLight )
 		{
-			dirLight.color = _curRenderSettings.lightSettings.color;
-			dirLight.intensity = _curRenderSettings.lightSettings.intensity;
+			_dirLight.color = _currentRenderSettings.lightSettings.color;
+			_dirLight.intensity = _currentRenderSettings.lightSettings.intensity;
 		}
 		else
 		{
@@ -115,19 +115,19 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		renderSettings.lightSettings = lightSettings;
 		renderSettings.fogSettings = fogSettings;
 
-		_curRenderSettings = renderSettings;
+		_currentRenderSettings = renderSettings;
 	}
 
 	IEnumerator GoToTargetRenderSettings()
 	{
-		RenderSettingsData initRenderSettings = _curRenderSettings;
+		RenderSettingsData initRenderSettings = _currentRenderSettings;
 
-		settingShiftTimer = 0f;
-		while( settingShiftTimer < settingShiftTime )
+		_settingShiftTimer = 0f;
+		while ( _settingShiftTimer < _settingShiftTime )
 		{
-			LerpRenderSettings( initRenderSettings, settingShiftTimer/settingShiftTime );
+			LerpRenderSettings( initRenderSettings, _settingShiftTimer/_settingShiftTime );
 
-			settingShiftTimer += Time.deltaTime;
+			_settingShiftTimer += Time.deltaTime;
 			yield return 0;
 		}
 
