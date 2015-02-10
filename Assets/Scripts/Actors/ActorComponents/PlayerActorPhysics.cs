@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerActorPhysics : ActorPhysics
 {
 	PlayerActor _actor;
+	bool _jumpButtonDown = false;
 
 	public override void Awake()
 	{
@@ -20,11 +21,14 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			Application.Quit();
 		}
+
+		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
 	}
 
 	public override void SetupStateMethodMap()
 	{
 		stateMethodMap.Add( ActorStates.Jumping, Jumping );
+		stateMethodMap.Add( ActorStates.Falling, Jumping );
 		stateMethodMap.Add( ActorStates.Grounded, Grounded );
 		stateMethodMap.Add( ActorStates.Rolling, Rolling );
 		stateMethodMap.Add( ActorStates.Climbing, Climbing );
@@ -32,7 +36,7 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Jumping()
 	{
-		if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
+		if ( _jumpButtonDown )
 		{
 			JumpCheck();
 		}
@@ -64,7 +68,7 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Grounded()
 	{
-		if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
+		if ( _jumpButtonDown )
 		{
 			JumpCheck();
 		}

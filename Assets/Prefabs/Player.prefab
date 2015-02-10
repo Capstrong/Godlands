@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 418822}
   - 54: {fileID: 5464494}
-  - 135: {fileID: 13518822}
+  - 136: {fileID: 13615418}
   m_Layer: 11
   m_Name: Bumper
   m_TagString: Untagged
@@ -3477,8 +3477,7 @@ MonoBehaviour:
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
-  bumper: {fileID: 13518822}
-  model: {fileID: 480002}
+  bumper: {fileID: 13615418}
   modelTurnSpeed: 7
   lookDirLerp: .00200000009
   jumpForce: 8.5
@@ -3489,6 +3488,8 @@ MonoBehaviour:
     m_Bits: 4294963657
   minJumpDot: .400000006
   jumpColCheckTime: .5
+  lateJumpTime: .5
+  jumpCheckDelay: .100000001
   rollTime: 1
   rollCooldownTime: 1
   climbLayer:
@@ -3544,18 +3545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &13518822
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .850000024
-  m_Center: {x: 0, y: 1.10000002, z: 0}
 --- !u!135 &13518824
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -3566,8 +3555,21 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .699999988
-  m_Center: {x: 0, y: .699999988, z: 0}
+  m_Radius: .400000006
+  m_Center: {x: 0, y: .400000006, z: 0}
+--- !u!136 &13615418
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.29999995, z: 0}
 --- !u!137 &13780144
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

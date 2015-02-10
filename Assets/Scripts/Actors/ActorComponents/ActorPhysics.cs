@@ -6,6 +6,7 @@ public enum ActorStates
 {
 	Grounded = 0,
 	Jumping,
+	Falling,
 	Rolling,
 	Climbing
 }
@@ -51,7 +52,7 @@ public class ActorPhysics : ActorComponent
 
 	#region Collisions
 	[Space( 10 ), Header( "Collisions" )]
-	public SphereCollider bumper;
+	public Collider bumper;
 	private Transform _bumperTransform;
 	private Rigidbody _bumperRigidbody;
 	#endregion
@@ -76,9 +77,14 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float minJumpDot = 0.4f;
 
 	[SerializeField] float jumpColCheckTime = 0.5f;
-	[SerializeField] float lateJumpTime = 0.5f;
 	float _jumpColCheckTimer = 0.0f;
-	Coroutine _lateJumpTimer = null;
+
+	[SerializeField] float lateJumpTime = 0.5f;
+	bool _lateJump = false;
+
+	[Tooltip( "The minimum delay between jump checks. Use this to prevent the player from immediately colliding with the ground after jumping." )]
+	[SerializeField] float jumpCheckDelay = 0.1f;
+	bool _jumpCheckDelay = false;
 
 	bool _isOnGround = false;
 	#endregion
@@ -346,7 +352,7 @@ public class ActorPhysics : ActorComponent
 
 	public void JumpCheck()
 	{
-		if ( _isOnGround )
+		if ( _isOnGround || _lateJump )
 		{
 			Vector3 curVelocity = rigidbody.velocity;
 			curVelocity.y = jumpForce;
@@ -354,9 +360,11 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 
 			_jumpColCheckTimer = 0.0f;
+			actor.animator.SetBool( "isJumping", true );
 			//actor.GetAnimator().SetBool("isSliding", false);
 
 			ChangeState( ActorStates.Jumping );
+			StartJumpCheckDelayTimer();
 		}
 	}
 
@@ -378,7 +386,7 @@ public class ActorPhysics : ActorComponent
 		_isOnGround = ( hit.transform &&
 		                Vector3.Dot( hit.normal, Vector3.up ) > minJumpDot );
 
-		if ( _isOnGround )
+		if ( _isOnGround && !_jumpCheckDelay )
 		{
 				if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
 				{
@@ -387,6 +395,7 @@ public class ActorPhysics : ActorComponent
 				}
 
 				actor.animator.SetBool( "isJumping", false );
+				CancelLateJumpTimer();
 				//actor.GetAnimator().SetBool("isSliding", false);
 		}
 		else if ( IsInState( ActorStates.Grounded ) )
@@ -397,19 +406,19 @@ public class ActorPhysics : ActorComponent
 				//actor.GetAnimator().SetBool("isSliding", false);
 			}
 
-			// TODO start late jump stuff
+			// start falling
+			StartLateJumpTimer();
 
-			ChangeState( ActorStates.Jumping );
+			ChangeState( ActorStates.Falling );
 		}
 	}
 
 	/**
-	 * @brief Orients the model to face the direction of movement
-	 * 
-	 * @details
-	 *     Orientation is reactive to velocity, meaning the
-	 *     model will face the direction of movement, rather
-	 *     than the input direction.
+	 * Orients the model to face the direction of movement
+	 *
+	 * Orientation is reactive to velocity, meaning the
+	 * model will face the direction of movement, rather
+	 * than the input direction.
 	 */
 	void OrientSelf()
 	{
@@ -443,12 +452,56 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = moveVec;
 	}
 
+	#region Late Jump Timer
+	void StartLateJumpTimer()
+	{
+		_lateJump = true;
+		Invoke( "EndLateJump", lateJumpTime );
+	}
+
+	void CancelLateJumpTimer()
+	{
+		if ( IsInvoking( "EndLateJump" ) )
+		{
+			CancelInvoke( "EndLateJump" );
+		}
+		EndLateJump();
+	}
+
+	void EndLateJump()
+	{
+		_lateJump = false;
+	}
+	#endregion
+
+	#region Jump Check Delay Timer
+	void StartJumpCheckDelayTimer()
+	{
+		_jumpCheckDelay = true;
+		Invoke( "EndJumpCheckDelay", jumpCheckDelay );
+	}
+
+	void CancelJumpCheckDelayTimer()
+	{
+		if ( IsInvoking( "EndJumpCheckDelay" ) )
+		{
+			CancelInvoke( "EndJumpCheckDelay" );
+		}
+		EndJumpCheckDelay();
+	}
+
+	void EndJumpCheckDelay()
+	{
+		_jumpCheckDelay = false;
+	}
+	#endregion
+
 	void OnDrawGizmosSelected()
 	{
 		if ( Application.isPlaying )
 		{
-			Gizmos.DrawWireSphere( GetComponent<Transform>().position + bumper.center,
-			                       bumper.radius );
+			//Gizmos.DrawWireSphere( GetComponent<Transform>().position + bumper.center,
+			//					   bumper.radius );
 		}
 	}
 }
