@@ -58,7 +58,6 @@ public class ActorPhysics : ActorComponent
 
 	#region Model Info
 	[Space( 10 ), Header( "Model Info" )]
-	public Transform model;
 	[SerializeField] float modelTurnSpeed = 7f;
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float lookDirLerp = 0.002f;
@@ -71,12 +70,17 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] public float jumpForce = 8.5f;
 
 	[SerializeField] float jumpCheckDistance = 1.0f;
+	[SerializeField] float jumpCheckRadius = 0.5f;
 
 	[SerializeField] LayerMask jumpLayer = 0;
 	[SerializeField] float minJumpDot = 0.4f;
 
 	[SerializeField] float jumpColCheckTime = 0.5f;
-	float jumpColCheckTimer = 0.0f;
+	[SerializeField] float lateJumpTime = 0.5f;
+	float _jumpColCheckTimer = 0.0f;
+	Coroutine _lateJumpTimer = null;
+
+	bool _isOnGround = false;
 	#endregion
 
 	#region Rolling
@@ -123,47 +127,18 @@ public class ActorPhysics : ActorComponent
 
 	void FixedUpdate()
 	{
+		// Pre-Update stuff
 		FollowBumper();
+		GroundedCheck();
+
+		// Update
 		CurrentStateMethod();
+
+		// Post-Update stuff
 		ConstrainBumper();
-
 		OrientSelf();
+		_isOnGround = false;
 	}
-
-	//void OnCollisionStay( Collision collision )
-	//{
-	//	bool lifterCollision = false;
-	//	bool bumperCollision = false;
-	//	foreach ( ContactPoint contact in collision.contacts )
-	//	{
-	//		if ( contact.point.y > transform.position.y + bumper.center.y - bumper.radius )
-	//		{
-	//			Vector3 negationForce = new Vector3( rigidbody.velocity.x,
-	//												 -contact.normal.y,
-	//												 rigidbody.velocity.z );
-
-	//			Debug.DrawRay( contact.point, negationForce.normalized * bumpForce * collision.relativeVelocity.magnitude );
-	//			Debug.DrawRay( contact.point, contact.normal );
-
-	//			//rigidbody.velocity = negationForce;
-
-	//			bumperCollision = true;
-	//		}
-	//		else
-	//		{
-	//			lifterCollision = true;
-	//		}
-
-	//		// Only override y if the bumper collided but the lifter didn't
-	//		// The case being the player is going up an incline while
-	//		// rubbing along a wall, so the lifter should be lifting them
-	//		// up the incline and the bumper shouldn't negate that
-	//		if ( bumperCollision && !lifterCollision )
-	//		{
-	//			//transform.SetPositionY( _lastY );
-	//		}
-	//	}
-	//}
 
 	void ConstrainBumper()
 	{
@@ -212,7 +187,7 @@ public class ActorPhysics : ActorComponent
 
 		if ( actor.animator ) actor.animator.SetBool( "isMoving", false );
 
-		if ( jumpColCheckTimer > jumpColCheckTime )
+		if ( _jumpColCheckTimer > jumpColCheckTime )
 		{
 			if ( IsInState( ActorStates.Grounded ) )
 			{
@@ -238,7 +213,7 @@ public class ActorPhysics : ActorComponent
 			if (climbCheckTimer > climbCheckTime)
 			{
 				RaycastHit hit;
-				Physics.SphereCast( new Ray( transform.position, model.forward ), climbCheckRadius, out hit, climbCheckDistance, climbLayer );
+				Physics.SphereCast( new Ray( transform.position, transform.forward ), climbCheckRadius, out hit, climbCheckDistance, climbLayer );
 				if ( hit.transform )
 				{
 					StartClimbing( hit.collider );
@@ -278,21 +253,21 @@ public class ActorPhysics : ActorComponent
 
 	public void ClimbSurface()
 	{
-		if(climbSurface)
+		if ( climbSurface )
 		{
-			ClimbableTag ct = climbSurface.GetComponent<ClimbableTag>();
-			if(ct)
+			ClimbableTag climbTag = climbSurface.GetComponent<ClimbableTag>();
+			if ( climbTag )
 			{
 				rigidbody.useGravity = false;
 				currStoppingPower = stoppingSpeed;
 
 				Vector3 surfaceRelativeInput = climbSurface.InverseTransformDirection( inputVec );
-				surfaceRelativeInput = new Vector3( surfaceRelativeInput.x, 
-				                                    surfaceRelativeInput.z, 
+				surfaceRelativeInput = new Vector3( surfaceRelativeInput.x,
+				                                    surfaceRelativeInput.z,
 				                                    surfaceRelativeInput.y );
 
-				if ( !ct.xMovement ) surfaceRelativeInput.x = 0f;
-				if ( !ct.yMovement ) surfaceRelativeInput.y = 0f;
+				if ( !climbTag.xMovement ) surfaceRelativeInput.x = 0f;
+				if ( !climbTag.yMovement ) surfaceRelativeInput.y = 0f;
 
 				Vector3 surfaceHoldVec = climbSurface.forward * surfaceHoldForce;
 				moveVec = climbSurface.rotation * surfaceRelativeInput * climbMoveSpeed * moveSpeedMod;
@@ -301,9 +276,10 @@ public class ActorPhysics : ActorComponent
 				lastVelocity = moveVec;
 				rigidbody.velocity = moveVec;
 
-				model.rotation = Quaternion.Lerp( model.rotation, 
-				                                  Quaternion.LookRotation( climbSurface.forward, Vector3.up ), 
-				                                  Time.deltaTime * modelTurnSpeed );
+				transform.rotation = Quaternion.Lerp(
+				    transform.rotation,
+				    Quaternion.LookRotation( climbSurface.forward, Vector3.up ),
+				    Time.deltaTime * modelTurnSpeed );
 			}
 			else
 			{
@@ -331,13 +307,13 @@ public class ActorPhysics : ActorComponent
 	
 	public void StopClimbing()
 	{
-		if(climbSurface)
+		if ( climbSurface )
 		{
 			rigidbody.useGravity = true;
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
 
-			(actor as PlayerActor).actorStats.StopUsingStamina();
+			( actor as PlayerActor ).actorStats.StopUsingStamina();
 
 			if ( actor.animator != null )
 			{
@@ -370,62 +346,60 @@ public class ActorPhysics : ActorComponent
 
 	public void JumpCheck()
 	{
-		bool isOnGround = false;
-
-		RaycastHit hit;
-		Physics.Raycast( transform.position + Vector3.up,
-		                 -Vector3.up,
-		                 out hit,
-		                 jumpCheckDistance,
-		                 jumpLayer );
-		if ( hit.transform && Vector3.Dot( hit.normal, Vector3.up ) > minJumpDot )
+		if ( _isOnGround )
 		{
-			isOnGround = true;
+			Vector3 curVelocity = rigidbody.velocity;
+			curVelocity.y = jumpForce;
+			rigidbody.velocity = curVelocity;
+			rigidbody.useGravity = true;
+
+			_jumpColCheckTimer = 0.0f;
+			//actor.GetAnimator().SetBool("isSliding", false);
+
+			ChangeState( ActorStates.Jumping );
 		}
+	}
 
-		if ( isOnGround )
+	protected void ChangeState( ActorStates toState )
+	{
+		currentState = toState;
+		CurrentStateMethod = stateMethodMap[currentState];
+	}
+
+	void GroundedCheck()
+	{
+		RaycastHit hit;
+		Physics.SphereCast( transform.position + Vector3.up,
+		                    jumpCheckRadius,
+		                    -Vector3.up * jumpCheckDistance,
+		                    out hit,
+		                    jumpCheckDistance,
+		                    jumpLayer );
+		_isOnGround = ( hit.transform &&
+		                Vector3.Dot( hit.normal, Vector3.up ) > minJumpDot );
+
+		if ( _isOnGround )
 		{
-			//if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
-			{
-				Vector3 curVelocity = rigidbody.velocity;
-				curVelocity.y = jumpForce;
-				rigidbody.velocity = curVelocity;
-				rigidbody.useGravity = true;
+				if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
+				{
+					ChangeState( ActorStates.Grounded );
+					stopMoveTimer = 0f;
+				}
 
-				jumpColCheckTimer = 0.0f;
+				actor.animator.SetBool( "isJumping", false );
+				//actor.GetAnimator().SetBool("isSliding", false);
+		}
+		else if ( IsInState( ActorStates.Grounded ) )
+		{
+			if ( actor.animator != null )
+			{
+				actor.animator.SetBool( "isJumping", true );
 				//actor.GetAnimator().SetBool("isSliding", false);
 			}
-			//else if ( jumpColCheckTimer > jumpColCheckTime && isOnGround && !IsInState( ActorStates.Rolling ) )
-			//{
-			//	if ( !IsInState( ActorStates.Grounded ) )
-			//	{
-			//		// if !launching
-			//		ChangeState( ActorStates.Grounded );
-			//		stopMoveTimer = 0f;
-			//		//GainControl();
-			//	}
 
-			//	actor.animator.SetBool( "isJumping", false );
-			//	//actor.GetAnimator().SetBool("isSliding", false);
-			//	lateJumpTimer = 0.0f;
-			//}
-		}
-		//else if ( !IsInState( ActorStates.Jumping ) && !IsInState( ActorStates.Rolling ) ) // if not currently being launched
-		//{
-		//	Debug.Log( "Not on Ground" );
+			// TODO start late jump stuff
 
-		//	if ( actor.animator != null )
-		//	{
-		//		actor.animator.SetBool( "isJumping", true );
-		//		//actor.GetAnimator().SetBool("isSliding", false);
-		//	}
-
-		//	ChangeState( ActorStates.Jumping );
-		//}
-
-		if ( !IsInState( ActorStates.Grounded ) )
-		{
-			jumpColCheckTimer += Time.deltaTime;
+			ChangeState( ActorStates.Jumping );
 		}
 	}
 
@@ -437,7 +411,7 @@ public class ActorPhysics : ActorComponent
 	 *     model will face the direction of movement, rather
 	 *     than the input direction.
 	 */
-	public void OrientSelf()
+	void OrientSelf()
 	{
 		Vector3 actualVelocity = transform.position - _lastPos;
 		actualVelocity.y = 0.0f;
@@ -455,12 +429,6 @@ public class ActorPhysics : ActorComponent
 		}
 
 		_lastPos = transform.position;
-	}
-
-	protected void ChangeState( ActorStates toState )
-	{
-		currentState = toState;
-		CurrentStateMethod = stateMethodMap[currentState];
 	}
 
 	bool IsInState( ActorStates checkState )

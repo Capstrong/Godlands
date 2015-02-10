@@ -32,7 +32,6 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Jumping()
 	{
-		// TODO should we be doing JumpCheck() while jumping?
 		if ( Input.GetButtonDown( "Jump" + WadeUtils.platformName ) )
 		{
 			JumpCheck();
@@ -57,7 +56,7 @@ public class PlayerActorPhysics : ActorPhysics
 		ClimbSurface();
 		ClimbCheck();
 
-		if(!isGrabbing)
+		if ( !isGrabbing )
 		{
 			StopClimbing();
 		}
