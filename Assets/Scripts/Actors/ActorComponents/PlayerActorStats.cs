@@ -48,33 +48,33 @@ public class PlayerActorStats : ActorComponent
 		}
 	}
 
-	public void IncrementMaxStamina()
+	public void IncrementMaxStat( Stats stat )
 	{
-		StatObject staminaObject = statDictionary[Stats.Stamina];
-		staminaObject.currentMax += staminaObject.maxIncrement;
-		ScaleCurrImage( staminaObject );
+		StatObject statObject = statDictionary[stat];
+		statObject.currentMax += statObject.maxIncrement;
+		ScaleCurrImage( statObject );
 	}
 
-	public void DecrementMaxStamina()
+	public void DecrementMaxStat( Stats stat )
 	{
-		StatObject staminaObject = statDictionary[Stats.Stamina];
-		staminaObject.currentMax = Mathf.Max(staminaObject.currentMax - staminaObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
-		ScaleMaxImage( staminaObject );
+		StatObject statObject = statDictionary[stat];
+		statObject.currentMax = Mathf.Max(statObject.currentMax - statObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
+		ScaleMaxImage( statObject );
 	}
 
-	public bool CanUseStamina()
+	public bool CanUseStat( Stats stat )
 	{
-		return (statDictionary[Stats.Stamina].currentValue > 0.0f);
+		return (statDictionary[stat].currentValue > 0.0f);
 	}
 
-	public void StartUsingStamina()
+	public void StartUsingStat( Stats stat )
 	{
-		statDictionary[Stats.Stamina].isUsing = true;
+		statDictionary[stat].isUsing = true;
 	}
 
-	public void StopUsingStamina()
+	public void StopUsingStat( Stats stat )
 	{
-		statDictionary[Stats.Stamina].isUsing = false;
+		statDictionary[stat].isUsing = false;
 	}
 
 	void Update()
@@ -91,7 +91,7 @@ public class PlayerActorStats : ActorComponent
 				{
 					statObject.currentValue = 0;
 
-					StopUsingStamina();
+					StopUsingStat( pair.Key );
 				}
 			}
 			else
