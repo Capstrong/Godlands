@@ -20,6 +20,7 @@ public class ActorPhysics : ActorComponent
 	#region States
 	public delegate void ActorStateMethod();
 
+	[ReadOnlyAttribute, SerializeField]
 	ActorStates currentState = ActorStates.Jumping;
 	protected ActorStateMethod CurrentStateMethod;
 	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
@@ -126,7 +127,6 @@ public class ActorPhysics : ActorComponent
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
-		_bumperTransform.parent = null;
 
 		SetupStateMethodMap();
 	}
@@ -154,10 +154,13 @@ public class ActorPhysics : ActorComponent
 
 	void FollowBumper()
 	{
-		Vector3 constrainedPos = transform.position;
-		constrainedPos.x = _bumperTransform.position.x;
-		constrainedPos.z = _bumperTransform.position.z;
-		transform.position = constrainedPos;
+		if ( !IsInState( ActorStates.Climbing ) )
+		{
+			Vector3 constrainedPos = transform.position;
+			constrainedPos.x = _bumperTransform.position.x;
+			constrainedPos.z = _bumperTransform.position.z;
+			transform.position = constrainedPos;
+		}
 	}
 
 	public virtual void SetupStateMethodMap() { }
@@ -386,17 +389,19 @@ public class ActorPhysics : ActorComponent
 		_isOnGround = ( hit.transform &&
 		                Vector3.Dot( hit.normal, Vector3.up ) > minJumpDot );
 
-		if ( _isOnGround && !_jumpCheckDelay )
+		if ( _isOnGround &&
+		     !_jumpCheckDelay &&
+		     !IsInState( ActorStates.Climbing ) )
 		{
-				if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
-				{
-					ChangeState( ActorStates.Grounded );
-					stopMoveTimer = 0f;
-				}
+			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
+			{
+				ChangeState( ActorStates.Grounded );
+				stopMoveTimer = 0f;
+			}
 
-				actor.animator.SetBool( "isJumping", false );
-				CancelLateJumpTimer();
-				//actor.GetAnimator().SetBool("isSliding", false);
+			actor.animator.SetBool( "isJumping", false );
+			CancelLateJumpTimer();
+			//actor.GetAnimator().SetBool("isSliding", false);
 		}
 		else if ( IsInState( ActorStates.Grounded ) )
 		{
