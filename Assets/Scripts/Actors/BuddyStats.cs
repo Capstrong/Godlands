@@ -3,7 +3,21 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	public GodTag owner;
+	enum StatNames
+	{
+		Invalid,
+		Stamina,
+	}
+
+	[SerializeField] bool canDecreaseStamina = true;
+	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
+	[SerializeField] float currResourceTimer = 0.0f;
+	[SerializeField] int startingApples = 10;
+	[SerializeField] int apples = 0;
+
+	public GodTag owner = null;
+
+	PlayerActorStats _actorStats = null;
 
 	public Material heartMaterial;
 
@@ -13,27 +27,80 @@ public class BuddyStats : MonoBehaviour
 		get { return _isAlive; }
 	}
 
-	int currentStats = 0;
 	ParticleSystem _particles;
+
+	uint ID = 0;
 
 	void Awake()
 	{
+		ID = GetID(); // Grab the current unique ID
+		name = "Buddy " + GetRandomName( ID );
+		currResourceTimer = decreaseResourcesTime;
+		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
+		SetGod(owner); // For owners set in the inspector
+	}
+
+	public void SetGod( GodTag _godTag )
+	{
+		if(_godTag)
+		{
+			owner = _godTag;
+			_actorStats = _godTag.gameObject.GetComponent<PlayerActorStats>();
+		}
+	}
+
+	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
+	static uint uniqueID = 1;
+
+	static uint GetID()
+	{
+		return uniqueID++;
+	}
+
+	static string GetRandomName( uint ID )
+	{
+		int randIndex = Random.Range( 0, names.Length );
+
+		return names[randIndex] + ID;
 	}
 
 	void Update()
 	{
-		if ( Input.GetKeyDown( KeyCode.K ) )
+		// Replace this with an invoke
+		currResourceTimer -= Time.deltaTime;
+
+		if ( currResourceTimer < 0.0f && _isAlive )
+		{
+			// decrease resources
+			apples--;
+
+			if (canDecreaseStamina)
+			{
+				_actorStats.DecrementMaxStamina();
+			}
+			
+			currResourceTimer = decreaseResourcesTime;
+
+			if ( apples <= 0 )
+			{
+				Kill();
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.K))
 		{
 			Kill();
 		}
 	}
 
-	public void GiveResource( ActorPhysics actorPhysics, ResourceData resourceData )
+	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
 	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
 
-		currentStats++;
+		apples++;
+
+		actorStats.IncrementMaxStamina();
 		Emote( heartMaterial );
 	}
 

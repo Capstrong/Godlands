@@ -7,7 +7,6 @@ public class GamepadCheck : MonoBehaviour
 	{
 		if(Time.frameCount % 60 == 0)
 		{
-			Debug.Log(WadeUtils.platformName);
 			WadeUtils.CheckForController();
 		}
 	}

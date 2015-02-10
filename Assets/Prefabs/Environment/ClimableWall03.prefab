@@ -78,7 +78,6 @@ GameObject:
   - 4: {fileID: 457938}
   - 33: {fileID: 3357930}
   - 23: {fileID: 2357930}
-  - 95: {fileID: 9557930}
   m_Layer: 0
   m_Name: ClimableWall03
   m_TagString: Untagged
@@ -162,7 +161,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: b0d2be9ac17a7a948971e38c56cfc0a6, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -225,21 +224,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &9557930
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157938}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 75617f4ea51105943acde1c87d46e840, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11457930
 MonoBehaviour:
   m_ObjectHideFlags: 1
