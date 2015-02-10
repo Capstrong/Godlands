@@ -1,20 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
-[RequireComponent( typeof(PlayerActorPhysics) )]
-public class PlayerActorStats : ActorComponent {
+public enum Stats
+{
+	Invalid,
+	Stamina,
+	Gliding
+}
 
-	[SerializeField] float _startingMaxStamina = 0.0f;
-	[SerializeField] float _staminaMaxIncrement = 0.0f;
-	[SerializeField] float _staminaUseRate = 0.0f; // Stamina per second
-	[SerializeField] float _staminaRechargeRate = 0.0f;
-	[SerializeField] float _currMaxStamina = 0.0f;
-	[SerializeField] float _currStamina = 0.0f;
-	[SerializeField] bool _isUsingStamina = false;
-	[SerializeField] Image _currStaminaImage = null;
-	[SerializeField] Image _maxStaminaImage = null;
-	[SerializeField] float staminaToScaleRatio = 0.0f;
+[System.Serializable]
+public class StatObject
+{
+	public float startingMax = 0.0f;
+	public float maxIncrement = 0.0f;
+	public float useRate = 0.0f; // Stat units per second
+	public float rechargeRate = 0.0f;
+	public float currentMax = 0.0f;
+	public float currentValue = 0.0f;
+	public bool isUsing = false;
+	public Image currentImage = null;
+	public Image maxImage = null;
+	public float statToScaleRatio = 0.0f;
+}
+
+[System.Serializable]
+public class StatDictionary : SerializableDictionary<Stats, StatObject> { } // Necessary for serialization
+
+[RequireComponent( typeof(PlayerActorPhysics) )]
+public class PlayerActorStats : ActorComponent 
+{
+	[SerializeField] StatDictionary statDictionary = new StatDictionary();
 
 	PlayerActorPhysics _actorPhysics = null;
 
@@ -22,68 +39,89 @@ public class PlayerActorStats : ActorComponent {
 	{
 		base.Awake();
 		_actorPhysics = GetComponent<PlayerActorPhysics>();
-		_currMaxStamina = _startingMaxStamina;
+
+		foreach (KeyValuePair<Stats,StatObject> pair in statDictionary)
+		{
+			pair.Value.currentMax = pair.Value.startingMax;
+			pair.Value.currentValue = pair.Value.startingMax;
+			ScaleMaxImage( pair.Value );
+		}
 	}
 
 	public void IncrementMaxStamina()
 	{
-		_currMaxStamina += _staminaMaxIncrement;
-		ScaleStaminaImage( _maxStaminaImage, _currMaxStamina );
+		StatObject staminaObject = statDictionary[Stats.Stamina];
+		staminaObject.currentMax += staminaObject.maxIncrement;
+		ScaleCurrImage( staminaObject );
 	}
 
 	public void DecrementMaxStamina()
 	{
-		_currMaxStamina = Mathf.Max( _currMaxStamina - _staminaMaxIncrement, 0.0f ); // decrement and clamp at a minimum of 0
-		ScaleStaminaImage( _maxStaminaImage, _currMaxStamina );
+		StatObject staminaObject = statDictionary[Stats.Stamina];
+		staminaObject.currentMax = Mathf.Max(staminaObject.currentMax - staminaObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
+		ScaleMaxImage( staminaObject );
 	}
 
 	public bool CanUseStamina()
 	{
-		return ( _currStamina > 0.0f );
+		return (statDictionary[Stats.Stamina].currentValue > 0.0f);
 	}
 
 	public void StartUsingStamina()
 	{
-		_isUsingStamina = true;
+		statDictionary[Stats.Stamina].isUsing = true;
 	}
 
 	public void StopUsingStamina()
 	{
-		_isUsingStamina = false;
+		statDictionary[Stats.Stamina].isUsing = false;
 	}
 
 	void Update()
 	{
-		if (_isUsingStamina)
+		foreach ( KeyValuePair<Stats, StatObject> pair in statDictionary )
 		{
-			_currStamina -= _staminaUseRate;
+			StatObject statObject = pair.Value;
 
-			if (_currStamina <= 0)
+			if ( statObject.isUsing )
 			{
-				_currStamina = 0;
+				statObject.currentValue -= statObject.useRate;
 
-				StopUsingStamina();
-			}
-		}
-		else
-		{
-			if ( !_actorPhysics.isGrabbing )
-			{
-				_currStamina += _staminaRechargeRate;
-
-				if ( _currStamina > _currMaxStamina )
+				if ( statObject.currentValue <= 0 )
 				{
-					_currStamina = _currMaxStamina;
+					statObject.currentValue = 0;
+
+					StopUsingStamina();
 				}
 			}
-		}
+			else
+			{
+				if ( !_actorPhysics.isGrabbing )
+				{
+					statObject.currentValue += statObject.rechargeRate;
 
-		ScaleStaminaImage( _currStaminaImage, _currStamina );
+					if ( statObject.currentValue > statObject.currentMax )
+					{
+						statObject.currentValue = statObject.currentMax;
+					}
+				}
+			}
+
+			ScaleCurrImage( statObject );
+		}
 	}
 
-	void ScaleStaminaImage( Image staminaImage, float stamina )
+	void ScaleMaxImage( StatObject statObject )
 	{
-		float scale = stamina * staminaToScaleRatio;
-		staminaImage.transform.SetScale( scale, scale, scale );
+		float scale = statObject.currentMax * statObject.statToScaleRatio;
+		// TODO: cache off transform to save on getComponent() calls
+		statObject.maxImage.transform.SetScale( scale, scale, scale );
+	}
+
+	void ScaleCurrImage( StatObject statObject )
+	{
+		float scale = statObject.currentValue * statObject.statToScaleRatio;
+		// TODO: cache off transform to save on getComponent() calls
+		statObject.currentImage.transform.SetScale( scale, scale, scale );
 	}
 }
