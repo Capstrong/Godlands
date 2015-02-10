@@ -188,7 +188,7 @@ public class ActorPhysics : ActorComponent
 
 	public void ClimbCheck()
 	{
-		if (isGrabbing && ( ( actor as PlayerActor ) == null || ( actor as PlayerActor ).actorStats.CanUseStat( Stats.Stamina ) ) )
+		if (isGrabbing && ( ( actor as PlayerActor ) == null || ( actor as PlayerActor ).actorStats.CanUseStat( Stat.Stamina ) ) )
 		{
 			if (climbCheckTimer > climbCheckTime)
 			{
@@ -273,7 +273,7 @@ public class ActorPhysics : ActorComponent
 
 	public void StartClimbing( Collider col )
 	{
-		( actor as PlayerActor).actorStats.StartUsingStat( Stats.Stamina );
+		( actor as PlayerActor).actorStats.StartUsingStat( Stat.Stamina );
 
 		climbSurface = col.transform;
 		ChangeState( ActorStates.Climbing );
@@ -292,7 +292,7 @@ public class ActorPhysics : ActorComponent
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
 
-			(actor as PlayerActor).actorStats.StopUsingStat( Stats.Stamina );
+			(actor as PlayerActor).actorStats.StopUsingStat( Stat.Stamina );
 
 			if ( actor.animator != null )
 			{

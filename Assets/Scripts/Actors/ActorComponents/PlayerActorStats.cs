@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public enum Stats
+public enum Stat
 {
 	Invalid,
 	Stamina,
@@ -26,7 +26,7 @@ public class StatObject
 }
 
 [System.Serializable]
-public class StatDictionary : SerializableDictionary<Stats, StatObject> { } // Necessary for serialization
+public class StatDictionary : SerializableDictionary<Stat, StatObject> { } // Necessary for serialization
 
 [RequireComponent( typeof(PlayerActorPhysics) )]
 public class PlayerActorStats : ActorComponent 
@@ -40,7 +40,7 @@ public class PlayerActorStats : ActorComponent
 		base.Awake();
 		_actorPhysics = GetComponent<PlayerActorPhysics>();
 
-		foreach (KeyValuePair<Stats,StatObject> pair in statDictionary)
+		foreach (KeyValuePair<Stat,StatObject> pair in statDictionary)
 		{
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
@@ -48,38 +48,38 @@ public class PlayerActorStats : ActorComponent
 		}
 	}
 
-	public void IncrementMaxStat( Stats stat )
+	public void IncrementMaxStat( Stat stat )
 	{
 		StatObject statObject = statDictionary[stat];
 		statObject.currentMax += statObject.maxIncrement;
 		ScaleCurrImage( statObject );
 	}
 
-	public void DecrementMaxStat( Stats stat )
+	public void DecrementMaxStat( Stat stat )
 	{
 		StatObject statObject = statDictionary[stat];
 		statObject.currentMax = Mathf.Max(statObject.currentMax - statObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
 		ScaleMaxImage( statObject );
 	}
 
-	public bool CanUseStat( Stats stat )
+	public bool CanUseStat( Stat stat )
 	{
 		return (statDictionary[stat].currentValue > 0.0f);
 	}
 
-	public void StartUsingStat( Stats stat )
+	public void StartUsingStat( Stat stat )
 	{
 		statDictionary[stat].isUsing = true;
 	}
 
-	public void StopUsingStat( Stats stat )
+	public void StopUsingStat( Stat stat )
 	{
 		statDictionary[stat].isUsing = false;
 	}
 
 	void Update()
 	{
-		foreach ( KeyValuePair<Stats, StatObject> pair in statDictionary )
+		foreach ( KeyValuePair<Stat, StatObject> pair in statDictionary )
 		{
 			StatObject statObject = pair.Value;
 

@@ -3,13 +3,7 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	enum StatNames
-	{
-		Invalid,
-		Stamina,
-	}
-
-	[SerializeField] Stats statType = Stats.Invalid;
+	[SerializeField] Stat statType = Stat.Invalid;
 	[SerializeField] bool canDecreaseStamina = true;
 	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
 	[SerializeField] float currResourceTimer = 0.0f;
