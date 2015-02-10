@@ -32,7 +32,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	Light _dirLight = null;
 
-	[SerializeField] float dayCycleTime = 120f;
+	[SerializeField] float dayCycleTime = 200;
 	float dayCycleTimer = 0f;
 
 	public float timeOfDay; // This should not go in here. Eventually it will be with the Day Cycle
@@ -103,6 +103,9 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	void LerpRenderSettings( RenderSettingsData initRenderSettings, float delta )
 	{
 		RenderSettingsData renderSettings = new RenderSettingsData();
+		renderSettings.daySettings = new TimeRenderSettings();
+		renderSettings.nightSettings = new TimeRenderSettings();
+
 
 		// Day Settings
 

@@ -13,9 +13,9 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_Fog: 1
-  m_FogColor: {r: .617647052, g: .731034458, b: 1, a: 1}
+  m_FogColor: {r: .507352948, g: .755375385, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: .0199999996
+  m_FogDensity: .0299999993
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
@@ -13367,7 +13367,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .191176474, g: .933062851, b: 1, a: 1}
   m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
@@ -42442,17 +42442,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderSettings:
     daySettings:
-      color: {r: 0, g: 0, b: 0, a: 0}
-      lightColor: {r: 0, g: 0, b: 0, a: 0}
-      lightIntensity: 0
-      fogColor: {r: 0, g: 0, b: 0, a: 0}
-      fogDensity: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      lightIntensity: .5
+      fogColor: {r: 1, g: 1, b: 1, a: 1}
+      fogDensity: .0500000007
     nightSettings:
-      color: {r: 0, g: 0, b: 0, a: 0}
-      lightColor: {r: 0, g: 0, b: 0, a: 0}
-      lightIntensity: 0
-      fogColor: {r: 0, g: 0, b: 0, a: 0}
-      fogDensity: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      lightIntensity: .5
+      fogColor: {r: 1, g: 1, b: 1, a: 1}
+      fogDensity: .0500000007
 --- !u!65 &1289156073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55318,17 +55318,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderSettings:
     daySettings:
-      color: {r: 0, g: 0, b: 0, a: 0}
-      lightColor: {r: 0, g: 0, b: 0, a: 0}
-      lightIntensity: 0
-      fogColor: {r: 0, g: 0, b: 0, a: 0}
-      fogDensity: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      lightIntensity: .5
+      fogColor: {r: 1, g: 1, b: 1, a: 1}
+      fogDensity: .0500000007
     nightSettings:
-      color: {r: 0, g: 0, b: 0, a: 0}
-      lightColor: {r: 0, g: 0, b: 0, a: 0}
-      lightIntensity: 0
-      fogColor: {r: 0, g: 0, b: 0, a: 0}
-      fogDensity: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+      lightColor: {r: 1, g: 1, b: 1, a: 1}
+      lightIntensity: .5
+      fogColor: {r: 1, g: 1, b: 1, a: 1}
+      fogDensity: .0500000007
 --- !u!65 &1677570687
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70740,7 +70740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRenderSettings:
     daySettings:
-      color: {r: 0, g: .710344791, b: 1, a: 1}
+      color: {r: .45588237, g: .842393517, b: 1, a: 1}
       lightColor: {r: .191176474, g: .933062851, b: 1, a: 1}
       lightIntensity: .5
       fogColor: {r: .507352948, g: .755375385, b: 1, a: 1}
@@ -70752,6 +70752,7 @@ MonoBehaviour:
       fogColor: {r: .175128266, g: .11505191, b: .279411793, a: 1}
       fogDensity: .0500000007
   _settingShiftTime: 15
+  dayCycleTime: 200
   timeOfDay: 0
 --- !u!1 &2090088372
 GameObject:
