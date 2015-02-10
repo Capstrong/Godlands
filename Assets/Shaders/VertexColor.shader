@@ -7,7 +7,7 @@
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Lambert vertex: vert
+		#pragma surface surf Lambert vertex:vert
 
 		sampler2D _MainTex;
 
