@@ -9,7 +9,7 @@ public class SkyboxColor : MonoBehaviour
 	[SerializeField] bool shiftColor = false;
 	[SerializeField] bool useHSV = true;
 
-	[SerializeField] Light light;
+	[SerializeField] Light dirLight;
 
 	[SerializeField] [Range(-2f, 2f)]
 	float lightBrightnessOffset = 1.2f;
@@ -70,7 +70,7 @@ public class SkyboxColor : MonoBehaviour
 		lerpHSV.v += lightBrightnessOffset;
 		lerpHSV.s += lightSaturationOffset;
 		
-		light.color = lerpHSV.HSVToRGB();
+		dirLight.color = lerpHSV.HSVToRGB();
 		
 
 	}
