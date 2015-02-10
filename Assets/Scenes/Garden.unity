@@ -42440,15 +42440,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618bf3a63170349e883e3dc54d68e340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderSettings:
-    dayColor: {r: .661764741, g: .930020213, b: 1, a: 1}
-    nightColor: {r: .203287184, g: .218947634, b: .29411763, a: 1}
-    lightSettings:
-      color: {r: .554714501, g: .920161605, b: .992647052, a: 1}
-      intensity: .5
-    fogSettings:
-      color: {r: .871539831, g: .95588237, b: .95239234, a: 1}
-      density: .0500000007
+  _renderSettings:
+    daySettings:
+      color: {r: 0, g: 0, b: 0, a: 0}
+      lightColor: {r: 0, g: 0, b: 0, a: 0}
+      lightIntensity: 0
+      fogColor: {r: 0, g: 0, b: 0, a: 0}
+      fogDensity: 0
+    nightSettings:
+      color: {r: 0, g: 0, b: 0, a: 0}
+      lightColor: {r: 0, g: 0, b: 0, a: 0}
+      lightIntensity: 0
+      fogColor: {r: 0, g: 0, b: 0, a: 0}
+      fogDensity: 0
 --- !u!65 &1289156073
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47385,7 +47389,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1453699799}
-  - 114: {fileID: 1453699800}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -47411,26 +47414,6 @@ Transform:
   - {fileID: 2087657297}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &1453699800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1453699798}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5928b59bb708542d29647c3098d2cc5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startColor: {r: .986206889, g: 1, b: 0, a: 1}
-  endColor: {r: .903448105, g: 0, b: 1, a: 1}
-  shiftColor: 0
-  useHSV: 1
-  dirLight: {fileID: 0}
-  lightBrightnessOffset: 1.20000005
-  lightSaturationOffset: -.300000012
-  fogDensity: .00800000038
-  shiftTime: 5
 --- !u!1 &1453878372
 GameObject:
   m_ObjectHideFlags: 0
@@ -55333,15 +55316,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618bf3a63170349e883e3dc54d68e340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderSettings:
-    dayColor: {r: .117241383, g: 1, b: 0, a: 1}
-    nightColor: {r: .397058845, g: 0, b: .271095425, a: 1}
-    lightSettings:
-      color: {r: 1, g: .30121702, b: .0441176295, a: 1}
-      intensity: .850000024
-    fogSettings:
-      color: {r: 1, g: 0, b: 0, a: 1}
-      density: .0199999996
+  _renderSettings:
+    daySettings:
+      color: {r: 0, g: 0, b: 0, a: 0}
+      lightColor: {r: 0, g: 0, b: 0, a: 0}
+      lightIntensity: 0
+      fogColor: {r: 0, g: 0, b: 0, a: 0}
+      fogDensity: 0
+    nightSettings:
+      color: {r: 0, g: 0, b: 0, a: 0}
+      lightColor: {r: 0, g: 0, b: 0, a: 0}
+      lightIntensity: 0
+      fogColor: {r: 0, g: 0, b: 0, a: 0}
+      fogDensity: 0
 --- !u!65 &1677570687
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70751,17 +70738,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0b449ff290e4a4c9bed19613a525b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _curRenderSettings:
-    dayColor: {r: 0, g: .586206675, b: 1, a: 1}
-    nightColor: {r: .0694577172, g: .016219724, b: .147058845, a: 1}
-    lightSettings:
-      color: {r: 1, g: .463235319, b: .463235319, a: 1}
-      intensity: .159999996
-    fogSettings:
-      color: {r: .789858162, g: .45588237, b: 1, a: 1}
-      density: .0299999993
-  settingShiftTime: 15
-  timeOfDay: 1
+  _currentRenderSettings:
+    daySettings:
+      color: {r: 0, g: .710344791, b: 1, a: 1}
+      lightColor: {r: .191176474, g: .933062851, b: 1, a: 1}
+      lightIntensity: .5
+      fogColor: {r: .507352948, g: .755375385, b: 1, a: 1}
+      fogDensity: .0299999993
+    nightSettings:
+      color: {r: .189491123, g: .0975346044, b: .323529422, a: 1}
+      lightColor: {r: .285511911, g: .210856393, b: .441176474, a: 1}
+      lightIntensity: .200000003
+      fogColor: {r: .175128266, g: .11505191, b: .279411793, a: 1}
+      fogDensity: .0500000007
+  _settingShiftTime: 15
+  timeOfDay: 0
 --- !u!1 &2090088372
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,6 +37,10 @@ Material:
     m_Floats:
       data:
         first:
+          name: _EmissiveStrength
+        second: 0
+      data:
+        first:
           name: _RimPower
         second: 3
     m_Colors:
@@ -46,13 +50,13 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _RimColor
-        second: {r: .25999999, g: .189999998, b: .159999996, a: 0}
-      data:
-        first:
           name: _ColorOverlayA
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _ColorOverlayB
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .25999999, g: .189999998, b: .159999996, a: 0}
