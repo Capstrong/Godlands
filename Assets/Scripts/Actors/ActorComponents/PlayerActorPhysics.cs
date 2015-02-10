@@ -6,6 +6,7 @@ public class PlayerActorPhysics : ActorPhysics
 {
 	PlayerActor _actor;
 	bool _jumpButtonDown = false;
+	bool _isGrabbing = false;
 
 	public override void Awake()
 	{
@@ -22,6 +23,7 @@ public class PlayerActorPhysics : ActorPhysics
 			Application.Quit();
 		}
 
+		_isGrabbing = WadeUtils.ValidAxisInput("Grab");
 		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
 	}
 
@@ -58,9 +60,25 @@ public class PlayerActorPhysics : ActorPhysics
 		inputVec = GetInputDirection();
 
 		ClimbSurface();
-		ClimbCheck();
 
-		if ( !isGrabbing )
+		if ( _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStamina() )
+		{
+			if ( ClimbCheck() )
+			{
+				( actor as PlayerActor ).actorStats.StartUsingStamina();
+			}
+			else
+			{
+				( actor as PlayerActor ).actorStats.StopUsingStamina();
+			}
+		}
+		else
+		{
+			StopClimbing();
+			( actor as PlayerActor ).actorStats.StopUsingStamina();
+		}
+
+		if ( !_isGrabbing )
 		{
 			StopClimbing();
 		}

@@ -972,7 +972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &27935301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9250,7 +9250,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 512
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
   surfaceHoldForce: .100000001
   climbCheckTime: .200000003
@@ -9289,7 +9288,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 538230060}
   m_GameObject: {fileID: 298744666}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be49a9923b011e84596c2e64764dcc2a, type: 3}
   m_Name: 
@@ -9321,7 +9320,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 538230060}
   m_GameObject: {fileID: 298744666}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7659fc191e2966c46a9f8cbd511c7072, type: 3}
   m_Name: 
@@ -18290,6 +18289,14 @@ Prefab:
       propertyPath: _maxStaminaImage
       value: 
       objectReference: {fileID: 103886237}
+    - target: {fileID: 11480132, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
   m_RootGameObject: {fileID: 298744666}
@@ -22493,7 +22500,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 0
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
   surfaceHoldForce: .100000001
   climbCheckTime: .200000003
@@ -26606,7 +26612,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 0
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
   surfaceHoldForce: .100000001
   climbCheckTime: .200000003
@@ -50355,7 +50360,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 0
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
   surfaceHoldForce: .100000001
   climbCheckTime: .200000003
@@ -60000,7 +60004,6 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 0
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
   surfaceHoldForce: .100000001
   climbCheckTime: .200000003

@@ -16,12 +16,9 @@ public class PlayerActorStats : ActorComponent {
 	[SerializeField] Image _maxStaminaImage = null;
 	[SerializeField] float staminaToScaleRatio = 0.0f;
 
-	PlayerActorPhysics _actorPhysics = null;
-
 	public override void Awake()
 	{
 		base.Awake();
-		_actorPhysics = GetComponent<PlayerActorPhysics>();
 		_currMaxStamina = _startingMaxStamina;
 	}
 
@@ -54,11 +51,11 @@ public class PlayerActorStats : ActorComponent {
 
 	void Update()
 	{
-		if (_isUsingStamina)
+		if ( _isUsingStamina )
 		{
 			_currStamina -= _staminaUseRate;
 
-			if (_currStamina <= 0)
+			if ( _currStamina <= 0 )
 			{
 				_currStamina = 0;
 
@@ -67,14 +64,11 @@ public class PlayerActorStats : ActorComponent {
 		}
 		else
 		{
-			if ( !_actorPhysics.isGrabbing )
-			{
-				_currStamina += _staminaRechargeRate;
+			_currStamina += _staminaRechargeRate;
 
-				if ( _currStamina > _currMaxStamina )
-				{
-					_currStamina = _currMaxStamina;
-				}
+			if ( _currStamina > _currMaxStamina )
+			{
+				_currStamina = _currMaxStamina;
 			}
 		}
 

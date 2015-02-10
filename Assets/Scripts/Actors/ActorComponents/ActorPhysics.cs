@@ -100,7 +100,6 @@ public class ActorPhysics : ActorComponent
 	#region Climbing
 	[Space( 10 ), Header( "Climbing" )]
 	[SerializeField] LayerMask climbLayer = (LayerMask)0;
-	[SerializeField] float climbCheckDistance = 0.5f;
 	[SerializeField] float climbCheckRadius = 0.7f;
 	[SerializeField] float surfaceHoldForce = 0.1f;
 
@@ -108,11 +107,6 @@ public class ActorPhysics : ActorComponent
 	float climbCheckTimer = 1f;
 
 	Transform climbSurface = null;
-
-	public bool isGrabbing
-	{
-		get{ return WadeUtils.ValidAxisInput("Grab"); }
-	}
 	#endregion
 
 	public override void Awake()
@@ -215,49 +209,41 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	public void ClimbCheck()
+	public bool ClimbCheck()
 	{
-		if (isGrabbing && ( ( actor as PlayerActor ) == null || ( actor as PlayerActor ).actorStats.CanUseStamina() ) )
+		bool climbing = false;
+		if ( climbCheckTimer > climbCheckTime )
 		{
-			if (climbCheckTimer > climbCheckTime)
+			Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
+			if ( cols.Length > 0 )
 			{
-				RaycastHit hit;
-				Physics.SphereCast( new Ray( transform.position, transform.forward ), climbCheckRadius, out hit, climbCheckDistance, climbLayer );
-				if ( hit.transform )
+				Collider nearestCol = cols[0];
+				foreach ( Collider col in cols )
 				{
-					StartClimbing( hit.collider );
-				}
-				else
-				{
-					Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
-					if ( cols.Length > 0 )
+					if ( ( col.transform.position - transform.position ).sqrMagnitude < ( nearestCol.transform.position - transform.position ).sqrMagnitude )
 					{
-						Collider nearestCol = cols[0];
-						foreach ( Collider col in cols )
-						{
-							if ( ( col.transform.position - transform.position ).sqrMagnitude < ( nearestCol.transform.position - transform.position ).sqrMagnitude )
-							{
-								nearestCol = col;
-							}
-						}
-
-						StartClimbing( nearestCol );
-					}
-					else
-					{
-						StopClimbing();
+						nearestCol = col;
 					}
 				}
 
-				climbCheckTimer = 0f;
+				StartClimbing( nearestCol );
+				climbing = true;
 			}
+			else
+			{
+				StopClimbing();
+			}
+
+			climbCheckTimer = 0f;
 		}
-		else if ( climbSurface )
+		else
 		{
-			StopClimbing();
+			climbing = true;
 		}
+
+		climbCheckTimer += Time.deltaTime;
 		
-		climbCheckTimer += Time.fixedDeltaTime;
+		return climbing;
 	}
 
 	public void ClimbSurface()
@@ -321,8 +307,6 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 			climbSurface = null;
 			ChangeState( ActorStates.Jumping );
-
-			( actor as PlayerActor ).actorStats.StopUsingStamina();
 
 			if ( actor.animator != null )
 			{
