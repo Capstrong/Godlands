@@ -15,4 +15,12 @@ public class CutableA : MonoBehaviour
 	{
 	
 	}
+
+	public void Cut( float cuttingLevel )
+	{
+		if ( cuttingLevel >= _level )
+		{
+			Destroy( gameObject );
+		}
+	}
 }

@@ -1048,6 +1048,9 @@ GameObject:
   - 114: {fileID: 11400000}
   - 136: {fileID: 13658838}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -2069,8 +2072,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -52.9099998, y: -18.7000008, z: 54.1699982}
+  m_LocalRotation: {x: 0, y: .995971024, z: 0, w: -.0896760002}
+  m_LocalPosition: {x: -12.2250051, y: -18.6615009, z: -3.91422296}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 480002}
@@ -3154,19 +3157,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  statDictionary:
-    keys: 01000000
+  _statDictionary:
+    keys: 03000000
     values:
-    - startingMax: 10
+    - startingMax: 1
       maxIncrement: 1
-      useRate: .159999996
-      rechargeRate: .159999996
+      useRate: 0
+      rechargeRate: 1
       currentMax: 0
       currentValue: 0
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: .159999996
+      statToScaleRatio: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3178,6 +3181,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2dc9ae5a0b4c2499ed89eb6b4aaea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  _cutableLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _cuttingButton: 106
+  _cuttingDistance: 2
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerKey: 43
+  _statToIncrease: 3
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3352,7 +3396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
+  resourcePopPrefab: {fileID: 0}
   _buddies:
   - {fileID: 0}
   buddyLayer:
