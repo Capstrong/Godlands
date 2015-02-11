@@ -1,21 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &179988
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 479988}
-  - 136: {fileID: 13680142}
-  m_Layer: 8
-  m_Name: RollCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &179990
 GameObject:
   m_ObjectHideFlags: 1
@@ -692,22 +676,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &180076
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 480076}
-  - 136: {fileID: 13680144}
-  m_Layer: 8
-  m_Name: StandCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &180078
 GameObject:
   m_ObjectHideFlags: 1
@@ -1078,9 +1046,7 @@ GameObject:
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11480420}
-  - 114: {fileID: 11400004}
-  - 114: {fileID: 11400006}
+  - 136: {fileID: 13658838}
   - 114: {fileID: 11400002}
   m_Layer: 8
   m_Name: Player
@@ -1265,18 +1231,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &479988
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 179988}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480122}
-  m_RootOrder: 0
 --- !u!4 &479990
 Transform:
   m_ObjectHideFlags: 1
@@ -1368,7 +1322,7 @@ Transform:
   - {fileID: 480100}
   - {fileID: 480144}
   m_Father: {fileID: 480122}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!4 &480004
 Transform:
   m_ObjectHideFlags: 1
@@ -1836,18 +1790,6 @@ Transform:
   - {fileID: 480072}
   m_Father: {fileID: 480034}
   m_RootOrder: 0
---- !u!4 &480076
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180076}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 480122}
-  m_RootOrder: 1
 --- !u!4 &480078
 Transform:
   m_ObjectHideFlags: 1
@@ -2127,12 +2069,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .995971024, z: 0, w: -.0896760002}
-  m_LocalPosition: {x: -12.2250051, y: -18.6615009, z: -3.91422296}
+  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
+  m_LocalPosition: {x: -52.9099998, y: -18.7000008, z: 54.1699982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 479988}
-  - {fileID: 480076}
   - {fileID: 480002}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3214,16 +3154,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _startingMaxStamina: 10
-  _staminaMaxIncrement: 1
-  _staminaUseRate: .159999996
-  _staminaRechargeRate: .159999996
-  _currMaxStamina: 10
-  _currStamina: 10
-  _isUsingStamina: 0
-  _currStaminaImage: {fileID: 0}
-  _maxStaminaImage: {fileID: 0}
-  staminaToScaleRatio: .100000001
+  statDictionary:
+    keys: 01000000
+    values:
+    - startingMax: 10
+      maxIncrement: 1
+      useRate: .159999996
+      rechargeRate: .159999996
+      currentMax: 0
+      currentValue: 0
+      isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
+      statToScaleRatio: .159999996
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3232,34 +3175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 180122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2dc9ae5a0b4c2499ed89eb6b4aaea4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cutableLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _cuttingButton: 0
-  _cuttingDistance: 0
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11480106
@@ -3436,7 +3352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  resourcePopPrefab: {fileID: 0}
+  resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies:
   - {fileID: 0}
   buddyLayer:
@@ -3551,36 +3467,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boneLocation: 14
---- !u!114 &11480420
-MonoBehaviour:
+--- !u!136 &13658838
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &13680142
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 179988}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: .5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &13680144
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 180076}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

@@ -205,7 +205,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101526}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: .5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.03900003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476348}
@@ -217,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.36773205, y: -31.2999992, z: 113.153717}
+  m_LocalPosition: {x: -13.79, y: -19.3299999, z: -10.7399998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497488}
@@ -555,7 +555,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: .5, z: 0}
 --- !u!65 &6587206
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -644,6 +644,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statType: 1
+  canDecreaseStamina: 1
+  decreaseResourcesTime: 60
+  currResourceTimer: 0
+  startingApples: 10
+  apples: 0
   owner: {fileID: 0}
   heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
 --- !u!114 &11457846
@@ -691,15 +697,15 @@ MonoBehaviour:
   climbMoveSpeed: 6
   model: {fileID: 476348}
   modelTurnSpeed: 7
-  groundSlopeCheckRadius: .200000003
-  groundSlopeCheckHeight: .699999988
+  groundSlopeCheckRadius: 0
+  groundSlopeCheckHeight: 0
   slopeLimits:
     min: .280000001
     max: .720000029
   jumpForce: 8.5
   jumpCheckDistance: 1.29999995
   groundPosOffset: {x: 0, y: -.699999988, z: 0}
-  jumpCheckRadius: .25
+  jumpCheckRadius: .100000001
   jumpLayer:
     serializedVersion: 2
     m_Bits: 4294967039

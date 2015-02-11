@@ -3,12 +3,7 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	enum StatNames
-	{
-		Invalid,
-		Stamina,
-	}
-
+	[SerializeField] Stat statType = Stat.Invalid;
 	[SerializeField] bool canDecreaseStamina = true;
 	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
 	[SerializeField] float currResourceTimer = 0.0f;
@@ -77,7 +72,7 @@ public class BuddyStats : MonoBehaviour
 
 			if (canDecreaseStamina)
 			{
-				_actorStats.DecrementMaxStamina();
+				_actorStats.DecrementMaxStat( statType );
 			}
 			
 			currResourceTimer = decreaseResourcesTime;
@@ -100,7 +95,7 @@ public class BuddyStats : MonoBehaviour
 
 		apples++;
 
-		actorStats.IncrementMaxStamina();
+		actorStats.IncrementMaxStat( statType );
 		Emote( heartMaterial );
 	}
 
