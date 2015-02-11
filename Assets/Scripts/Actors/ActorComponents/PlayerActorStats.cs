@@ -7,7 +7,8 @@ public enum Stat
 {
 	Invalid,
 	Stamina,
-	Gliding
+	Gliding,
+	Cutting,
 }
 
 [System.Serializable]

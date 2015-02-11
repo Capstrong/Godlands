@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   statDictionary:
-    keys: 01000000
+    keys: 0100000003000000
     values:
     - startingMax: 10
       maxIncrement: 1
@@ -522,6 +522,16 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: .159999996
+    - startingMax: 1
+      maxIncrement: 1
+      useRate: 0
+      rechargeRate: 0
+      currentMax: 0
+      currentValue: 0
+      isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
+      statToScaleRatio: 0
 --- !u!114 &145479151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3859,6 +3869,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.keys.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12.2250051
@@ -3907,6 +3925,30 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1611868581}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.data[1].startingMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.data[1].maxIncrement
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.data[1].useRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.data[1].rechargeRate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.values.Array.data[1].statToScaleRatio
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: statDictionary.keys.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
   m_RootGameObject: {fileID: 145479146}
