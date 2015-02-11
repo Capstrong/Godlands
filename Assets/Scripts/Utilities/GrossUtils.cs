@@ -10,16 +10,16 @@ public class GrossUtils
 	// Example use: 
 	// file structure: Assets/Resources/Images/image.png 
 	// function call: TryToLoad("Images/image") would return true
-	public static bool TryToLoad<T>(string fullFilename, bool displayError = true)
-		where T : UnityEngine.Object
+	public static bool TryToLoad<T>( string fullFilename, bool displayError = true )
+	                               where T : UnityEngine.Object
 	{
-		T text = Resources.Load<T>(fullFilename);
+		T text = Resources.Load<T>( fullFilename );
 
-		if (text == null)
+		if ( text == null )
 		{
-			if (displayError)
+			if ( displayError )
 			{
-				Debug.LogError(fullFilename + " could not be loaded as a " + typeof(T).Name);
+				Debug.LogError( fullFilename + " could not be loaded as a " + typeof( T ).Name );
 			}
 			return false;
 		}
@@ -30,8 +30,12 @@ public class GrossUtils
 	}
 }
 
+// You must create a subclass of this class with types specified for the templated parameters
+// in order for it to actually serialize e.g.:
+// [Serializable]
+// public class fooDictionary : SerializableDictionary<int,Foo> { }
 [Serializable]
-public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+public abstract class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
                                                     where TKey : new()
                                                     where TValue : new()
 {
@@ -46,10 +50,10 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 	{
 		keys.Clear();
 		values.Clear();
-		foreach (KeyValuePair<TKey, TValue> pair in this)
+		foreach ( KeyValuePair<TKey, TValue> pair in this )
 		{
-			keys.Add(pair.Key);
-			values.Add(pair.Value);
+			keys.Add( pair.Key );
+			values.Add( pair.Value );
 		}
 	}
 
@@ -58,6 +62,7 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 	{
 		this.Clear();
 
+		// Probably adding an item in the inspector
 		if ( keys.Count + 1 == values.Count )
 		{
 			if ( keys.Count == 0 )
@@ -70,6 +75,7 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 			}
 		}
 
+		// Probably adding an item in the inspector
 		if ( values.Count + 1 == keys.Count )
 		{
 			if ( values.Count == 0 )
@@ -84,18 +90,22 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 
 		if ( keys.Count != values.Count )
 		{
-			throw new System.Exception(string.Format("there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable.", keys.Count, values.Count));
+			throw new System.Exception( string.Format( "there are {0} keys and {1} values after deserialization. Make sure that both key and value types are serializable.", keys.Count, values.Count ) );
 		}
 
-		for (int i = 0; i < keys.Count; i++)
+		for ( int i = 0; i < keys.Count; i++ )
 		{
-			this.Add(keys[i], values[i]);
+			this.Add( keys[i], values[i] );
 		}
 	}
 }
 
+// You must create a subclass of this class with types specified for the templated parameters
+// in order for it to actually serialize e.g.:
+// [Serializable]
+// public class fooDictionary : SerializableDictionary<int,Foo> { }
 [Serializable]
-public class SerializableHashSet<TValue> : HashSet<TValue>, ISerializationCallbackReceiver
+public abstract class SerializableHashSet<TValue> : HashSet<TValue>, ISerializationCallbackReceiver
 {
 	[SerializeField]
 	private List<TValue> values = new List<TValue>();
@@ -104,9 +114,9 @@ public class SerializableHashSet<TValue> : HashSet<TValue>, ISerializationCallba
 	public void OnBeforeSerialize()
 	{
 		values.Clear();
-		foreach (TValue val in this)
+		foreach ( TValue val in this )
 		{
-			values.Add(val);
+			values.Add( val );
 		}
 	}
 
@@ -115,9 +125,9 @@ public class SerializableHashSet<TValue> : HashSet<TValue>, ISerializationCallba
 	{
 		this.Clear();
 
-		foreach (TValue val in values)
+		foreach ( TValue val in values )
 		{
-			this.Add(val);
+			this.Add( val );
 		}
 	}
 }
