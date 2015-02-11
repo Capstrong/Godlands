@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &101112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 401112}
+  - 33: {fileID: 3301112}
+  - 65: {fileID: 6501112}
+  - 114: {fileID: 11401112}
+  m_Layer: 0
+  m_Name: RenderSettingsVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401112
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101112}
+  m_LocalRotation: {x: 0, y: .42314139, z: 0, w: .906063676}
+  m_LocalPosition: {x: -53, y: -22.2999992, z: 47.2999992}
+  m_LocalScale: {x: 49.9222031, y: 49.9222069, z: 49.9222069}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!33 &3301112
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101112}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6501112
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11401112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618bf3a63170349e883e3dc54d68e340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderSettings:
+    dayColor: {r: .117241383, g: 1, b: 0, a: 1}
+    nightColor: {r: .397058845, g: 0, b: .271095425, a: 1}
+    lightSettings:
+      color: {r: 1, g: .30121702, b: .0441176295, a: 1}
+      intensity: .850000024
+    fogSettings:
+      color: {r: 1, g: 0, b: 0, a: 1}
+      density: .0199999996
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 101112}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
