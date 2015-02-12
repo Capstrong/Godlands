@@ -8,6 +8,8 @@ public class CuttingA : ActorComponent
 	[SerializeField] LayerMask _cutableLayer = 0;
 	[SerializeField] KeyCode _cuttingButton;
 	[SerializeField] float _cuttingDistance = 0f;
+	[SerializeField] GameObject _visualEffect = null;
+	[SerializeField] Vector3 _visualOffset;
 
 	PlayerActorStats actorStats = null;
 
@@ -22,6 +24,10 @@ public class CuttingA : ActorComponent
 	{
 		if ( Input.GetKeyDown( _cuttingButton ) )
 		{
+			Vector3 rotatedOffset = actor.model.transform.rotation * _visualOffset;
+
+			Instantiate( _visualEffect, transform.position + rotatedOffset, actor.model.transform.rotation );
+
 			RaycastHit hitInfo;
 			Physics.Raycast( new Ray( transform.position, actor.model.transform.forward ), out hitInfo, _cuttingDistance, _cutableLayer );
 

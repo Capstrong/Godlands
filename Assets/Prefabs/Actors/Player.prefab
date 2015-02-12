@@ -2073,7 +2073,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .995971024, z: 0, w: -.0896760002}
-  m_LocalPosition: {x: -12.2250051, y: -18.6615009, z: -3.91422296}
+  m_LocalPosition: {x: -12.2299995, y: -20.0699997, z: -3.91000009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 480002}
@@ -3169,7 +3169,7 @@ MonoBehaviour:
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: 0
+      statToScaleRatio: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3209,6 +3209,8 @@ MonoBehaviour:
     m_Bits: 1024
   _cuttingButton: 106
   _cuttingDistance: 2
+  _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
+  _visualOffset: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3220,7 +3222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerKey: 43
+  _triggerKey: 61
   _statToIncrease: 3
 --- !u!114 &11480106
 MonoBehaviour:

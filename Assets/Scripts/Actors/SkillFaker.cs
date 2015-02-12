@@ -18,7 +18,7 @@ public class SkillFaker : MonoBehaviour
 	{
 		if ( Input.GetKeyDown( _triggerKey ) )
 		{
-			_actorStats.IncrementMaxStat( Stat.Cutting );
+			_actorStats.IncrementMaxStat( _statToIncrease );
 		}
 	}
 }
