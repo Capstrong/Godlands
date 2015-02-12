@@ -8,7 +8,6 @@ public class CutableC : MonoBehaviour
 	[SerializeField] GameObject _particlePrefab = null;
 	[SerializeField] float _particleLifetime = 0;
 	[SerializeField] float _verticalOffset = 0;
-	[SerializeField] GameObject respawnerPrefab = null;
 
 	public void Cut( float cuttingLevel )
 	{
