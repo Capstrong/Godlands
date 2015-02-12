@@ -54,6 +54,7 @@ public class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Collisions" )]
 	public Collider bumper;
 	public Collider lifter;
+	public Collider climbBumper;
 	private Transform _bumperTransform;
 	private Rigidbody _bumperRigidbody;
 	#endregion
@@ -300,6 +301,7 @@ public class ActorPhysics : ActorComponent
 		rigidbody.velocity = Vector3.zero;
 		lifter.gameObject.SetActive( false );
 		bumper.gameObject.SetActive( false );
+		climbBumper.gameObject.SetActive( true );
 
 		if ( actor.animator != null )
 		{
@@ -316,6 +318,7 @@ public class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 			lifter.gameObject.SetActive( true );
 			bumper.gameObject.SetActive( true );
+			climbBumper.gameObject.SetActive( false );
 
 			ChangeState( ActorStates.Jumping );
 
