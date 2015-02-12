@@ -17,9 +17,9 @@ public class CutableB : MonoBehaviour
 		{
 			health -= cuttingLevel;
 
-			GameObject particleObj = (GameObject) Instantiate( _particlePrefab,
-															  transform.position + new Vector3( 0, _verticalOffset, 0 ),
-															  Quaternion.identity );
+			GameObject particleObj = (GameObject)Instantiate( _particlePrefab,
+			                                                  transform.position + new Vector3( 0, _verticalOffset, 0 ),
+			                                                  Quaternion.identity );
 			Destroy( particleObj, _particleLifetime );
 
 			if ( health <= 0 )
