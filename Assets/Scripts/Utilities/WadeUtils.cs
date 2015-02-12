@@ -107,16 +107,6 @@ public static class WadeUtils
 		return vec.sqrMagnitude < SMALLNUMBER;
 	}
 
-	public static bool IsPositive(this Vector4 vec)
-	{
-		return vec.magnitude > SMALLNUMBER;
-	}
-
-	public static bool IsNegative(this Vector4 vec)
-	{
-		return vec.magnitude < -SMALLNUMBER;
-	}
-
 	public static void Lerp(ref Vector2 from, Vector2 to, float t)
 	{
 		from = Vector2.Lerp(from, to, t);

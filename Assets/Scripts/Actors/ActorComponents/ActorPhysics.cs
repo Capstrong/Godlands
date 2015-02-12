@@ -31,7 +31,6 @@ public class ActorPhysics : ActorComponent
 	public Vector3 inputVec = Vector3.zero;
 	public float moveSpeedMod = 1f;
 
-	protected Vector3 lastVelocity = Vector3.zero;
 	protected Vector3 moveVec = Vector3.zero;
 
 	public float stoppingSpeed = 0.001f;
@@ -54,6 +53,7 @@ public class ActorPhysics : ActorComponent
 	#region Collisions
 	[Space( 10 ), Header( "Collisions" )]
 	public Collider bumper;
+	public Collider lifter;
 	private Transform _bumperTransform;
 	private Rigidbody _bumperRigidbody;
 	#endregion
@@ -101,12 +101,14 @@ public class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Climbing" )]
 	[SerializeField] LayerMask climbLayer = (LayerMask)0;
 	[SerializeField] float climbCheckRadius = 0.7f;
-	[SerializeField] float surfaceHoldForce = 0.1f;
 
 	[SerializeField] float climbCheckTime = 0.2f;
 	float climbCheckTimer = 1f;
 
 	Transform climbSurface = null;
+	ClimbableTag climbTag;
+	Vector3 climbSurfaceNormal = Vector3.zero;
+	Vector3 climbSurfaceRight = Vector3.zero;
 	#endregion
 
 	public override void Awake()
@@ -168,7 +170,6 @@ public class ActorPhysics : ActorComponent
 		moveVec = inVec * appliedMoveSpeed * moveSpeedMod;
 		moveVec.y = rigidbody.velocity.y;
 
-		lastVelocity = moveVec;
 		rigidbody.velocity = moveVec;
 
 		if ( actor.animator != null )
@@ -211,18 +212,23 @@ public class ActorPhysics : ActorComponent
 
 	public bool ClimbCheck()
 	{
+		climbCheckTimer += Time.deltaTime;
+
 		bool climbing = false;
-		if ( climbCheckTimer > climbCheckTime )
+		//if ( climbCheckTimer > climbCheckTime )
 		{
-			Collider[] cols = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
-			if ( cols.Length > 0 )
+			Collider[] colliders = Physics.OverlapSphere( transform.position, climbCheckRadius, climbLayer );
+			if ( colliders.Length > 0 )
 			{
-				Collider nearestCol = cols[0];
-				foreach ( Collider col in cols )
+				Collider nearestCol = colliders[0];
+				float shortestDistance = float.MaxValue;
+				foreach ( Collider col in colliders )
 				{
-					if ( ( col.transform.position - transform.position ).sqrMagnitude < ( nearestCol.transform.position - transform.position ).sqrMagnitude )
+					float distance =  ( col.transform.position - transform.position ).sqrMagnitude;
+					if ( distance < shortestDistance )
 					{
 						nearestCol = col;
+						shortestDistance = distance;
 					}
 				}
 
@@ -232,67 +238,68 @@ public class ActorPhysics : ActorComponent
 			else
 			{
 				StopClimbing();
+				climbing = false;
 			}
 
 			climbCheckTimer = 0f;
 		}
-		else
-		{
-			climbing = true;
-		}
-
-		climbCheckTimer += Time.deltaTime;
+		//else
+		//{
+		//	climbing = true;
+		//}
 		
 		return climbing;
 	}
 
-	public void ClimbSurface()
+	public void ClimbSurface( Vector3 movement )
 	{
-		if ( climbSurface )
+		DebugUtils.Assert( climbSurface, "Cannot climb, surface is null" );
+
+		if ( climbTag )
 		{
-			ClimbableTag climbTag = climbSurface.GetComponent<ClimbableTag>();
-			if ( climbTag )
-			{
-				rigidbody.useGravity = false;
-				currStoppingPower = stoppingSpeed;
+			DebugUtils.Assert( climbTag.xMovement || climbTag.yMovement );
 
-				Vector3 surfaceRelativeInput = climbSurface.InverseTransformDirection( inputVec );
-				surfaceRelativeInput = new Vector3( surfaceRelativeInput.x,
-				                                    surfaceRelativeInput.z,
-				                                    surfaceRelativeInput.y );
+			currStoppingPower = stoppingSpeed;
 
-				if ( !climbTag.xMovement ) surfaceRelativeInput.x = 0f;
-				if ( !climbTag.yMovement ) surfaceRelativeInput.y = 0f;
+			Vector3 surfaceRelativeInput =
+			    climbSurfaceRight * ( climbTag.xMovement ? movement.x : 0.0f ) +
+			    Vector3.up * ( climbTag.yMovement ? movement.z : 0.0f );
 
-				Vector3 surfaceHoldVec = climbSurface.forward * surfaceHoldForce;
-				moveVec = climbSurface.rotation * surfaceRelativeInput * climbMoveSpeed * moveSpeedMod;
-				moveVec += surfaceHoldVec;
+			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
 
-				lastVelocity = moveVec;
-				rigidbody.velocity = moveVec;
+			moveVec = surfaceRelativeInput * climbMoveSpeed * moveSpeedMod;
 
-				transform.rotation = Quaternion.Lerp(
-				    transform.rotation,
-				    Quaternion.LookRotation( climbSurface.forward, Vector3.up ),
-				    Time.deltaTime * modelTurnSpeed );
-			}
-			else
-			{
-				Debug.LogError("Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck");
-			}
+			transform.Translate( moveVec * Time.deltaTime, Space.World );
 		}
 		else
 		{
-			Debug.LogError("Cannot climb, surface is null");
+			Debug.LogError( "Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck" );
 		}
 	}
 
-	public void StartClimbing( Collider col )
+	void StartClimbing( Collider col )
 	{
-		( actor as PlayerActor).actorStats.StartUsingStamina();
-
 		climbSurface = col.transform;
+		climbTag = climbSurface.GetComponent<ClimbableTag>();
+
+		if ( Vector3.Dot( climbSurface.forward, ( transform.position - climbSurface.position ) ) > 0.0f )
+		{
+			climbSurfaceNormal = -climbSurface.forward;
+			climbSurfaceRight = -climbSurface.right;
+		}
+		else
+		{
+			climbSurfaceNormal = climbSurface.forward;
+			climbSurfaceRight = climbSurface.right;
+			Debug.LogWarning( "Climb volume is facing into wall." );
+		}
+
 		ChangeState( ActorStates.Climbing );
+		
+		rigidbody.useGravity = false;
+		rigidbody.velocity = Vector3.zero;
+		lifter.gameObject.SetActive( false );
+		bumper.gameObject.SetActive( false );
 
 		if ( actor.animator != null )
 		{
@@ -304,8 +311,12 @@ public class ActorPhysics : ActorComponent
 	{
 		if ( climbSurface )
 		{
-			rigidbody.useGravity = true;
 			climbSurface = null;
+			climbTag = null;
+			rigidbody.useGravity = true;
+			lifter.gameObject.SetActive( true );
+			bumper.gameObject.SetActive( true );
+
 			ChangeState( ActorStates.Jumping );
 
 			if ( actor.animator != null )
@@ -326,7 +337,7 @@ public class ActorPhysics : ActorComponent
 			}
 		}
 		else if ( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) &&
-		          rollCooldownTimer >= rollCooldownTime && inputVec.magnitude > WadeUtils.SMALLNUMBER )
+		          rollCooldownTimer >= rollCooldownTime && !inputVec.IsZero() )
 		{
 			ChangeState( ActorStates.Rolling );
 			actor.animator.SetBool( "isRolling", true );
@@ -411,20 +422,31 @@ public class ActorPhysics : ActorComponent
 	 */
 	void OrientSelf()
 	{
-		Vector3 actualVelocity = transform.position - _lastPos;
-		actualVelocity.y = 0.0f;
-
-		Vector3 intendedVelocity = rigidbody.velocity;
-		intendedVelocity.y = 0.0f;
-
-		Vector3 lookVec = Vector3.Lerp( actualVelocity, intendedVelocity, lookDirLerp );
-
-		if ( !lookVec.IsZero() )
+		Quaternion desiredLook = transform.rotation;
+		if ( IsInState( ActorStates.Climbing ) )
 		{
-			transform.rotation = Quaternion.Lerp( transform.rotation,
-			                                  Quaternion.LookRotation( lookVec, transform.up ),
-			                                  Time.deltaTime * modelTurnSpeed );
+			Quaternion.LookRotation( climbSurfaceNormal );
 		}
+		else
+		{
+			Vector3 actualVelocity = transform.position - _lastPos;
+			actualVelocity.y = 0.0f;
+
+			Vector3 intendedVelocity = rigidbody.velocity;
+			intendedVelocity.y = 0.0f;
+
+			Vector3 lookVec = Vector3.Lerp( actualVelocity, intendedVelocity, lookDirLerp );
+
+			if ( !lookVec.IsZero() )
+			{
+				desiredLook = Quaternion.LookRotation( lookVec, transform.up );
+			}
+		}
+
+		transform.rotation = Quaternion.Lerp(
+		    transform.rotation,
+		    desiredLook,
+		    Time.deltaTime * modelTurnSpeed );
 
 		_lastPos = transform.position;
 	}

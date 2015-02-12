@@ -8,6 +8,7 @@ public class DebugUtils
 		if ( !condition )
 		{
 			Debug.LogError( message );
+			// Debug.Break(); // Uncomment if you want to pause the editor when an assert is hit.
 		}
 	}
 }

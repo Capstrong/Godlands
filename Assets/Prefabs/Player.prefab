@@ -3477,10 +3477,12 @@ MonoBehaviour:
   stoppingSpeed: .00100000005
   stopMoveTime: .300000012
   _groundedMoveSpeed: 6
+  _climbingMoveSpeed: 5
   jumpMoveSpeed: 6
   rollMoveSpeed: 6
   climbMoveSpeed: 4
   bumper: {fileID: 13615418}
+  lifter: {fileID: 13518824}
   modelTurnSpeed: 7
   lookDirLerp: .00200000009
   jumpForce: 8.5
@@ -3498,9 +3500,7 @@ MonoBehaviour:
   climbLayer:
     serializedVersion: 2
     m_Bits: 512
-  climbCheckDistance: .5
   climbCheckRadius: .699999988
-  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
 --- !u!114 &11480138
 MonoBehaviour:

@@ -9089,6 +9089,7 @@ MonoBehaviour:
   rollMoveSpeed: 6
   climbMoveSpeed: 4
   bumper: {fileID: 1614499064}
+  lifter: {fileID: 397740389}
   modelTurnSpeed: 7
   lookDirLerp: .00200000009
   jumpForce: 8.5
@@ -9107,7 +9108,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   climbCheckRadius: .699999988
-  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
 --- !u!114 &298744672
 MonoBehaviour:
@@ -16996,6 +16996,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: m_Name
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
@@ -56037,6 +56041,7 @@ MonoBehaviour:
   rollMoveSpeed: 6
   climbMoveSpeed: 6
   bumper: {fileID: 1458703098}
+  lifter: {fileID: 0}
   modelTurnSpeed: 7
   lookDirLerp: .5
   jumpForce: 8.5
@@ -56055,7 +56060,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   climbCheckRadius: .699999988
-  surfaceHoldForce: .100000001
   climbCheckTime: .200000003
 --- !u!114 &1805004140
 MonoBehaviour:

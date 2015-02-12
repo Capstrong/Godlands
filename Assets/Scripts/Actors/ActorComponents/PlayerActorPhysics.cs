@@ -42,7 +42,12 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			JumpCheck();
 		}
-		ClimbCheck();
+
+		if ( _isGrabbing )
+		{
+			ClimbCheck();
+		}
+
 		RollCheck();
 
 		JumpMovement();
@@ -57,29 +62,14 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Climbing()
 	{
-		inputVec = GetInputDirection();
-
-		ClimbSurface();
-
-		if ( _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStamina() )
+		if ( ClimbCheck() && _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStamina() )
 		{
-			if ( ClimbCheck() )
-			{
-				( actor as PlayerActor ).actorStats.StartUsingStamina();
-			}
-			else
-			{
-				( actor as PlayerActor ).actorStats.StopUsingStamina();
-			}
+			( actor as PlayerActor ).actorStats.StartUsingStamina();
+			ClimbSurface( GetInput() );
 		}
 		else
 		{
-			StopClimbing();
 			( actor as PlayerActor ).actorStats.StopUsingStamina();
-		}
-
-		if ( !_isGrabbing )
-		{
 			StopClimbing();
 		}
 	}
@@ -90,7 +80,12 @@ public class PlayerActorPhysics : ActorPhysics
 		{
 			JumpCheck();
 		}
-		ClimbCheck();
+
+		if ( _isGrabbing )
+		{
+			ClimbCheck();
+		}
+
 		RollCheck();
 
 		GroundMovement();
@@ -98,9 +93,9 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void GroundMovement()
 	{
-		inputVec = GetInputDirection();
+		inputVec = GetMoveDirection();
 
-		if ( Mathf.Abs( inputVec.magnitude ) < WadeUtils.SMALLNUMBER )
+		if ( inputVec.IsZero() )
 		{
 			ComeToStop();
 		}
@@ -112,9 +107,9 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void JumpMovement()
 	{
-		inputVec = GetInputDirection();
+		inputVec = GetMoveDirection();
 
-		if ( Mathf.Abs( inputVec.magnitude ) < WadeUtils.SMALLNUMBER )
+		if ( inputVec.IsZero() )
 		{
 			ComeToStop();
 		}
@@ -125,7 +120,6 @@ public class PlayerActorPhysics : ActorPhysics
 			moveVec = inputVec * jumpMoveSpeed;
 			moveVec.y = rigidbody.velocity.y;
 
-			lastVelocity = moveVec;
 			rigidbody.velocity = moveVec;
 
 			if ( _actor.animator )
@@ -135,13 +129,21 @@ public class PlayerActorPhysics : ActorPhysics
 		}
 	}
 
-	Vector3 GetInputDirection()
+	Vector3 GetInput()
 	{
-		Vector3 inputVec = new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
-		                                0.0f,
-		                                Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+		return new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
+		                    0.0f,
+		                    Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+	}
 
-		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ))
+	/**
+	 * Calculates the direction of movement based on the input and the camera position.
+	 */
+	Vector3 GetMoveDirection()
+	{
+		Vector3 inputVec = GetInput();
+
+		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ) )
 		{
 			inputVec *= WadeUtils.DUALINPUTMOD; // this reduces speed of diagonal movement
 		}
