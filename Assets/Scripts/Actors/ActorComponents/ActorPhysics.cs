@@ -20,7 +20,7 @@ public class ActorPhysics : ActorComponent
 	#region States
 	public delegate void ActorStateMethod();
 
-	[ReadOnlyAttribute, SerializeField]
+	[ReadOnly, SerializeField]
 	ActorStates currentState = ActorStates.Jumping;
 	protected ActorStateMethod CurrentStateMethod;
 	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();

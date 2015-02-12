@@ -62,14 +62,14 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Climbing()
 	{
-		if ( ClimbCheck() && _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStamina() )
+		if ( ClimbCheck() && _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStat( Stat.Stamina ) )
 		{
-			( actor as PlayerActor ).actorStats.StartUsingStamina();
+			( actor as PlayerActor ).actorStats.StartUsingStat( Stat.Stamina );
 			ClimbSurface( GetInput() );
 		}
 		else
 		{
-			( actor as PlayerActor ).actorStats.StopUsingStamina();
+			( actor as PlayerActor ).actorStats.StopUsingStat( Stat.Stamina );
 			StopClimbing();
 		}
 	}

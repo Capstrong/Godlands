@@ -5,9 +5,11 @@ public class ResourceHolder : MonoBehaviour
 {
 	public GameObject resource;
 
+	float resourceHeightOffset = 0.17f;
+
 	void Start()
 	{
-		resource = WadeUtils.Instantiate( resource, Vector3.zero, Quaternion.identity );
+		resource = WadeUtils.Instantiate( resource, Vector3.up * resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( transform, false );
 	}
 }
