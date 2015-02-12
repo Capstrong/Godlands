@@ -458,7 +458,7 @@ public class ActorPhysics : ActorComponent
 		if ( IsInState( ActorStates.Climbing ) )
 		{
 			Vector3 lookVector = _climbSurfaceNormal;
-			lookVector.y *= _leanTowardsSurface;
+			//lookVector.y *= _leanTowardsSurface;
 			desiredLook = Quaternion.LookRotation( lookVector );
 		}
 		else

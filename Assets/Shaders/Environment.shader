@@ -6,8 +6,9 @@
 		_NormalMap ("Normal Map", 2D) = "bump" {}
 
 		_ColorMask ("Color Mask", 2D) = "white" {}
-		_ColorOverlayA ("Color Overlay A", Color) = (1, 1, 1, 1)
-		_ColorOverlayB ("Color Overlay B", Color) = (1, 1, 1, 1)
+		_ColorOverlayA ("Color Overlay White", Color) = (1, 1, 1, 1)
+		_ColorOverlayB ("Color Overlay Black", Color) = (1, 1, 1, 1)
+		
 		
 		_EmissiveStrength ("Emissive Strength", Range(0, 2.3)) = 1
 	}
@@ -22,7 +23,7 @@
 		sampler2D _ColorMask;
 
 		float _EmissiveStrength;
-		fixed4 _Color;
+		fixed4 _ColorOverlayA;
 		fixed4 _ColorOverlayB;
 
 		struct Input 
@@ -36,8 +37,8 @@
 		{
 			float4 c = tex2D (_MainTex, IN.uv_MainTex);
 			float3 mask = tex2D (_ColorMask, IN.uv_ColorMask).rgb;
-			o.Albedo = c * lerp(_Color, _ColorOverlayB, (mask.r + mask.g + mask.b)/3);
-			o.Normal = UnpackNormal (tex2D (_NormalMap, IN.uv_NormalMap));
+			o.Albedo = c * lerp(_ColorOverlayB, _ColorOverlayA, (mask.r + mask.g + mask.b)/3);
+			o.Normal = UnpackNormal (tex2D (_NormalMap, IN.uv_NormalMap));			
 			o.Emission = _EmissiveStrength * o.Albedo;
 		}
 		
