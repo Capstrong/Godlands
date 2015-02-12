@@ -102,6 +102,8 @@ public class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Climbing" )]
 	[SerializeField] LayerMask climbLayer = (LayerMask)0;
 	[SerializeField] float climbCheckRadius = 0.7f;
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float leanTowardsSurface = 0.5f;
 
 	[SerializeField] float climbCheckTime = 0.2f;
 	float climbCheckTimer = 1f;
@@ -110,6 +112,7 @@ public class ActorPhysics : ActorComponent
 	ClimbableTag climbTag;
 	Vector3 climbSurfaceNormal = Vector3.zero;
 	Vector3 climbSurfaceRight = Vector3.zero;
+	Vector3 climbSurfaceUp = Vector3.zero;
 	#endregion
 
 	public override void Awake()
@@ -264,7 +267,7 @@ public class ActorPhysics : ActorComponent
 
 			Vector3 surfaceRelativeInput =
 			    climbSurfaceRight * ( climbTag.xMovement ? movement.x : 0.0f ) +
-			    Vector3.up * ( climbTag.yMovement ? movement.z : 0.0f );
+			    climbSurfaceUp * ( climbTag.yMovement ? movement.z : 0.0f );
 
 			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
 
@@ -293,6 +296,16 @@ public class ActorPhysics : ActorComponent
 			climbSurfaceNormal = climbSurface.forward;
 			climbSurfaceRight = climbSurface.right;
 			Debug.LogWarning( "Climb volume is facing into wall." );
+		}
+
+		if ( Vector3.Dot( Vector3.up, climbSurface.up ) > 0.0f )
+		{
+			climbSurfaceUp = climbSurface.up;
+		}
+		else
+		{
+			climbSurfaceUp = -climbSurface.up;
+			Debug.LogWarning( "Climb volume is upside down." );
 		}
 
 		ChangeState( ActorStates.Climbing );
@@ -428,7 +441,9 @@ public class ActorPhysics : ActorComponent
 		Quaternion desiredLook = transform.rotation;
 		if ( IsInState( ActorStates.Climbing ) )
 		{
-			Quaternion.LookRotation( climbSurfaceNormal );
+			Vector3 lookVector = climbSurfaceNormal;
+			lookVector.y *= leanTowardsSurface;
+			desiredLook = Quaternion.LookRotation( lookVector );
 		}
 		else
 		{
