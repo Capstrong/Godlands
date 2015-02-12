@@ -4,15 +4,16 @@ using System.Collections;
 [ExecuteInEditMode]
 public class EagleVision : MonoBehaviour 
 {
-	[SerializeField] Material mat;
+	[SerializeField] Material _mat;
 
-	void OnRenderImage (RenderTexture source, RenderTexture destination)
+	void OnRenderImage ( RenderTexture source, RenderTexture destination )
 	{	
-		if(mat)
+		if( _mat )
 		{
-			Graphics.Blit(source, destination, mat, 0);
+			Graphics.Blit( source, destination, _mat, 0 );
 		}
 
+//		THIS IS IN PROGRESS, DON'T BOTHER REVIEWING
 //		if(CheckResources() == false) {
 //			Graphics.Blit (source, destination);
 //			return;

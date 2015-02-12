@@ -5,7 +5,7 @@ using System;
 [Serializable]
 public class TimeRenderSettings
 {
-	public Color color = Color.white;
+	public Color skyColor = Color.white;
 
 	public Color lightColor = Color.white;
 	public float lightIntensity = 0.5f;
@@ -15,67 +15,87 @@ public class TimeRenderSettings
 }
 
 [Serializable]
-public class RenderSettingsData
+public struct RenderSettingsData
 {
 	public TimeRenderSettings daySettings;
 	public TimeRenderSettings nightSettings;
+
+	public Material skyMaterial;
 }
 
 [ExecuteInEditMode]
 public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager> 
 {
-	[SerializeField] RenderSettingsData _currentRenderSettings = null;
+	[SerializeField] RenderSettingsData _currentRenderSettings = new RenderSettingsData();
 	RenderSettingsData _targetRenderSettings = new RenderSettingsData();
 
-	[SerializeField] float _settingShiftTime = 15f;
-	float _settingShiftTimer = 0f;
-
 	Light _dirLight = null;
+	Material _curSkyboxMaterial = null;
+	int _curSkyboxTintPropertyID = 0;
 
-	[SerializeField] float dayCycleTime = 200;
-	float dayCycleTimer = 0f;
+	[Tooltip("The length (in seconds) of a day")]
+	[SerializeField] float _dayCycleTime = 60;
+	[SerializeField] float _dayCycleTimer = 0f;
 
+	[Tooltip("Zero is noon, 1 is midnight")]
+	[Range(0, 1)]
 	public float timeOfDay; // This should not go in here. Eventually it will be with the Day Cycle
 
 	void Awake()
 	{
 		_dirLight = GameObject.FindObjectOfType<Light>();
+		_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
+		_curSkyboxTintPropertyID = Shader.PropertyToID( "_Tint" );
 	}
 
 	void Update()
 	{
-		dayCycleTimer += Time.deltaTime;
+		_dayCycleTimer += Time.deltaTime;
 
-		timeOfDay = (-Mathf.Cos(dayCycleTimer/dayCycleTime * Mathf.Rad2Deg) * 0.5f) + 0.5f;
+		timeOfDay = ( -Mathf.Cos( _dayCycleTimer/_dayCycleTime * 2f * Mathf.PI ) * 0.5f ) + 0.5f;
 
-		if(dayCycleTimer > dayCycleTime)
+		if( _dayCycleTimer > _dayCycleTime )
 		{
-			dayCycleTimer -= dayCycleTime;
+			_dayCycleTimer -= _dayCycleTime;
+		}
+		else if( _dayCycleTimer < 0f )
+		{
+			_dayCycleTimer += _dayCycleTime;
 		}
 
 		ApplyRenderSettings();
 	}
 
-	public static void ChangeTargetRenderSettings( RenderSettingsData renderSettings )
+	public static void ChangeTargetRenderSettings( RenderSettingsData renderSettings, float shiftTime )
 	{
-		instance.IChangeTargetRenderSettings( renderSettings );
+		instance.IChangeTargetRenderSettings( renderSettings, shiftTime );
 	}
 
-	void IChangeTargetRenderSettings( RenderSettingsData renderSettings )
+	void IChangeTargetRenderSettings( RenderSettingsData renderSettings, float shiftTime )
 	{
 		_targetRenderSettings = renderSettings;
 
 		StopAllCoroutines();
-		StartCoroutine( GoToTargetRenderSettings() );
+		StartCoroutine( GoToTargetRenderSettings( shiftTime ) );
 	}
 
 	void ApplyRenderSettings()
 	{
-		Color skyboxColor = Color.Lerp( _currentRenderSettings.daySettings.color,
-		                                _currentRenderSettings.nightSettings.color,
+		Color skyboxColor = Color.Lerp( _currentRenderSettings.daySettings.skyColor,
+		                                _currentRenderSettings.nightSettings.skyColor,
 		                                timeOfDay );
-		RenderSettings.skybox.SetColor( "_Tint", skyboxColor );
 
+		if( _currentRenderSettings.skyMaterial != _curSkyboxMaterial)
+		{
+			_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
+			RenderSettings.skybox = _curSkyboxMaterial;
+		}
+
+		if( _curSkyboxMaterial )
+		{
+			RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, skyboxColor );
+		}
+		
 		RenderSettings.fogColor = Color.Lerp( _currentRenderSettings.daySettings.fogColor,
 		                                     _currentRenderSettings.nightSettings.fogColor,
 		                                     timeOfDay );
@@ -109,9 +129,9 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		// Day Settings
 
-		renderSettings.daySettings.color = Color.Lerp( initRenderSettings.daySettings.color, 
-		                                      	       _targetRenderSettings.daySettings.color,
-		                                               delta );
+		renderSettings.daySettings.skyColor = Color.Lerp( initRenderSettings.daySettings.skyColor, 
+		                                                 _targetRenderSettings.daySettings.skyColor,
+		                                                 delta );
 
 		renderSettings.daySettings.fogColor = Color.Lerp( initRenderSettings.daySettings.fogColor, 
 		                                                  _targetRenderSettings.daySettings.fogColor,
@@ -131,9 +151,9 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		// Night Settings
 
-		renderSettings.nightSettings.color = Color.Lerp( initRenderSettings.nightSettings.color, 
-		                                                _targetRenderSettings.nightSettings.color,
-		                                                delta );
+		renderSettings.nightSettings.skyColor = Color.Lerp( initRenderSettings.nightSettings.skyColor, 
+		                                                    _targetRenderSettings.nightSettings.skyColor,
+		                                                    delta );
 		
 		renderSettings.nightSettings.fogColor = Color.Lerp( initRenderSettings.nightSettings.fogColor, 
 		                                                   _targetRenderSettings.nightSettings.fogColor,
@@ -154,16 +174,16 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		_currentRenderSettings = renderSettings;
 	}
 
-	IEnumerator GoToTargetRenderSettings()
+	IEnumerator GoToTargetRenderSettings( float settingShiftTime )
 	{
 		RenderSettingsData initRenderSettings = _currentRenderSettings;
 
-		_settingShiftTimer = 0f;
-		while ( _settingShiftTimer < _settingShiftTime )
+		float settingShiftTimer = 0f;
+		while ( settingShiftTimer < settingShiftTime )
 		{
-			LerpRenderSettings( initRenderSettings, _settingShiftTimer/_settingShiftTime );
+			LerpRenderSettings( initRenderSettings, settingShiftTimer/settingShiftTime );
 
-			_settingShiftTimer += Time.deltaTime;
+			settingShiftTimer += Time.deltaTime;
 			yield return 0;
 		}
 
