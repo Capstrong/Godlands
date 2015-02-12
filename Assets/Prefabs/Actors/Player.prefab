@@ -1097,8 +1097,10 @@ GameObject:
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11481784}
+  - 114: {fileID: 11444856}
+  - 114: {fileID: 11469946}
   - 114: {fileID: 11480420}
-  - 114: {fileID: 11438924}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -2156,8 +2158,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -52.9099998, y: -18.7000008, z: 54.1699982}
+  m_LocalRotation: {x: 0, y: .995971024, z: 0, w: -.0896760002}
+  m_LocalPosition: {x: -12.2299995, y: -20.0699997, z: -3.91000009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3259,20 +3261,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  statDictionary:
-    keys: 01000000
+  _statDictionary:
+    keys: 0100000003000000
     values:
     - startingMax: 10
       maxIncrement: 10
       useRate: .100000001
-      rechargeRate: .075000003
+      rechargeRate: .0500000007
       currentMax: 10
       currentValue: 10
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 0
---- !u!114 &11438924
+    - startingMax: 10
+      maxIncrement: 10
+      useRate: .100000001
+      rechargeRate: .0500000007
+      currentMax: 10
+      currentValue: 10
+      isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
+      statToScaleRatio: 0
+--- !u!114 &11444856
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3280,9 +3292,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 180122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _triggerKey: 61
+  _statToIncrease: 3
+--- !u!114 &11469946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2dc9ae5a0b4c2499ed89eb6b4aaea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  _cutableLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  _cuttingButton: 106
+  _cuttingDistance: 2
+  _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
+  _visualOffset: {x: 1, y: 1, z: 1}
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3457,7 +3490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
+  resourcePopPrefab: {fileID: 0}
   _buddies:
   - {fileID: 0}
   buddyLayer:
@@ -3532,7 +3565,6 @@ MonoBehaviour:
     m_Bits: 512
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
-  _climbCheckTime: .200000003
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3577,6 +3609,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11481784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &13518824

@@ -18,6 +18,8 @@ Shader "Custom/EnvironmentAlpha"
 		Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
 		LOD 200
 		
+		Cull Off
+		
 		CGPROGRAM
 		#pragma surface surf Lambert alphatest:_Cutoff
 

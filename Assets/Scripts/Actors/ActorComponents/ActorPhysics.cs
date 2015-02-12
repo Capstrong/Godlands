@@ -69,6 +69,8 @@ public class ActorPhysics : ActorComponent
 	[SerializeField] float _modelTurnSpeed = 7f;
 	[Tooltip( "How much the actual velocity is factored into the look direction. 0 means look direction is entirely determined by the input, 1 means look direction is entirely determined by movement." )]
 	float _lookIntentionWeight = 0.002f;
+	bool _overrideLook = false;
+	Vector3 _lookOverride = Vector3.zero;
 
 	private Vector3 _lastPos;
 	#endregion
@@ -178,7 +180,7 @@ public class ActorPhysics : ActorComponent
 
 		rigidbody.velocity = _moveVec;
 
-		if ( !actor.animator )
+		if ( actor.animator )
 		{
 			actor.animator.SetBool( "isMoving", true );
 		}
@@ -469,7 +471,10 @@ public class ActorPhysics : ActorComponent
 			Vector3 intendedVelocity = rigidbody.velocity;
 			intendedVelocity.y = 0.0f;
 
-			Vector3 lookVec = Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight );
+			Vector3 lookVec =
+				( _overrideLook ?
+				_lookOverride :
+				Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight ) );
 
 			if ( !lookVec.IsZero() )
 			{
@@ -495,6 +500,20 @@ public class ActorPhysics : ActorComponent
 		Vector3 moveVec = rigidbody.velocity;
 		moveVec.y = fallSpeed;
 		rigidbody.velocity = moveVec;
+	}
+
+	public void OverrideLook( Vector3 lookDir, float time )
+	{
+		_lookOverride = lookDir;
+		_overrideLook = true;
+		CancelInvoke( "EndLookOverride" );
+		Invoke( "EndLookOverride", time );
+	}
+
+	void EndLookOverride()
+	{
+		_overrideLook = false;
+		_lookOverride = Vector3.zero;
 	}
 
 	#region Late Jump Timer

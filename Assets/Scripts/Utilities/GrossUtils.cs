@@ -65,27 +65,15 @@ public abstract class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TV
 		// Probably adding an item in the inspector
 		if ( keys.Count + 1 == values.Count )
 		{
-			if ( keys.Count == 0 )
-			{
-				keys.Add( new TKey() );
-			}
-			else
-			{
-				keys.Add( keys[keys.Count - 1] ); // duplicate the last key
-			}
+			keys.Add( new TKey() );
 		}
 
 		// Probably adding an item in the inspector
 		if ( values.Count + 1 == keys.Count )
 		{
-			if ( values.Count == 0 )
-			{
-				values.Add( new TValue() );
-			}
-			else
-			{
-				values.Add( values[values.Count - 1] ); // duplicate the value key
-			}
+			keys[keys.Count - 1] = new TKey();// If the keys list is extended in the inspector, it will copy the last key in the list
+			                                  // This will not work because it will mean duplicate keys in the dictionary
+			values.Add( new TValue() );
 		}
 
 		if ( keys.Count != values.Count )
