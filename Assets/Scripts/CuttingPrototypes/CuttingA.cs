@@ -56,7 +56,16 @@ public class CuttingA : ActorComponent
 					}
 					else
 					{
-						Debug.LogError( "Attach Cutable component to " + cutableObj.name + " at " + cutableObj.transform.position );
+						CutableC cutableComponentC = cutableObj.GetComponent<CutableC>();
+
+						if ( cutableComponentC )
+						{
+							Cut( cutableComponentC );
+						}
+						else
+						{
+							Debug.LogError( "Attach Cutable component to " + cutableObj.name + " at " + cutableObj.transform.position );
+						}
 					}
 				}
 			}
@@ -69,6 +78,11 @@ public class CuttingA : ActorComponent
 	}
 
 	void Cut ( CutableB cutableComponent )
+	{
+		cutableComponent.Cut( actorStats.GetStatValue( Stat.Cutting ) );
+	}
+
+	void Cut( CutableC cutableComponent )
 	{
 		cutableComponent.Cut( actorStats.GetStatValue( Stat.Cutting ) );
 	}
