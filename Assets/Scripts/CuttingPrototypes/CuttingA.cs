@@ -24,6 +24,11 @@ public class CuttingA : ActorComponent
 	{
 		if ( Input.GetKeyDown( _cuttingButton ) )
 		{
+			Vector3 camForward = Camera.main.transform.forward;
+			camForward.Set( camForward.x, 0, camForward.z );
+
+			actor.model.transform.forward = camForward;
+
 			Vector3 rotatedOffset = actor.model.transform.rotation * _visualOffset;
 
 			Instantiate( _visualEffect, transform.position + rotatedOffset, actor.model.transform.rotation );
