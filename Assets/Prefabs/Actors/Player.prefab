@@ -3503,37 +3503,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  currentState: 1
+  _currentState: 1
   inputVec: {x: 0, y: 0, z: 0}
-  moveSpeedMod: 1
-  stoppingSpeed: .00100000005
-  stopMoveTime: .300000012
+  _stoppingSpeed: .00100000005
+  _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
-  jumpMoveSpeed: 6
-  rollMoveSpeed: 6
-  climbMoveSpeed: 4
+  _jumpMoveSpeed: 6
+  _rollMoveSpeed: 6
+  _climbMoveSpeed: 6
   bumper: {fileID: 13615418}
   lifter: {fileID: 13518824}
   climbBumper: {fileID: 13610286}
-  modelTurnSpeed: 7
-  lookDirLerp: .00200000009
+  _modelTurnSpeed: 7
   jumpForce: 8.5
-  jumpCheckDistance: 1
-  jumpCheckRadius: .5
-  jumpLayer:
+  _jumpCheckDistance: 1
+  _jumpCheckRadius: .5
+  _jumpLayer:
     serializedVersion: 2
-    m_Bits: 4294963657
-  minJumpDot: .400000006
-  jumpColCheckTime: .5
-  lateJumpTime: .5
-  jumpCheckDelay: .100000001
-  rollTime: 1
-  rollCooldownTime: 1
-  climbLayer:
+    m_Bits: 257
+  _minJumpDot: .699999988
+  _jumpColCheckTime: .5
+  _lateJumpTime: .5
+  _jumpCheckDelay: .100000001
+  _rollTime: 1
+  _rollCooldownTime: 1
+  _climbLayer:
     serializedVersion: 2
     m_Bits: 512
-  climbCheckRadius: .699999988
-  climbCheckTime: .200000003
+  _climbCheckRadius: .699999988
+  _leanTowardsSurface: .5
+  _climbCheckTime: .200000003
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1

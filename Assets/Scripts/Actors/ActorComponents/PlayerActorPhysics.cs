@@ -50,7 +50,7 @@ public class PlayerActorPhysics : ActorPhysics
 
 		RollCheck();
 
-		JumpMovement();
+		JumpMovement( GetMoveDirection() );
 	}
 
 	void Rolling()
@@ -102,30 +102,6 @@ public class PlayerActorPhysics : ActorPhysics
 		else
 		{
 			MoveAtSpeed( inputVec, groundedMoveSpeed );
-		}
-	}
-
-	void JumpMovement()
-	{
-		inputVec = GetMoveDirection();
-
-		if ( inputVec.IsZero() )
-		{
-			ComeToStop();
-		}
-		else
-		{
-			currStoppingPower = stoppingSpeed;
-
-			moveVec = inputVec * jumpMoveSpeed;
-			moveVec.y = rigidbody.velocity.y;
-
-			rigidbody.velocity = moveVec;
-
-			if ( _actor.animator )
-			{
-				_actor.animator.SetBool( "isMoving", true );
-			}
 		}
 	}
 
