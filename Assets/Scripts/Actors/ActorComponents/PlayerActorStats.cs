@@ -34,12 +34,9 @@ public class PlayerActorStats : ActorComponent
 {
 	[SerializeField] StatDictionary _statDictionary = new StatDictionary();
 
-	PlayerActorPhysics _actorPhysics = null;
-
 	public override void Awake()
 	{
 		base.Awake();
-		_actorPhysics = GetComponent<PlayerActorPhysics>();
 
 		foreach (KeyValuePair<Stat,StatObject> pair in _statDictionary)
 		{
@@ -102,15 +99,12 @@ public class PlayerActorStats : ActorComponent
 			}
 			else
 			{
-				if ( !_actorPhysics.isGrabbing )
-				{
 					statObject.currentValue += statObject.rechargeRate;
 
 					if ( statObject.currentValue > statObject.currentMax )
 					{
 						statObject.currentValue = statObject.currentMax;
 					}
-				}
 			}
 
 			ScaleCurrImage( statObject );
@@ -119,15 +113,21 @@ public class PlayerActorStats : ActorComponent
 
 	void ScaleMaxImage( StatObject statObject )
 	{
-		float scale = statObject.currentMax * statObject.statToScaleRatio;
-		// TODO: cache off transform to save on getComponent() calls
-		statObject.maxImage.transform.SetScale( scale, scale, scale );
+		if( statObject.maxImage )
+		{
+			float scale = statObject.currentMax * statObject.statToScaleRatio;
+			// TODO: cache off transform to save on getComponent() calls
+			statObject.maxImage.transform.SetScale( scale, scale, scale );
+		}
 	}
 
 	void ScaleCurrImage( StatObject statObject )
 	{
-		float scale = statObject.currentValue * statObject.statToScaleRatio;
-		// TODO: cache off transform to save on getComponent() calls
-		statObject.currentImage.transform.SetScale( scale, scale, scale );
+		if( statObject.currentImage )
+		{
+			float scale = statObject.currentValue * statObject.statToScaleRatio;
+			// TODO: cache off transform to save on getComponent() calls
+			statObject.currentImage.transform.SetScale( scale, scale, scale );
+		}
 	}
 }

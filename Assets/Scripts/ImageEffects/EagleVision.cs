@@ -4,7 +4,7 @@ using System.Collections;
 [ExecuteInEditMode]
 public class EagleVision : MonoBehaviour 
 {
-	[SerializeField] Material _mat;
+	[SerializeField] Material _mat = null;
 
 	void OnRenderImage ( RenderTexture source, RenderTexture destination )
 	{	

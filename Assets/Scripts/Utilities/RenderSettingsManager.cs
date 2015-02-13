@@ -29,7 +29,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	[SerializeField] RenderSettingsData _currentRenderSettings = new RenderSettingsData();
 	RenderSettingsData _targetRenderSettings = new RenderSettingsData();
 
-	Light _dirLight = null;
+	[SerializeField] Light _dirLight = null;
 	Material _curSkyboxMaterial = null;
 	int _curSkyboxTintPropertyID = 0;
 
@@ -43,7 +43,6 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Awake()
 	{
-		_dirLight = GameObject.FindObjectOfType<Light>();
 		_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
 		_curSkyboxTintPropertyID = Shader.PropertyToID( "_Tint" );
 	}
@@ -87,7 +86,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		if( _currentRenderSettings.skyMaterial != _curSkyboxMaterial)
 		{
-			_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
+			_curSkyboxMaterial = _targetRenderSettings.skyMaterial;
 			RenderSettings.skybox = _curSkyboxMaterial;
 		}
 

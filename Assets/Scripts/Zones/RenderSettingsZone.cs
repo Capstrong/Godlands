@@ -8,8 +8,10 @@ public class RenderSettingsZone : MonoBehaviour
 	
 	void OnTriggerEnter( Collider otherCol )
 	{
-		if ( otherCol.GetComponent<PlayerActor>() )
+		Debug.Log("Poop");
+		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
+			Debug.Log("Poop2");
 			RenderSettingsManager.ChangeTargetRenderSettings( _renderSettings, _shiftTime );
 		}
 	}

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FootstepSound : MonoBehaviour 
 {
-	[SerializeField] AudioSource[] footstepSounds;
+	[SerializeField] AudioSource[] footstepSounds = null;
 
 	[SerializeField] void PlayerWalkSound()
 	{

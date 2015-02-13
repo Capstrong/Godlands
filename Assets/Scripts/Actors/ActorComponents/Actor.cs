@@ -34,11 +34,6 @@ public class Actor : MonoBehaviour
 		get { return _actorPhysics; }
 	}
 
-	public Transform model
-	{
-		get { return _actorPhysics.model; }
-	}
-
 	Animator _animator;
 	public Animator animator
 	{
