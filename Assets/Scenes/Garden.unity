@@ -13618,7 +13618,7 @@ MonoBehaviour:
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 257
-  _minJumpDot: .699999988
+  _minJumpDot: .5
   _jumpColCheckTime: .5
   _lateJumpTime: .5
   _jumpCheckDelay: .100000001
@@ -56508,13 +56508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 1
   canDecreaseStamina: 1
   decreaseResourcesTime: 60
   currResourceTimer: 0
   startingApples: 10
   apples: 0
-  owner: {fileID: 0}
+  owner: {fileID: 298744676}
   heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
 --- !u!114 &1215378092
 MonoBehaviour:
@@ -86499,6 +86499,14 @@ Prefab:
     - target: {fileID: 476348, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423312, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 298744676}
+    - target: {fileID: 11423312, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: statType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 430bb384d018f438083cae6e1236532d, type: 2}
