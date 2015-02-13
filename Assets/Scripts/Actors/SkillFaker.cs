@@ -4,8 +4,8 @@ using System.Collections;
 [RequireComponent( typeof( PlayerActorStats ) )]
 public class SkillFaker : MonoBehaviour
 {
-	[SerializeField] KeyCode _triggerKey;
-	[SerializeField] Stat _statToIncrease;
+	[SerializeField] KeyCode _triggerKey = KeyCode.K;
+	[SerializeField] Stat _statToIncrease = Stat.Invalid;
 
 	PlayerActorStats _actorStats = null;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorComponent : MonoBehaviour 
+public class ActorComponent : MonoBehaviour
 {
 	[HideInInspector]
 	public Actor actor;

@@ -1097,8 +1097,10 @@ GameObject:
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11480420}
   - 114: {fileID: 11435354}
+  - 114: {fileID: 11438208}
+  - 114: {fileID: 11410354}
+  - 114: {fileID: 11480420}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -2157,7 +2159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -35.2560005, y: -19.7169991, z: 16.0130005}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3264,7 +3266,7 @@ MonoBehaviour:
     values:
     - startingMax: 1
       maxIncrement: .5
-      useRate: .5
+      useRate: 0
       rechargeRate: .5
       currentMax: 0
       currentValue: 0
@@ -3282,6 +3284,19 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 1
+--- !u!114 &11410354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerKey: 61
+  _statToIncrease: 3
 --- !u!114 &11435354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3301,6 +3316,17 @@ MonoBehaviour:
   _cuttingDistance: 1
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
+--- !u!114 &11438208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1

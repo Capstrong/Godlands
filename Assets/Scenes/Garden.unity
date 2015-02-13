@@ -13512,8 +13512,10 @@ GameObject:
   - 114: {fileID: 298744672}
   - 114: {fileID: 298744673}
   - 114: {fileID: 298744675}
-  - 114: {fileID: 298744676}
   - 114: {fileID: 298744669}
+  - 114: {fileID: 298744677}
+  - 114: {fileID: 298744674}
+  - 114: {fileID: 298744676}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -13675,6 +13677,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   maxGiveDistance: 2
+--- !u!114 &298744674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11410354, guid: 562cb066185fbf84c92c6d56ebbdbf57,
+    type: 2}
+  m_PrefabInternal: {fileID: 87291223}
+  m_GameObject: {fileID: 298744666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerKey: 61
+  _statToIncrease: 3
 --- !u!114 &298744675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13693,7 +13709,7 @@ MonoBehaviour:
     values:
     - startingMax: 1
       maxIncrement: .5
-      useRate: .5
+      useRate: 0
       rechargeRate: .5
       currentMax: 0
       currentValue: 0
@@ -13721,6 +13737,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &298744677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11438208, guid: 562cb066185fbf84c92c6d56ebbdbf57,
+    type: 2}
+  m_PrefabInternal: {fileID: 87291223}
+  m_GameObject: {fileID: 298744666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &302039582

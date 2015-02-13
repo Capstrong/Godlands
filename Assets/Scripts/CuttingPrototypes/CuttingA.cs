@@ -6,10 +6,10 @@ public class CuttingA : ActorComponent
 {
 
 	[SerializeField] LayerMask _cutableLayer = 0;
-	[SerializeField] KeyCode _cuttingButton;
+	[SerializeField] KeyCode _cuttingButton = KeyCode.J;
 	[SerializeField] float _cuttingDistance = 0f;
 	[SerializeField] GameObject _visualEffect = null;
-	[SerializeField] Vector3 _visualOffset;
+	[SerializeField] Vector3 _visualOffset = Vector3.zero;
 
 	PlayerActorStats actorStats = null;
 
@@ -27,14 +27,14 @@ public class CuttingA : ActorComponent
 			Vector3 camForward = Camera.main.transform.forward;
 			camForward.Set( camForward.x, 0, camForward.z );
 
-			actor.transform.forward = camForward;
+			actor.actorPhysics.OverrideLook( camForward, 0.5f );
 
-			Vector3 rotatedOffset = actor.transform.rotation * _visualOffset;
+			Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
 
-			Instantiate( _visualEffect, transform.position + rotatedOffset, actor.transform.rotation );
+			Instantiate( _visualEffect, transform.position + rotatedOffset, Quaternion.LookRotation( camForward ) );
 
 			RaycastHit hitInfo;
-			Physics.Raycast( new Ray( transform.position, actor.transform.forward ), out hitInfo, _cuttingDistance, _cutableLayer );
+			Physics.Raycast( new Ray( transform.position, camForward ), out hitInfo, _cuttingDistance, _cutableLayer );
 
 			if ( hitInfo.collider )
 			{
