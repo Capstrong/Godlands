@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( PlayerActor ) )]
-public class PlayerActorPhysics : ActorPhysics
+[RequireComponent( typeof( ActorPhysics ) )]
+public class PlayerControls : MonoBehaviour
 {
 	PlayerActor _actor;
+	ActorPhysics _actorPhysics;
 	bool _jumpButtonDown = false;
 	bool _isGrabbing = false;
 
-	public override void Awake()
+	void Awake()
 	{
-		base.Awake();
-
 		_actor = GetComponent<PlayerActor>();
-		ChangeState( ActorStates.Grounded );
+		_actorPhysics = GetComponent<ActorPhysics>();
+
+		SetupStateMethodMap();
 	}
 
 	void Update()
@@ -27,50 +28,51 @@ public class PlayerActorPhysics : ActorPhysics
 		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
 	}
 
-	public override void SetupStateMethodMap()
+	void SetupStateMethodMap()
 	{
-		stateMethodMap.Add( ActorStates.Jumping, Jumping );
-		stateMethodMap.Add( ActorStates.Falling, Jumping );
-		stateMethodMap.Add( ActorStates.Grounded, Grounded );
-		stateMethodMap.Add( ActorStates.Rolling, Rolling );
-		stateMethodMap.Add( ActorStates.Climbing, Climbing );
+		_actorPhysics.RegisterStateMethod( ActorStates.Jumping, Jumping );
+		_actorPhysics.RegisterStateMethod( ActorStates.Falling, Jumping );
+		_actorPhysics.RegisterStateMethod( ActorStates.Grounded, Grounded );
+		_actorPhysics.RegisterStateMethod( ActorStates.Rolling, Rolling );
+		_actorPhysics.RegisterStateMethod( ActorStates.Climbing, Climbing );
 	}
 
 	void Jumping()
 	{
 		if ( _jumpButtonDown )
 		{
-			JumpCheck();
+			_actorPhysics.JumpCheck();
 		}
 
 		if ( _isGrabbing )
 		{
-			ClimbCheck();
+			_actorPhysics.ClimbCheck();
 		}
 
-		RollCheck();
+		_actorPhysics.RollCheck();
 
-		JumpMovement( GetMoveDirection() );
+		_actorPhysics.JumpMovement( GetMoveDirection() );
 	}
 
 	void Rolling()
 	{
-		RollCheck();
-
-		MoveAtSpeed( inputVec.normalized, rollMoveSpeed );
+		_actorPhysics.RollCheck();
+		_actorPhysics.RollMovement();
 	}
 
 	void Climbing()
 	{
-		if ( ClimbCheck() && _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStat( Stat.Stamina ) )
+		if ( _actorPhysics.ClimbCheck() &&
+			_isGrabbing &&
+			_actor.actorStats.CanUseStat( Stat.Stamina ) )
 		{
-			( actor as PlayerActor ).actorStats.StartUsingStat( Stat.Stamina );
-			ClimbSurface( GetInput() );
+			_actor.actorStats.StartUsingStat( Stat.Stamina );
+			_actorPhysics.ClimbSurface( GetInput() );
 		}
 		else
 		{
-			( actor as PlayerActor ).actorStats.StopUsingStat( Stat.Stamina );
-			StopClimbing();
+			_actor.actorStats.StopUsingStat( Stat.Stamina );
+			_actorPhysics.StopClimbing();
 		}
 	}
 
@@ -78,30 +80,30 @@ public class PlayerActorPhysics : ActorPhysics
 	{
 		if ( _jumpButtonDown )
 		{
-			JumpCheck();
+			_actorPhysics.JumpCheck();
 		}
 
 		if ( _isGrabbing )
 		{
-			ClimbCheck();
+			_actorPhysics.ClimbCheck();
 		}
 
-		RollCheck();
+		_actorPhysics.RollCheck();
 
 		GroundMovement();
 	}
 
 	void GroundMovement()
 	{
-		inputVec = GetMoveDirection();
+		Vector3 inputVec = GetMoveDirection();
 
 		if ( inputVec.IsZero() )
 		{
-			ComeToStop();
+			_actorPhysics.ComeToStop();
 		}
 		else
 		{
-			MoveAtSpeed( inputVec, groundedMoveSpeed );
+			_actorPhysics.GroundMovement( inputVec );
 		}
 	}
 

@@ -18,7 +18,7 @@ public class MoveToDestination : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		actorPhysics.inputVec = ( info.destination - transform.position ).normalized;
+		actorPhysics._inputVec = ( info.destination - transform.position ).normalized;
 		//actorPhysics.MoveAtSpeed( actorPhysics.inputVec, info.moveSpeed );
 
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
@@ -51,7 +51,7 @@ public class FollowTarget : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		actorPhysics.inputVec = ( info.followTarget.position - transform.position ).normalized;
+		actorPhysics._inputVec = ( info.followTarget.position - transform.position ).normalized;
 		//actorPhysics.MoveAtSpeed( actorPhysics.inputVec, info.moveSpeed );
 
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
