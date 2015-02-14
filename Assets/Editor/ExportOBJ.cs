@@ -8,19 +8,13 @@ public class ObjExporterScript
 {
 	private static int StartIndex = 0;
 
-	public static void Start()
-	{
-		StartIndex = 0;
-	}
-	public static void End()
+	public static void Reset()
 	{
 		StartIndex = 0;
 	}
 
 	public static string MeshToString( MeshFilter mf, Transform t )
 	{
-		Vector3 s = t.localScale;
-		Vector3 p = t.localPosition;
 		Quaternion r = t.localRotation;
 
 		int numVertices = 0;
@@ -73,18 +67,11 @@ public class ObjExporterScript
 
 public class ObjExporter : ScriptableObject
 {
-	[MenuItem( "File/Export/Wavefront OBJ" )]
+	[MenuItem( "Export/Wavefront OBJ" )]
 	[MenuItem( "CONTEXT/Transform/Wavefront OBJ" )]
 	static void DoExportWSubmeshes()
 	{
 		DoExport( true );
-	}
-
-	[MenuItem( "File/Export/Wavefront OBJ (No Submeshes)" )]
-	[MenuItem( "CONTEXT/Transform/Wavefront OBJ (No Submeshes)" )]
-	static void DoExportWOSubmeshes()
-	{
-		DoExport( false );
 	}
 
 	static void DoExport( bool makeSubmeshes )
@@ -98,7 +85,7 @@ public class ObjExporter : ScriptableObject
 		string meshName = Selection.gameObjects[0].name;
 		string fileName = EditorUtility.SaveFilePanel( "Export .obj file", "", meshName, "obj" );
 
-		ObjExporterScript.Start();
+		ObjExporterScript.Reset();
 
 		StringBuilder meshString = new StringBuilder();
 
@@ -113,17 +100,17 @@ public class ObjExporter : ScriptableObject
 		{
 			meshString.Append( "g " ).Append( t.name ).Append( "\n" );
 		}
-		meshString.Append( processTransform( t, makeSubmeshes ) );
+		meshString.Append( ProcessTransform( t, makeSubmeshes ) );
 
 		WriteToFile( meshString.ToString(), fileName );
 
 		t.position = originalPosition;
 
-		ObjExporterScript.End();
+		ObjExporterScript.Reset();
 		Debug.Log( "Exported Mesh: " + fileName );
 	}
 
-	static string processTransform( Transform t, bool makeSubmeshes )
+	static string ProcessTransform( Transform t, bool makeSubmeshes )
 	{
 		StringBuilder meshString = new StringBuilder();
 
@@ -142,7 +129,7 @@ public class ObjExporter : ScriptableObject
 
 		for ( int i = 0; i < t.childCount; i++ )
 		{
-			meshString.Append( processTransform( t.GetChild( i ), makeSubmeshes ) );
+			meshString.Append( ProcessTransform( t.GetChild( i ), makeSubmeshes ) );
 		}
 
 		return meshString.ToString();
