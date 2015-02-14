@@ -11,6 +11,8 @@ public class ResourceSpawner : MonoBehaviour
 	public int total;
 	public float radius;
 
+	private int maxResourceSpawnTries = 100;
+
 	private new Transform transform = null;
 
 	void Start()
@@ -23,18 +25,36 @@ public class ResourceSpawner : MonoBehaviour
 		// spawn resource holders
 		for ( int i = 0; i < total; i++ )
 		{
-			Vector3 offset = Quaternion.Euler( -90.0f, 0.0f, 0.0f ) * (Vector3) Random.insideUnitCircle;
-			Vector3 spawnPosition = transform.position + offset * radius;
+			Vector3 spawnPosition = new Vector3();
+			Vector3 offset = new Vector3();
+			RaycastHit hit = new RaycastHit();
 
-			RaycastHit hit = WadeUtils.RaycastAndGetInfo( new Ray( spawnPosition + Vector3.up, Vector3.down ), groundCheckDist );
-			if( hit.transform && resourcePrefab.GetComponent<Collider>() )
+			for ( int resourceSpawnTries = 0; resourceSpawnTries < maxResourceSpawnTries; resourceSpawnTries++ )
 			{
-				// change position to ray hit pos with offset depending on resource size
-				spawnPosition = hit.point + hit.normal * resourcePrefab.collider.bounds.size.y;
+				offset = Quaternion.Euler( -90.0f, 0.0f, 0.0f ) * (Vector3) Random.insideUnitCircle;
+				spawnPosition = transform.position + offset * radius;
+
+				hit = WadeUtils.RaycastAndGetInfo( new Ray( spawnPosition + Vector3.up, Vector3.down ), groundCheckDist );
+				if ( hit.transform && resourcePrefab.GetComponent<Collider>() )
+				{
+					// change position to ray hit pos with offset depending on resource size
+					spawnPosition = hit.point + hit.normal * resourcePrefab.collider.bounds.size.y;
+					break;
+				}
+
+				// If hit does not have a transform, then the ray did not hit anything and the position was floating out somewhere
 			}
 
-			ResourceHolder resourceHolderInstance = (ResourceHolder) Instantiate( resourceHolderPrefab, spawnPosition, Quaternion.identity );
-			resourceHolderInstance.gameObject.transform.parent = transform;
+			if ( spawnPosition != Vector3.zero )
+			{
+				ResourceHolder resourceHolderInstance = (ResourceHolder) Instantiate( resourceHolderPrefab, spawnPosition, Quaternion.identity );
+				resourceHolderInstance.gameObject.transform.parent = transform;
+			}
+			else
+			{
+				Debug.LogError( "Exhausted all tries to spawn resource from spawner " + gameObject.name
+				              + " at " + transform.position + " Consider moving or deleting it");
+			}
 		}
 	}
 
