@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CutableA : MonoBehaviour
+public class Cuttable : MonoBehaviour
 {
 	[SerializeField, Range( 0,30 )]
 	int _level = 0;
