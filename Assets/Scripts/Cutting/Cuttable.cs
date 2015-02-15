@@ -4,9 +4,12 @@ using System.Collections;
 public class Cuttable : MonoBehaviour
 {
 	[SerializeField] float health = 0;
-	[SerializeField] ParticleSystem _particlePrefab = null;
+	[SerializeField] ParticleSystem _hitParticle = null;
+	[SerializeField] ParticleSystem _deathParticle = null;
 	[SerializeField] float _particleLifetime = 0;
 	[SerializeField] Color _particleColor;
+	[SerializeField] AudioSource _hitSound = null;
+	[SerializeField] AudioSource _deathSound = null;
 	[SerializeField] float _verticalOffset = 0;
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0;
@@ -17,10 +20,13 @@ public class Cuttable : MonoBehaviour
 		{
 			health -= cuttingLevel;
 
-			GameObject particleObj = (GameObject)Instantiate( _particlePrefab,
-			                                                  transform.position + new Vector3( 0, _verticalOffset, 0 ),
-			                                                  Quaternion.identity );
-			Destroy( particleObj, _particleLifetime );
+			ParticleSystem particleObj = (ParticleSystem)Instantiate( _hitParticle,
+			                                                          transform.position + new Vector3( 0, _verticalOffset, 0 ),
+			                                                          Quaternion.identity );
+			particleObj.startColor = _particleColor;
+			Destroy( particleObj.gameObject, _particleLifetime );
+
+			SoundManager.Play3DSoundAtPosition( _hitSound, transform.position );
 
 			if ( health <= 0 )
 			{
@@ -31,6 +37,14 @@ public class Cuttable : MonoBehaviour
 
 	void Deactivate()
 	{
+		ParticleSystem particleObj = (ParticleSystem)Instantiate( _deathParticle,
+		                                                          transform.position + new Vector3( 0, _verticalOffset, 0 ),
+		                                                          Quaternion.identity );
+		particleObj.startColor = _particleColor;
+		Destroy( particleObj.gameObject, _particleLifetime );
+
+		SoundManager.Play3DSoundAtPosition( _deathSound, transform.position );
+
 		Invoke( "Reactivate", _respawnTime );
 
 		gameObject.SetActive( false );
