@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
 	PlayerActor _actor;
 	ActorPhysics _actorPhysics;
 	bool _jumpButtonDown = false;
+	bool _glideButtonDown = false;
 	bool _isGrabbing = false;
 
 	void Awake()
@@ -26,6 +27,7 @@ public class PlayerControls : MonoBehaviour
 
 		_isGrabbing = WadeUtils.ValidAxisInput("Grab");
 		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
+		_glideButtonDown = Input.GetKey( KeyCode.F );
 	}
 
 	void SetupStateMethodMap()
@@ -51,7 +53,14 @@ public class PlayerControls : MonoBehaviour
 
 		_actorPhysics.RollCheck();
 
-		_actorPhysics.JumpMovement( GetMoveDirection() );
+		if ( _glideButtonDown )
+		{
+			_actorPhysics.GlideMovement( GetMoveDirection() );
+		}
+		else
+		{
+			_actorPhysics.JumpMovement( GetMoveDirection() );
+		}
 	}
 
 	void Rolling()
@@ -91,6 +100,28 @@ public class PlayerControls : MonoBehaviour
 		_actorPhysics.RollCheck();
 
 		GroundMovement();
+	}
+
+	void Gliding()
+	{
+		if ( _jumpButtonDown )
+		{
+			_actorPhysics.JumpCheck();
+		}
+
+		if ( _isGrabbing )
+		{
+			_actorPhysics.ClimbCheck();
+		}
+
+		if ( !_glideButtonDown )
+		{
+			_actorPhysics.EndGlide();
+		}
+		else
+		{
+			_actorPhysics.GlideMovement( GetMoveDirection() );
+		}
 	}
 
 	void GroundMovement()

@@ -13625,7 +13625,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _climbCheckRadius: .699999988
-  _leanTowardsSurface: .5
+  _leanTowardsSurface: .25
+  _glideHorizontalSpeed: 5
+  _glideDescentRate: 1
 --- !u!114 &298744672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56567,6 +56569,8 @@ MonoBehaviour:
     m_Bits: 0
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
+  _glideHorizontalSpeed: 5
+  _glideDescentRate: 1
 --- !u!114 &1215378093
 MonoBehaviour:
   m_ObjectHideFlags: 0

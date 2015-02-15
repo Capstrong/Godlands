@@ -8,7 +8,8 @@ public enum ActorStates
 	Jumping,
 	Falling,
 	Rolling,
-	Climbing
+	Climbing,
+	Gliding
 }
 
 public sealed class ActorPhysics : ActorComponent
@@ -120,6 +121,12 @@ public sealed class ActorPhysics : ActorComponent
 	Vector3 _climbSurfaceNormal = Vector3.zero;
 	Vector3 _climbSurfaceRight = Vector3.zero;
 	Vector3 _climbSurfaceUp = Vector3.zero;
+	#endregion
+
+	#region Gliding
+	[Space( 10 ), Header( "Gliding" )]
+	[SerializeField] float _glideHorizontalSpeed = 5.0f;
+	[SerializeField] float _glideDescentRate = 1.0f;
 	#endregion
 
 	public override void Awake()
@@ -338,6 +345,39 @@ public sealed class ActorPhysics : ActorComponent
 				actor.animator.SetBool( "isMoving", true );
 			}
 		}
+	}
+
+	public void StartGlide()
+	{
+		if ( !_isOnGround )
+		{
+			ChangeState( ActorStates.Gliding );
+
+			rigidbody.useGravity = false;
+
+			if ( actor.animator )
+			{
+				actor.animator.SetBool( "isJumping", true );
+			}
+		}
+	}
+
+	public void EndGlide()
+	{
+		rigidbody.useGravity = true;
+
+		if ( actor.animator )
+		{
+			actor.animator.SetBool( "isJumping", false );
+		}
+	}
+
+	public void GlideMovement( Vector3 inputVec )
+	{
+		_moveVec = inputVec * _glideHorizontalSpeed;
+		_moveVec.y = -_glideDescentRate;
+
+		rigidbody.velocity = _moveVec;
 	}
 
 	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
