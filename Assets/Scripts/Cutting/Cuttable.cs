@@ -9,6 +9,7 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] Color _particleColor;
 	[SerializeField] float _verticalOffset = 0;
 	[SerializeField] int _maxNumberOfSwipes = 0;
+	[SerializeField] float _respawnTime = 0;
 
 	public void Cut( float cuttingLevel )
 	{
@@ -23,8 +24,20 @@ public class Cuttable : MonoBehaviour
 
 			if ( health <= 0 )
 			{
-				Destroy( gameObject );
+				Deactivate();
 			}
 		}
+	}
+
+	void Deactivate()
+	{
+		Invoke( "Reactivate", _respawnTime );
+
+		gameObject.SetActive( false );
+	}
+
+	void Reactivate()
+	{
+		gameObject.SetActive( true );
 	}
 }
