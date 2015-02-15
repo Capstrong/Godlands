@@ -25,17 +25,17 @@ public class PlayerControls : MonoBehaviour
 			Application.Quit();
 		}
 
-		_isGrabbing = WadeUtils.ValidAxisInput("Grab");
+		_isGrabbing = WadeUtils.ValidAxisInput( "Grab" );
 		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
 		_glideButtonDown = Input.GetKey( KeyCode.F );
 	}
 
 	void SetupStateMethodMap()
 	{
-		_actorPhysics.RegisterStateMethod( ActorStates.Jumping, Jumping );
-		_actorPhysics.RegisterStateMethod( ActorStates.Falling, Jumping );
+		_actorPhysics.RegisterStateMethod( ActorStates.Jumping,  Jumping );
+		_actorPhysics.RegisterStateMethod( ActorStates.Falling,  Jumping );
 		_actorPhysics.RegisterStateMethod( ActorStates.Grounded, Grounded );
-		_actorPhysics.RegisterStateMethod( ActorStates.Rolling, Rolling );
+		_actorPhysics.RegisterStateMethod( ActorStates.Rolling,  Rolling );
 		_actorPhysics.RegisterStateMethod( ActorStates.Climbing, Climbing );
 	}
 
@@ -53,8 +53,9 @@ public class PlayerControls : MonoBehaviour
 
 		_actorPhysics.RollCheck();
 
-		if ( _glideButtonDown )
+		if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
+			_actorPhysics.StartGlide();
 			_actorPhysics.GlideMovement( GetMoveDirection() );
 		}
 		else
@@ -72,8 +73,8 @@ public class PlayerControls : MonoBehaviour
 	void Climbing()
 	{
 		if ( _actorPhysics.ClimbCheck() &&
-			_isGrabbing &&
-			_actor.actorStats.CanUseStat( Stat.Stamina ) )
+		     _isGrabbing &&
+		     _actor.actorStats.CanUseStat( Stat.Stamina ) )
 		{
 			_actor.actorStats.StartUsingStat( Stat.Stamina );
 			_actorPhysics.ClimbSurface( GetInput() );
@@ -114,13 +115,13 @@ public class PlayerControls : MonoBehaviour
 			_actorPhysics.ClimbCheck();
 		}
 
-		if ( !_glideButtonDown )
+		if ( _glideButtonDown )
 		{
-			_actorPhysics.EndGlide();
+			_actorPhysics.GlideMovement( GetMoveDirection() );
 		}
 		else
 		{
-			_actorPhysics.GlideMovement( GetMoveDirection() );
+			_actorPhysics.EndGlide();
 		}
 	}
 

@@ -4520,6 +4520,7 @@ GameObject:
   - 224: {fileID: 103886236}
   - 222: {fileID: 103886238}
   - 114: {fileID: 103886237}
+  - 114: {fileID: 103886239}
   m_Layer: 5
   m_Name: Max Stamina Image
   m_TagString: Untagged
@@ -4574,6 +4575,19 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1739860428}
   m_GameObject: {fileID: 103886235}
+--- !u!114 &103886239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11494794, guid: c540a2d5056227c4ba7c513bf8c46f89,
+    type: 2}
+  m_PrefabInternal: {fileID: 1739860428}
+  m_GameObject: {fileID: 103886235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b23afe2b27811448b86349e410be228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statType: 1
 --- !u!1 &104869904
 GameObject:
   m_ObjectHideFlags: 0
@@ -13598,7 +13612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _currentState: 1
-  _inputVec: {x: 0, y: 0, z: 0}
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
@@ -13713,8 +13726,6 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -13723,8 +13734,6 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
 --- !u!114 &298744676
 MonoBehaviour:
@@ -42230,6 +42239,7 @@ GameObject:
   - 224: {fileID: 900024886}
   - 222: {fileID: 900024888}
   - 114: {fileID: 900024887}
+  - 114: {fileID: 900024889}
   m_Layer: 5
   m_Name: Curr Stamina Image
   m_TagString: Untagged
@@ -42284,6 +42294,19 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1739860428}
   m_GameObject: {fileID: 900024885}
+--- !u!114 &900024889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11424712, guid: c540a2d5056227c4ba7c513bf8c46f89,
+    type: 2}
+  m_PrefabInternal: {fileID: 1739860428}
+  m_GameObject: {fileID: 900024885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d640e411331b1a64799f0ef65826caba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statType: 1
 --- !u!1 &900867299
 GameObject:
   m_ObjectHideFlags: 0
@@ -56534,24 +56557,23 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1836512725}
   m_GameObject: {fileID: 1215378085}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _currentState: 1
-  _inputVec: {x: 0, y: 0, z: 0}
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
-  _groundedMoveSpeed: 8.5
-  _jumpMoveSpeed: 6
-  _rollMoveSpeed: 6
-  _climbMoveSpeed: 6
+  _groundedMoveSpeed: 2
+  _jumpMoveSpeed: 2
+  _rollMoveSpeed: 2
+  _climbMoveSpeed: 2
   bumper: {fileID: 1699242028}
   lifter: {fileID: 126801154}
   climbBumper: {fileID: 0}
-  _modelTurnSpeed: 7
+  _modelTurnSpeed: 5
   jumpForce: 8.5
   _jumpCheckDistance: 1
   _jumpCheckRadius: .5
@@ -86523,7 +86545,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11481498, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 430bb384d018f438083cae6e1236532d, type: 2}

@@ -29,11 +29,6 @@ public sealed class ActorPhysics : ActorComponent
 
 	#region Movement
 	[Header( "Movement" )]
-	public Vector3 _inputVec = Vector3.zero;
-	float _moveSpeedMod = 1f;
-
-	Vector3 _moveVec = Vector3.zero;
-
 	[SerializeField] float _stoppingSpeed = 0.001f;
 
 	[SerializeField] float _stopMoveTime = 0.3f;
@@ -54,6 +49,14 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	[SerializeField] float _climbMoveSpeed = 6f;
+
+	/**
+	 * The last direction the actor moved in.
+	 *
+	 * Used for things like gliding or rolling where
+	 * The actor needs to keep moving in the last direction.
+	 */
+	Vector3 _moveVec = Vector3.zero;
 	#endregion
 
 	#region Collisions
@@ -164,6 +167,11 @@ public sealed class ActorPhysics : ActorComponent
 		_isOnGround = false;
 	}
 
+	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
+	{
+		_stateMethodMap.Add( state, method );
+	}
+
 	public void GroundMovement( Vector3 moveVec )
 	{
 		MoveAtSpeed( moveVec, groundedMoveSpeed );
@@ -219,7 +227,7 @@ public sealed class ActorPhysics : ActorComponent
 					}
 				}
 
-				StartClimbing( nearestCol );
+				StartClimbing( nearestCol.GetComponent<ClimbableTag>() );
 				climbing = true;
 			}
 			else
@@ -252,7 +260,7 @@ public sealed class ActorPhysics : ActorComponent
 
 			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
 
-			_moveVec = surfaceRelativeInput * _climbMoveSpeed * _moveSpeedMod;
+			_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 
 			rigidbody.velocity = _moveVec;
 		}
@@ -293,7 +301,7 @@ public sealed class ActorPhysics : ActorComponent
 			}
 		}
 		else if ( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) &&
-		          _rollCooldownTimer >= _rollCooldownTime && !_inputVec.IsZero() )
+		          _rollCooldownTimer >= _rollCooldownTime && !_moveVec.IsZero() )
 		{
 			ChangeState( ActorStates.Rolling );
 			actor.animator.SetBool( "isRolling", true );
@@ -306,13 +314,15 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void RollMovement()
 	{
-		MoveAtSpeed( _inputVec.normalized, _rollMoveSpeed );
+		MoveAtSpeed( _moveVec.normalized, _rollMoveSpeed );
 	}
 
 	public void JumpCheck()
 	{
 		if ( _isOnGround || _lateJump )
 		{
+			_lateJump = false;
+
 			Vector3 curVelocity = rigidbody.velocity;
 			curVelocity.y = jumpForce;
 			rigidbody.velocity = curVelocity;
@@ -380,9 +390,12 @@ public sealed class ActorPhysics : ActorComponent
 		rigidbody.velocity = _moveVec;
 	}
 
-	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
+	public void OverrideLook( Vector3 lookDir, float time )
 	{
-		_stateMethodMap.Add( state, method );
+		_lookOverride = lookDir;
+		_overrideLook = true;
+		CancelInvoke( "EndLookOverride" );
+		Invoke( "EndLookOverride", time );
 	}
 
 	void ConstrainBumper()
@@ -395,19 +408,17 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		if ( !IsInState( ActorStates.Climbing ) )
 		{
-			Vector3 constrainedPos = transform.position;
-			constrainedPos.x = _bumperTransform.position.x;
-			constrainedPos.z = _bumperTransform.position.z;
+			Vector3 constrainedPos = _bumperTransform.position;
+			constrainedPos.y = transform.position.y;
 			transform.position = constrainedPos;
 		}
 	}
 
-	void MoveAtSpeed( Vector3 inVec, float moveSpeed )
+	void MoveAtSpeed( Vector3 moveDir, float moveSpeed )
 	{
-		_inputVec = inVec;
-		rigidbody.useGravity = true;
+		_moveVec = moveDir;
 
-		_moveVec = inVec * moveSpeed * _moveSpeedMod;
+		_moveVec = moveDir * moveSpeed;
 		_moveVec.y = rigidbody.velocity.y;
 
 		rigidbody.velocity = _moveVec;
@@ -419,7 +430,7 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	/**
-	 * Provide resonable default values for the state methods.
+	 * Provide reasonable default values for the state methods.
 	 * 
 	 * If the state method map has already been configured
 	 * before this is called, the methods will not be overriden.
@@ -441,10 +452,10 @@ public sealed class ActorPhysics : ActorComponent
 		CurrentStateMethod = _stateMethodMap[_currentState];
 	}
 
-	void StartClimbing( Collider col )
+	void StartClimbing( ClimbableTag climbTag )
 	{
-		_climbSurface = col.transform;
-		_climbTag = _climbSurface.GetComponent<ClimbableTag>();
+		_climbTag = climbTag;
+		_climbSurface = _climbTag.GetComponent<Transform>();
 
 		if ( Vector3.Dot( _climbSurface.forward, ( transform.position - _climbSurface.position ) ) > 0.0f )
 		{
@@ -455,7 +466,6 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			_climbSurfaceNormal = _climbSurface.forward;
 			_climbSurfaceRight = _climbSurface.right;
-			Debug.LogWarning( "Climb volume is facing into wall." );
 		}
 
 		if ( Vector3.Dot( Vector3.up, _climbSurface.up ) > 0.0f )
@@ -465,7 +475,6 @@ public sealed class ActorPhysics : ActorComponent
 		else
 		{
 			_climbSurfaceUp = -_climbSurface.up;
-			Debug.LogWarning( "Climb volume is upside down." );
 		}
 
 		ChangeState( ActorStates.Climbing );
@@ -579,14 +588,6 @@ public sealed class ActorPhysics : ActorComponent
 		Vector3 moveVec = rigidbody.velocity;
 		moveVec.y = fallSpeed;
 		rigidbody.velocity = moveVec;
-	}
-
-	public void OverrideLook( Vector3 lookDir, float time )
-	{
-		_lookOverride = lookDir;
-		_overrideLook = true;
-		CancelInvoke( "EndLookOverride" );
-		Invoke( "EndLookOverride", time );
 	}
 
 	void EndLookOverride()
