@@ -78,7 +78,7 @@ public class Cuttable : MonoBehaviour
 	void OnTriggerStay( Collider collider )
 	{
 		// TODO Wrap layermasks in a wrapper for safety
-		if ( ( ( 1 << collider.gameObject.layer ) & ( _playerLayer ) ) != 0 )
+		if ( _playerLayer.Contains( collider.gameObject ) )
 		{
 			_isPlayerWithinTrigger = true;
 		}
