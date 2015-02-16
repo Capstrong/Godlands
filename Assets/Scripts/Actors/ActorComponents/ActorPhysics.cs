@@ -439,7 +439,7 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			_moveVec = Vector3.RotateTowards( _moveVec,
 			                                  inputVec,
-			                                  _glideTurnRate,
+			                                  _glideTurnRate * Time.deltaTime,
 			                                  0.0f );
 		}
 
