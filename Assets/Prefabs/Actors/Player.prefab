@@ -3272,6 +3272,8 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -3280,6 +3282,8 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 10
       maxIncrement: 5
@@ -3288,6 +3292,8 @@ MonoBehaviour:
       currentMax: 10
       currentValue: 10
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 0
 --- !u!114 &11410354
 MonoBehaviour:
@@ -3593,6 +3599,7 @@ MonoBehaviour:
   _leanTowardsSurface: .25
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .0199999996
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -57,6 +57,7 @@ public class PlayerControls : MonoBehaviour
 
 			if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 			{
+				_actor.actorStats.StartUsingStat( Stat.Gliding );
 				_actorPhysics.StartGlide();
 			}
 			else
@@ -120,12 +121,15 @@ public class PlayerControls : MonoBehaviour
 			_actorPhysics.ClimbCheck();
 		}
 
-		if ( !_actorPhysics.GroundedCheck() && _glideButtonDown )
+		if ( !_actorPhysics.GroundedCheck() &&
+		     _glideButtonDown &&
+		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.GlideMovement( GetMoveDirection() );
 		}
 		else
 		{
+			_actor.actorStats.StopUsingStat( Stat.Gliding );
 			_actorPhysics.EndGlide();
 		}
 	}

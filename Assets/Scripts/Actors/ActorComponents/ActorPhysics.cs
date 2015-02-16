@@ -130,6 +130,7 @@ public sealed class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Gliding" )]
 	[SerializeField] float _glideHorizontalSpeed = 5.0f;
 	[SerializeField] float _glideDescentRate = 1.0f;
+	[SerializeField] float _glideTurnRate = 0.5f;
 	#endregion
 
 	public override void Awake()
@@ -434,7 +435,16 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GlideMovement( Vector3 inputVec )
 	{
-		_moveVec = inputVec * _glideHorizontalSpeed;
+		if ( !inputVec.IsZero() )
+		{
+			_moveVec = Vector3.RotateTowards( _moveVec,
+			                                  inputVec,
+			                                  _glideTurnRate,
+			                                  0.0f );
+		}
+
+		_moveVec.y = 0.0f;
+		_moveVec = _moveVec.normalized * _glideHorizontalSpeed;
 		_moveVec.y = -_glideDescentRate;
 
 		rigidbody.velocity = _moveVec;
