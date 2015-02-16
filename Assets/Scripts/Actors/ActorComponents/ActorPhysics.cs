@@ -182,6 +182,7 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_isOnGround = false;
 
+		// spherecast down to detect when we're on the ground
 		RaycastHit hit;
 		Physics.SphereCast( transform.position + Vector3.up,
 		                    _jumpCheckRadius,
