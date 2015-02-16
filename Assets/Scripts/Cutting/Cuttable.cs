@@ -21,6 +21,11 @@ public class Cuttable : MonoBehaviour
 	private bool _readyToReactivate = false;
 	private bool _isPlayerWithinTrigger = false;
 
+	public void Start()
+	{
+		_health = _startingHealth;
+	}
+
 	public void Cut( float cuttingLevel )
 	{
 		if ( _health / cuttingLevel <= _maxNumberOfSwipes )

@@ -1093,6 +1093,7 @@ GameObject:
   - 4: {fileID: 480122}
   - 54: {fileID: 5480144}
   - 114: {fileID: 11480138}
+  - 114: {fileID: 11444188}
   - 114: {fileID: 11480136}
   - 114: {fileID: 11480134}
   - 114: {fileID: 11480132}
@@ -3262,7 +3263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _statDictionary:
-    keys: 0100000003000000
+    keys: 010000000300000002000000
     values:
     - startingMax: 1
       maxIncrement: .5
@@ -3271,8 +3272,6 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -3281,9 +3280,15 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
+    - startingMax: 10
+      maxIncrement: 5
+      useRate: 1.5
+      rechargeRate: 1
+      currentMax: 10
+      currentValue: 10
+      isUsing: 0
+      statToScaleRatio: 0
 --- !u!114 &11410354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3325,6 +3330,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cc4c10772433f94fbc75eb684962a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11444188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c5808a54328b24e9e66362a1559c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11480106
@@ -3501,7 +3517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  resourcePopPrefab: {fileID: 100000, guid: 578bdd3bae07fb449892972ea65b51fa, type: 2}
+  resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies:
   - {fileID: 0}
   buddyLayer:
@@ -3543,12 +3559,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 180122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c5808a54328b24e9e66362a1559c12, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _currentState: 1
-  inputVec: {x: 0, y: 0, z: 0}
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
@@ -3575,7 +3590,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _climbCheckRadius: .699999988
-  _leanTowardsSurface: .5
+  _leanTowardsSurface: .25
+  _glideHorizontalSpeed: 5
+  _glideDescentRate: 1
 --- !u!114 &11480138
 MonoBehaviour:
   m_ObjectHideFlags: 1

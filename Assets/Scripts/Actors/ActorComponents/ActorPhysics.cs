@@ -8,10 +8,11 @@ public enum ActorStates
 	Jumping,
 	Falling,
 	Rolling,
-	Climbing
+	Climbing,
+	Gliding
 }
 
-public class ActorPhysics : ActorComponent
+public sealed class ActorPhysics : ActorComponent
 {
 	private new Transform transform;
 	private new Rigidbody rigidbody;
@@ -23,16 +24,11 @@ public class ActorPhysics : ActorComponent
 	[ReadOnly, SerializeField]
 	ActorStates _currentState = ActorStates.Jumping;
 	ActorStateMethod CurrentStateMethod;
-	public Dictionary<ActorStates, ActorStateMethod> stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
+	Dictionary<ActorStates, ActorStateMethod> _stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
 	#endregion
 
 	#region Movement
 	[Header( "Movement" )]
-	public Vector3 inputVec = Vector3.zero;
-	float _moveSpeedMod = 1f;
-
-	Vector3 _moveVec = Vector3.zero;
-
 	[SerializeField] float _stoppingSpeed = 0.001f;
 
 	[SerializeField] float _stopMoveTime = 0.3f;
@@ -53,6 +49,14 @@ public class ActorPhysics : ActorComponent
 	}
 
 	[SerializeField] float _climbMoveSpeed = 6f;
+
+	/**
+	 * The last direction the actor moved in.
+	 *
+	 * Used for things like gliding or rolling where
+	 * The actor needs to keep moving in the last direction.
+	 */
+	Vector3 _moveVec = Vector3.zero;
 	#endregion
 
 	#region Collisions
@@ -122,6 +126,12 @@ public class ActorPhysics : ActorComponent
 	Vector3 _climbSurfaceUp = Vector3.zero;
 	#endregion
 
+	#region Gliding
+	[Space( 10 ), Header( "Gliding" )]
+	[SerializeField] float _glideHorizontalSpeed = 5.0f;
+	[SerializeField] float _glideDescentRate = 1.0f;
+	#endregion
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -134,7 +144,12 @@ public class ActorPhysics : ActorComponent
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
 
-		SetupStateMethodMap();
+		InitializeStateMethodMap();
+	}
+
+	void Start()
+	{
+		ChangeState( ActorStates.Grounded );
 	}
 
 	void FixedUpdate()
@@ -152,38 +167,21 @@ public class ActorPhysics : ActorComponent
 		_isOnGround = false;
 	}
 
-	void ConstrainBumper()
+	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
 	{
-		_bumperTransform.position = transform.position;
-		_bumperRigidbody.velocity = rigidbody.velocity;
-	}
-
-	void FollowBumper()
-	{
-		if ( !IsInState( ActorStates.Climbing ) )
+		if ( _stateMethodMap.ContainsKey( state ) )
 		{
-			Vector3 constrainedPos = transform.position;
-			constrainedPos.x = _bumperTransform.position.x;
-			constrainedPos.z = _bumperTransform.position.z;
-			transform.position = constrainedPos;
+			_stateMethodMap[state] = method;
+		}
+		else
+		{
+			_stateMethodMap.Add( state, method );
 		}
 	}
 
-	public virtual void SetupStateMethodMap() { }
-
-	public void MoveAtSpeed( Vector3 inVec, float appliedMoveSpeed )
+	public void GroundMovement( Vector3 moveVec )
 	{
-		rigidbody.useGravity = true;
-
-		_moveVec = inVec * appliedMoveSpeed * _moveSpeedMod;
-		_moveVec.y = rigidbody.velocity.y;
-
-		rigidbody.velocity = _moveVec;
-
-		if ( actor.animator )
-		{
-			actor.animator.SetBool( "isMoving", true );
-		}
+		MoveAtSpeed( moveVec, groundedMoveSpeed );
 	}
 
 	public void ComeToStop()
@@ -236,7 +234,7 @@ public class ActorPhysics : ActorComponent
 					}
 				}
 
-				StartClimbing( nearestCol );
+				StartClimbing( nearestCol.GetComponent<ClimbableTag>() );
 				climbing = true;
 			}
 			else
@@ -269,7 +267,7 @@ public class ActorPhysics : ActorComponent
 
 			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
 
-			_moveVec = surfaceRelativeInput * _climbMoveSpeed * _moveSpeedMod;
+			_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 
 			rigidbody.velocity = _moveVec;
 		}
@@ -279,47 +277,6 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	void StartClimbing( Collider col )
-	{
-		_climbSurface = col.transform;
-		_climbTag = _climbSurface.GetComponent<ClimbableTag>();
-
-		if ( Vector3.Dot( _climbSurface.forward, ( transform.position - _climbSurface.position ) ) > 0.0f )
-		{
-			_climbSurfaceNormal = -_climbSurface.forward;
-			_climbSurfaceRight = -_climbSurface.right;
-		}
-		else
-		{
-			_climbSurfaceNormal = _climbSurface.forward;
-			_climbSurfaceRight = _climbSurface.right;
-			Debug.LogWarning( "Climb volume is facing into wall." );
-		}
-
-		if ( Vector3.Dot( Vector3.up, _climbSurface.up ) > 0.0f )
-		{
-			_climbSurfaceUp = _climbSurface.up;
-		}
-		else
-		{
-			_climbSurfaceUp = -_climbSurface.up;
-			Debug.LogWarning( "Climb volume is upside down." );
-		}
-
-		ChangeState( ActorStates.Climbing );
-		
-		rigidbody.useGravity = false;
-		rigidbody.velocity = Vector3.zero;
-		lifter.gameObject.SetActive( false );
-		bumper.gameObject.SetActive( false );
-		climbBumper.gameObject.SetActive( true );
-
-		if ( !actor.animator )
-		{
-			actor.animator.SetBool( "isClimbing", true );
-		}
-	}
-	
 	public void StopClimbing()
 	{
 		if ( _climbSurface )
@@ -351,7 +308,7 @@ public class ActorPhysics : ActorComponent
 			}
 		}
 		else if ( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) &&
-		          _rollCooldownTimer >= _rollCooldownTime && !inputVec.IsZero() )
+		          _rollCooldownTimer >= _rollCooldownTime && !_moveVec.IsZero() )
 		{
 			ChangeState( ActorStates.Rolling );
 			actor.animator.SetBool( "isRolling", true );
@@ -362,10 +319,17 @@ public class ActorPhysics : ActorComponent
 		_rollCooldownTimer += Time.deltaTime;
 	}
 
+	public void RollMovement()
+	{
+		MoveAtSpeed( _moveVec.normalized, _rollMoveSpeed );
+	}
+
 	public void JumpCheck()
 	{
 		if ( _isOnGround || _lateJump )
 		{
+			_lateJump = false;
+
 			Vector3 curVelocity = rigidbody.velocity;
 			curVelocity.y = jumpForce;
 			rigidbody.velocity = curVelocity;
@@ -400,10 +364,138 @@ public class ActorPhysics : ActorComponent
 		}
 	}
 
-	protected void ChangeState( ActorStates toState )
+	public void StartGlide()
+	{
+		if ( !_isOnGround )
+		{
+			ChangeState( ActorStates.Gliding );
+
+			rigidbody.useGravity = false;
+
+			if ( actor.animator )
+			{
+				actor.animator.SetBool( "isJumping", true );
+			}
+		}
+	}
+
+	public void EndGlide()
+	{
+		rigidbody.useGravity = true;
+
+		if ( actor.animator )
+		{
+			actor.animator.SetBool( "isJumping", false );
+		}
+	}
+
+	public void GlideMovement( Vector3 inputVec )
+	{
+		_moveVec = inputVec * _glideHorizontalSpeed;
+		_moveVec.y = -_glideDescentRate;
+
+		rigidbody.velocity = _moveVec;
+	}
+
+	public void OverrideLook( Vector3 lookDir, float time )
+	{
+		_lookOverride = lookDir;
+		_overrideLook = true;
+		CancelInvoke( "EndLookOverride" );
+		Invoke( "EndLookOverride", time );
+	}
+
+	void ConstrainBumper()
+	{
+		_bumperTransform.position = transform.position;
+		_bumperRigidbody.velocity = rigidbody.velocity;
+	}
+
+	void FollowBumper()
+	{
+		if ( !IsInState( ActorStates.Climbing ) )
+		{
+			Vector3 constrainedPos = _bumperTransform.position;
+			constrainedPos.y = transform.position.y;
+			transform.position = constrainedPos;
+		}
+	}
+
+	void MoveAtSpeed( Vector3 moveDir, float moveSpeed )
+	{
+		_moveVec = moveDir;
+
+		_moveVec = moveDir * moveSpeed;
+		_moveVec.y = rigidbody.velocity.y;
+
+		rigidbody.velocity = _moveVec;
+
+		if ( actor.animator )
+		{
+			actor.animator.SetBool( "isMoving", true );
+		}
+	}
+
+	/**
+	 * Provide reasonable default values for the state methods.
+	 * 
+	 * If the state method map has already been configured
+	 * before this is called, the methods will not be overriden.
+	 */
+	void InitializeStateMethodMap()
+	{
+		foreach ( ActorStates state in System.Enum.GetValues( typeof( ActorStates ) ) )
+		{
+			if ( !_stateMethodMap.ContainsKey( state ) )
+			{
+				_stateMethodMap.Add( state, delegate() { } );
+			}
+		}
+	}
+
+	void ChangeState( ActorStates toState )
 	{
 		_currentState = toState;
-		CurrentStateMethod = stateMethodMap[_currentState];
+		CurrentStateMethod = _stateMethodMap[_currentState];
+	}
+
+	void StartClimbing( ClimbableTag climbTag )
+	{
+		_climbTag = climbTag;
+		_climbSurface = _climbTag.GetComponent<Transform>();
+
+		if ( Vector3.Dot( _climbSurface.forward, ( transform.position - _climbSurface.position ) ) > 0.0f )
+		{
+			_climbSurfaceNormal = -_climbSurface.forward;
+			_climbSurfaceRight = -_climbSurface.right;
+		}
+		else
+		{
+			_climbSurfaceNormal = _climbSurface.forward;
+			_climbSurfaceRight = _climbSurface.right;
+		}
+
+		if ( Vector3.Dot( Vector3.up, _climbSurface.up ) > 0.0f )
+		{
+			_climbSurfaceUp = _climbSurface.up;
+		}
+		else
+		{
+			_climbSurfaceUp = -_climbSurface.up;
+		}
+
+		ChangeState( ActorStates.Climbing );
+		
+		rigidbody.useGravity = false;
+		rigidbody.velocity = Vector3.zero;
+		lifter.gameObject.SetActive( false );
+		bumper.gameObject.SetActive( false );
+		climbBumper.gameObject.SetActive( true );
+
+		if ( !actor.animator )
+		{
+			actor.animator.SetBool( "isClimbing", true );
+		}
 	}
 
 	void GroundedCheck()
@@ -453,6 +545,9 @@ public class ActorPhysics : ActorComponent
 	 * Orientation is reactive to velocity, meaning the
 	 * model will face the direction of movement, rather
 	 * than the input direction.
+	 * 
+	 * When climbing a wall, the model will also slightly
+	 * lean to match the orientation of the wall.
 	 */
 	void OrientSelf()
 	{
@@ -460,7 +555,7 @@ public class ActorPhysics : ActorComponent
 		if ( IsInState( ActorStates.Climbing ) )
 		{
 			Vector3 lookVector = _climbSurfaceNormal;
-			//lookVector.y *= _leanTowardsSurface;
+			lookVector.y *= _leanTowardsSurface;
 			desiredLook = Quaternion.LookRotation( lookVector );
 		}
 		else
@@ -500,14 +595,6 @@ public class ActorPhysics : ActorComponent
 		Vector3 moveVec = rigidbody.velocity;
 		moveVec.y = fallSpeed;
 		rigidbody.velocity = moveVec;
-	}
-
-	public void OverrideLook( Vector3 lookDir, float time )
-	{
-		_lookOverride = lookDir;
-		_overrideLook = true;
-		CancelInvoke( "EndLookOverride" );
-		Invoke( "EndLookOverride", time );
 	}
 
 	void EndLookOverride()
