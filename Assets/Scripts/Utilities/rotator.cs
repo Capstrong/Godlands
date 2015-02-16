@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Rotator : MonoBehaviour 
 {
-	[SerializeField] Vector3 eulerRotation;
+	[SerializeField] Vector3 eulerRotation = Vector3.zero;
 
 	void Update () 
 	{

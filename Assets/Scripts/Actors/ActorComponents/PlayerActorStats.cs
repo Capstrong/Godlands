@@ -7,7 +7,8 @@ public enum Stat
 {
 	Invalid,
 	Stamina,
-	Gliding
+	Gliding,
+	Cutting,
 }
 
 [System.Serializable]
@@ -31,16 +32,13 @@ public class StatDictionary : SerializableDictionary<Stat, StatObject> { } // Ne
 [RequireComponent( typeof(PlayerActorPhysics) )]
 public class PlayerActorStats : ActorComponent 
 {
-	[SerializeField] StatDictionary statDictionary = new StatDictionary();
-
-	PlayerActorPhysics _actorPhysics = null;
+	[SerializeField] StatDictionary _statDictionary = new StatDictionary();
 
 	public override void Awake()
 	{
 		base.Awake();
-		_actorPhysics = GetComponent<PlayerActorPhysics>();
 
-		foreach (KeyValuePair<Stat,StatObject> pair in statDictionary)
+		foreach (KeyValuePair<Stat,StatObject> pair in _statDictionary)
 		{
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
@@ -50,36 +48,41 @@ public class PlayerActorStats : ActorComponent
 
 	public void IncrementMaxStat( Stat stat )
 	{
-		StatObject statObject = statDictionary[stat];
+		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax += statObject.maxIncrement;
 		ScaleCurrImage( statObject );
 	}
 
 	public void DecrementMaxStat( Stat stat )
 	{
-		StatObject statObject = statDictionary[stat];
+		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = Mathf.Max(statObject.currentMax - statObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
 		ScaleMaxImage( statObject );
 	}
 
 	public bool CanUseStat( Stat stat )
 	{
-		return (statDictionary[stat].currentValue > 0.0f);
+		return (_statDictionary[stat].currentValue > 0.0f);
 	}
 
 	public void StartUsingStat( Stat stat )
 	{
-		statDictionary[stat].isUsing = true;
+		_statDictionary[stat].isUsing = true;
 	}
 
 	public void StopUsingStat( Stat stat )
 	{
-		statDictionary[stat].isUsing = false;
+		_statDictionary[stat].isUsing = false;
+	}
+
+	public float GetStatValue( Stat stat )
+	{
+		return _statDictionary[stat].currentValue;
 	}
 
 	void Update()
 	{
-		foreach ( KeyValuePair<Stat, StatObject> pair in statDictionary )
+		foreach ( KeyValuePair<Stat, StatObject> pair in _statDictionary )
 		{
 			StatObject statObject = pair.Value;
 
@@ -96,15 +99,12 @@ public class PlayerActorStats : ActorComponent
 			}
 			else
 			{
-				if ( !_actorPhysics.isGrabbing )
-				{
 					statObject.currentValue += statObject.rechargeRate;
 
 					if ( statObject.currentValue > statObject.currentMax )
 					{
 						statObject.currentValue = statObject.currentMax;
 					}
-				}
 			}
 
 			ScaleCurrImage( statObject );
@@ -113,15 +113,21 @@ public class PlayerActorStats : ActorComponent
 
 	void ScaleMaxImage( StatObject statObject )
 	{
-		float scale = statObject.currentMax * statObject.statToScaleRatio;
-		// TODO: cache off transform to save on getComponent() calls
-		statObject.maxImage.transform.SetScale( scale, scale, scale );
+		if( statObject.maxImage )
+		{
+			float scale = statObject.currentMax * statObject.statToScaleRatio;
+			// TODO: cache off transform to save on getComponent() calls
+			statObject.maxImage.transform.SetScale( scale, scale, scale );
+		}
 	}
 
 	void ScaleCurrImage( StatObject statObject )
 	{
-		float scale = statObject.currentValue * statObject.statToScaleRatio;
-		// TODO: cache off transform to save on getComponent() calls
-		statObject.currentImage.transform.SetScale( scale, scale, scale );
+		if( statObject.currentImage )
+		{
+			float scale = statObject.currentValue * statObject.statToScaleRatio;
+			// TODO: cache off transform to save on getComponent() calls
+			statObject.currentImage.transform.SetScale( scale, scale, scale );
+		}
 	}
 }

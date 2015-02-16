@@ -5,6 +5,8 @@ using System.Collections;
 public class PlayerActorPhysics : ActorPhysics
 {
 	PlayerActor _actor;
+	bool _jumpButtonDown = false;
+	bool _isGrabbing = false;
 
 	public override void Awake()
 	{
@@ -13,20 +15,22 @@ public class PlayerActorPhysics : ActorPhysics
 		_actor = GetComponent<PlayerActor>();
 		ChangeState( ActorStates.Grounded );
 	}
-	
-	void FixedUpdate()
+
+	void Update()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
 		}
-	
-		CurrentStateMethod();
+
+		_isGrabbing = WadeUtils.ValidAxisInput("Grab");
+		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
 	}
 
 	public override void SetupStateMethodMap()
 	{
 		stateMethodMap.Add( ActorStates.Jumping, Jumping );
+		stateMethodMap.Add( ActorStates.Falling, Jumping );
 		stateMethodMap.Add( ActorStates.Grounded, Grounded );
 		stateMethodMap.Add( ActorStates.Rolling, Rolling );
 		stateMethodMap.Add( ActorStates.Climbing, Climbing );
@@ -34,11 +38,19 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Jumping()
 	{
-		JumpCheck();
-		ClimbCheck();
+		if ( _jumpButtonDown )
+		{
+			JumpCheck();
+		}
+
+		if ( _isGrabbing )
+		{
+			ClimbCheck();
+		}
+
 		RollCheck();
 
-		JumpMovement();
+		JumpMovement( GetMoveDirection() );
 	}
 
 	void Rolling()
@@ -50,21 +62,30 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void Climbing()
 	{
-		inputVec = GetInputDirection();
-
-		ClimbSurface();
-		ClimbCheck();
-
-		if(!isGrabbing)
+		if ( ClimbCheck() && _isGrabbing && ( actor as PlayerActor ).actorStats.CanUseStat( Stat.Stamina ) )
 		{
+			( actor as PlayerActor ).actorStats.StartUsingStat( Stat.Stamina );
+			ClimbSurface( GetInput() );
+		}
+		else
+		{
+			( actor as PlayerActor ).actorStats.StopUsingStat( Stat.Stamina );
 			StopClimbing();
 		}
 	}
 
 	void Grounded()
 	{
-		JumpCheck();
-		ClimbCheck();
+		if ( _jumpButtonDown )
+		{
+			JumpCheck();
+		}
+
+		if ( _isGrabbing )
+		{
+			ClimbCheck();
+		}
+
 		RollCheck();
 
 		GroundMovement();
@@ -72,9 +93,9 @@ public class PlayerActorPhysics : ActorPhysics
 
 	void GroundMovement()
 	{
-		inputVec = GetInputDirection();
+		inputVec = GetMoveDirection();
 
-		if ( Mathf.Abs( inputVec.magnitude ) < WadeUtils.SMALLNUMBER )
+		if ( inputVec.IsZero() )
 		{
 			ComeToStop();
 		}
@@ -84,42 +105,21 @@ public class PlayerActorPhysics : ActorPhysics
 		}
 	}
 
-	void JumpMovement()
+	Vector3 GetInput()
 	{
-		inputVec = GetInputDirection();
-
-		if ( Mathf.Abs( inputVec.magnitude ) < WadeUtils.SMALLNUMBER )
-		{
-			ComeToStop();
-		}
-		else
-		{
-			currStoppingPower = stoppingSpeed;
-
-			CheckGroundSlope();
-
-			moveVec = inputVec * jumpMoveSpeed * groundSlopeSpeedMod;
-			moveVec.y = rigidbody.velocity.y;
-
-			lastVelocity = moveVec;
-			rigidbody.velocity = moveVec;
-
-			if ( actor.animator )
-			{
-				actor.animator.SetBool( "isMoving", true );
-			}
-
-			ModelControl();
-		}
+		return new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
+		                    0.0f,
+		                    Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
 	}
 
-	Vector3 GetInputDirection()
+	/**
+	 * Calculates the direction of movement based on the input and the camera position.
+	 */
+	Vector3 GetMoveDirection()
 	{
-		Vector3 inputVec = new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
-		                                0.0f,
-		                                Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+		Vector3 inputVec = GetInput();
 
-		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ))
+		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ) )
 		{
 			inputVec *= WadeUtils.DUALINPUTMOD; // this reduces speed of diagonal movement
 		}

@@ -99,29 +99,19 @@ public static class WadeUtils
 	////	VECTORS	 /////
 	//////////////////////
 
-	public static bool IsZero(Vector2 vec)
+	public static bool IsZero(this Vector2 vec)
 	{
-		return IsZero( vec.x ) && IsZero( vec.y );
+		return vec.sqrMagnitude < SMALLNUMBER;
 	}
 
-	public static bool IsZero(Vector3 vec)
+	public static bool IsZero(this Vector3 vec)
 	{
-		return IsZero( vec.x ) && IsZero( vec.y ) && IsZero( vec.z );
+		return vec.sqrMagnitude < SMALLNUMBER;
 	}
 
-	public static bool IsZero(Vector4 vec)
+	public static bool IsZero(this Vector4 vec)
 	{
-		return IsZero( vec.x ) && IsZero( vec.y ) && IsZero( vec.z ) && IsZero( vec.w );
-	}
-
-	public static bool IsPositive(Vector4 vec)
-	{
-		return vec.magnitude > 0f;
-	}
-
-	public static bool IsNegative(Vector4 vec)
-	{
-		return vec.magnitude < 0f;
+		return vec.sqrMagnitude < SMALLNUMBER;
 	}
 
 	public static void Lerp(ref Vector2 from, Vector2 to, float t)

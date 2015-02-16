@@ -3,13 +3,16 @@ using System.Collections;
 
 public class RenderSettingsZone : MonoBehaviour 
 {
-	[SerializeField] RenderSettingsData _renderSettings = null;
+	[SerializeField] RenderSettingsData _renderSettings = new RenderSettingsData();
+	[SerializeField] float _shiftTime = 15f;
 	
 	void OnTriggerEnter( Collider otherCol )
 	{
-		if ( otherCol.GetComponent<PlayerActor>() )
+		Debug.Log("Poop");
+		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
-			RenderSettingsManager.ChangeTargetRenderSettings( _renderSettings );
+			Debug.Log("Poop2");
+			RenderSettingsManager.ChangeTargetRenderSettings( _renderSettings, _shiftTime );
 		}
 	}
 	

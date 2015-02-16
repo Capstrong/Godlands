@@ -3,16 +3,16 @@ using System.Collections;
 
 public class ClimbableTag : MonoBehaviour 
 {
-	[SerializeField] bool xMovement;
-	public bool XMovement
+	[SerializeField] bool _xMovement = true;
+	public bool xMovement
 	{
-		get { return xMovement; }
+		get { return _xMovement; }
 	}
 
-	[SerializeField] bool yMovement;
-	public bool YMovement
+	[SerializeField] bool _yMovement = true;
+	public bool yMovement
 	{
-		get { return yMovement; }
+		get { return _yMovement; }
 	}
 
 	void OnDrawGizmos()
