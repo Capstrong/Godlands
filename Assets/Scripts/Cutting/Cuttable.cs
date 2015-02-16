@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent( typeof( SphereCollider ) )]
 public class Cuttable : MonoBehaviour
 {
 	[SerializeField] float _startingHealth = 0.0f;
@@ -13,6 +14,7 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] float _verticalOffset = 0.0f;
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0.0f;
+	[SerializeField] Respawner _respawnerObj = null;
 
 	private float _health = 0.0f;
 
@@ -59,6 +61,7 @@ public class Cuttable : MonoBehaviour
 
 	void Reactivate()
 	{
-		gameObject.SetActive( true );
+		Respawner respawner = (Respawner) Instantiate( _respawnerObj );
+		respawner.objectToRespawn = gameObject;
 	}
 }

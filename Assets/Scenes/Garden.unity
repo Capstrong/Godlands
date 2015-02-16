@@ -47706,6 +47706,10 @@ Prefab:
       propertyPath: _particleColor.b
       value: .184313729
       objectReference: {fileID: 0}
+    - target: {fileID: 11496650, guid: f9ef6d067921b4af2a34034f8568c4df, type: 2}
+      propertyPath: _respawnTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9ef6d067921b4af2a34034f8568c4df, type: 2}
   m_RootGameObject: {fileID: 1130269785}
@@ -52507,6 +52511,7 @@ MonoBehaviour:
   _verticalOffset: 1
   _maxNumberOfSwipes: 10
   _respawnTime: 10
+  _respawnerObj: {fileID: 11400000, guid: 3c73ed815f1f9c54bbe6fc76ccea5f75, type: 2}
 --- !u!135 &1130269787
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -69849,6 +69854,7 @@ MonoBehaviour:
   _verticalOffset: 1
   _maxNumberOfSwipes: 10
   _respawnTime: 10
+  _respawnerObj: {fileID: 11400000, guid: 3c73ed815f1f9c54bbe6fc76ccea5f75, type: 2}
 --- !u!135 &1532129960
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -85857,6 +85863,7 @@ MonoBehaviour:
   _verticalOffset: 1
   _maxNumberOfSwipes: 10
   _respawnTime: 10
+  _respawnerObj: {fileID: 11400000, guid: 3c73ed815f1f9c54bbe6fc76ccea5f75, type: 2}
 --- !u!135 &1838617380
 SphereCollider:
   m_ObjectHideFlags: 0
