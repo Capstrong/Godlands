@@ -156,7 +156,6 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		// Pre-Update stuff
 		FollowBumper();
-		GroundedCheck();
 
 		// Update
 		CurrentStateMethod();
@@ -164,7 +163,6 @@ public sealed class ActorPhysics : ActorComponent
 		// Post-Update stuff
 		ConstrainBumper();
 		OrientSelf();
-		_isOnGround = false;
 	}
 
 	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
@@ -177,6 +175,51 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			_stateMethodMap.Add( state, method );
 		}
+	}
+
+	public bool GroundedCheck()
+	{
+		_isOnGround = false;
+
+		RaycastHit hit;
+		Physics.SphereCast( transform.position + Vector3.up,
+		                    _jumpCheckRadius,
+		                    -Vector3.up * _jumpCheckDistance,
+		                    out hit,
+		                    _jumpCheckDistance,
+		                    _jumpLayer );
+		_isOnGround = ( hit.transform &&
+		                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
+
+		if ( _isOnGround &&
+		     !_jumpCheck &&
+		     !IsInState( ActorStates.Climbing ) )
+		{
+			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
+			{
+				ChangeState( ActorStates.Grounded );
+				_stopMoveTimer = 0f;
+			}
+
+			actor.animator.SetBool( "isJumping", false );
+			CancelLateJumpTimer();
+			//actor.GetAnimator().SetBool("isSliding", false);
+		}
+		else if ( IsInState( ActorStates.Grounded ) )
+		{
+			if ( !actor.animator )
+			{
+				actor.animator.SetBool( "isJumping", true );
+				//actor.GetAnimator().SetBool("isSliding", false);
+			}
+
+			// start falling
+			StartLateJumpTimer();
+
+			ChangeState( ActorStates.Falling );
+		}
+
+		return _isOnGround;
 	}
 
 	public void GroundMovement( Vector3 moveVec )
@@ -495,47 +538,6 @@ public sealed class ActorPhysics : ActorComponent
 		if ( !actor.animator )
 		{
 			actor.animator.SetBool( "isClimbing", true );
-		}
-	}
-
-	void GroundedCheck()
-	{
-		RaycastHit hit;
-		Physics.SphereCast( transform.position + Vector3.up,
-		                    _jumpCheckRadius,
-		                    -Vector3.up * _jumpCheckDistance,
-		                    out hit,
-		                    _jumpCheckDistance,
-		                    _jumpLayer );
-		_isOnGround = ( hit.transform &&
-		                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
-
-		if ( _isOnGround &&
-		     !_jumpCheck &&
-		     !IsInState( ActorStates.Climbing ) )
-		{
-			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
-			{
-				ChangeState( ActorStates.Grounded );
-				_stopMoveTimer = 0f;
-			}
-
-			actor.animator.SetBool( "isJumping", false );
-			CancelLateJumpTimer();
-			//actor.GetAnimator().SetBool("isSliding", false);
-		}
-		else if ( IsInState( ActorStates.Grounded ) )
-		{
-			if ( !actor.animator )
-			{
-				actor.animator.SetBool( "isJumping", true );
-				//actor.GetAnimator().SetBool("isSliding", false);
-			}
-
-			// start falling
-			StartLateJumpTimer();
-
-			ChangeState( ActorStates.Falling );
 		}
 	}
 
