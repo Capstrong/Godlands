@@ -20,11 +20,6 @@ public class Cuttable : MonoBehaviour
 	private bool _readyToReactivate = false;
 	private bool _isPlayerWithinTrigger = false;
 
-	void OnEnable()
-	{
-		_health = _startingHealth;
-	}
-
 	public void Cut( float cuttingLevel )
 	{
 		if ( _health / cuttingLevel <= _maxNumberOfSwipes )
@@ -48,9 +43,9 @@ public class Cuttable : MonoBehaviour
 
 	void Deactivate()
 	{
-		ParticleSystem particleObj = (ParticleSystem)Instantiate( _deathParticle,
-		                                                          transform.position + new Vector3( 0, _verticalOffset, 0 ),
-		                                                          Quaternion.identity );
+		ParticleSystem particleObj = (ParticleSystem) Instantiate( _deathParticle,
+		                                                           transform.position + new Vector3( 0, _verticalOffset, 0 ),
+		                                                           Quaternion.identity );
 		particleObj.startColor = _particleColor;
 		Destroy( particleObj.gameObject, _particleLifetime );
 
@@ -69,29 +64,22 @@ public class Cuttable : MonoBehaviour
 		_readyToReactivate = true;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if ( _deactivated && _readyToReactivate && !_isPlayerWithinTrigger)
 		{
 			Reactivate();
 		}
+
+		_isPlayerWithinTrigger = false;
 	}
 
-	void OnTriggerEnter( Collider collider )
+	void OnTriggerStay( Collider collider )
 	{
-		if ( collider.transform.parent
-		  && collider.transform.parent.gameObject.GetComponent<GodTag>() )
+		// TODO Wrap layermasks in a wrapper for safety
+		if ( collider.gameObject.layer == LayerMask.NameToLayer( "Player" ) )
 		{
 			_isPlayerWithinTrigger = true;
-		}
-	}
-
-	void OnTriggerExit( Collider collider )
-	{
-		if ( collider.transform.parent
-		  && collider.transform.parent.gameObject.GetComponent<GodTag>() )
-		{
-			_isPlayerWithinTrigger = false;
 		}
 	}
 
