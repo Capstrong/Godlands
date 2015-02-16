@@ -3,16 +3,29 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	[SerializeField] Stat statType = Stat.Invalid;
+	public Stat statType = Stat.Invalid;
 	[SerializeField] bool canDecreaseStamina = true;
 	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
 	[SerializeField] float currResourceTimer = 0.0f;
 	[SerializeField] int startingApples = 10;
 	[SerializeField] int apples = 0;
-
-	public GodTag owner = null;
+	[SerializeField] GodTag _startingOwner = null;
 
 	PlayerActorStats _actorStats = null;
+
+	private GodTag _owner = null;
+	public GodTag owner
+	{
+		get { return _owner; }
+		set
+		{
+			_owner = value;
+			if ( _owner )
+			{
+				_actorStats = _owner.gameObject.GetComponent<PlayerActorStats>();
+			}
+		}
+	}
 
 	public Material heartMaterial;
 
@@ -33,16 +46,7 @@ public class BuddyStats : MonoBehaviour
 		currResourceTimer = decreaseResourcesTime;
 		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
-		SetGod(owner); // For owners set in the inspector
-	}
-
-	public void SetGod( GodTag _godTag )
-	{
-		if(_godTag)
-		{
-			owner = _godTag;
-			_actorStats = _godTag.gameObject.GetComponent<PlayerActorStats>();
-		}
+		owner = _startingOwner; // For owners set in the inspector
 	}
 
 	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
