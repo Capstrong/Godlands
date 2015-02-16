@@ -20,7 +20,7 @@ public class StatObject
 	public float rechargeRate = 0.0f;
 	public float currentMax = 0.0f;
 	public float currentValue = 0.0f;
-	public bool isUsing = false;
+	public bool  isUsing = false;
 	public Image currentImage = null;
 	public Image maxImage = null;
 	public float statToScaleRatio = 0.0f;
@@ -30,7 +30,7 @@ public class StatObject
 public class StatDictionary : SerializableDictionary<Stat, StatObject> { } // Necessary for serialization
 
 [RequireComponent( typeof(PlayerControls) )]
-public class PlayerActorStats : ActorComponent 
+public class PlayerActorStats : ActorComponent
 {
 	[SerializeField] StatDictionary _statDictionary = new StatDictionary();
 
@@ -88,7 +88,7 @@ public class PlayerActorStats : ActorComponent
 
 			if ( statObject.isUsing )
 			{
-				statObject.currentValue -= statObject.useRate;
+				statObject.currentValue -= statObject.useRate * Time.deltaTime;
 
 				if ( statObject.currentValue <= 0 )
 				{
