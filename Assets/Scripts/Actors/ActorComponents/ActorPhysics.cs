@@ -169,7 +169,14 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
 	{
-		_stateMethodMap.Add( state, method );
+		if ( _stateMethodMap.ContainsKey( state ) )
+		{
+			_stateMethodMap[state] = method;
+		}
+		else
+		{
+			_stateMethodMap.Add( state, method );
+		}
 	}
 
 	public void GroundMovement( Vector3 moveVec )
