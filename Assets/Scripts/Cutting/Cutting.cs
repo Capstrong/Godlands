@@ -35,7 +35,7 @@ public class Cutting : ActorComponent
 			RaycastHit hitInfo;
 			Physics.Raycast( new Ray( transform.position, camForward ), out hitInfo, _cuttingDistance, _cutableLayer );
 
-			if ( hitInfo.collider )
+			if ( hitInfo.collider && !hitInfo.collider.isTrigger )
 			{
 				GameObject cuttableObj = hitInfo.collider.gameObject;
 

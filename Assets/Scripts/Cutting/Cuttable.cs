@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( SphereCollider ) )]
+[RequireComponent( typeof( Collider ) )]
 public class Cuttable : MonoBehaviour
 {
 	[SerializeField] float _startingHealth = 0.0f;
@@ -14,9 +14,11 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] float _verticalOffset = 0.0f;
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0.0f;
-	[SerializeField] Respawner _respawnerObj = null;
 
 	private float _health = 0.0f;
+	private bool _deactivated = false;
+	private bool _readyToReactivate = false;
+	private bool _isPlayerWithinTrigger = false;
 
 	void OnEnable()
 	{
@@ -54,14 +56,51 @@ public class Cuttable : MonoBehaviour
 
 		SoundManager.Play3DSoundAtPosition( _deathSound, transform.position );
 
-		Invoke( "Reactivate", _respawnTime );
+		Invoke( "ReadyToReactivate", _respawnTime );
 
-		gameObject.SetActive( false );
+		_deactivated = true;
+		renderer.enabled = false;
+		collider.isTrigger = true;
+		_readyToReactivate = false;
+	}
+
+	void ReadyToReactivate()
+	{
+		_readyToReactivate = true;
+	}
+
+	void Update()
+	{
+		if ( _deactivated && _readyToReactivate && !_isPlayerWithinTrigger)
+		{
+			Reactivate();
+		}
+	}
+
+	void OnTriggerEnter( Collider collider )
+	{
+		if ( collider.transform.parent
+		  && collider.transform.parent.gameObject.GetComponent<GodTag>() )
+		{
+			_isPlayerWithinTrigger = true;
+		}
+	}
+
+	void OnTriggerExit( Collider collider )
+	{
+		if ( collider.transform.parent
+		  && collider.transform.parent.gameObject.GetComponent<GodTag>() )
+		{
+			_isPlayerWithinTrigger = false;
+		}
 	}
 
 	void Reactivate()
 	{
-		Respawner respawner = (Respawner) Instantiate( _respawnerObj );
-		respawner.objectToRespawn = gameObject;
+		_deactivated = false;
+		renderer.enabled = true;
+		collider.isTrigger = false;
+		_readyToReactivate = false;
+		_health = _startingHealth;
 	}
 }
