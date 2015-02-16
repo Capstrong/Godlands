@@ -749,17 +749,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _currentState: 1
-  inputVec: {x: 0, y: 0, z: 0}
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
-  _groundedMoveSpeed: 8.5
-  _jumpMoveSpeed: 6
-  _rollMoveSpeed: 6
-  _climbMoveSpeed: 6
+  _groundedMoveSpeed: 2
+  _jumpMoveSpeed: 2
+  _rollMoveSpeed: 2
+  _climbMoveSpeed: 2
   bumper: {fileID: 13570796}
   lifter: {fileID: 13570798}
   climbBumper: {fileID: 0}
-  _modelTurnSpeed: 7
+  _modelTurnSpeed: 5
   jumpForce: 8.5
   _jumpCheckDistance: 1
   _jumpCheckRadius: .5
@@ -777,6 +776,8 @@ MonoBehaviour:
     m_Bits: 0
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
+  _glideHorizontalSpeed: 5
+  _glideDescentRate: 1
 --- !u!114 &11483758
 MonoBehaviour:
   m_ObjectHideFlags: 1

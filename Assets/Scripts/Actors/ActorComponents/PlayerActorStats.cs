@@ -29,7 +29,7 @@ public class StatObject
 [System.Serializable]
 public class StatDictionary : SerializableDictionary<Stat, StatObject> { } // Necessary for serialization
 
-[RequireComponent( typeof(PlayerActorPhysics) )]
+[RequireComponent( typeof(PlayerControls) )]
 public class PlayerActorStats : ActorComponent 
 {
 	[SerializeField] StatDictionary _statDictionary = new StatDictionary();
