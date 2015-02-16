@@ -130,6 +130,7 @@ public sealed class ActorPhysics : ActorComponent
 	[Space( 10 ), Header( "Gliding" )]
 	[SerializeField] float _glideHorizontalSpeed = 5.0f;
 	[SerializeField] float _glideDescentRate = 1.0f;
+	[SerializeField] float _glideTurnRate = 0.5f;
 	#endregion
 
 	public override void Awake()
@@ -156,7 +157,6 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		// Pre-Update stuff
 		FollowBumper();
-		GroundedCheck();
 
 		// Update
 		CurrentStateMethod();
@@ -164,12 +164,64 @@ public sealed class ActorPhysics : ActorComponent
 		// Post-Update stuff
 		ConstrainBumper();
 		OrientSelf();
-		_isOnGround = false;
 	}
 
 	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
 	{
-		_stateMethodMap.Add( state, method );
+		if ( _stateMethodMap.ContainsKey( state ) )
+		{
+			_stateMethodMap[state] = method;
+		}
+		else
+		{
+			_stateMethodMap.Add( state, method );
+		}
+	}
+
+	public bool GroundedCheck()
+	{
+		_isOnGround = false;
+
+		// spherecast down to detect when we're on the ground
+		RaycastHit hit;
+		Physics.SphereCast( transform.position + Vector3.up,
+		                    _jumpCheckRadius,
+		                    -Vector3.up * _jumpCheckDistance,
+		                    out hit,
+		                    _jumpCheckDistance,
+		                    _jumpLayer );
+		_isOnGround = ( hit.transform &&
+		                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
+
+		if ( _isOnGround &&
+		     !_jumpCheck &&
+		     !IsInState( ActorStates.Climbing ) )
+		{
+			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
+			{
+				ChangeState( ActorStates.Grounded );
+				_stopMoveTimer = 0f;
+			}
+
+			actor.animator.SetBool( "isJumping", false );
+			CancelLateJumpTimer();
+			//actor.GetAnimator().SetBool("isSliding", false);
+		}
+		else if ( IsInState( ActorStates.Grounded ) )
+		{
+			if ( !actor.animator )
+			{
+				actor.animator.SetBool( "isJumping", true );
+				//actor.GetAnimator().SetBool("isSliding", false);
+			}
+
+			// start falling
+			StartLateJumpTimer();
+
+			ChangeState( ActorStates.Falling );
+		}
+
+		return _isOnGround;
 	}
 
 	public void GroundMovement( Vector3 moveVec )
@@ -384,7 +436,16 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GlideMovement( Vector3 inputVec )
 	{
-		_moveVec = inputVec * _glideHorizontalSpeed;
+		if ( !inputVec.IsZero() )
+		{
+			_moveVec = Vector3.RotateTowards( _moveVec,
+			                                  inputVec,
+			                                  _glideTurnRate * Time.deltaTime,
+			                                  0.0f );
+		}
+
+		_moveVec.y = 0.0f;
+		_moveVec = _moveVec.normalized * _glideHorizontalSpeed;
 		_moveVec.y = -_glideDescentRate;
 
 		rigidbody.velocity = _moveVec;
@@ -488,47 +549,6 @@ public sealed class ActorPhysics : ActorComponent
 		if ( !actor.animator )
 		{
 			actor.animator.SetBool( "isClimbing", true );
-		}
-	}
-
-	void GroundedCheck()
-	{
-		RaycastHit hit;
-		Physics.SphereCast( transform.position + Vector3.up,
-		                    _jumpCheckRadius,
-		                    -Vector3.up * _jumpCheckDistance,
-		                    out hit,
-		                    _jumpCheckDistance,
-		                    _jumpLayer );
-		_isOnGround = ( hit.transform &&
-		                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
-
-		if ( _isOnGround &&
-		     !_jumpCheck &&
-		     !IsInState( ActorStates.Climbing ) )
-		{
-			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
-			{
-				ChangeState( ActorStates.Grounded );
-				_stopMoveTimer = 0f;
-			}
-
-			actor.animator.SetBool( "isJumping", false );
-			CancelLateJumpTimer();
-			//actor.GetAnimator().SetBool("isSliding", false);
-		}
-		else if ( IsInState( ActorStates.Grounded ) )
-		{
-			if ( !actor.animator )
-			{
-				actor.animator.SetBool( "isJumping", true );
-				//actor.GetAnimator().SetBool("isSliding", false);
-			}
-
-			// start falling
-			StartLateJumpTimer();
-
-			ChangeState( ActorStates.Falling );
 		}
 	}
 
