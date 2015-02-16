@@ -4520,7 +4520,6 @@ GameObject:
   - 224: {fileID: 103886236}
   - 222: {fileID: 103886238}
   - 114: {fileID: 103886237}
-  - 114: {fileID: 103886239}
   m_Layer: 5
   m_Name: Max Stamina Image
   m_TagString: Untagged
@@ -4575,19 +4574,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1739860428}
   m_GameObject: {fileID: 103886235}
---- !u!114 &103886239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11494794, guid: c540a2d5056227c4ba7c513bf8c46f89,
-    type: 2}
-  m_PrefabInternal: {fileID: 1739860428}
-  m_GameObject: {fileID: 103886235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b23afe2b27811448b86349e410be228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statType: 1
 --- !u!1 &104869904
 GameObject:
   m_ObjectHideFlags: 0
@@ -13641,6 +13627,7 @@ MonoBehaviour:
   _leanTowardsSurface: .25
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &298744672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13717,7 +13704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _statDictionary:
-    keys: 0100000003000000
+    keys: 010000000300000002000000
     values:
     - startingMax: 1
       maxIncrement: .5
@@ -13726,6 +13713,8 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -13734,7 +13723,19 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
+    - startingMax: 10
+      maxIncrement: 5
+      useRate: 1.5
+      rechargeRate: 1
+      currentMax: 10
+      currentValue: 10
+      isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
+      statToScaleRatio: 0
 --- !u!114 &298744676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19289,8 +19290,8 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 3
+    m_Type: 1
+    m_Resolution: -1
     m_Strength: .800000012
     m_Bias: .0500000007
     m_Softness: 8
@@ -42239,7 +42240,6 @@ GameObject:
   - 224: {fileID: 900024886}
   - 222: {fileID: 900024888}
   - 114: {fileID: 900024887}
-  - 114: {fileID: 900024889}
   m_Layer: 5
   m_Name: Curr Stamina Image
   m_TagString: Untagged
@@ -42294,19 +42294,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 1739860428}
   m_GameObject: {fileID: 900024885}
---- !u!114 &900024889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11424712, guid: c540a2d5056227c4ba7c513bf8c46f89,
-    type: 2}
-  m_PrefabInternal: {fileID: 1739860428}
-  m_GameObject: {fileID: 900024885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d640e411331b1a64799f0ef65826caba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statType: 1
 --- !u!1 &900867299
 GameObject:
   m_ObjectHideFlags: 0
@@ -56593,6 +56580,7 @@ MonoBehaviour:
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &1215378093
 MonoBehaviour:
   m_ObjectHideFlags: 0
