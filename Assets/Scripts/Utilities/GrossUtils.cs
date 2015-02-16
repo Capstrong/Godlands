@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GrossUtils
+public static class GrossUtils
 {
 	// Tries to load the filepath as the given type
 	// Returns false and logs an error if the file could not be loaded. Returns true otherwise
@@ -27,6 +27,16 @@ public class GrossUtils
 		{
 			return true;
 		}
+	}
+
+	public static int GetLayerMask( this GameObject gameObject )
+	{
+		return 1 << gameObject.layer;
+	}
+
+	public static bool Contains( this LayerMask layerMask, GameObject gameObject )
+	{
+		return ( gameObject.GetLayerMask() & layerMask ) != 0;
 	}
 }
 

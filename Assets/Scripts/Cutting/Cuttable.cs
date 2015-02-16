@@ -14,6 +14,7 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] float _verticalOffset = 0.0f;
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0.0f;
+	[SerializeField] LayerMask _playerLayer;
 
 	private float _health = 0.0f;
 	private bool _deactivated = false;
@@ -77,7 +78,7 @@ public class Cuttable : MonoBehaviour
 	void OnTriggerStay( Collider collider )
 	{
 		// TODO Wrap layermasks in a wrapper for safety
-		if ( collider.gameObject.layer == LayerMask.NameToLayer( "Player" ) )
+		if ( ( ( 1 << collider.gameObject.layer ) & ( _playerLayer ) ) != 0 )
 		{
 			_isPlayerWithinTrigger = true;
 		}
