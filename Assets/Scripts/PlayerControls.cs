@@ -37,6 +37,7 @@ public class PlayerControls : MonoBehaviour
 		_actorPhysics.RegisterStateMethod( ActorStates.Grounded, Grounded );
 		_actorPhysics.RegisterStateMethod( ActorStates.Rolling,  Rolling );
 		_actorPhysics.RegisterStateMethod( ActorStates.Climbing, Climbing );
+		_actorPhysics.RegisterStateMethod( ActorStates.Gliding,  Gliding );
 	}
 
 	void Jumping()
@@ -56,7 +57,6 @@ public class PlayerControls : MonoBehaviour
 		if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.StartGlide();
-			_actorPhysics.GlideMovement( GetMoveDirection() );
 		}
 		else
 		{

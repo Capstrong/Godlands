@@ -3263,7 +3263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _statDictionary:
-    keys: 0100000003000000
+    keys: 010000000300000002000000
     values:
     - startingMax: 1
       maxIncrement: .5
@@ -3272,8 +3272,6 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -3282,9 +3280,15 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
-      currentImage: {fileID: 0}
-      maxImage: {fileID: 0}
       statToScaleRatio: 1
+    - startingMax: 10
+      maxIncrement: 5
+      useRate: 1.5
+      rechargeRate: 1
+      currentMax: 10
+      currentValue: 10
+      isUsing: 0
+      statToScaleRatio: 0
 --- !u!114 &11410354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3560,7 +3564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   _currentState: 1
-  _inputVec: {x: 0, y: 0, z: 0}
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
