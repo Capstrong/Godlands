@@ -42,25 +42,28 @@ public class PlayerControls : MonoBehaviour
 
 	void Jumping()
 	{
-		if ( _jumpButtonDown )
+		if ( _actorPhysics.GroundedCheck() && _jumpButtonDown )
 		{
 			_actorPhysics.JumpCheck();
 		}
-
-		if ( _grabButtonDown )
-		{
-			_actorPhysics.ClimbCheck();
-		}
-
-		_actorPhysics.RollCheck();
-
-		if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
-		{
-			_actorPhysics.StartGlide();
-		}
 		else
 		{
-			_actorPhysics.JumpMovement( GetMoveDirection() );
+			if ( _grabButtonDown )
+			{
+				_actorPhysics.ClimbCheck();
+			}
+
+			_actorPhysics.RollCheck();
+
+			if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
+			{
+				_actor.actorStats.StartUsingStat( Stat.Gliding );
+				_actorPhysics.StartGlide();
+			}
+			else
+			{
+				_actorPhysics.JumpMovement( GetMoveDirection() );
+			}
 		}
 	}
 
@@ -88,19 +91,22 @@ public class PlayerControls : MonoBehaviour
 
 	void Grounded()
 	{
-		if ( _jumpButtonDown )
+		if ( _actorPhysics.GroundedCheck() )
 		{
-			_actorPhysics.JumpCheck();
+			if ( _jumpButtonDown )
+			{
+				_actorPhysics.JumpCheck();
+			}
+
+			if ( _grabButtonDown )
+			{
+				_actorPhysics.ClimbCheck();
+			}
+
+			_actorPhysics.RollCheck();
+
+			GroundMovement();
 		}
-
-		if ( _grabButtonDown )
-		{
-			_actorPhysics.ClimbCheck();
-		}
-
-		_actorPhysics.RollCheck();
-
-		GroundMovement();
 	}
 
 	void Gliding()
@@ -115,12 +121,15 @@ public class PlayerControls : MonoBehaviour
 			_actorPhysics.ClimbCheck();
 		}
 
-		if ( _glideButtonDown )
+		if ( !_actorPhysics.GroundedCheck() &&
+		     _glideButtonDown &&
+		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.GlideMovement( GetMoveDirection() );
 		}
 		else
 		{
+			_actor.actorStats.StopUsingStat( Stat.Gliding );
 			_actorPhysics.EndGlide();
 		}
 	}
