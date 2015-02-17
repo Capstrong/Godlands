@@ -11,10 +11,10 @@ GameObject:
   - 33: {fileID: 3316248}
   - 23: {fileID: 2316248}
   - 95: {fileID: 9516248}
-  - 135: {fileID: 13516248}
   - 114: {fileID: 11416248}
   - 82: {fileID: 8200000}
   - 82: {fileID: 8200002}
+  - 136: {fileID: 13614496}
   m_Layer: 12
   m_Name: BushLvL2
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 116248}
   m_LocalRotation: {x: 0, y: .998467028, z: 0, w: -.0553511046}
-  m_LocalPosition: {x: -49.8613586, y: -21.3999996, z: 19.0106812}
+  m_LocalPosition: {x: -56.0699997, y: -21.9300003, z: 61.1399994}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -216,8 +216,8 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 3072
---- !u!135 &13516248
-SphereCollider:
+--- !u!136 &13614496
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -225,9 +225,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .360000014
-  m_Center: {x: -.0202143677, y: .280000001, z: -.0069911941}
+  m_Radius: .469999999
+  m_Height: 1.35000002
+  m_Direction: 1
+  m_Center: {x: .0185579751, y: .542151928, z: -.0270568561}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

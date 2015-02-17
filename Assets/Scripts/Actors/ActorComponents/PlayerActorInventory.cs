@@ -153,7 +153,7 @@ public class PlayerActorInventory : ActorComponent
 			{
 				// buddyItemData.prefab.GetComponentInChildren<MeshRenderer>() was not working
 				MeshRenderer render = buddyItemData.prefab.transform.FindChild( "Sphere" ).gameObject.GetComponent<MeshRenderer>();
-				meshRenderer.material = render.material;
+				meshRenderer.material = render.sharedMaterial;
 			}
 		}
 
