@@ -118,6 +118,19 @@ public class PlayerActorInventory : ActorComponent
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.owner = GetComponent<GodTag>();
 		newBuddy.statType = buddyItemData.stat;
+
+		MeshRenderer[] childRenderers = newBuddy.gameObject.GetComponentsInChildren<MeshRenderer>();
+
+		foreach ( MeshRenderer meshRenderer in childRenderers )
+		{
+			if ( meshRenderer.gameObject.name == "Body" )
+			{
+				// buddyItemData.prefab.GetComponentInChildren<MeshRenderer>() was not working
+				MeshRenderer render = buddyItemData.prefab.transform.FindChild( "Sphere" ).gameObject.GetComponent<MeshRenderer>();
+				meshRenderer.material = render.material;
+			}
+		}
+
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
 		inventory[heldResources[resourceIndex]]--;
