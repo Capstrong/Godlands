@@ -2159,7 +2159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3284,16 +3284,16 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 1
-    - startingMax: 10
-      maxIncrement: 5
-      useRate: 1.5
-      rechargeRate: 1
+    - startingMax: 1
+      maxIncrement: .5
+      useRate: 0
+      rechargeRate: .5
       currentMax: 10
       currentValue: 10
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: 0
+      statToScaleRatio: 1
 --- !u!114 &11435354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3311,6 +3311,7 @@ MonoBehaviour:
     m_Bits: 4096
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
+  _lookOverrideDuration: .5
 --- !u!114 &11438208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3512,6 +3513,7 @@ MonoBehaviour:
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies:
   - {fileID: 0}
+  _lookOverrideDuration: .5
   _buddyLayer:
     serializedVersion: 2
     m_Bits: 256
