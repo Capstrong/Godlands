@@ -2627,7 +2627,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: _statDictionary.values.Array.data[2].useRate
-      value: 0
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: _statDictionary.values.Array.data[2].statToScaleRatio
@@ -2664,6 +2664,14 @@ Prefab:
     - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: _statDictionary.values.Array.data[0].rechargeRate
       value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _statDictionary.values.Array.data[0].rechargeDelayTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _statDictionary.values.Array.data[2].rechargeDelayTime
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11480144, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
@@ -5124,6 +5132,7 @@ MonoBehaviour:
       currentImage: {fileID: 900024887}
       maxImage: {fileID: 103886237}
       statToScaleRatio: 1
+      rechargeDelayTime: 2
     - startingMax: 1
       maxIncrement: .5
       useRate: .5
@@ -5134,9 +5143,10 @@ MonoBehaviour:
       currentImage: {fileID: 2008366303}
       maxImage: {fileID: 1309086978}
       statToScaleRatio: 1
+      rechargeDelayTime: 0
     - startingMax: 1
       maxIncrement: .5
-      useRate: 0
+      useRate: .100000001
       rechargeRate: .5
       currentMax: 10
       currentValue: 10
@@ -5144,6 +5154,7 @@ MonoBehaviour:
       currentImage: {fileID: 986441999}
       maxImage: {fileID: 579215323}
       statToScaleRatio: 1
+      rechargeDelayTime: 3
 --- !u!114 &298744676
 MonoBehaviour:
   m_ObjectHideFlags: 0
