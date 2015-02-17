@@ -494,6 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -978,7 +979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
   total: 2
   radius: 2
 --- !u!1 &63883050
@@ -3819,7 +3820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
   total: 2
   radius: 4
 --- !u!1001 &205739608
@@ -4487,6 +4488,11 @@ Prefab:
       propertyPath: total
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
   m_RootGameObject: {fileID: 1380667716}
@@ -4961,6 +4967,7 @@ MonoBehaviour:
   _leanTowardsSurface: .25
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &298744672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5008,7 +5015,8 @@ MonoBehaviour:
   buddyLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxGiveDistance: 2
+  _maxGiveDistance: 2
+  _resourceGiveSphereCastRadius: .25
 --- !u!114 &298744674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5061,8 +5069,8 @@ MonoBehaviour:
       maxIncrement: .5
       useRate: 0
       rechargeRate: .5
-      currentMax: 0
-      currentValue: 0
+      currentMax: 10
+      currentValue: 10
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
@@ -5109,8 +5117,8 @@ MonoBehaviour:
   _cutableLayer:
     serializedVersion: 2
     m_Bits: 4096
-  _cuttingButton: 106
-  _cuttingDistance: 1
+  _cuttingButton: 323
+  _cuttingDistance: 2
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
 --- !u!114 &298744679
@@ -7046,6 +7054,11 @@ Prefab:
       propertyPath: radius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 638741509}
@@ -8350,6 +8363,11 @@ Prefab:
       propertyPath: radius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
   m_RootGameObject: {fileID: 61421686}
@@ -9563,7 +9581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
   total: 5
   radius: 2
 --- !u!1001 &646845519
@@ -9949,6 +9967,11 @@ Prefab:
       propertyPath: total
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 1271578016}
@@ -11498,7 +11521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
   total: 2
   radius: 2
 --- !u!4 &824278554
@@ -14091,7 +14114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   total: 2
   radius: 3
 --- !u!4 &1122842997
@@ -15532,13 +15555,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 1
   canDecreaseStamina: 1
   decreaseResourcesTime: 60
   currResourceTimer: 0
   startingApples: 10
   apples: 0
-  owner: {fileID: 298744674}
+  _startingOwner: {fileID: 298744674}
   heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
 --- !u!114 &1215378092
 MonoBehaviour:
@@ -15583,6 +15606,7 @@ MonoBehaviour:
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &1215378093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15722,7 +15746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   total: 4
   radius: 3
 --- !u!1 &1232152539
@@ -15937,6 +15961,11 @@ Prefab:
       propertyPath: radius
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
   m_RootGameObject: {fileID: 1122842995}
@@ -16515,7 +16544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
   total: 4
   radius: 2
 --- !u!1 &1277267014
@@ -17799,7 +17828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
   total: 2
   radius: 2
 --- !u!4 &1380667718
@@ -18568,6 +18597,14 @@ Prefab:
       propertyPath: owner
       value: 
       objectReference: {fileID: 298744674}
+    - target: {fileID: 11423312, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: _startingOwner
+      value: 
+      objectReference: {fileID: 298744674}
+    - target: {fileID: 11423312, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: statType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 430bb384d018f438083cae6e1236532d, type: 2}
   m_RootGameObject: {fileID: 1215378085}
@@ -20354,6 +20391,11 @@ Prefab:
       propertyPath: radius
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 205485306}
@@ -21073,6 +21115,11 @@ Prefab:
       propertyPath: total
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
   m_RootGameObject: {fileID: 1223225069}
@@ -23849,6 +23896,11 @@ Prefab:
       propertyPath: radius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
   m_RootGameObject: {fileID: 1763008358}
@@ -24465,7 +24517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   total: 5
   radius: 2
 --- !u!4 &1763008360
@@ -24657,6 +24709,11 @@ Prefab:
       propertyPath: total
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 6d7b405ffef887c40b357ff50bf6b41c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: efb1547f946d92b46b97cb89c8449a59, type: 2}
   m_RootGameObject: {fileID: 824278552}
@@ -25155,6 +25212,11 @@ Prefab:
       propertyPath: radius
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
   m_RootGameObject: {fileID: 1853232114}
@@ -25418,7 +25480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   total: 5
   radius: 4
 --- !u!4 &1853232116
@@ -25688,7 +25750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
-  resourcePrefab: {fileID: 100000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
+  resourcePrefab: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
   total: 2
   radius: 2
 --- !u!4 &1862324749
@@ -27355,6 +27417,11 @@ Prefab:
       propertyPath: radius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7f6c6877e970e2479b4c917d1395631, type: 2}
   m_RootGameObject: {fileID: 1862324747}
