@@ -23,5 +23,7 @@ public class ClimbableTag : MonoBehaviour
 		Gizmos.matrix = Matrix4x4.identity;
 		Gizmos.DrawIcon( transform.position, "ClimbVolume.png", true );
 		Gizmos.DrawIcon( transform.position + transform.up * transform.localScale.y/2f, "Top.png", true );
+
+		Gizmos.DrawRay( transform.position, transform.forward * 2.0f );
 	}
 }
