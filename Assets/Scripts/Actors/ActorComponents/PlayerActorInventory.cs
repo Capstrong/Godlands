@@ -25,7 +25,8 @@ public class PlayerActorInventory : ActorComponent
 	GameObject heldResource;
 
 	[SerializeField] LayerMask buddyLayer = 0;
-	[SerializeField] float maxGiveDistance = 2f;
+	[SerializeField] float _maxGiveDistance = 2f;
+	[SerializeField] float _resourceGiveSphereCastRadius = 0.25f;
 
 	public override void Awake()
 	{
@@ -81,10 +82,13 @@ public class PlayerActorInventory : ActorComponent
 
 	void CheckGiveResources()
 	{
-		RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
-		                                                  (actor as PlayerActor).actorCamera.cam.transform.forward,
-		                                                  buddyLayer,
-		                                                  maxGiveDistance );
+		RaycastHit hitInfo;
+		Physics.SphereCast( new Ray( transform.position,
+		                             ( actor as PlayerActor ).actorCamera.cam.transform.forward ),
+		                    _resourceGiveSphereCastRadius,
+		                    out hitInfo,
+		                    _maxGiveDistance,
+		                    buddyLayer );
 
 		if ( hitInfo.transform )
 		{
