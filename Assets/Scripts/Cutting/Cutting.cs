@@ -12,6 +12,7 @@ public class Cutting : ActorComponent
 
 	[SerializeField] GameObject _visualEffect = null;
 	[SerializeField] Vector3 _visualOffset = Vector3.zero;
+	[SerializeField] float _lookOverrideDuration = 0.5f;
 
 	PlayerActorStats _actorStats = null;
 
@@ -55,9 +56,9 @@ public class Cutting : ActorComponent
 	void CreateVisualEffect()
 	{
 		Vector3 camForward = Camera.main.transform.forward;
-		camForward.Set( camForward.x, 0, camForward.z );
+		camForward.y = 0.0f;
 
-		actor.actorPhysics.OverrideLook( camForward, 0.5f );
+		actor.actorPhysics.OverrideLook( camForward, _lookOverrideDuration );
 
 		Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
 

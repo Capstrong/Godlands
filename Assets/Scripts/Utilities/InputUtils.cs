@@ -25,6 +25,11 @@ public static class InputUtils
 		return PositiveAxisInput( buttonName );
 	}
 
+	public static float GetAxis( string axisName )
+	{
+		return Input.GetAxis( axisName + PlatformUtils.platformName );
+	}
+
 	public static bool PositiveAxisInput(string axisName)
 	{
 		return Input.GetAxis(axisName + PlatformUtils.platformName) > WadeUtils.SMALLNUMBER;

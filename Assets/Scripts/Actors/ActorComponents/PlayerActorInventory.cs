@@ -15,6 +15,8 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddies; }
 	}
 
+	[SerializeField] float _lookOverrideDuration = 0.5f;
+
 	// types and current count
 	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
 
@@ -23,6 +25,8 @@ public class PlayerActorInventory : ActorComponent
 
 	int resourceIndex = 0;
 	GameObject heldResource;
+
+	PlayerActor _playerActor;
 
 	[SerializeField] LayerMask _buddyLayer = 0;
 	public LayerMask buddyLayer
@@ -33,6 +37,8 @@ public class PlayerActorInventory : ActorComponent
 	public override void Awake()
 	{
 		base.Awake();
+
+		_playerActor = GetComponent<PlayerActor>();
 	}
 
 	// Use this for initialization
@@ -94,6 +100,10 @@ public class PlayerActorInventory : ActorComponent
 			{
 				buddyStats.SetGod( godTag );
 				GiveResource( buddyStats );
+
+				_playerActor.actorPhysics.OverrideLook(
+					buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
+					_lookOverrideDuration );
 			}
 		}
 	}

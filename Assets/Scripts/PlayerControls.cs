@@ -224,9 +224,9 @@ public class PlayerControls : MonoBehaviour
 	 */
 	Vector3 GetMoveInput()
 	{
-		return new Vector3( Input.GetAxis( "Horizontal" + PlatformUtils.platformName ),
+		return new Vector3( InputUtils.GetAxis( "Horizontal" ),
 		                    0.0f,
-		                    Input.GetAxis( "Vertical" + PlatformUtils.platformName ) );
+		                    InputUtils.GetAxis( "Vertical" ) );
 	}
 
 	/**
