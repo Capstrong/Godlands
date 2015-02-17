@@ -50,20 +50,20 @@ public class PlayerControls : MonoBehaviour
 
 	void Jumping()
 	{
-		if ( _actorPhysics.GroundedCheck() && _jumpButton.pressed )
+		if ( _actorPhysics.GroundedCheck() && _jumpButton.down )
 		{
 			_actorPhysics.JumpCheck();
 		}
 		else
 		{
-			if ( _holdButton.down )
+			if ( _holdButton )
 			{
 				_actorPhysics.ClimbCheck();
 			}
 
 			_actorPhysics.RollCheck();
 
-			if ( _holdButton.down && _actor.actorStats.CanUseStat( Stat.Gliding ) )
+			if ( _holdButton && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 			{
 				_actor.actorStats.StartUsingStat( Stat.Gliding );
 				_actorPhysics.StartGlide();
@@ -84,7 +84,7 @@ public class PlayerControls : MonoBehaviour
 	void Climbing()
 	{
 		if ( _actorPhysics.ClimbCheck() &&
-		     _holdButton.down &&
+		     _holdButton &&
 		     _actor.actorStats.CanUseStat( Stat.Stamina ) )
 		{
 			_actor.actorStats.StartUsingStat( Stat.Stamina );
@@ -101,17 +101,17 @@ public class PlayerControls : MonoBehaviour
 	{
 		if ( _actorPhysics.GroundedCheck() )
 		{
-			if ( _jumpButton.pressed )
+			if ( _jumpButton.down )
 			{
 				_actorPhysics.JumpCheck();
 			}
 
-			if ( _holdButton.down )
+			if ( _holdButton )
 			{
 				_actorPhysics.ClimbCheck();
 			}
 
-			if ( _useButton.pressed )
+			if ( _useButton.down )
 			{
 				// This allows us to do one raycast for both actions
 				// which is good since we do RaycastAll(), which is expensive.
@@ -133,18 +133,18 @@ public class PlayerControls : MonoBehaviour
 
 	void Gliding()
 	{
-		if ( _jumpButton.pressed )
+		if ( _jumpButton.down )
 		{
 			_actorPhysics.JumpCheck();
 		}
 
-		if ( _holdButton.down )
+		if ( _holdButton )
 		{
 			_actorPhysics.ClimbCheck();
 		}
 
 		if ( !_actorPhysics.GroundedCheck() &&
-		     _holdButton.down &&
+		     _holdButton &&
 		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.GlideMovement( GetMoveDirection() );

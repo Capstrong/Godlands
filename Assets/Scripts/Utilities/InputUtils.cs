@@ -24,29 +24,27 @@ public static class InputUtils
 	}
 }
 
-public class Button
+public struct Button
 {
 	readonly string _buttonName;
 
-	bool _buttonLast = false;
-	bool _buttonDown = false;
+	bool _buttonLast;
+	bool _buttonDown;
 
 	public Button( string buttonName )
 	{
 		_buttonName = buttonName;
+
+		_buttonLast = false;
+		_buttonDown = false;
+	}
+
+	public static implicit operator bool( Button button )
+	{
+		return button._buttonDown;
 	}
 
 	public bool down
-	{
-		get { return _buttonDown; }
-	}
-
-	public bool up
-	{
-		get { return !_buttonDown; }
-	}
-
-	public bool pressed
 	{
 		get
 		{
@@ -54,7 +52,7 @@ public class Button
 		}
 	}
 
-	public bool released
+	public bool up
 	{
 		get { return !_buttonDown && _buttonLast; }
 	}
