@@ -2159,8 +2159,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: .00130014506, y: .676045895, z: -.00133305695, w: -.736857235}
+  m_LocalPosition: {x: -35.2560005, y: -19.7169991, z: 16.0130005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3272,6 +3272,8 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 1
       maxIncrement: .5
@@ -3280,6 +3282,8 @@ MonoBehaviour:
       currentMax: 0
       currentValue: 0
       isUsing: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
       statToScaleRatio: 1
     - startingMax: 10
       maxIncrement: 5
@@ -3288,7 +3292,9 @@ MonoBehaviour:
       currentMax: 10
       currentValue: 10
       isUsing: 0
-      statToScaleRatio: 0
+      currentImage: {fileID: 0}
+      maxImage: {fileID: 0}
+      statToScaleRatio: .100000001
 --- !u!114 &11410354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3317,8 +3323,8 @@ MonoBehaviour:
   _cutableLayer:
     serializedVersion: 2
     m_Bits: 4096
-  _cuttingButton: 106
-  _cuttingDistance: 1
+  _cuttingButton: 323
+  _cuttingDistance: 2
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
 --- !u!114 &11438208
@@ -3523,7 +3529,8 @@ MonoBehaviour:
   buddyLayer:
     serializedVersion: 2
     m_Bits: 256
-  maxGiveDistance: 2
+  _maxGiveDistance: 2
+  _resourceGiveSphereCastRadius: .25
 --- !u!114 &11480134
 MonoBehaviour:
   m_ObjectHideFlags: 1
