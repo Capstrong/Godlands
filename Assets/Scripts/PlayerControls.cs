@@ -120,14 +120,21 @@ public class PlayerControls : MonoBehaviour
 			{
 				_useButtonPressed = false; // FixedUpdate() might be called before Update() is, so manually reset the value.
 
-				// This allows us to do one raycast for both actions
-				// which is good since we do RaycastAll(), which is expensive.
-				RaycastHit hitInfo;
-				if ( RaycastForward( out hitInfo ) )
+				if( _actor.actorResources.CanUseItemWithoutTarget() )
 				{
-					if ( !_cutting.CutCheck( hitInfo ) )
+					_actor.actorResources.UseItem( );
+				}
+				else
+				{
+					// This allows us to do one raycast for both actions
+					// which is good since we do RaycastAll(), which is expensive.
+					RaycastHit hitInfo;
+					if ( RaycastForward( out hitInfo ) )
 					{
-						_actor.actorResources.CheckUseItem( hitInfo );
+						if ( !_cutting.CutCheck( hitInfo ) )
+						{
+							_actor.actorResources.UseItemWithTarget( hitInfo );
+						}
 					}
 				}
 			}

@@ -34,9 +34,6 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddyLayer; }
 	}
 
-	[SerializeField] float _maxGiveDistance = 2f;
-	[SerializeField] float _resourceGiveSphereCastRadius = 0.25f;
-
 	public override void Awake()
 	{
 		base.Awake();
@@ -74,7 +71,30 @@ public class PlayerActorInventory : ActorComponent
 		}
 	}
 
-	public void CheckUseItem( RaycastHit hitInfo )
+	public bool CanUseItemWithoutTarget()
+	{
+		bool canUse = false;
+
+		if ( heldResources.Count > 0 )
+		{
+			if( !heldResources[resourceIndex].needsTarget )
+			{
+				canUse = true;
+			}
+		}
+
+		return canUse;
+	}
+
+	public void UseItem()
+	{
+		if ( !( heldResources[resourceIndex] is ResourceData ) )
+		{
+			SpawnBuddy();
+		}
+	}
+
+	public void UseItemWithTarget( RaycastHit hitInfo )
 	{
 		if ( heldResources.Count > 0 )
 		{
@@ -91,30 +111,20 @@ public class PlayerActorInventory : ActorComponent
 
 	void CheckGiveResources( RaycastHit hitInfo )
 	{
-		Physics.SphereCast( new Ray( transform.position,
-		                             ( actor as PlayerActor ).actorCamera.cam.transform.forward ),
-		                    _resourceGiveSphereCastRadius,
-		                    out hitInfo,
-		                    _maxGiveDistance,
-		                    _buddyLayer );
+		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
-		if ( hitInfo.transform )
+		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
+
+		if ( buddyStats &&
+		     buddyStats.isAlive &&
+		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 		{
-			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
+			buddyStats.owner = godTag;
+			GiveResource( buddyStats );
 
-			GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
-
-			if ( buddyStats &&
-			     buddyStats.isAlive &&
-			     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
-			{
-				buddyStats.owner = godTag;
-				GiveResource( buddyStats );
-
-				_playerActor.actorPhysics.OverrideLook(
-					buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
-					_lookOverrideDuration );
-			}
+			_playerActor.actorPhysics.OverrideLook(
+				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
+				_lookOverrideDuration );
 		}
 	}
 
