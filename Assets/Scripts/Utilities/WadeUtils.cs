@@ -7,54 +7,10 @@ using System;
 
 public static class WadeUtils
 {
-
-	///////////////////////
-	/// INPUT		//////
-	////////////////////
-
-	#if UNITY_WEBPLAYER
-	public static string platformName = "_MOUSE";
-	#elif UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-	public static string platformName = "_WIN";
-	#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX 
-	public static string platformName = "_OSX";
-	#endif
-
-	public static void CheckForController()
-	{
-		if(Input.GetJoystickNames().Length > 0)
-		{
-			#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-			platformName = "_WIN";
-			#elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX 
-			platformName = "_OSX";
-			#endif
-		}
-		else
-		{
-			platformName = "_MOUSE";
-		}
-	}
-
 	public static float SMALLNUMBER = 0.00000001f;
 	public static float LARGENUMBER = 100000000f;
 
 	public static float DUALINPUTMOD = 0.7071f;
-
-	public static bool ValidAxisInput(string axisName)
-	{
-		return Mathf.Abs(Input.GetAxis(axisName + platformName)) > SMALLNUMBER;
-	}
-
-	public static bool PositiveAxisInput(string axisName)
-	{
-		return Input.GetAxis(axisName + platformName) > SMALLNUMBER;
-	}
-
-	public static bool NegativeAxisInput(string axisName)
-	{
-		return Input.GetAxis(axisName + platformName) < -SMALLNUMBER;
-	}
 
 	///////////////////////
 	////	FLOATS	 /////

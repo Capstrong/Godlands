@@ -15,6 +15,8 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddies; }
 	}
 
+	[SerializeField] float _lookOverrideDuration = 0.5f;
+
 	// types and current count
 	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
 
@@ -24,12 +26,19 @@ public class PlayerActorInventory : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	[SerializeField] LayerMask buddyLayer = 0;
-	[SerializeField] float maxGiveDistance = 2f;
+	PlayerActor _playerActor;
+
+	[SerializeField] LayerMask _buddyLayer = 0;
+	public LayerMask buddyLayer
+	{
+		get { return _buddyLayer; }
+	}
 
 	public override void Awake()
 	{
 		base.Awake();
+
+		_playerActor = GetComponent<PlayerActor>();
 	}
 
 	// Use this for initialization
@@ -48,12 +57,11 @@ public class PlayerActorInventory : ActorComponent
 	void Update()
 	{
 		CheckScroll();
-		CheckUseItem();
 	}
 
 	void CheckScroll()
 	{
-		float scrollAmount = Input.GetAxis( "Scroll" + WadeUtils.platformName );
+		float scrollAmount = Input.GetAxis( "Scroll" + PlatformUtils.platformName );
 		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResources.Count > 0 )
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
@@ -63,14 +71,13 @@ public class PlayerActorInventory : ActorComponent
 		}
 	}
 
-	void CheckUseItem()
+	public void CheckUseItem( RaycastHit hitInfo )
 	{
-		if ( Input.GetMouseButtonDown( 0 ) &&
-		     heldResources.Count > 0 )
+		if ( heldResources.Count > 0 )
 		{
 			if ( heldResources[resourceIndex] is ResourceData )
 			{
-				CheckGiveResources();
+				CheckGiveResources( hitInfo );
 			}
 			else
 			{
@@ -79,13 +86,8 @@ public class PlayerActorInventory : ActorComponent
 		}
 	}
 
-	void CheckGiveResources()
+	void CheckGiveResources( RaycastHit hitInfo )
 	{
-		RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
-		                                                  (actor as PlayerActor).actorCamera.cam.transform.forward,
-		                                                  buddyLayer,
-		                                                  maxGiveDistance );
-
 		if ( hitInfo.transform )
 		{
 			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
@@ -98,6 +100,10 @@ public class PlayerActorInventory : ActorComponent
 			{
 				buddyStats.SetGod( godTag );
 				GiveResource( buddyStats );
+
+				_playerActor.actorPhysics.OverrideLook(
+					buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
+					_lookOverrideDuration );
 			}
 		}
 	}

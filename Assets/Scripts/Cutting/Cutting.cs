@@ -4,58 +4,64 @@ using System.Collections;
 [RequireComponent( typeof( PlayerActorStats ) )]
 public class Cutting : ActorComponent
 {
-	[SerializeField] LayerMask _cutableLayer = 0;
-	[SerializeField] KeyCode _cuttingButton = KeyCode.J;
-	[SerializeField] float _cuttingDistance = 0f;
+	[SerializeField] LayerMask _cuttableLayer = 0;
+	public LayerMask cuttableLayer
+	{
+		get { return _cuttableLayer; }
+	}
+
 	[SerializeField] GameObject _visualEffect = null;
 	[SerializeField] Vector3 _visualOffset = Vector3.zero;
+	[SerializeField] float _lookOverrideDuration = 0.5f;
 
 	PlayerActorStats _actorStats = null;
 
-	// Use this for initialization
 	void Start ()
 	{
 		_actorStats = GetComponent<PlayerActorStats>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+	/**
+	 * Checks the given RaycastHit to see if a Cuttable was hit.
+	 * 
+	 * Returns true if a Cuttable was hit, false otherwise.
+	 * 
+	 * If a Cuttable was hit, this will perform the cut action
+	 * and create the visual effect.
+	 */
+	public bool CutCheck( RaycastHit hitInfo )
 	{
-		if ( Input.GetKeyDown( _cuttingButton ) )
+		if ( hitInfo.collider && !hitInfo.collider.isTrigger )
 		{
-			Vector3 camForward = Camera.main.transform.forward;
-			camForward.Set( camForward.x, 0, camForward.z );
+			GameObject cuttableObj = hitInfo.collider.gameObject;
 
-			actor.actorPhysics.OverrideLook( camForward, 0.5f );
+			Cuttable cuttableComponent = cuttableObj.GetComponent<Cuttable>();
 
-			Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
-
-			Instantiate( _visualEffect, transform.position + rotatedOffset, Quaternion.LookRotation( camForward ) );
-
-			RaycastHit hitInfo;
-			Physics.Raycast( new Ray( transform.position, camForward ), out hitInfo, _cuttingDistance, _cutableLayer );
-
-			if ( hitInfo.collider && !hitInfo.collider.isTrigger )
+			if ( cuttableComponent )
 			{
-				GameObject cuttableObj = hitInfo.collider.gameObject;
-
-				Cuttable cuttableComponent = cuttableObj.GetComponent<Cuttable>();
-
-				if ( cuttableComponent )
-				{
-					Cut( cuttableComponent );
-				}
-
-				else
-				{
-					Debug.LogError( "Attach Cuttable component to " + cuttableObj.name + " at " + cuttableObj.transform.position );
-				}
+				Cut( cuttableComponent );
+				CreateVisualEffect();
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	void Cut( Cuttable cuttableComponent )
 	{
 		cuttableComponent.Cut( _actorStats.GetStatValue( Stat.Cutting ) );
+	}
+
+	void CreateVisualEffect()
+	{
+		Vector3 camForward = Camera.main.transform.forward;
+		camForward.y = 0.0f;
+
+		actor.actorPhysics.OverrideLook( camForward, _lookOverrideDuration );
+
+		Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
+
+		Instantiate( _visualEffect, transform.position + rotatedOffset, Quaternion.LookRotation( camForward ) );
 	}
 }

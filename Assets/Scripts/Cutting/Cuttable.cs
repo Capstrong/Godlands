@@ -8,13 +8,13 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] ParticleSystem _hitParticle = null;
 	[SerializeField] ParticleSystem _deathParticle = null;
 	[SerializeField] float _particleLifetime = 0.0f;
-	[SerializeField] Color _particleColor;
+	[SerializeField] Color _particleColor = Color.white;
 	[SerializeField] AudioSource _hitSound = null;
 	[SerializeField] AudioSource _deathSound = null;
 	[SerializeField] float _verticalOffset = 0.0f;
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0.0f;
-	[SerializeField] LayerMask _playerLayer;
+	[SerializeField] LayerMask _playerLayer = 0;
 
 	private float _health = 0.0f;
 	private bool _deactivated = false;

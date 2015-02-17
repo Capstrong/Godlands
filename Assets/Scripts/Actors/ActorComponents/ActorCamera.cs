@@ -84,53 +84,53 @@ public class ActorCamera : ActorComponent
 
 	void CameraControl()
 	{
-		if(cam)
+		if ( cam )
 		{
 			UnderWaterTest();
 
-			cam.transform.RotateAround(transform.position, 
-			                           cam.transform.right, 
-			                           Input.GetAxis("Mouse Y" + WadeUtils.platformName) * rotSpeed.y);
-			cam.transform.RotateAround(transform.position, 
-			                           cam.transform.up, 
-			                           Input.GetAxis("Mouse X" + WadeUtils.platformName) * rotSpeed.x);
+			cam.transform.RotateAround( transform.position,
+			                            cam.transform.right,
+			                            InputUtils.GetAxis( "Mouse Y" ) * rotSpeed.y );
+			cam.transform.RotateAround( transform.position,
+			                            cam.transform.up,
+			                            InputUtils.GetAxis( "Mouse X" ) * rotSpeed.x );
 
 			Vector3 camEuler = cam.transform.eulerAngles;
 			camEuler.z = 0f;
 
-			if(camEuler.x > rotBounds.min && camEuler.x < 300) 
+			if ( camEuler.x > rotBounds.min && camEuler.x < 300 )
 			{
 				camEuler.x = rotBounds.min;
 			}
-			if(camEuler.x < rotBounds.max && camEuler.x > 100) 
+			if ( camEuler.x < rotBounds.max && camEuler.x > 100 )
 			{
 				camEuler.x = rotBounds.max;
 			}
 
 			GetMinCameraDistance();
 
-			if(actor.isRendererOn && currentCamDist < minCamDist)
+			if ( actor.isRendererOn && currentCamDist < minCamDist )
 			{
 				actor.SetRenderers( false );
 			}
-			else if (!actor.isRendererOn && currentCamDist >= minCamDist)
+			else if ( !actor.isRendererOn && currentCamDist >= minCamDist )
 			{
 				actor.SetRenderers( true );
 			}
 
 			Vector3 currentOffset = camOffset * currentCamDist;
-			targetPos = Vector3.Lerp(transform.position - cam.transform.rotation * currentOffset, 
-			                         transform.position + Quaternion.Euler(-150.0f, camEuler.y, camEuler.z) * currentOffset,
-			                         camEuler.x < 80.0f ? camEuler.x/75.0f : 0.0f);
+			targetPos = Vector3.Lerp( transform.position - cam.transform.rotation * currentOffset,
+			                          transform.position + Quaternion.Euler( -150.0f, camEuler.y, camEuler.z ) * currentOffset,
+			                          camEuler.x < 80.0f ? camEuler.x / 75.0f : 0.0f );
 
-//			RaycastHit hit = WadeUtils.RaycastAndGetInfo(cam.transform.position, 
-//			                                             -cam.transform.up, 
-//			                                             groundLayer, 
-//			                                             groundCheckDist);
-//			if(hit.transform)
-//			{
-//				targetPos.y = hit.point.y + groundCheckDist;
-//			}
+			//RaycastHit hit = WadeUtils.RaycastAndGetInfo(cam.transform.position,
+			//                                             -cam.transform.up,
+			//                                             groundLayer,
+			//                                             groundCheckDist);
+			//if(hit.transform)
+			//{
+			//	targetPos.y = hit.point.y + groundCheckDist;
+			//}
 
 			cam.transform.position = targetPos + hitPosOffset;
 			cam.transform.eulerAngles = camEuler;
