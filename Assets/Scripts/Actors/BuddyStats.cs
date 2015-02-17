@@ -13,6 +13,9 @@ public class BuddyStats : MonoBehaviour
 
 	PlayerActorStats _actorStats = null;
 
+	[SerializeField] Material _heartMaterial;
+	[SerializeField] Material _sadMaterial;
+
 	private GodTag _owner = null;
 	public GodTag owner
 	{
@@ -26,8 +29,6 @@ public class BuddyStats : MonoBehaviour
 			}
 		}
 	}
-
-	public Material heartMaterial;
 
 	bool _isAlive = true;
 	public bool isAlive
@@ -77,6 +78,7 @@ public class BuddyStats : MonoBehaviour
 			if (canDecreaseStamina)
 			{
 				_actorStats.DecrementMaxStat( statType );
+				Emote( _sadMaterial );
 			}
 			
 			currResourceTimer = decreaseResourcesTime;
@@ -100,7 +102,7 @@ public class BuddyStats : MonoBehaviour
 		apples++;
 
 		actorStats.IncrementMaxStat( statType );
-		Emote( heartMaterial );
+		Emote( _heartMaterial );
 	}
 
 	public void Emote( Material emoteMaterial )

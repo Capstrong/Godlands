@@ -16005,7 +16005,8 @@ MonoBehaviour:
   startingApples: 10
   apples: 0
   _startingOwner: {fileID: 298744674}
-  heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
+  _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
+  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
 --- !u!114 &1215378092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19112,6 +19113,10 @@ Prefab:
       propertyPath: statType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11423312, guid: 430bb384d018f438083cae6e1236532d, type: 2}
+      propertyPath: decreaseResourcesTime
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 430bb384d018f438083cae6e1236532d, type: 2}
   m_RootGameObject: {fileID: 1215378085}
@@ -21612,7 +21617,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: f6cc96005f3b63f42b87f4fb7d405a53, type: 2}
       propertyPath: radius
