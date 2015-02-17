@@ -121,9 +121,6 @@ public sealed class ActorPhysics : ActorComponent
 
 	Transform _climbSurface = null;
 	ClimbableTag _climbTag;
-	Vector3 _climbSurfaceNormal = Vector3.zero;
-	Vector3 _climbSurfaceRight = Vector3.zero;
-	Vector3 _climbSurfaceUp = Vector3.zero;
 	#endregion
 
 	#region Gliding
@@ -307,8 +304,8 @@ public sealed class ActorPhysics : ActorComponent
 			DebugUtils.Assert( _climbTag.xMovement || _climbTag.yMovement );
 
 			Vector3 surfaceRelativeInput =
-				_climbSurfaceRight * ( _climbTag.xMovement ? movement.x : 0.0f ) +
-				_climbSurfaceUp * ( _climbTag.yMovement ? movement.z : 0.0f );
+				_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
+				_climbSurface.up * ( _climbTag.yMovement ? movement.z : 0.0f );
 
 			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
 
@@ -518,26 +515,6 @@ public sealed class ActorPhysics : ActorComponent
 		_climbTag = climbTag;
 		_climbSurface = _climbTag.GetComponent<Transform>();
 
-		if ( Vector3.Dot( _climbSurface.forward, ( transform.position - _climbSurface.position ) ) > 0.0f )
-		{
-			_climbSurfaceNormal = -_climbSurface.forward;
-			_climbSurfaceRight = -_climbSurface.right;
-		}
-		else
-		{
-			_climbSurfaceNormal = _climbSurface.forward;
-			_climbSurfaceRight = _climbSurface.right;
-		}
-
-		if ( Vector3.Dot( Vector3.up, _climbSurface.up ) > 0.0f )
-		{
-			_climbSurfaceUp = _climbSurface.up;
-		}
-		else
-		{
-			_climbSurfaceUp = -_climbSurface.up;
-		}
-
 		ChangeState( ActorStates.Climbing );
 		
 		rigidbody.useGravity = false;
@@ -567,7 +544,7 @@ public sealed class ActorPhysics : ActorComponent
 		Quaternion desiredLook = transform.rotation;
 		if ( IsInState( ActorStates.Climbing ) )
 		{
-			Vector3 lookVector = _climbSurfaceNormal;
+			Vector3 lookVector = _climbSurface.forward;
 			lookVector.y *= _leanTowardsSurface;
 			desiredLook = Quaternion.LookRotation( lookVector );
 		}
