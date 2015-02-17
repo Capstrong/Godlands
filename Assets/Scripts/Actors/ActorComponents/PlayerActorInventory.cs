@@ -67,8 +67,7 @@ public class PlayerActorInventory : ActorComponent
 
 	public void CheckUseItem( RaycastHit hitInfo )
 	{
-		if ( Input.GetMouseButtonDown( 0 ) &&
-		     heldResources.Count > 0 )
+		if ( heldResources.Count > 0 )
 		{
 			if ( heldResources[resourceIndex] is ResourceData )
 			{
