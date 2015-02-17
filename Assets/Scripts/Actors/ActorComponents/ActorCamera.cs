@@ -90,10 +90,10 @@ public class ActorCamera : ActorComponent
 
 			cam.transform.RotateAround(transform.position, 
 			                           cam.transform.right, 
-			                           Input.GetAxis("Mouse Y" + WadeUtils.platformName) * rotSpeed.y);
+			                           Input.GetAxis("Mouse Y" + PlatformUtils.platformName) * rotSpeed.y);
 			cam.transform.RotateAround(transform.position, 
 			                           cam.transform.up, 
-			                           Input.GetAxis("Mouse X" + WadeUtils.platformName) * rotSpeed.x);
+			                           Input.GetAxis("Mouse X" + PlatformUtils.platformName) * rotSpeed.x);
 
 			Vector3 camEuler = cam.transform.eulerAngles;
 			camEuler.z = 0f;

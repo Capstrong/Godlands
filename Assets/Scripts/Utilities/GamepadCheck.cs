@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GamepadCheck : MonoBehaviour 
+public class GamepadCheck : MonoBehaviour
 {
-	void Update () 
+	void Update()
 	{
-		if(Time.frameCount % 60 == 0)
+		if ( Time.frameCount % 60 == 0 )
 		{
-			WadeUtils.CheckForController();
+			InputUtils.CheckForController();
 		}
 	}
 }

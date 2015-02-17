@@ -352,7 +352,7 @@ public sealed class ActorPhysics : ActorComponent
 				actor.animator.SetBool( "isRolling", false );
 			}
 		}
-		else if ( Input.GetButtonDown( "Roll" + WadeUtils.platformName ) &&
+		else if ( Input.GetButtonDown( "Roll" + PlatformUtils.platformName ) &&
 		          _rollCooldownTimer >= _rollCooldownTime && !_moveVec.IsZero() )
 		{
 			ChangeState( ActorStates.Rolling );

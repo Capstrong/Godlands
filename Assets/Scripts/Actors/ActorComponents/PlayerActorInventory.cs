@@ -24,7 +24,12 @@ public class PlayerActorInventory : ActorComponent
 	int resourceIndex = 0;
 	GameObject heldResource;
 
-	[SerializeField] LayerMask buddyLayer = 0;
+	[SerializeField] LayerMask _buddyLayer = 0;
+	public LayerMask buddyLayer
+	{
+		get { return _buddyLayer; }
+	}
+
 	[SerializeField] float maxGiveDistance = 2f;
 
 	public override void Awake()
@@ -48,12 +53,11 @@ public class PlayerActorInventory : ActorComponent
 	void Update()
 	{
 		CheckScroll();
-		CheckUseItem();
 	}
 
 	void CheckScroll()
 	{
-		float scrollAmount = Input.GetAxis( "Scroll" + WadeUtils.platformName );
+		float scrollAmount = Input.GetAxis( "Scroll" + PlatformUtils.platformName );
 		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResources.Count > 0 )
 		{
 			// Need to do this so >0 rounds up and <0 rounds down
@@ -63,14 +67,14 @@ public class PlayerActorInventory : ActorComponent
 		}
 	}
 
-	void CheckUseItem()
+	public void CheckUseItem( RaycastHit hitInfo )
 	{
 		if ( Input.GetMouseButtonDown( 0 ) &&
 		     heldResources.Count > 0 )
 		{
 			if ( heldResources[resourceIndex] is ResourceData )
 			{
-				CheckGiveResources();
+				CheckGiveResources( hitInfo );
 			}
 			else
 			{
@@ -79,13 +83,8 @@ public class PlayerActorInventory : ActorComponent
 		}
 	}
 
-	void CheckGiveResources()
+	void CheckGiveResources( RaycastHit hitInfo )
 	{
-		RaycastHit hitInfo = WadeUtils.RaycastAndGetInfo( transform.position,
-		                                                  (actor as PlayerActor).actorCamera.cam.transform.forward,
-		                                                  buddyLayer,
-		                                                  maxGiveDistance );
-
 		if ( hitInfo.transform )
 		{
 			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
