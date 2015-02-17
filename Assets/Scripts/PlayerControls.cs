@@ -6,6 +6,7 @@ public class PlayerControls : MonoBehaviour
 {
 	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
 	[SerializeField] float _interactCheckDistance = 5.0f;
+	[SerializeField] float _interactCheckRadius = 0.2f;
 
 	PlayerActor _actor;
 	ActorPhysics _actorPhysics;
@@ -117,6 +118,8 @@ public class PlayerControls : MonoBehaviour
 
 			if ( _useButtonPressed )
 			{
+				_useButtonPressed = false; // FixedUpdate() might be called before Update() is, so manually reset the value.
+
 				// This allows us to do one raycast for both actions
 				// which is good since we do RaycastAll(), which is expensive.
 				RaycastHit hitInfo;
@@ -186,8 +189,11 @@ public class PlayerControls : MonoBehaviour
 		Vector3 camPos = Camera.main.transform.position;
 		Vector3 camForward = Camera.main.transform.forward;
 
-		RaycastHit[] hits = Physics.RaycastAll(
-			new Ray( transform.position, camForward ),
+		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
+
+		RaycastHit[] hits = Physics.SphereCastAll(
+			new Ray( camPos, camForward ),
+			_interactCheckRadius,
 			_interactCheckDistance,
 			_cutting.cuttableLayer | _actor.actorResources.buddyLayer );
 

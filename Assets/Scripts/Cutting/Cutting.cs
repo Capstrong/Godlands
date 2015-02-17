@@ -10,8 +10,6 @@ public class Cutting : ActorComponent
 		get { return _cuttableLayer; }
 	}
 
-	[SerializeField] KeyCode _cuttingButton = KeyCode.J;
-	[SerializeField] float _cuttingDistance = 0f;
 	[SerializeField] GameObject _visualEffect = null;
 	[SerializeField] Vector3 _visualOffset = Vector3.zero;
 

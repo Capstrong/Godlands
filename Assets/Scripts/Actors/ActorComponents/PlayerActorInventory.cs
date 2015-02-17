@@ -30,8 +30,6 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddyLayer; }
 	}
 
-	[SerializeField] float maxGiveDistance = 2f;
-
 	public override void Awake()
 	{
 		base.Awake();
