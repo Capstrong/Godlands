@@ -34,6 +34,9 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddyLayer; }
 	}
 
+	[SerializeField] float _maxGiveDistance = 2f;
+	[SerializeField] float _resourceGiveSphereCastRadius = 0.25f;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -88,6 +91,13 @@ public class PlayerActorInventory : ActorComponent
 
 	void CheckGiveResources( RaycastHit hitInfo )
 	{
+		Physics.SphereCast( new Ray( transform.position,
+		                             ( actor as PlayerActor ).actorCamera.cam.transform.forward ),
+		                    _resourceGiveSphereCastRadius,
+		                    out hitInfo,
+		                    _maxGiveDistance,
+		                    _buddyLayer );
+
 		if ( hitInfo.transform )
 		{
 			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
@@ -98,7 +108,7 @@ public class PlayerActorInventory : ActorComponent
 			     buddyStats.isAlive &&
 			     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 			{
-				buddyStats.SetGod( godTag );
+				buddyStats.owner = godTag;
 				GiveResource( buddyStats );
 
 				_playerActor.actorPhysics.OverrideLook(
@@ -122,7 +132,21 @@ public class PlayerActorInventory : ActorComponent
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * 3.0f,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
-		newBuddy.SetGod( GetComponent<GodTag>() );
+		newBuddy.owner = GetComponent<GodTag>();
+		newBuddy.statType = buddyItemData.stat;
+
+		MeshRenderer[] childRenderers = newBuddy.gameObject.GetComponentsInChildren<MeshRenderer>();
+
+		foreach ( MeshRenderer meshRenderer in childRenderers )
+		{
+			if ( meshRenderer.gameObject.name == "Body" )
+			{
+				// buddyItemData.prefab.GetComponentInChildren<MeshRenderer>() was not working
+				MeshRenderer render = buddyItemData.prefab.transform.FindChild( "Sphere" ).gameObject.GetComponent<MeshRenderer>();
+				meshRenderer.material = render.material;
+			}
+		}
+
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
 		inventory[heldResources[resourceIndex]]--;

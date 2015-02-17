@@ -711,8 +711,9 @@ MonoBehaviour:
   currResourceTimer: 0
   startingApples: 10
   apples: 0
-  owner: {fileID: 0}
-  heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
+  _startingOwner: {fileID: 0}
+  _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
+  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
 --- !u!114 &11457846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -778,6 +779,7 @@ MonoBehaviour:
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &11483758
 MonoBehaviour:
   m_ObjectHideFlags: 1

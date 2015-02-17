@@ -24,6 +24,10 @@ public class StatObject
 	public Image currentImage = null;
 	public Image maxImage = null;
 	public float statToScaleRatio = 0.0f;
+	public float rechargeDelayTime = 0.0f; // Seconds
+
+	float _rechargeTimer = 0.0f; // Made a property so that it doesn't show up in the inspector where it will be confusing but will show in debug mode.
+	public float rechargeTimer { get { return _rechargeTimer; } set { _rechargeTimer = value; } }
 }
 
 [System.Serializable]
@@ -88,6 +92,8 @@ public class PlayerActorStats : ActorComponent
 
 			if ( statObject.isUsing )
 			{
+				statObject.rechargeTimer = 0.0f;
+
 				statObject.currentValue -= statObject.useRate * Time.deltaTime;
 
 				if ( statObject.currentValue <= 0 )
@@ -99,12 +105,17 @@ public class PlayerActorStats : ActorComponent
 			}
 			else
 			{
+				statObject.rechargeTimer += Time.deltaTime;
+
+				if ( statObject.rechargeTimer > statObject.rechargeDelayTime )
+				{
 					statObject.currentValue += statObject.rechargeRate;
 
 					if ( statObject.currentValue > statObject.currentMax )
 					{
 						statObject.currentValue = statObject.currentMax;
 					}
+				}
 			}
 
 			ScaleCurrImage( statObject );

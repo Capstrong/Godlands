@@ -1100,6 +1100,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11435354}
   - 114: {fileID: 11438208}
+  - 114: {fileID: 11410354}
   - 114: {fileID: 11480420}
   m_Layer: 10
   m_Name: Player
@@ -2158,8 +2159,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
+  m_LocalRotation: {x: .00130014506, y: .676045895, z: -.00133305695, w: -.736857235}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -3284,16 +3285,29 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 1
-    - startingMax: 1
-      maxIncrement: .5
-      useRate: 0
-      rechargeRate: .5
+    - startingMax: 10
+      maxIncrement: 5
+      useRate: 1.5
+      rechargeRate: 1
       currentMax: 10
       currentValue: 10
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: 1
+      statToScaleRatio: .100000001
+--- !u!114 &11410354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c4a0dad32f1bc4a86de5f609edd732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerKey: 61
+  _statToIncrease: 3
 --- !u!114 &11435354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3306,12 +3320,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _cuttableLayer:
+  _cutableLayer:
     serializedVersion: 2
     m_Bits: 4096
+  _cuttingButton: 323
+  _cuttingDistance: 2
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
-  _lookOverrideDuration: .5
 --- !u!114 &11438208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3334,8 +3349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c5808a54328b24e9e66362a1559c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactCheckDistance: 10
-  _interactCheckRadius: .200000003
 --- !u!114 &11480106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3513,10 +3526,11 @@ MonoBehaviour:
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies:
   - {fileID: 0}
-  _lookOverrideDuration: .5
-  _buddyLayer:
+  buddyLayer:
     serializedVersion: 2
     m_Bits: 256
+  _maxGiveDistance: 2
+  _resourceGiveSphereCastRadius: .25
 --- !u!114 &11480134
 MonoBehaviour:
   m_ObjectHideFlags: 1
