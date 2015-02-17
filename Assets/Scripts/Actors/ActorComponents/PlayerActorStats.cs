@@ -47,6 +47,11 @@ public class PlayerActorStats : ActorComponent
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
 			ScaleMaxImage( pair.Value );
+
+			// This is awful and is only here because I can't edit the scene and don't want to give Tasha another thing to do
+			GameObject skillBarRoot = GameObject.Find( pair.Key.ToString() + " Bar" );
+			pair.Value.maxImage = skillBarRoot.transform.FindChild( "Max Image" ).gameObject.GetComponent<Image>();
+			pair.Value.currentImage = skillBarRoot.transform.FindChild( "Curr Image" ).gameObject.GetComponent<Image>();
 		}
 	}
 
