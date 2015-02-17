@@ -1127,7 +1127,6 @@ MonoBehaviour:
   m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Priority: 3
   ignoreReversedGraphics: 1
   blockingObjects: 0
   m_BlockingMask:
@@ -13660,6 +13659,7 @@ MonoBehaviour:
   _leanTowardsSurface: .25
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &298744672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57021,6 +57021,7 @@ MonoBehaviour:
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
+  _glideTurnRate: .5
 --- !u!114 &1215378093
 MonoBehaviour:
   m_ObjectHideFlags: 0
