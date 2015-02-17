@@ -332,7 +332,7 @@ public sealed class ActorPhysics : ActorComponent
 
 			ChangeState( ActorStates.Jumping );
 
-			if ( !actor.animator )
+			if ( actor.animator )
 			{
 				actor.animator.SetBool( "isClimbing", false );
 			}
@@ -523,7 +523,7 @@ public sealed class ActorPhysics : ActorComponent
 		bumper.gameObject.SetActive( false );
 		climbBumper.gameObject.SetActive( true );
 
-		if ( !actor.animator )
+		if ( actor.animator )
 		{
 			actor.animator.SetBool( "isClimbing", true );
 		}

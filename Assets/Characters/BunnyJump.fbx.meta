@@ -156,7 +156,7 @@ ModelImporter:
     4300000: PM3D_Sphere3D1_2
     4300002: polySurface11
     4300004: Merged_PM3D_Sphere3D2
-    7400000: Take 001
+    7400000: Jump
     9500000: //RootNode
     11100000: //RootNode
     13700000: Merged_PM3D_Sphere3D2
@@ -170,13 +170,187 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      firstFrame: 27
+      lastFrame: 62
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: C_hip01
+        weight: 1
+      - path: C_hip01/C_spine01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/L_ear01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/L_ear01/L_ear02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/L_ear01/L_ear02/L_ear03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/L_ear01/L_ear02/L_ear03/L_earEnd
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/lowPolyRabbit_rigStart:c_head01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/PM3D_Sphere3D1_2
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/R_ear01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/R_ear01/R_ear02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/R_ear01/R_ear02/R_ear03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/C_neck01/R_ear01/R_ear02/R_ear03/R_earEnd
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_index01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_index01/L_index02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_index01/L_index02/L_index03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_index01/L_index02/L_index03/L_index04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_middle01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_middle01/L_middle02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_middle01/L_middle02/L_middle03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_middle01/L_middle02/L_middle03/L_middle04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_pinky01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_pinky01/L_pinky02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_pinky01/L_pinky02/L_pinky03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_pinky01/L_pinky02/L_pinky03/L_pinky04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_ring01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_ring01/L_ring02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_ring01/L_ring02/L_ring03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_ring01/L_ring02/L_ring03/L_ring04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_thumb01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_thumb01/L_thumb02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/L_clavicle01/L_shoulder01/L_elbow01/L_wrist01/L_thumb01/L_thumb02/L_thumb03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_index01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_index01/R_index02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_index01/R_index02/R_index03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_index01/R_index02/R_index03/R_index04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_middle01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_middle01/R_middle02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_middle01/R_middle02/R_middle03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_middle01/R_middle02/R_middle03/R_middle04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_pinky01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_pinky01/R_pinky02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_pinky01/R_pinky02/R_pinky03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_pinky01/R_pinky02/R_pinky03/R_pinky04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_ring01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_ring01/R_ring02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_ring01/R_ring02/R_ring03
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_ring01/R_ring02/R_ring03/R_ring04
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_thumb01
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_thumb01/R_thumb02
+        weight: 1
+      - path: C_hip01/C_spine01/C_spine02/C_spine03/R_clavicle01/R_shoulder01/R_elbow01/R_wrist01/R_thumb01/R_thumb02/R_thumb03
+        weight: 1
+      - path: C_hip01/L_hip01
+        weight: 1
+      - path: C_hip01/L_hip01/L_knee01
+        weight: 1
+      - path: C_hip01/L_hip01/L_knee01/L_ankle01
+        weight: 1
+      - path: C_hip01/L_hip01/L_knee01/L_ankle01/L_foot01
+        weight: 1
+      - path: C_hip01/L_hip01/L_knee01/L_ankle01/L_foot01/L_foot_toe01
+        weight: 1
+      - path: C_hip01/R_hip01
+        weight: 1
+      - path: C_hip01/R_hip01/R_knee01
+        weight: 1
+      - path: C_hip01/R_hip01/R_knee01/R_ankle01
+        weight: 1
+      - path: C_hip01/R_hip01/R_knee01/R_ankle01/R_foot01
+        weight: 1
+      - path: C_hip01/R_hip01/R_knee01/R_ankle01/R_foot01/R_foot_toe01
+        weight: 1
+      - path: Merged_PM3D_Sphere3D2
+        weight: 1
+      - path: polySurface11
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -199,7 +373,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     human: []
     skeleton: []
@@ -210,8 +384,9 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+    rootMotionBoneName: C_hip01
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8946ab9baea6190449958d9627aeed32,
+    type: 3}
+  animationType: 2
   additionalBone: 0
   userData: 
