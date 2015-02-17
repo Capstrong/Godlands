@@ -11,15 +11,10 @@ public class PlayerControls : MonoBehaviour
 	PlayerActor _actor;
 	ActorPhysics _actorPhysics;
 	Cutting _cutting;
-	bool _holdButtonDown = false;
-
-	bool _useButtonLast = false;
-	bool _useButtonDown = false;
-	bool _useButtonPressed = false;
-
-	bool _jumpButtonLast = false;
-	bool _jumpButtonDown = false;
-	bool _jumpButtonPressed = false;
+	
+	Button _holdButton = new Button( "Hold" );
+	Button _useButton  = new Button( "Use" );
+	Button _jumpButton = new Button( "Jump" );
 
 	void Awake()
 	{
@@ -37,15 +32,9 @@ public class PlayerControls : MonoBehaviour
 			Application.Quit();
 		}
 
-		_holdButtonDown = InputUtils.GetButton( "Hold" );
-
-		_useButtonLast = _useButtonDown;
-		_useButtonDown  = InputUtils.GetButton( "Use" );
-		_useButtonPressed = _useButtonDown && !_useButtonLast;
-
-		_jumpButtonLast = _jumpButtonDown;
-		_jumpButtonDown = InputUtils.GetButton( "Jump" );
-		_jumpButtonPressed = _jumpButtonDown && !_jumpButtonLast;
+		_holdButton.Update();
+		_useButton.Update();
+		_jumpButton.Update();
 	}
 
 	#region Physics States
@@ -61,20 +50,20 @@ public class PlayerControls : MonoBehaviour
 
 	void Jumping()
 	{
-		if ( _actorPhysics.GroundedCheck() && _jumpButtonPressed )
+		if ( _actorPhysics.GroundedCheck() && _jumpButton.pressed )
 		{
 			_actorPhysics.JumpCheck();
 		}
 		else
 		{
-			if ( _holdButtonDown )
+			if ( _holdButton.down )
 			{
 				_actorPhysics.ClimbCheck();
 			}
 
 			_actorPhysics.RollCheck();
 
-			if ( _holdButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
+			if ( _holdButton.down && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 			{
 				_actor.actorStats.StartUsingStat( Stat.Gliding );
 				_actorPhysics.StartGlide();
@@ -95,7 +84,7 @@ public class PlayerControls : MonoBehaviour
 	void Climbing()
 	{
 		if ( _actorPhysics.ClimbCheck() &&
-		     _holdButtonDown &&
+		     _holdButton.down &&
 		     _actor.actorStats.CanUseStat( Stat.Stamina ) )
 		{
 			_actor.actorStats.StartUsingStat( Stat.Stamina );
@@ -112,20 +101,18 @@ public class PlayerControls : MonoBehaviour
 	{
 		if ( _actorPhysics.GroundedCheck() )
 		{
-			if ( _jumpButtonPressed )
+			if ( _jumpButton.pressed )
 			{
 				_actorPhysics.JumpCheck();
 			}
 
-			if ( _holdButtonDown )
+			if ( _holdButton.down )
 			{
 				_actorPhysics.ClimbCheck();
 			}
 
-			if ( _useButtonPressed )
+			if ( _useButton.pressed )
 			{
-				_useButtonPressed = false; // FixedUpdate() might be called before Update() is, so manually reset the value.
-
 				// This allows us to do one raycast for both actions
 				// which is good since we do RaycastAll(), which is expensive.
 				RaycastHit hitInfo;
@@ -146,18 +133,18 @@ public class PlayerControls : MonoBehaviour
 
 	void Gliding()
 	{
-		if ( _jumpButtonPressed )
+		if ( _jumpButton.pressed )
 		{
 			_actorPhysics.JumpCheck();
 		}
 
-		if ( _holdButtonDown )
+		if ( _holdButton.down )
 		{
 			_actorPhysics.ClimbCheck();
 		}
 
 		if ( !_actorPhysics.GroundedCheck() &&
-		     _holdButtonDown &&
+		     _holdButton.down &&
 		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.GlideMovement( GetMoveDirection() );
