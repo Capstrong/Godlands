@@ -12,10 +12,14 @@ public class PlayerControls : MonoBehaviour
 	ActorPhysics _actorPhysics;
 	Cutting _cutting;
 	bool _holdButtonDown = false;
+
 	bool _useButtonLast = false;
 	bool _useButtonDown = false;
 	bool _useButtonPressed = false;
+
+	bool _jumpButtonLast = false;
 	bool _jumpButtonDown = false;
+	bool _jumpButtonPressed = false;
 
 	void Awake()
 	{
@@ -39,7 +43,9 @@ public class PlayerControls : MonoBehaviour
 		_useButtonDown  = InputUtils.GetButton( "Use" );
 		_useButtonPressed = _useButtonDown && !_useButtonLast;
 
+		_jumpButtonLast = _jumpButtonDown;
 		_jumpButtonDown = InputUtils.GetButton( "Jump" );
+		_jumpButtonPressed = _jumpButtonDown && !_jumpButtonLast;
 	}
 
 	#region Physics States
@@ -55,7 +61,7 @@ public class PlayerControls : MonoBehaviour
 
 	void Jumping()
 	{
-		if ( _actorPhysics.GroundedCheck() && _jumpButtonDown )
+		if ( _actorPhysics.GroundedCheck() && _jumpButtonPressed )
 		{
 			_actorPhysics.JumpCheck();
 		}
@@ -106,7 +112,7 @@ public class PlayerControls : MonoBehaviour
 	{
 		if ( _actorPhysics.GroundedCheck() )
 		{
-			if ( _jumpButtonDown )
+			if ( _jumpButtonPressed )
 			{
 				_actorPhysics.JumpCheck();
 			}
@@ -140,7 +146,7 @@ public class PlayerControls : MonoBehaviour
 
 	void Gliding()
 	{
-		if ( _jumpButtonDown )
+		if ( _jumpButtonPressed )
 		{
 			_actorPhysics.JumpCheck();
 		}
