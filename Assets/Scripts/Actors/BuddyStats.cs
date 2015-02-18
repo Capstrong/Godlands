@@ -65,6 +65,7 @@ public class BuddyStats : MonoBehaviour
 		return names[randIndex] + ID;
 	}
 
+/* TEMPORARY CHANGE FOR SHOWBUILD, DO NOT MERGE IN
 	void Update()
 	{
 		// Replace this with an invoke
@@ -94,6 +95,7 @@ public class BuddyStats : MonoBehaviour
 			Kill();
 		}
 	}
+*/
 
 	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
 	{

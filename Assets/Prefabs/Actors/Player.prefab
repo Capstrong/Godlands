@@ -3267,15 +3267,15 @@ MonoBehaviour:
     values:
     - startingMax: 1
       maxIncrement: .5
-      useRate: 0
-      rechargeRate: .5
+      useRate: .119999997
+      rechargeRate: 1
       currentMax: 0
       currentValue: 0
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 1
-      rechargeDelayTime: 0
+      rechargeDelayTime: 2
     - startingMax: 1
       maxIncrement: .5
       useRate: .5
@@ -3286,18 +3286,18 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 1
-      rechargeDelayTime: 0
+      rechargeDelayTime: 2
     - startingMax: 10
       maxIncrement: 5
       useRate: 1.5
-      rechargeRate: 1
+      rechargeRate: 10
       currentMax: 10
       currentValue: 10
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: .100000001
-      rechargeDelayTime: 0
+      rechargeDelayTime: 2
 --- !u!114 &11410354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3552,10 +3552,10 @@ MonoBehaviour:
   minCamDist: 1
   camLayer:
     serializedVersion: 2
-    m_Bits: 4294966527
+    m_Bits: 1
   waterLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   hitPosOffsetDist: .5
   rotSpeed: {x: 2.5, y: 2.5}
   rotBounds:

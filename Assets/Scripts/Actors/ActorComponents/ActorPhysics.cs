@@ -332,6 +332,11 @@ public sealed class ActorPhysics : ActorComponent
 
 			ChangeState( ActorStates.Jumping );
 
+			Vector3 rotation = transform.rotation.eulerAngles;
+			rotation.x = 0.0f;
+			rotation.z = 0.0f;
+			transform.rotation = Quaternion.identity;// Quaternion.Euler( rotation ) * transform.rotation; // SUPER HACKY FIX FOR BAD ANIMATINO, DO NOT MERGE IN
+
 			if ( actor.animator )
 			{
 				actor.animator.SetBool( "isClimbing", false );
@@ -546,7 +551,8 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			Vector3 lookVector = _climbSurface.forward;
 			lookVector.y *= _leanTowardsSurface;
-			desiredLook = Quaternion.LookRotation( lookVector );
+			desiredLook = Quaternion.LookRotation( lookVector )
+			              * Quaternion.Euler( -90.0f, 0.0f, 0.0f ); // SUPER HACKY THING TO FIX BAD ANIMATION, DO NOT MERGE IN.
 		}
 		else
 		{

@@ -109,7 +109,7 @@ public class PlayerActorStats : ActorComponent
 
 				if ( statObject.rechargeTimer > statObject.rechargeDelayTime )
 				{
-					statObject.currentValue += statObject.rechargeRate;
+					statObject.currentValue += statObject.rechargeRate * Time.deltaTime;
 
 					if ( statObject.currentValue > statObject.currentMax )
 					{
