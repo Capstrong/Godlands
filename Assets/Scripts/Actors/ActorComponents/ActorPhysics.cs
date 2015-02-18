@@ -430,6 +430,8 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		rigidbody.useGravity = true;
 
+		ChangeState( ActorStates.Falling );
+
 		if ( actor.animator )
 		{
 			actor.animator.SetBool( "isJumping", false );
