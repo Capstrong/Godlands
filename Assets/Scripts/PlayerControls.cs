@@ -76,7 +76,7 @@ public class PlayerControls : MonoBehaviour
 					player.physics.ChangeState( ActorStates.Climbing );
 				}
 
-				if ( player.controls.holdButton && player.stats.CanUseStat( Stat.Gliding ) )
+				if ( player.controls.holdButton.down && player.stats.CanUseStat( Stat.Gliding ) )
 				{
 					player.physics.ChangeState( ActorStates.Gliding );
 				}
