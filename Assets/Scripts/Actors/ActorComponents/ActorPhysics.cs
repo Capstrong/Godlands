@@ -256,7 +256,10 @@ public sealed class ActorPhysics : ActorComponent
 					}
 				}
 
-				StartClimbing( nearestCol.GetComponent<ClimbableTag>() );
+				ClimbableTag climbTag = nearestCol.GetComponent<ClimbableTag>();
+				_climbTag = climbTag;
+				_climbSurface = _climbTag.GetComponent<Transform>();
+
 				climbing = true;
 			}
 			else
@@ -346,12 +349,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void StartGlide()
 	{
-		if ( !_isOnGround )
-		{
-			ChangeState( ActorStates.Gliding );
-
-			rigidbody.useGravity = false;
-		}
+		rigidbody.useGravity = false;
 	}
 
 	public void EndGlide()
@@ -446,23 +444,13 @@ public sealed class ActorPhysics : ActorComponent
 		_currentStateMethod.Enter();
 	}
 
-	void StartClimbing( ClimbableTag climbTag )
+	public void StartClimbing()
 	{
-		_climbTag = climbTag;
-		_climbSurface = _climbTag.GetComponent<Transform>();
-
-		ChangeState( ActorStates.Climbing );
-		
 		rigidbody.useGravity = false;
 		rigidbody.velocity = Vector3.zero;
 		lifter.gameObject.SetActive( false );
 		bumper.gameObject.SetActive( false );
 		climbBumper.gameObject.SetActive( true );
-
-		if ( actor.animator )
-		{
-			actor.animator.SetBool( "isClimbing", true );
-		}
 	}
 
 	/**

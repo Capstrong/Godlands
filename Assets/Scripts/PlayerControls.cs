@@ -106,6 +106,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.animator.SetBool( "isClimbing", true );
 			player.stats.StartUsingStat( Stat.Stamina );
+			player.physics.StartClimbing();
 		}
 
 		public override void Update()
@@ -126,6 +127,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.animator.SetBool( "isClimbing", false );
 			player.stats.StopUsingStat( Stat.Stamina );
+			player.physics.StopClimbing();
 		}
 	}
 
@@ -197,6 +199,7 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Enter()
 		{
+			player.physics.StartGlide();
 			player.stats.StartUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", true );
 		}
@@ -215,15 +218,21 @@ public class PlayerControls : MonoBehaviour
 				player.physics.ChangeState( ActorStates.Climbing );
 			}
 
-			if ( !player.physics.GroundedCheck() &&
-			     player.controls.holdButton &&
+			if ( player.controls.holdButton &&
 			     player.stats.CanUseStat( Stat.Gliding ) )
 			{
-				player.physics.GlideMovement( player.controls.GetMoveDirection() );
+				if ( !player.physics.GroundedCheck() )
+				{
+					player.physics.GlideMovement( player.controls.GetMoveDirection() );
+				}
+				else
+				{
+					player.physics.ChangeState( ActorStates.Grounded );
+				}
 			}
 			else
 			{
-				player.physics.EndGlide();
+				player.physics.ChangeState( ActorStates.Falling );
 			}
 		}
 
@@ -231,6 +240,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.stats.StopUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", false );
+			player.physics.EndGlide();
 		}
 	}
 
