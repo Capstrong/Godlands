@@ -4,17 +4,14 @@ using System.Collections;
 public class BuddyStats : MonoBehaviour
 {
 	public Stat statType = Stat.Invalid;
-	[SerializeField] bool canDecreaseStamina = true;
-	[SerializeField] float decreaseResourcesTime = 60.0f; //seconds
-	[SerializeField] float currResourceTimer = 0.0f;
 	[SerializeField] int startingApples = 10;
 	[SerializeField] int apples = 0;
 	[SerializeField] GodTag _startingOwner = null;
 
 	PlayerActorStats _actorStats = null;
 
-	[SerializeField] Material _heartMaterial;
-	[SerializeField] Material _sadMaterial;
+	[SerializeField] Material _heartMaterial = null;
+	[SerializeField] Material _sadMaterial = null;
 
 	private GodTag _owner = null;
 	public GodTag owner
@@ -44,7 +41,6 @@ public class BuddyStats : MonoBehaviour
 	{
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
-		currResourceTimer = decreaseResourcesTime;
 		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
 		owner = _startingOwner; // For owners set in the inspector
@@ -64,38 +60,6 @@ public class BuddyStats : MonoBehaviour
 
 		return names[randIndex] + ID;
 	}
-
-/* TEMPORARY CHANGE FOR SHOWBUILD, DO NOT MERGE IN
-	void Update()
-	{
-		// Replace this with an invoke
-		currResourceTimer -= Time.deltaTime;
-
-		if ( currResourceTimer < 0.0f && _isAlive )
-		{
-			// decrease resources
-			apples--;
-
-			if (canDecreaseStamina)
-			{
-				_actorStats.DecrementMaxStat( statType );
-				Emote( _sadMaterial );
-			}
-			
-			currResourceTimer = decreaseResourcesTime;
-
-			if ( apples <= 0 )
-			{
-				Kill();
-			}
-		}
-
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			Kill();
-		}
-	}
-*/
 
 	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
 	{

@@ -122,7 +122,7 @@ public class PlayerActorInventory : ActorComponent
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
 
-			_playerActor.actorPhysics.OverrideLook(
+			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
 				_lookOverrideDuration );
 		}
@@ -130,7 +130,7 @@ public class PlayerActorInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (actor as PlayerActor).actorStats, (ResourceData)heldResources[resourceIndex] );
+		buddyStats.GiveResource( (actor as PlayerActor).stats, (ResourceData)heldResources[resourceIndex] );
 		inventory[heldResources[resourceIndex]]--;
 
 		UpdateResourceList();

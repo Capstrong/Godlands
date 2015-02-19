@@ -58,7 +58,7 @@ public class Cutting : ActorComponent
 		Vector3 camForward = Camera.main.transform.forward;
 		camForward.y = 0.0f;
 
-		actor.actorPhysics.OverrideLook( camForward, _lookOverrideDuration );
+		actor.physics.OverrideLook( camForward, _lookOverrideDuration );
 
 		Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
 

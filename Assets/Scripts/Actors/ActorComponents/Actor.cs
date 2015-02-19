@@ -29,7 +29,7 @@ public class Actor : MonoBehaviour
 	}
 	
 	ActorPhysics _actorPhysics;
-	public ActorPhysics actorPhysics
+	public ActorPhysics physics
 	{
 		get { return _actorPhysics; }
 	}

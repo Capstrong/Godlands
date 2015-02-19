@@ -9,18 +9,28 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _interactCheckRadius = 0.2f;
 
 	PlayerActor _actor;
-	ActorPhysics _actorPhysics;
-	Cutting _cutting;
 	
 	Button _holdButton = new Button( "Hold" );
+	public Button holdButton
+	{
+		get { return _holdButton; }
+	}
+
 	Button _useButton  = new Button( "Use" );
+	public Button useButton
+	{
+		get { return _useButton; }
+	}
+
 	Button _jumpButton = new Button( "Jump" );
+	public Button jumpButton
+	{
+		get { return _jumpButton; }
+	}
 
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
-		_actorPhysics = GetComponent<ActorPhysics>();
-		_cutting = GetComponent<Cutting>();
 
 		SetupStateMethodMap();
 	}
@@ -38,129 +48,199 @@ public class PlayerControls : MonoBehaviour
 	}
 
 	#region Physics States
-	void SetupStateMethodMap()
+	public class Jumping : PhysicsState
 	{
-		_actorPhysics.RegisterStateMethod( ActorStates.Jumping,  Jumping );
-		_actorPhysics.RegisterStateMethod( ActorStates.Falling,  Jumping );
-		_actorPhysics.RegisterStateMethod( ActorStates.Grounded, Grounded );
-		_actorPhysics.RegisterStateMethod( ActorStates.Rolling,  Rolling );
-		_actorPhysics.RegisterStateMethod( ActorStates.Climbing, Climbing );
-		_actorPhysics.RegisterStateMethod( ActorStates.Gliding,  Gliding );
-	}
+		public PlayerActor player;
 
-	void Jumping()
-	{
-		if ( _actorPhysics.GroundedCheck() && _jumpButton.down )
+		public Jumping( PlayerActor player )
 		{
-			_actorPhysics.JumpCheck();
+			this.player = player;
 		}
-		else
+
+		public override void Enter()
 		{
-			if ( _holdButton )
-			{
-				_actorPhysics.ClimbCheck();
-			}
+			player.animator.SetBool( "isJumping", true );
+		}
 
-			_actorPhysics.RollCheck();
-
-			if ( _holdButton && _actor.actorStats.CanUseStat( Stat.Gliding ) )
+		public override void Update()
+		{
+			if ( player.physics.GroundedCheck() )
 			{
-				_actor.actorStats.StartUsingStat( Stat.Gliding );
-				_actorPhysics.StartGlide();
+				player.physics.ChangeState( ActorStates.Grounded );
 			}
 			else
 			{
-				_actorPhysics.JumpMovement( GetMoveDirection() );
-			}
-		}
-	}
-
-	void Rolling()
-	{
-		_actorPhysics.RollCheck();
-		_actorPhysics.RollMovement();
-	}
-
-	void Climbing()
-	{
-		if ( _actorPhysics.ClimbCheck() &&
-		     _holdButton &&
-		     _actor.actorStats.CanUseStat( Stat.Stamina ) )
-		{
-			_actor.actorStats.StartUsingStat( Stat.Stamina );
-			_actorPhysics.ClimbSurface( GetMoveInput() );
-		}
-		else
-		{
-			_actor.actorStats.StopUsingStat( Stat.Stamina );
-			_actorPhysics.StopClimbing();
-		}
-	}
-
-	void Grounded()
-	{
-		if ( _actorPhysics.GroundedCheck() )
-		{
-			if ( _jumpButton.down )
-			{
-				_actorPhysics.JumpCheck();
-			}
-
-			if ( _holdButton )
-			{
-				_actorPhysics.ClimbCheck();
-			}
-
-			if ( _useButton.down )
-			{
-				if( _actor.actorResources.CanUseItemWithoutTarget() )
+				if ( player.controls.holdButton &&
+				     player.physics.ClimbCheck() )
 				{
-					_actor.actorResources.UseItem( );
+					player.physics.ChangeState( ActorStates.Climbing );
+				}
+
+				if ( player.controls.holdButton && player.stats.CanUseStat( Stat.Gliding ) )
+				{
+					player.physics.ChangeState( ActorStates.Gliding );
 				}
 				else
 				{
-					// This allows us to do one raycast for both actions
-					// which is good since we do RaycastAll(), which is expensive.
-					RaycastHit hitInfo;
-					if ( RaycastForward( out hitInfo ) )
-					{
-						if ( !_cutting.CutCheck( hitInfo ) )
-						{
-							_actor.actorResources.UseItemWithTarget( hitInfo );
-						}
-					}
+					player.physics.JumpMovement( player.controls.GetMoveDirection() );
 				}
 			}
+		}
 
-			_actorPhysics.RollCheck();
-
-			GroundMovement();
+		public override void Exit()
+		{
+			player.animator.SetBool( "isJumping", false );
 		}
 	}
 
-	void Gliding()
+	public class Climbing : PhysicsState
 	{
-		if ( _jumpButton.down )
+		PlayerActor player;
+
+		public Climbing( PlayerActor player )
 		{
-			_actorPhysics.JumpCheck();
+			this.player = player;
 		}
 
-		if ( _holdButton )
+		public override void Enter()
 		{
-			_actorPhysics.ClimbCheck();
+			player.animator.SetBool( "isClimbing", true );
+			player.stats.StartUsingStat( Stat.Stamina );
 		}
 
-		if ( !_actorPhysics.GroundedCheck() &&
-		     _holdButton &&
-		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
+		public override void Update()
 		{
-			_actorPhysics.GlideMovement( GetMoveDirection() );
+			if ( player.physics.ClimbCheck() &&
+			     player.controls.holdButton &&
+			     player.stats.CanUseStat( Stat.Stamina ) )
+			{
+				player.physics.ClimbSurface( player.controls.GetMoveInput() );
+			}
+			else
+			{
+				player.physics.ChangeState( ActorStates.Falling );
+			}
 		}
-		else
+
+		public override void Exit()
 		{
-			_actor.actorStats.StopUsingStat( Stat.Gliding );
-			_actorPhysics.EndGlide();
+			player.animator.SetBool( "isClimbing", false );
+			player.stats.StopUsingStat( Stat.Stamina );
 		}
+	}
+
+	public class Grounded : PhysicsState
+	{
+		PlayerActor player;
+
+		public Grounded( PlayerActor player )
+		{
+			this.player = player;
+		}
+
+		public override void Enter() { }
+
+		public override void Update()
+		{
+			if ( player.physics.GroundedCheck() )
+			{
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
+				{
+					player.physics.ChangeState( ActorStates.Jumping );
+				}
+
+				if ( player.controls.holdButton &&
+				     player.physics.ClimbCheck() )
+				{
+					player.physics.ChangeState( ActorStates.Climbing );
+				}
+
+				if ( player.controls.useButton.down )
+				{
+					if ( player.inventory.CanUseItemWithoutTarget() )
+					{
+						player.inventory.UseItem();
+					}
+					else
+					{
+						// This allows us to do one raycast for both actions
+						// which is good since we do RaycastAll(), which is expensive.
+						RaycastHit hitInfo;
+						if ( player.controls.RaycastForward( out hitInfo ) )
+						{
+							if ( !player.cutting.CutCheck( hitInfo ) )
+							{
+								player.inventory.UseItemWithTarget( hitInfo );
+							}
+						}
+					}
+				}
+
+				player.controls.GroundMovement();
+			}
+
+			player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+		}
+
+		public override void Exit() { }
+	}
+
+	public class Gliding : PhysicsState
+	{
+		PlayerActor player;
+
+		public Gliding( PlayerActor player )
+		{
+			this.player = player;
+		}
+
+		public override void Enter()
+		{
+			player.stats.StartUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isGliding", true );
+		}
+
+		public override void Update()
+		{
+			if ( player.controls.jumpButton.down &&
+			     player.physics.JumpCheck() )
+			{
+				player.physics.ChangeState( ActorStates.Jumping );
+			}
+
+			if ( player.controls.holdButton &&
+			     player.physics.ClimbCheck() )
+			{
+				player.physics.ChangeState( ActorStates.Climbing );
+			}
+
+			if ( !player.physics.GroundedCheck() &&
+			     player.controls.holdButton &&
+			     player.stats.CanUseStat( Stat.Gliding ) )
+			{
+				player.physics.GlideMovement( player.controls.GetMoveDirection() );
+			}
+			else
+			{
+				player.physics.EndGlide();
+			}
+		}
+
+		public override void Exit()
+		{
+			player.stats.StopUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isGliding", false );
+		}
+	}
+
+	void SetupStateMethodMap()
+	{
+		_actor.physics.RegisterStateMethod( ActorStates.Jumping,  new Jumping( _actor ) );
+		_actor.physics.RegisterStateMethod( ActorStates.Falling,  new Jumping( _actor ) );
+		_actor.physics.RegisterStateMethod( ActorStates.Grounded, new Grounded( _actor ) );
+		_actor.physics.RegisterStateMethod( ActorStates.Climbing, new Climbing( _actor ) );
+		_actor.physics.RegisterStateMethod( ActorStates.Gliding,  new Gliding( _actor ) );
 	}
 	#endregion
 
@@ -170,11 +250,11 @@ public class PlayerControls : MonoBehaviour
 
 		if ( inputVec.IsZero() )
 		{
-			_actorPhysics.ComeToStop();
+			_actor.physics.ComeToStop();
 		}
 		else
 		{
-			_actorPhysics.GroundMovement( inputVec );
+			_actor.physics.GroundMovement( inputVec );
 		}
 	}
 
@@ -195,7 +275,7 @@ public class PlayerControls : MonoBehaviour
 			new Ray( camPos, camForward ),
 			_interactCheckRadius,
 			_interactCheckDistance,
-			_cutting.cuttableLayer | _actor.actorResources.buddyLayer );
+			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
 
 		if ( hits.Length == 0 )
 		{

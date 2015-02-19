@@ -7,7 +7,6 @@ public enum ActorStates
 	Grounded = 0,
 	Jumping,
 	Falling,
-	Rolling,
 	Climbing,
 	Gliding
 }
@@ -19,12 +18,11 @@ public sealed class ActorPhysics : ActorComponent
 
 	// States
 	#region States
-	public delegate void ActorStateMethod();
 
 	[ReadOnly, SerializeField]
 	ActorStates _currentState = ActorStates.Jumping;
-	ActorStateMethod CurrentStateMethod;
-	Dictionary<ActorStates, ActorStateMethod> _stateMethodMap = new Dictionary<ActorStates, ActorStateMethod>();
+	PhysicsState _currentStateMethod = new DefaultState();
+	Dictionary<ActorStates, PhysicsState> _stateMethodMap = new Dictionary<ActorStates, PhysicsState>();
 	#endregion
 
 	#region Movement
@@ -102,13 +100,6 @@ public sealed class ActorPhysics : ActorComponent
 	bool _isOnGround = false;
 	#endregion
 
-	#region Rolling
-	[Space( 10 ), Header( "Rolling" )]
-	[SerializeField] float _rollTime = 1f;
-	[SerializeField] float _rollCooldownTime = 1f;
-	float _rollCooldownTimer = 0f;
-	#endregion
-
 	#region Climbing
 	[Space( 10 ), Header( "Climbing" )]
 	[SerializeField] LayerMask _climbLayer = (LayerMask)0;
@@ -156,14 +147,14 @@ public sealed class ActorPhysics : ActorComponent
 		FollowBumper();
 
 		// Update
-		CurrentStateMethod();
+		_currentStateMethod.Update();
 
 		// Post-Update stuff
 		ConstrainBumper();
 		OrientSelf();
 	}
 
-	public void RegisterStateMethod( ActorStates state, ActorStateMethod method )
+	public void RegisterStateMethod( ActorStates state, PhysicsState method )
 	{
 		if ( _stateMethodMap.ContainsKey( state ) )
 		{
@@ -179,43 +170,34 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_isOnGround = false;
 
-		// spherecast down to detect when we're on the ground
-		RaycastHit hit;
-		Physics.SphereCast( transform.position + Vector3.up,
-		                    _jumpCheckRadius,
-		                    -Vector3.up * _jumpCheckDistance,
-		                    out hit,
-		                    _jumpCheckDistance,
-		                    _jumpLayer );
-		_isOnGround = ( hit.transform &&
-		                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
-
-		if ( _isOnGround &&
-		     !_jumpCheck &&
-		     !IsInState( ActorStates.Climbing ) )
+		if ( !_jumpCheck )
 		{
-			if ( !IsInState( ActorStates.Grounded ) && !IsInState( ActorStates.Rolling ) )
+			// spherecast down to detect when we're on the ground
+			RaycastHit hit;
+			Physics.SphereCast( transform.position + Vector3.up,
+			                    _jumpCheckRadius,
+			                    -Vector3.up * _jumpCheckDistance,
+			                    out hit,
+			                    _jumpCheckDistance,
+			                    _jumpLayer );
+			_isOnGround = ( hit.transform &&
+			                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
+
+			if ( _isOnGround &&
+			     !_jumpCheck &&
+			     !IsInState( ActorStates.Climbing ) )
 			{
-				ChangeState( ActorStates.Grounded );
-				_stopMoveTimer = 0f;
-			}
+				if ( !IsInState( ActorStates.Grounded ) )
+				{
+					_stopMoveTimer = 0f;
+				}
 
-			actor.animator.SetBool( "isJumping", false );
-			CancelLateJumpTimer();
-			//actor.GetAnimator().SetBool("isSliding", false);
-		}
-		else if ( IsInState( ActorStates.Grounded ) )
-		{
-			if ( !actor.animator )
+				CancelLateJumpTimer();
+			}
+			else if ( IsInState( ActorStates.Grounded ) )
 			{
-				actor.animator.SetBool( "isJumping", true );
-				//actor.GetAnimator().SetBool("isSliding", false);
+				StartLateJumpTimer();
 			}
-
-			// start falling
-			StartLateJumpTimer();
-
-			ChangeState( ActorStates.Falling );
 		}
 
 		return _isOnGround;
@@ -232,8 +214,6 @@ public sealed class ActorPhysics : ActorComponent
 
 		_moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = _moveVec;
-
-		if ( actor.animator ) actor.animator.SetBool( "isMoving", false );
 
 		if ( _jumpColCheckTimer > _jumpColCheckTime )
 		{
@@ -321,57 +301,15 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void StopClimbing()
 	{
-		if ( _climbSurface )
-		{
-			_climbSurface = null;
-			_climbTag = null;
-			rigidbody.useGravity = true;
-			lifter.gameObject.SetActive( true );
-			bumper.gameObject.SetActive( true );
-			climbBumper.gameObject.SetActive( false );
-
-			ChangeState( ActorStates.Jumping );
-
-			Vector3 rotation = transform.rotation.eulerAngles;
-			rotation.x = 0.0f;
-			rotation.z = 0.0f;
-			transform.rotation = Quaternion.identity;// Quaternion.Euler( rotation ) * transform.rotation; // SUPER HACKY FIX FOR BAD ANIMATINO, DO NOT MERGE IN
-
-			if ( actor.animator )
-			{
-				actor.animator.SetBool( "isClimbing", false );
-			}
-		}
+		_climbSurface = null;
+		_climbTag = null;
+		rigidbody.useGravity = true;
+		lifter.gameObject.SetActive( true );
+		bumper.gameObject.SetActive( true );
+		climbBumper.gameObject.SetActive( false );
 	}
 
-	public void RollCheck()
-	{
-		if ( IsInState( ActorStates.Rolling ) )
-		{
-			if ( _rollCooldownTimer >= _rollTime )
-			{
-				ChangeState( ActorStates.Jumping );
-				actor.animator.SetBool( "isRolling", false );
-			}
-		}
-		else if ( Input.GetButtonDown( "Roll" + PlatformUtils.platformName ) &&
-		          _rollCooldownTimer >= _rollCooldownTime && !_moveVec.IsZero() )
-		{
-			ChangeState( ActorStates.Rolling );
-			actor.animator.SetBool( "isRolling", true );
-
-			_rollCooldownTimer = 0f;
-		}
-
-		_rollCooldownTimer += Time.deltaTime;
-	}
-
-	public void RollMovement()
-	{
-		MoveAtSpeed( _moveVec.normalized, _rollMoveSpeed );
-	}
-
-	public void JumpCheck()
+	public bool JumpCheck()
 	{
 		if ( _isOnGround || _lateJump )
 		{
@@ -383,12 +321,12 @@ public sealed class ActorPhysics : ActorComponent
 			rigidbody.useGravity = true;
 
 			_jumpColCheckTimer = 0.0f;
-			actor.animator.SetBool( "isJumping", true );
-			//actor.GetAnimator().SetBool("isSliding", false);
-
-			ChangeState( ActorStates.Jumping );
 			StartJumpCheckDelayTimer();
+
+			return true;
 		}
+
+		return false;
 	}
 
 	public void JumpMovement( Vector3 inputVec )
@@ -403,11 +341,6 @@ public sealed class ActorPhysics : ActorComponent
 			_moveVec.y = rigidbody.velocity.y;
 
 			rigidbody.velocity = _moveVec;
-
-			if ( actor.animator )
-			{
-				actor.animator.SetBool( "isMoving", true );
-			}
 		}
 	}
 
@@ -418,24 +351,12 @@ public sealed class ActorPhysics : ActorComponent
 			ChangeState( ActorStates.Gliding );
 
 			rigidbody.useGravity = false;
-
-			if ( actor.animator )
-			{
-				actor.animator.SetBool( "isJumping", true );
-			}
 		}
 	}
 
 	public void EndGlide()
 	{
 		rigidbody.useGravity = true;
-
-		ChangeState( ActorStates.Falling );
-
-		if ( actor.animator )
-		{
-			actor.animator.SetBool( "isJumping", false );
-		}
 	}
 
 	public void GlideMovement( Vector3 inputVec )
@@ -487,11 +408,6 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec.y = rigidbody.velocity.y;
 
 		rigidbody.velocity = _moveVec;
-
-		if ( actor.animator )
-		{
-			actor.animator.SetBool( "isMoving", true );
-		}
 	}
 
 	/**
@@ -506,15 +422,28 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			if ( !_stateMethodMap.ContainsKey( state ) )
 			{
-				_stateMethodMap.Add( state, delegate() { } );
+				_stateMethodMap.Add( state, new DefaultState() );
 			}
 		}
 	}
 
-	void ChangeState( ActorStates toState )
+	/**
+	 * Transition between physics states.
+	 * 
+	 * Note: This immediately calls the Exit() method of the
+	 * old state and then the Enter() method of the new state.
+	 * If you call ChangeState() multiple times in one frame
+	 * the state transition will take place multiple times,
+	 * including whatever side effects that may entail.
+	 * Best practices is to ensure that you only transition
+	 * states at most once per frame.
+	 */
+	public void ChangeState( ActorStates toState )
 	{
 		_currentState = toState;
-		CurrentStateMethod = _stateMethodMap[_currentState];
+		_currentStateMethod.Exit();
+		_currentStateMethod = _stateMethodMap[_currentState];
+		_currentStateMethod.Enter();
 	}
 
 	void StartClimbing( ClimbableTag climbTag )
@@ -553,8 +482,7 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			Vector3 lookVector = _climbSurface.forward;
 			lookVector.y *= _leanTowardsSurface;
-			desiredLook = Quaternion.LookRotation( lookVector )
-			              * Quaternion.Euler( -90.0f, 0.0f, 0.0f ); // SUPER HACKY THING TO FIX BAD ANIMATION, DO NOT MERGE IN.
+			desiredLook = Quaternion.LookRotation( lookVector );
 		}
 		else
 		{
@@ -644,4 +572,18 @@ public sealed class ActorPhysics : ActorComponent
 		_jumpCheck = false;
 	}
 	#endregion
+}
+
+public abstract class PhysicsState
+{
+	public abstract void Enter();
+	public abstract void Update();
+	public abstract void Exit();
+}
+
+public class DefaultState : PhysicsState
+{
+	public override void Enter() { }
+	public override void Update() { }
+	public override void Exit() { }
 }
