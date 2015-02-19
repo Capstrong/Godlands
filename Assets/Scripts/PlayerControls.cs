@@ -4,16 +4,23 @@ using System.Collections;
 [RequireComponent( typeof( ActorPhysics ) )]
 public class PlayerControls : MonoBehaviour
 {
+	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
+	[SerializeField] float _interactCheckDistance = 5.0f;
+	[SerializeField] float _interactCheckRadius = 0.2f;
+
 	PlayerActor _actor;
 	ActorPhysics _actorPhysics;
-	bool _jumpButtonDown = false;
-	bool _glideButtonDown = false;
-	bool _grabButtonDown = false;
+	Cutting _cutting;
+	
+	Button _holdButton = new Button( "Hold" );
+	Button _useButton  = new Button( "Use" );
+	Button _jumpButton = new Button( "Jump" );
 
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
 		_actorPhysics = GetComponent<ActorPhysics>();
+		_cutting = GetComponent<Cutting>();
 
 		SetupStateMethodMap();
 	}
@@ -25,11 +32,12 @@ public class PlayerControls : MonoBehaviour
 			Application.Quit();
 		}
 
-		_grabButtonDown = WadeUtils.ValidAxisInput( "Grab" );
-		_jumpButtonDown = Input.GetButtonDown( "Jump" + WadeUtils.platformName );
-		_glideButtonDown = Input.GetKey( KeyCode.F );
+		_holdButton.Update();
+		_useButton.Update();
+		_jumpButton.Update();
 	}
 
+	#region Physics States
 	void SetupStateMethodMap()
 	{
 		_actorPhysics.RegisterStateMethod( ActorStates.Jumping,  Jumping );
@@ -42,20 +50,20 @@ public class PlayerControls : MonoBehaviour
 
 	void Jumping()
 	{
-		if ( _actorPhysics.GroundedCheck() && _jumpButtonDown )
+		if ( _actorPhysics.GroundedCheck() && _jumpButton.down )
 		{
 			_actorPhysics.JumpCheck();
 		}
 		else
 		{
-			if ( _grabButtonDown )
+			if ( _holdButton )
 			{
 				_actorPhysics.ClimbCheck();
 			}
 
 			_actorPhysics.RollCheck();
 
-			if ( _glideButtonDown && _actor.actorStats.CanUseStat( Stat.Gliding ) )
+			if ( _holdButton && _actor.actorStats.CanUseStat( Stat.Gliding ) )
 			{
 				_actor.actorStats.StartUsingStat( Stat.Gliding );
 				_actorPhysics.StartGlide();
@@ -76,11 +84,11 @@ public class PlayerControls : MonoBehaviour
 	void Climbing()
 	{
 		if ( _actorPhysics.ClimbCheck() &&
-		     _grabButtonDown &&
+		     _holdButton &&
 		     _actor.actorStats.CanUseStat( Stat.Stamina ) )
 		{
 			_actor.actorStats.StartUsingStat( Stat.Stamina );
-			_actorPhysics.ClimbSurface( GetInput() );
+			_actorPhysics.ClimbSurface( GetMoveInput() );
 		}
 		else
 		{
@@ -93,14 +101,28 @@ public class PlayerControls : MonoBehaviour
 	{
 		if ( _actorPhysics.GroundedCheck() )
 		{
-			if ( _jumpButtonDown )
+			if ( _jumpButton.down )
 			{
 				_actorPhysics.JumpCheck();
 			}
 
-			if ( _grabButtonDown )
+			if ( _holdButton )
 			{
 				_actorPhysics.ClimbCheck();
+			}
+
+			if ( _useButton.down )
+			{
+				// This allows us to do one raycast for both actions
+				// which is good since we do RaycastAll(), which is expensive.
+				RaycastHit hitInfo;
+				if ( RaycastForward( out hitInfo ) )
+				{
+					if ( !_cutting.CutCheck( hitInfo ) )
+					{
+						_actor.actorResources.CheckUseItem( hitInfo );
+					}
+				}
 			}
 
 			_actorPhysics.RollCheck();
@@ -111,18 +133,18 @@ public class PlayerControls : MonoBehaviour
 
 	void Gliding()
 	{
-		if ( _jumpButtonDown )
+		if ( _jumpButton.down )
 		{
 			_actorPhysics.JumpCheck();
 		}
 
-		if ( _grabButtonDown )
+		if ( _holdButton )
 		{
 			_actorPhysics.ClimbCheck();
 		}
 
 		if ( !_actorPhysics.GroundedCheck() &&
-		     _glideButtonDown &&
+		     _holdButton &&
 		     _actor.actorStats.CanUseStat( Stat.Gliding ) )
 		{
 			_actorPhysics.GlideMovement( GetMoveDirection() );
@@ -133,6 +155,7 @@ public class PlayerControls : MonoBehaviour
 			_actorPhysics.EndGlide();
 		}
 	}
+	#endregion
 
 	void GroundMovement()
 	{
@@ -148,11 +171,55 @@ public class PlayerControls : MonoBehaviour
 		}
 	}
 
-	Vector3 GetInput()
+	/**
+	 * Raycast forward from the camera's position to detect
+	 * items to interact with.
+	 * 
+	 * This performs RaycastAll, and returns the closest collision.
+	 */
+	bool RaycastForward( out RaycastHit closestHit )
 	{
-		return new Vector3( Input.GetAxis( "Horizontal" + WadeUtils.platformName ),
+		Vector3 camPos = Camera.main.transform.position;
+		Vector3 camForward = Camera.main.transform.forward;
+
+		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
+
+		RaycastHit[] hits = Physics.SphereCastAll(
+			new Ray( camPos, camForward ),
+			_interactCheckRadius,
+			_interactCheckDistance,
+			_cutting.cuttableLayer | _actor.actorResources.buddyLayer );
+
+		if ( hits.Length == 0 )
+		{
+			closestHit = new RaycastHit();
+			return false;
+		}
+
+		closestHit = hits[0];
+		float closestDistance = ( camPos - closestHit.point ).sqrMagnitude;
+		foreach ( RaycastHit hit in hits )
+		{
+			float hitDistance = ( camPos - hit.point ).sqrMagnitude;
+			if ( hitDistance < closestDistance )
+			{
+				closestHit = hit;
+				closestDistance = hitDistance;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Retrives the raw input values, with horizontal mapped to X
+	 * and vertical mapped to Z.
+	 */
+	Vector3 GetMoveInput()
+	{
+		return new Vector3( InputUtils.GetAxis( "Horizontal" ),
 		                    0.0f,
-		                    Input.GetAxis( "Vertical" + WadeUtils.platformName ) );
+		                    InputUtils.GetAxis( "Vertical" ) );
 	}
 
 	/**
@@ -160,7 +227,7 @@ public class PlayerControls : MonoBehaviour
 	 */
 	Vector3 GetMoveDirection()
 	{
-		Vector3 inputVec = GetInput();
+		Vector3 inputVec = GetMoveInput();
 
 		if ( WadeUtils.IsNotZero( inputVec.x ) && WadeUtils.IsNotZero( inputVec.z ) )
 		{
