@@ -180,9 +180,13 @@ public class PlayerControls : MonoBehaviour
 				}
 
 				player.controls.GroundMovement();
-			}
 
-			player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+			}
+			else
+			{
+				player.physics.ChangeState( ActorStates.Falling );
+			}
 		}
 
 		public override void Exit() { }
@@ -211,15 +215,13 @@ public class PlayerControls : MonoBehaviour
 			{
 				player.physics.ChangeState( ActorStates.Jumping );
 			}
-
-			if ( player.controls.holdButton &&
-			     player.physics.ClimbCheck() )
+			else if ( player.controls.holdButton &&
+			          player.physics.ClimbCheck() )
 			{
 				player.physics.ChangeState( ActorStates.Climbing );
 			}
-
-			if ( player.controls.holdButton &&
-			     player.stats.CanUseStat( Stat.Gliding ) )
+			else if ( player.controls.holdButton &&
+			          player.stats.CanUseStat( Stat.Gliding ) )
 			{
 				if ( !player.physics.GroundedCheck() )
 				{
