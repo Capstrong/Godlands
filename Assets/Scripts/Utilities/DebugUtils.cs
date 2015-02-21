@@ -12,3 +12,11 @@ public class DebugUtils
 		}
 	}
 }
+
+// Attribute that displays variable in inspector for debugging purposes but does not make it editable
+// Usage:
+// [DisplayOnly] float foo;
+public class DisplayOnlyAttribute : PropertyAttribute
+{
+
+}
