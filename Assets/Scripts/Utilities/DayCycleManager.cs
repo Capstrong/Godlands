@@ -3,35 +3,21 @@ using System.Collections;
 
 public class DayCycleManager : SingletonBehaviour<DayCycleManager> 
 {
+	public static float dayCycleLength { get { return instance._dayCycleLength; } }
+
 	[Tooltip( "The length (in seconds) of a day" )]
 	[SerializeField] float _dayCycleLength = 60;
-	public float dayCycleLength
-	{
-		get
-		{
-			return _dayCycleLength;
-		}
-	}
+
+	public static float dayCycleTimer { get { return instance._dayCycleTimer; } }
 
 	[ReadOnly("Day Cycle Timer")]
 	[SerializeField] float _dayCycleTimer = 0f;
-	public float dayCycleTimer
+
+	void Start()
 	{
-		get
-		{
-			return _dayCycleTimer;
-		}
-		set
-		{
-			_dayCycleTimer = value;
-		}
+		StartCoroutine( BuddyHungerTriggerRoutine() );
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		_dayCycleTimer += Time.deltaTime;
@@ -39,6 +25,18 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		if ( _dayCycleTimer > _dayCycleLength )
 		{
 			_dayCycleTimer -= _dayCycleLength;
+		}
+	}
+
+	IEnumerator BuddyHungerTriggerRoutine()
+	{
+		// Starts at noon, wait for midnight
+		yield return new WaitForSeconds( _dayCycleLength * 0.5f );
+
+		while ( true )
+		{
+			BuddyManager.DecrementAllBuddyResources();
+			yield return new WaitForSeconds( _dayCycleLength );
 		}
 	}
 }

@@ -76,7 +76,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		daylightIntensity = Mathf.Cos( DayCycleManager.instance.dayCycleTimer / DayCycleManager.instance.dayCycleLength * 2 * Mathf.PI ) * 0.5f + 0.5f;
+		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2 * Mathf.PI ) * 0.5f + 0.5f;
 
 		_currentTimeRenderSettings = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
 
@@ -85,10 +85,10 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	public static void TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
-		instance.ITransitionRenderSettings( newRenderSettings, shiftTime );
+		instance.iTransitionRenderSettings( newRenderSettings, shiftTime );
 	}
 
-	void ITransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
+	void iTransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
 		StopAllCoroutines(); // TODO: Make this not a sledgehammer solution
 		StartCoroutine( TransitionRenderSettingsRoutine( newRenderSettings, shiftTime ) );
