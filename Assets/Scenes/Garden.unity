@@ -13,9 +13,9 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_Fog: 1
-  m_FogColor: {r: 1, g: .595588207, b: .756163538, a: 1}
+  m_FogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
   m_FogMode: 3
-  m_FogDensity: .0130000003
+  m_FogDensity: .0120000001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: 0, g: 0, b: 0, a: 1}
@@ -9553,6 +9553,47 @@ Prefab:
   m_RootGameObject: {fileID: 473836251}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &199922637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 199922639}
+  - 114: {fileID: 199922638}
+  m_Layer: 0
+  m_Name: DayCycleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &199922638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 199922637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dayCycleLength: 60
+  _dayCycleTimer: 0
+--- !u!4 &199922639
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 199922637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1001 &201275938
 Prefab:
   m_ObjectHideFlags: 0
@@ -13601,6 +13642,7 @@ MonoBehaviour:
     m_Bits: 4096
   _visualEffect: {fileID: 100000, guid: 04cfbc110a36ed94583cfa1d280d9ad4, type: 2}
   _visualOffset: {x: 1, y: 2, z: 1}
+  _lookOverrideDuration: .5
 --- !u!114 &298744670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13701,6 +13743,7 @@ MonoBehaviour:
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies:
   - {fileID: 1215378086}
+  _lookOverrideDuration: .5
   _buddyLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -19535,8 +19578,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: .735294104, b: .839350939, a: 1}
-  m_Intensity: .5
+  m_Color: {r: .60218066, g: 0, b: .698529422, a: 1}
+  m_Intensity: .25
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -36745,9 +36788,7 @@ MonoBehaviour:
       fogDensity: .0120000001
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   _dirLight: {fileID: 416504298}
-  _dayCycleTime: 60
-  _dayCycleTimer: 0
-  timeOfDay: 0
+  _daylightIntensity: 1
 --- !u!1 &772485782
 GameObject:
   m_ObjectHideFlags: 0
@@ -53699,7 +53740,7 @@ MonoBehaviour:
     type: 2}
   resourcePrefab: {fileID: 13500000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   total: 5
-  radius: 5
+  radius: 4
 --- !u!4 &1139112042
 Transform:
   m_ObjectHideFlags: 0
@@ -63926,7 +63967,7 @@ MonoBehaviour:
   resourceHolderPrefab: {fileID: 11452316, guid: 70234e9509b059d46bfcced07fdc020a,
     type: 2}
   resourcePrefab: {fileID: 13500000, guid: ec19f10f2641ff24e96a29a46a5ec0c5, type: 2}
-  total: 5
+  total: 2
   radius: 2
 --- !u!4 &1380667718
 Transform:

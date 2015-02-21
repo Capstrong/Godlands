@@ -13,7 +13,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		}
 	}
 
-	[DisplayOnly]
+	[ReadOnly("Day Cycle Timer")]
 	[SerializeField] float _dayCycleTimer = 0f;
 	public float dayCycleTimer
 	{

@@ -33,7 +33,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	Material _curSkyboxMaterial = null;
 	int _curSkyboxTintPropertyID = 0;
 
-	[DisplayOnly, Tooltip( "0 is midnight. 1 is noon." )]
+	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
 	[SerializeField]
 	float _daylightIntensity = 1.0f;
 	public float daylightIntensity
