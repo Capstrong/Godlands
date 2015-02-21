@@ -33,13 +33,20 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	Material _curSkyboxMaterial = null;
 	int _curSkyboxTintPropertyID = 0;
 
-	[Tooltip("The length (in seconds) of a day")]
-	[SerializeField] float _dayCycleTime = 60;
-	[SerializeField] float _dayCycleTimer = 0f;
-
-	[Tooltip("Zero is noon, 1 is midnight")]
-	[Range(0, 1)]
-	public float timeOfDay; // This should not go in here. Eventually it will be with the Day Cycle
+	[DisplayOnly, Tooltip( "0 is midnight. 1 is noon." )]
+	[SerializeField]
+	float _daylightIntensity = 1.0f;
+	public float daylightIntensity
+	{
+		get
+		{
+			return _daylightIntensity;
+		}
+		private set
+		{
+			_daylightIntensity = value;
+		}
+	}
 
 	void Awake()
 	{
@@ -49,18 +56,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		_dayCycleTimer += Time.deltaTime;
-
-		timeOfDay = ( -Mathf.Cos( _dayCycleTimer/_dayCycleTime * 2 * Mathf.PI ) * 0.5f ) + 0.5f;
-
-		if( _dayCycleTimer > _dayCycleTime )
-		{
-			_dayCycleTimer -= _dayCycleTime;
-		}
-		else if( _dayCycleTimer < 0f )
-		{
-			_dayCycleTimer += _dayCycleTime;
-		}
+		daylightIntensity = Mathf.Cos( DayCycleManager.instance.dayCycleTimer / DayCycleManager.instance.dayCycleLength * 2 * Mathf.PI ) * 0.5f + 0.5f;
 
 		ApplyRenderSettings();
 	}
@@ -82,36 +78,36 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	{
 		Color skyboxColor = Color.Lerp( _currentRenderSettings.daySettings.skyColor,
 		                                _currentRenderSettings.nightSettings.skyColor,
-		                                timeOfDay );
+		                                daylightIntensity );
 
-		if( _currentRenderSettings.skyMaterial != _curSkyboxMaterial)
+		if ( _currentRenderSettings.skyMaterial != _curSkyboxMaterial )
 		{
 			_curSkyboxMaterial = _targetRenderSettings.skyMaterial;
 			RenderSettings.skybox = _curSkyboxMaterial;
 		}
 
-		if( _curSkyboxMaterial )
+		if ( _curSkyboxMaterial )
 		{
 			RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, skyboxColor );
 		}
-		
+
 		RenderSettings.fogColor = Color.Lerp( _currentRenderSettings.daySettings.fogColor,
-		                                     _currentRenderSettings.nightSettings.fogColor,
-		                                     timeOfDay );
+		                                      _currentRenderSettings.nightSettings.fogColor,
+		                                      daylightIntensity );
 
 		RenderSettings.fogDensity = Mathf.Lerp( _currentRenderSettings.daySettings.fogDensity,
 		                                        _currentRenderSettings.nightSettings.fogDensity,
-		                                        timeOfDay);
+		                                        daylightIntensity );
 
 		if ( _dirLight )
 		{
 			_dirLight.color = Color.Lerp( _currentRenderSettings.daySettings.lightColor,
-			                             _currentRenderSettings.nightSettings.lightColor,
-			                             timeOfDay );
+			                              _currentRenderSettings.nightSettings.lightColor,
+			                              daylightIntensity );
 
 			_dirLight.intensity = Mathf.Lerp( _currentRenderSettings.daySettings.lightIntensity,
 			                                  _currentRenderSettings.nightSettings.lightIntensity,
-			                                  timeOfDay);
+			                                  daylightIntensity );
 		}
 		else
 		{
