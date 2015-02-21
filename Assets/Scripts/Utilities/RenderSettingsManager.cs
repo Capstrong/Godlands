@@ -51,7 +51,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	{
 		_dayCycleTimer += Time.deltaTime;
 
-		timeOfDay = ( -Mathf.Cos( _dayCycleTimer/_dayCycleTime * 2f * Mathf.PI ) * 0.5f ) + 0.5f;
+		timeOfDay = ( -Mathf.Cos( _dayCycleTimer/_dayCycleTime * 2 * Mathf.PI ) * 0.5f ) + 0.5f;
 
 		if( _dayCycleTimer > _dayCycleTime )
 		{
