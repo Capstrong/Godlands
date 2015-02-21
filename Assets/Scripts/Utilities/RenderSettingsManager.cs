@@ -6,12 +6,23 @@ using System;
 public class TimeRenderSettings
 {
 	public Color skyColor = Color.white;
-
 	public Color lightColor = Color.white;
 	public float lightIntensity = 0.5f;
-
 	public Color fogColor = Color.white;
 	public float fogDensity = 0.05f;
+
+	public static TimeRenderSettings Lerp(TimeRenderSettings fromSettings, TimeRenderSettings toSettings, float t)
+	{
+		TimeRenderSettings returnSettings = new TimeRenderSettings();
+
+		returnSettings.skyColor = Color.Lerp(       fromSettings.skyColor,       toSettings.skyColor, t );
+		returnSettings.lightColor = Color.Lerp(     fromSettings.lightColor,     toSettings.lightColor, t );
+		returnSettings.lightIntensity = Mathf.Lerp( fromSettings.lightIntensity, toSettings.lightIntensity, t );
+		returnSettings.fogColor = Color.Lerp(       fromSettings.fogColor,       toSettings.fogColor, t );
+		returnSettings.fogDensity = Mathf.Lerp(     fromSettings.fogDensity,     toSettings.fogDensity, t );
+
+		return returnSettings;
+	}
 }
 
 [Serializable]
@@ -21,16 +32,26 @@ public struct RenderSettingsData
 	public TimeRenderSettings nightSettings;
 
 	public Material skyMaterial;
+
+	public static RenderSettingsData Lerp(RenderSettingsData fromSettings, RenderSettingsData toSettings, float t)
+	{
+		RenderSettingsData returnSettings = new RenderSettingsData();
+
+		returnSettings.daySettings = TimeRenderSettings.Lerp( fromSettings.daySettings, toSettings.daySettings, t );
+		returnSettings.nightSettings = TimeRenderSettings.Lerp( fromSettings.nightSettings, toSettings.nightSettings, t );
+		returnSettings.skyMaterial = ( t < 0.5f ) ? fromSettings.skyMaterial : toSettings.skyMaterial;
+
+		return returnSettings;
+	}
 }
 
 [ExecuteInEditMode]
 public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager> 
 {
 	[SerializeField] RenderSettingsData _currentRenderSettings = new RenderSettingsData();
-	RenderSettingsData _targetRenderSettings = new RenderSettingsData();
+	[SerializeField] TimeRenderSettings _currentTimeRenderSettings = new TimeRenderSettings();
 
 	[SerializeField] Light _dirLight = null;
-	Material _curSkyboxMaterial = null;
 	int _curSkyboxTintPropertyID = 0;
 
 	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
@@ -50,7 +71,6 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Awake()
 	{
-		_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
 		_curSkyboxTintPropertyID = Shader.PropertyToID( "_Tint" );
 	}
 
@@ -58,56 +78,33 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	{
 		daylightIntensity = Mathf.Cos( DayCycleManager.instance.dayCycleTimer / DayCycleManager.instance.dayCycleLength * 2 * Mathf.PI ) * 0.5f + 0.5f;
 
-		ApplyRenderSettings();
+		_currentTimeRenderSettings = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
+
+		ApplyTimeRenderSettings();
 	}
 
-	public static void ChangeTargetRenderSettings( RenderSettingsData renderSettings, float shiftTime )
+	public static void TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
-		instance.IChangeTargetRenderSettings( renderSettings, shiftTime );
+		instance.ITransitionRenderSettings( newRenderSettings, shiftTime );
 	}
 
-	void IChangeTargetRenderSettings( RenderSettingsData renderSettings, float shiftTime )
+	void ITransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
-		_targetRenderSettings = renderSettings;
-
-		StopAllCoroutines();
-		StartCoroutine( GoToTargetRenderSettings( shiftTime ) );
+		StopAllCoroutines(); // TODO: Make this not a sledgehammer solution
+		StartCoroutine( TransitionRenderSettingsRoutine( newRenderSettings, shiftTime ) );
 	}
 
-	void ApplyRenderSettings()
+	void ApplyTimeRenderSettings()
 	{
-		Color skyboxColor = Color.Lerp( _currentRenderSettings.daySettings.skyColor,
-		                                _currentRenderSettings.nightSettings.skyColor,
-		                                daylightIntensity );
-
-		if ( _currentRenderSettings.skyMaterial != _curSkyboxMaterial )
-		{
-			_curSkyboxMaterial = _targetRenderSettings.skyMaterial;
-			RenderSettings.skybox = _curSkyboxMaterial;
-		}
-
-		if ( _curSkyboxMaterial )
-		{
-			RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, skyboxColor );
-		}
-
-		RenderSettings.fogColor = Color.Lerp( _currentRenderSettings.daySettings.fogColor,
-		                                      _currentRenderSettings.nightSettings.fogColor,
-		                                      daylightIntensity );
-
-		RenderSettings.fogDensity = Mathf.Lerp( _currentRenderSettings.daySettings.fogDensity,
-		                                        _currentRenderSettings.nightSettings.fogDensity,
-		                                        daylightIntensity );
+		RenderSettings.skybox = _currentRenderSettings.skyMaterial;
+		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
+		RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
+		RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
 
 		if ( _dirLight )
 		{
-			_dirLight.color = Color.Lerp( _currentRenderSettings.daySettings.lightColor,
-			                              _currentRenderSettings.nightSettings.lightColor,
-			                              daylightIntensity );
-
-			_dirLight.intensity = Mathf.Lerp( _currentRenderSettings.daySettings.lightIntensity,
-			                                  _currentRenderSettings.nightSettings.lightIntensity,
-			                                  daylightIntensity );
+			_dirLight.color = _currentTimeRenderSettings.lightColor;
+			_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
 		}
 		else
 		{
@@ -115,74 +112,19 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		}
 	}
 
-	void LerpRenderSettings( RenderSettingsData initRenderSettings, float delta )
+	IEnumerator TransitionRenderSettingsRoutine( RenderSettingsData newRenderSettings, float settingShiftTime )
 	{
-		RenderSettingsData renderSettings = new RenderSettingsData();
-		renderSettings.daySettings = new TimeRenderSettings();
-		renderSettings.nightSettings = new TimeRenderSettings();
-
-
-		// Day Settings
-
-		renderSettings.daySettings.skyColor = Color.Lerp( initRenderSettings.daySettings.skyColor, 
-		                                                 _targetRenderSettings.daySettings.skyColor,
-		                                                 delta );
-
-		renderSettings.daySettings.fogColor = Color.Lerp( initRenderSettings.daySettings.fogColor, 
-		                                                  _targetRenderSettings.daySettings.fogColor,
-		                                                  delta );
-
-		renderSettings.daySettings.fogDensity = Mathf.Lerp( initRenderSettings.daySettings.fogDensity,
-		                                                    _targetRenderSettings.daySettings.fogDensity,
-		                                                    delta );
-
-		renderSettings.daySettings.lightColor = Color.Lerp( initRenderSettings.daySettings.lightColor, 
-		                                                    _targetRenderSettings.daySettings.lightColor,
-		                                                    delta );
-
-		renderSettings.daySettings.lightIntensity = Mathf.Lerp( initRenderSettings.daySettings.lightIntensity,
-		                                                        _targetRenderSettings.daySettings.lightIntensity,
-		                                                        delta );
-
-		// Night Settings
-
-		renderSettings.nightSettings.skyColor = Color.Lerp( initRenderSettings.nightSettings.skyColor, 
-		                                                    _targetRenderSettings.nightSettings.skyColor,
-		                                                    delta );
-		
-		renderSettings.nightSettings.fogColor = Color.Lerp( initRenderSettings.nightSettings.fogColor, 
-		                                                   _targetRenderSettings.nightSettings.fogColor,
-		                                                   delta );
-		
-		renderSettings.nightSettings.fogDensity = Mathf.Lerp( initRenderSettings.nightSettings.fogDensity,
-		                                                     _targetRenderSettings.nightSettings.fogDensity,
-		                                                     delta );
-		
-		renderSettings.nightSettings.lightColor = Color.Lerp( initRenderSettings.nightSettings.lightColor, 
-		                                                     _targetRenderSettings.nightSettings.lightColor,
-		                                                     delta );
-		
-		renderSettings.nightSettings.lightIntensity = Mathf.Lerp( initRenderSettings.nightSettings.lightIntensity,
-		                                                         _targetRenderSettings.nightSettings.lightIntensity,
-		                                                         delta );
-
-		_currentRenderSettings = renderSettings;
-	}
-
-	IEnumerator GoToTargetRenderSettings( float settingShiftTime )
-	{
-		RenderSettingsData initRenderSettings = _currentRenderSettings;
+		RenderSettingsData oldRenderSettings = _currentRenderSettings;
 
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
 		{
-			LerpRenderSettings( initRenderSettings, settingShiftTimer/settingShiftTime );
+			_currentRenderSettings = RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime );
 
 			settingShiftTimer += Time.deltaTime;
 			yield return 0;
 		}
 
-		LerpRenderSettings( initRenderSettings, 1f );
-		ApplyRenderSettings();
+		_currentRenderSettings = newRenderSettings;
 	}
 }
