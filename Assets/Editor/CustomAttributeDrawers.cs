@@ -9,8 +9,28 @@ public class ReadOnlyDrawer : PropertyDrawer
 	                            SerializedProperty property,
 	                            GUIContent label )
 	{
-		GUI.enabled = false;
-		EditorGUI.PropertyField( position, property, label, true );
-		GUI.enabled = true;
+
+		ReadOnlyAttribute readOnlyAttribute = (ReadOnlyAttribute)attribute;
+
+		// Use a specified name if there is one
+		string displayName = ( readOnlyAttribute.displayName != "" ) ? readOnlyAttribute.displayName : property.name;
+
+		switch ( property.propertyType )
+		{
+		case SerializedPropertyType.Float:
+			EditorGUI.LabelField( position, displayName, property.floatValue.ToString() );
+			break;
+		case SerializedPropertyType.Integer:
+			EditorGUI.LabelField( position, displayName, property.intValue.ToString() );
+			break;
+		case SerializedPropertyType.Vector3:
+			EditorGUI.LabelField( position, displayName, property.vector3Value.ToString() );
+			break;
+		default:
+			GUI.enabled = false;
+			EditorGUI.PropertyField( position, property, label, true );
+			GUI.enabled = true;
+			break;
+		}
 	}
 }
