@@ -14141,7 +14141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _currentState: 1
+  _currentStateType: 1
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
@@ -22869,9 +22869,10 @@ MonoBehaviour:
   statType: 3
   startingApples: 10
   apples: 0
-  _startingOwner: {fileID: 298744674}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
+  _owner: {fileID: 0}
+  _bodyRenderer: {fileID: 0}
 --- !u!114 &514309283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22885,7 +22886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _currentState: 1
+  _currentStateType: 1
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 2
@@ -46320,9 +46321,10 @@ MonoBehaviour:
   statType: 1
   startingApples: 10
   apples: 0
-  _startingOwner: {fileID: 298744674}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
+  _owner: {fileID: 0}
+  _bodyRenderer: {fileID: 0}
 --- !u!114 &1123280556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46336,7 +46338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _currentState: 1
+  _currentStateType: 1
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 2
@@ -50179,9 +50181,10 @@ MonoBehaviour:
   statType: 2
   startingApples: 10
   apples: 0
-  _startingOwner: {fileID: 298744674}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
+  _owner: {fileID: 0}
+  _bodyRenderer: {fileID: 0}
 --- !u!114 &1215378092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50195,7 +50198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _currentState: 1
+  _currentStateType: 1
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 2

@@ -66,19 +66,19 @@ public class PlayerControls : MonoBehaviour
 		{
 			if ( player.physics.GroundedCheck() )
 			{
-				player.physics.ChangeState( ActorStates.Grounded );
+				player.physics.ChangeState( PhysicsStateType.Grounded );
 			}
 			else
 			{
 				if ( player.controls.holdButton &&
 				     player.physics.ClimbCheck() )
 				{
-					player.physics.ChangeState( ActorStates.Climbing );
+					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
 
 				if ( player.controls.holdButton.down && player.stats.CanUseStat( Stat.Gliding ) )
 				{
-					player.physics.ChangeState( ActorStates.Gliding );
+					player.physics.ChangeState( PhysicsStateType.Gliding );
 				}
 				else
 				{
@@ -119,7 +119,7 @@ public class PlayerControls : MonoBehaviour
 			}
 			else
 			{
-				player.physics.ChangeState( ActorStates.Falling );
+				player.physics.ChangeState( PhysicsStateType.Falling );
 			}
 		}
 
@@ -149,13 +149,13 @@ public class PlayerControls : MonoBehaviour
 				if ( player.controls.jumpButton.down &&
 				     player.physics.JumpCheck() )
 				{
-					player.physics.ChangeState( ActorStates.Jumping );
+					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
 
 				if ( player.controls.holdButton &&
 				     player.physics.ClimbCheck() )
 				{
-					player.physics.ChangeState( ActorStates.Climbing );
+					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
 
 				if ( player.controls.useButton.down )
@@ -185,7 +185,7 @@ public class PlayerControls : MonoBehaviour
 			}
 			else
 			{
-				player.physics.ChangeState( ActorStates.Falling );
+				player.physics.ChangeState( PhysicsStateType.Falling );
 			}
 		}
 
@@ -213,12 +213,12 @@ public class PlayerControls : MonoBehaviour
 			if ( player.controls.jumpButton.down &&
 			     player.physics.JumpCheck() )
 			{
-				player.physics.ChangeState( ActorStates.Jumping );
+				player.physics.ChangeState( PhysicsStateType.Jumping );
 			}
 			else if ( player.controls.holdButton &&
 			          player.physics.ClimbCheck() )
 			{
-				player.physics.ChangeState( ActorStates.Climbing );
+				player.physics.ChangeState( PhysicsStateType.Climbing );
 			}
 			else if ( player.controls.holdButton &&
 			          player.stats.CanUseStat( Stat.Gliding ) )
@@ -229,12 +229,12 @@ public class PlayerControls : MonoBehaviour
 				}
 				else
 				{
-					player.physics.ChangeState( ActorStates.Grounded );
+					player.physics.ChangeState( PhysicsStateType.Grounded );
 				}
 			}
 			else
 			{
-				player.physics.ChangeState( ActorStates.Falling );
+				player.physics.ChangeState( PhysicsStateType.Falling );
 			}
 		}
 
@@ -248,11 +248,11 @@ public class PlayerControls : MonoBehaviour
 
 	void SetupStateMethodMap()
 	{
-		_actor.physics.RegisterStateMethod( ActorStates.Jumping,  new Jumping( _actor ) );
-		_actor.physics.RegisterStateMethod( ActorStates.Falling,  new Jumping( _actor ) );
-		_actor.physics.RegisterStateMethod( ActorStates.Grounded, new Grounded( _actor ) );
-		_actor.physics.RegisterStateMethod( ActorStates.Climbing, new Climbing( _actor ) );
-		_actor.physics.RegisterStateMethod( ActorStates.Gliding,  new Gliding( _actor ) );
+		_actor.physics.RegisterStateMethod( PhysicsStateType.Jumping,  new Jumping( _actor ) );
+		_actor.physics.RegisterStateMethod( PhysicsStateType.Falling,  new Jumping( _actor ) );
+		_actor.physics.RegisterStateMethod( PhysicsStateType.Grounded, new Grounded( _actor ) );
+		_actor.physics.RegisterStateMethod( PhysicsStateType.Climbing, new Climbing( _actor ) );
+		_actor.physics.RegisterStateMethod( PhysicsStateType.Gliding,  new Gliding( _actor ) );
 	}
 	#endregion
 

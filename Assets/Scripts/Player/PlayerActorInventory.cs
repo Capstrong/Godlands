@@ -73,25 +73,15 @@ public class PlayerActorInventory : ActorComponent
 
 	public bool CanUseItemWithoutTarget()
 	{
-		bool canUse = false;
-
-		if ( heldResources.Count > 0 )
-		{
-			if( !heldResources[resourceIndex].needsTarget )
-			{
-				canUse = true;
-			}
-		}
-
-		return canUse;
+		return heldResources.Count > 0 &&
+		       !heldResources[resourceIndex].needsTarget;
 	}
 
 	public void UseItem()
 	{
-		if ( !( heldResources[resourceIndex] is ResourceData ) )
-		{
-			SpawnBuddy();
-		}
+		DebugUtils.Assert( heldResources[resourceIndex] is BuddyItemData, "Cannot use item without target." );
+
+		SpawnBuddy();
 	}
 
 	public void UseItemWithTarget( RaycastHit hitInfo )
@@ -122,6 +112,7 @@ public class PlayerActorInventory : ActorComponent
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
 
+			// look at the buddy
 			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
 				_lookOverrideDuration );
@@ -152,8 +143,7 @@ public class PlayerActorInventory : ActorComponent
 			if ( meshRenderer.gameObject.name == "Body" )
 			{
 				// buddyItemData.prefab.GetComponentInChildren<MeshRenderer>() was not working
-				MeshRenderer render = buddyItemData.prefab.transform.FindChild( "Sphere" ).gameObject.GetComponent<MeshRenderer>();
-				meshRenderer.material = render.sharedMaterial;
+				meshRenderer.material.color = buddyItemData.statColor;
 			}
 		}
 

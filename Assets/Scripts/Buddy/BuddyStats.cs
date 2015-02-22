@@ -6,25 +6,32 @@ public class BuddyStats : MonoBehaviour
 	public Stat statType = Stat.Invalid;
 	[SerializeField] int startingApples = 10;
 	[SerializeField] int apples = 0;
-	[SerializeField] GodTag _startingOwner = null;
 
-	PlayerActorStats _actorStats = null;
+	PlayerActorStats _ownerStats = null;
 
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
 
-	private GodTag _owner = null;
+	[SerializeField] GodTag _owner = null;
 	public GodTag owner
 	{
 		get { return _owner; }
+
 		set
 		{
 			_owner = value;
 			if ( _owner )
 			{
-				_actorStats = _owner.gameObject.GetComponent<PlayerActorStats>();
+				_ownerStats = _owner.gameObject.GetComponent<PlayerActorStats>();
 			}
 		}
+	}
+
+	[Tooltip( "Used for setting the color of the buddy when it is created." )]
+	[SerializeField] MeshRenderer _bodyRenderer;
+	public MeshRenderer bodyRenderer
+	{
+		get { return _bodyRenderer; }
 	}
 
 	bool _isAlive = true;
@@ -43,10 +50,11 @@ public class BuddyStats : MonoBehaviour
 		name = "Buddy " + GetRandomName( ID );
 		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
-		owner = _startingOwner; // For owners set in the inspector
+		owner = _owner; // For owners set in the inspector
 	}
 
-	static string[] names = { "Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw"};
+	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
+	                         "Crabknuckle", "Happy Hairy", "TootBaloot", "Rojina"};
 	static uint uniqueID = 1;
 
 	static uint GetID()

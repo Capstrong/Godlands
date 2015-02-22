@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum ActorStates
+public enum PhysicsStateType
 {
 	Grounded = 0,
 	Jumping,
@@ -19,9 +19,16 @@ public sealed class ActorPhysics : ActorComponent
 	// States
 	#region States
 	[ReadOnly, SerializeField]
-	ActorStates _currentStateType = ActorStates.Jumping;
+	PhysicsStateType _currentStateType = PhysicsStateType.Jumping;
 	PhysicsState _currentState = new DefaultState();
-	Dictionary<ActorStates, PhysicsState> _stateMap = new Dictionary<ActorStates, PhysicsState>();
+	Dictionary<PhysicsStateType, PhysicsState> _stateMap = new Dictionary<PhysicsStateType, PhysicsState>();
+	
+	public class DefaultState : PhysicsState
+	{
+		public override void Enter()  { }
+		public override void Update() { }
+		public override void Exit()   { }
+	}
 	#endregion
 
 	#region Movement
@@ -137,7 +144,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	void Start()
 	{
-		ChangeState( ActorStates.Grounded );
+		ChangeState( PhysicsStateType.Grounded );
 	}
 
 	void FixedUpdate()
@@ -153,7 +160,7 @@ public sealed class ActorPhysics : ActorComponent
 		OrientSelf();
 	}
 
-	public void RegisterStateMethod( ActorStates state, PhysicsState method )
+	public void RegisterStateMethod( PhysicsStateType state, PhysicsState method )
 	{
 		if ( _stateMap.ContainsKey( state ) )
 		{
@@ -184,16 +191,16 @@ public sealed class ActorPhysics : ActorComponent
 
 			if ( _isOnGround &&
 			     !_jumpCheck &&
-			     !IsInState( ActorStates.Climbing ) )
+			     !IsInState( PhysicsStateType.Climbing ) )
 			{
-				if ( !IsInState( ActorStates.Grounded ) )
+				if ( !IsInState( PhysicsStateType.Grounded ) )
 				{
 					_stopMoveTimer = 0f;
 				}
 
 				CancelLateJumpTimer();
 			}
-			else if ( IsInState( ActorStates.Grounded ) )
+			else if ( IsInState( PhysicsStateType.Grounded ) )
 			{
 				StartLateJumpTimer();
 			}
@@ -216,7 +223,7 @@ public sealed class ActorPhysics : ActorComponent
 
 		if ( _jumpColCheckTimer > _jumpColCheckTime )
 		{
-			if ( IsInState( ActorStates.Grounded ) )
+			if ( IsInState( PhysicsStateType.Grounded ) )
 			{
 				if ( _stopMoveTimer >= _stopMoveTime )
 				{
@@ -385,6 +392,7 @@ public sealed class ActorPhysics : ActorComponent
 	public void OverrideLook( Vector3 lookDir, float time )
 	{
 		_lookOverride = lookDir;
+		_lookOverride.y = 0.0f;
 		_overrideLook = true;
 		CancelInvoke( "EndLookOverride" );
 		Invoke( "EndLookOverride", time );
@@ -398,7 +406,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	void FollowBumper()
 	{
-		if ( !IsInState( ActorStates.Climbing ) )
+		if ( !IsInState( PhysicsStateType.Climbing ) )
 		{
 			Vector3 constrainedPos = _bumperTransform.position;
 			constrainedPos.y = transform.position.y;
@@ -424,7 +432,7 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	void InitializeStateMethodMap()
 	{
-		foreach ( ActorStates state in System.Enum.GetValues( typeof( ActorStates ) ) )
+		foreach ( PhysicsStateType state in System.Enum.GetValues( typeof( PhysicsStateType ) ) )
 		{
 			if ( !_stateMap.ContainsKey( state ) )
 			{
@@ -444,7 +452,7 @@ public sealed class ActorPhysics : ActorComponent
 	 * Best practices is to ensure that you only transition
 	 * states at most once per frame.
 	 */
-	public void ChangeState( ActorStates toState )
+	public void ChangeState( PhysicsStateType toState )
 	{
 		_currentStateType = toState;
 		_currentState.Exit();
@@ -465,7 +473,7 @@ public sealed class ActorPhysics : ActorComponent
 	void OrientSelf()
 	{
 		Quaternion desiredLook = transform.rotation;
-		if ( IsInState( ActorStates.Climbing ) )
+		if ( IsInState( PhysicsStateType.Climbing ) )
 		{
 			Vector3 lookVector = _climbSurface.forward;
 			lookVector.y *= _leanTowardsSurface;
@@ -498,7 +506,7 @@ public sealed class ActorPhysics : ActorComponent
 		_lastPos = transform.position;
 	}
 
-	bool IsInState( ActorStates checkState )
+	bool IsInState( PhysicsStateType checkState )
 	{
 		return _currentStateType == checkState;
 	}
@@ -566,11 +574,4 @@ public abstract class PhysicsState
 	public abstract void Enter();
 	public abstract void Update();
 	public abstract void Exit();
-}
-
-public class DefaultState : PhysicsState
-{
-	public override void Enter() { }
-	public override void Update() { }
-	public override void Exit() { }
 }
