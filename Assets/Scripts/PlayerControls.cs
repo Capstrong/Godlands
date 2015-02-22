@@ -16,6 +16,11 @@ public class PlayerControls : MonoBehaviour
 	Button _useButton  = new Button( "Use" );
 	Button _jumpButton = new Button( "Jump" );
 
+	Vector3 _respawnPosition = new Vector3();
+	Quaternion _respawnRotation = new Quaternion();
+	[Tooltip("Probably a straight up vertical offset")]
+	[SerializeField] Vector3 _respawnOffset = new Vector3();
+
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
@@ -23,6 +28,9 @@ public class PlayerControls : MonoBehaviour
 		_cutting = GetComponent<Cutting>();
 
 		SetupStateMethodMap();
+
+		_respawnPosition = transform.position + _respawnOffset;
+		_respawnRotation = transform.rotation;
 	}
 
 	void Update()
@@ -241,5 +249,12 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return inputVec;
+	}
+
+	public void Respawn()
+	{
+		_actorPhysics.transform.position = _respawnPosition;
+		_actorPhysics.transform.rotation = _respawnRotation;
+		_actorPhysics.ChangeState( ActorStates.Falling );
 	}
 }

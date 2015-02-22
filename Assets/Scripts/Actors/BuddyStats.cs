@@ -81,6 +81,8 @@ public class BuddyStats : MonoBehaviour
 	{
 		resources--;
 
+		Emote( _sadMaterial );
+
 		if ( canDecreaseStat )
 		{
 			_actorStats.DecrementMaxStat( statType );

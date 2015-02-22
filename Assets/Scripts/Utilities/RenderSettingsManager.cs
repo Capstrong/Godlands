@@ -85,10 +85,10 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	public static void TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
-		instance.iTransitionRenderSettings( newRenderSettings, shiftTime );
+		instance._TransitionRenderSettings( newRenderSettings, shiftTime );
 	}
 
-	void iTransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
+	void _TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
 		StopAllCoroutines(); // TODO: Make this not a sledgehammer solution
 		StartCoroutine( TransitionRenderSettingsRoutine( newRenderSettings, shiftTime ) );

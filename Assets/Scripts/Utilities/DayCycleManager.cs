@@ -10,12 +10,14 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static float dayCycleTimer { get { return instance._dayCycleTimer; } }
 
-	[ReadOnly("Day Cycle Timer")]
+	[ReadOnly( "Day Cycle Timer" )]
 	[SerializeField] float _dayCycleTimer = 0f;
+
+	[SerializeField] PlayerControls _playerControls = null;
 
 	void Start()
 	{
-		StartCoroutine( BuddyHungerTriggerRoutine() );
+		StartCoroutine( MidnightTriggerRoutine() );
 	}
 
 	// Update is called once per frame
@@ -28,7 +30,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		}
 	}
 
-	IEnumerator BuddyHungerTriggerRoutine()
+	IEnumerator MidnightTriggerRoutine()
 	{
 		// Starts at noon, wait for midnight
 		yield return new WaitForSeconds( _dayCycleLength * 0.5f );
