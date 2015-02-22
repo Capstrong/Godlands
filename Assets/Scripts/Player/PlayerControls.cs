@@ -248,11 +248,11 @@ public class PlayerControls : MonoBehaviour
 
 	void SetupStateMethodMap()
 	{
-		_actor.physics.RegisterStateMethod( PhysicsStateType.Jumping,  new Jumping( _actor ) );
-		_actor.physics.RegisterStateMethod( PhysicsStateType.Falling,  new Jumping( _actor ) );
-		_actor.physics.RegisterStateMethod( PhysicsStateType.Grounded, new Grounded( _actor ) );
-		_actor.physics.RegisterStateMethod( PhysicsStateType.Climbing, new Climbing( _actor ) );
-		_actor.physics.RegisterStateMethod( PhysicsStateType.Gliding,  new Gliding( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Jumping,  new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Falling,  new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Grounded, new Grounded( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Climbing, new Climbing( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
 	}
 	#endregion
 

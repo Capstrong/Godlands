@@ -160,7 +160,7 @@ public sealed class ActorPhysics : ActorComponent
 		OrientSelf();
 	}
 
-	public void RegisterStateMethod( PhysicsStateType state, PhysicsState method )
+	public void RegisterState( PhysicsStateType state, PhysicsState method )
 	{
 		if ( _stateMap.ContainsKey( state ) )
 		{
