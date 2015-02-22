@@ -6,7 +6,7 @@ using System.Collections;
 public class ReadOnlyDrawer : PropertyDrawer
 {
 	public override float GetPropertyHeight( SerializedProperty property,
-                                             GUIContent label )
+	                                         GUIContent label )
 	{
 		return EditorGUI.GetPropertyHeight( property, label, true );
 	}
