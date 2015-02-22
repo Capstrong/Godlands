@@ -7,7 +7,7 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int startingApples = 10;
 	[SerializeField] int apples = 0;
 
-	PlayerActorStats _ownerStats = null;
+	PlayerStats _ownerStats = null;
 
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
@@ -22,7 +22,7 @@ public class BuddyStats : MonoBehaviour
 			_owner = value;
 			if ( _owner )
 			{
-				_ownerStats = _owner.gameObject.GetComponent<PlayerActorStats>();
+				_ownerStats = _owner.gameObject.GetComponent<PlayerStats>();
 			}
 		}
 	}
@@ -69,7 +69,7 @@ public class BuddyStats : MonoBehaviour
 		return names[randIndex] + ID;
 	}
 
-	public void GiveResource( PlayerActorStats actorStats, ResourceData resourceData)
+	public void GiveResource( PlayerStats actorStats, ResourceData resourceData)
 	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
 

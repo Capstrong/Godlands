@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent( typeof( ActorCamera ) )]
-public class PlayerActorInventory : ActorComponent
+[RequireComponent( typeof( PlayerCamera ) )]
+public class PlayerInventory : ActorComponent
 {
 	InventoryScrollBar inventoryBar;
 

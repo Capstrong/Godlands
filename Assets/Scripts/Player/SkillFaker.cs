@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( PlayerActorStats ) )]
+[RequireComponent( typeof( PlayerStats ) )]
 public class SkillFaker : MonoBehaviour
 {
 	[SerializeField] KeyCode _triggerKey = KeyCode.K;
 	[SerializeField] Stat _statToIncrease = Stat.Invalid;
 
-	PlayerActorStats _actorStats = null;
+	PlayerStats _actorStats = null;
 
 	void Start()
 	{
-		_actorStats = GetComponent<PlayerActorStats>();
+		_actorStats = GetComponent<PlayerStats>();
 	}
 	
 	void Update() 

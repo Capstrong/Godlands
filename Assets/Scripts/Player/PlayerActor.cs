@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( ActorCamera ), typeof( PlayerActorStats) )]
+[RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats) )]
 public class PlayerActor : Actor
 {
-	ActorCamera _actorCamera = null;
-	PlayerActorStats _actorStats = null;
-	PlayerActorInventory _playerActorResources = null;
+	PlayerCamera _actorCamera = null;
+	PlayerStats _actorStats = null;
+	PlayerInventory _playerActorResources = null;
 	PlayerControls _controls = null;
 	Cutting _cutting = null;
 
-	public ActorCamera actorCamera
+	public PlayerCamera actorCamera
 	{
 		get { return _actorCamera; }
 	}
 
-	public PlayerActorInventory inventory
+	public PlayerInventory inventory
 	{
 		get { return _playerActorResources; }
 	}
 
-	public PlayerActorStats stats
+	public PlayerStats stats
 	{
 		get { return _actorStats; }
 	}
@@ -39,9 +39,9 @@ public class PlayerActor : Actor
 	{
 		base.Awake();
 
-		_actorCamera = GetComponent<ActorCamera>();
-		_actorStats = GetComponent<PlayerActorStats>();
-		_playerActorResources = GetComponent<PlayerActorInventory>();
+		_actorCamera = GetComponent<PlayerCamera>();
+		_actorStats = GetComponent<PlayerStats>();
+		_playerActorResources = GetComponent<PlayerInventory>();
 		_controls = GetComponent<PlayerControls>();
 		_cutting = GetComponent<Cutting>();
 	}

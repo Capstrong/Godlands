@@ -34,7 +34,7 @@ public class StatObject
 public class StatDictionary : SerializableDictionary<Stat, StatObject> { } // Necessary for serialization
 
 [RequireComponent( typeof(PlayerControls) )]
-public class PlayerActorStats : ActorComponent
+public class PlayerStats : ActorComponent
 {
 	[SerializeField] StatDictionary _statDictionary = new StatDictionary();
 

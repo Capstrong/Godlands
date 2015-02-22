@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ActorCamera : ActorComponent 
+public class PlayerCamera : ActorComponent 
 {
 	public Camera cam;
 
