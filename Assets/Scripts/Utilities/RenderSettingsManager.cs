@@ -86,7 +86,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		if( _currentRenderSettings.skyMaterial != _curSkyboxMaterial)
 		{
-			_curSkyboxMaterial = _targetRenderSettings.skyMaterial;
+			_curSkyboxMaterial = _currentRenderSettings.skyMaterial;
 			RenderSettings.skybox = _curSkyboxMaterial;
 		}
 

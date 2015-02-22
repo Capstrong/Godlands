@@ -5,4 +5,6 @@ public class InventoryItemData : ScriptableObject
 {
 	public Sprite icon;
 	public GameObject prefab;
+
+	public bool needsTarget = true;
 }
