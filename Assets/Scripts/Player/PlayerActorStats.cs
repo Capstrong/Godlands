@@ -26,8 +26,8 @@ public class StatObject
 	public float statToScaleRatio = 0.0f;
 	public float rechargeDelayTime = 0.0f; // Seconds
 
-	float _rechargeTimer = 0.0f; // Made a property so that it doesn't show up in the inspector where it will be confusing but will show in debug mode.
-	public float rechargeTimer { get { return _rechargeTimer; } set { _rechargeTimer = value; } }
+	[ReadOnly]
+	public float rechargeTimer = 0.0f;
 }
 
 [System.Serializable]

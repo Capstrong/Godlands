@@ -34,6 +34,8 @@ public class PlayerActorInventory : ActorComponent
 		get { return _buddyLayer; }
 	}
 
+	[SerializeField] float _buddySpawnDistance = 3.0f;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -131,7 +133,7 @@ public class PlayerActorInventory : ActorComponent
 	{
 		BuddyItemData buddyItemData = (BuddyItemData)heldResources[resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
-		                                     transform.position + transform.forward * 3.0f,
+		                                     transform.position + transform.forward * _buddySpawnDistance,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.owner = GetComponent<GodTag>();
 		newBuddy.statType = buddyItemData.stat;

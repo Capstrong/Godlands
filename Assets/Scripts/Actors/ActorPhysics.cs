@@ -101,7 +101,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	[Tooltip( "The minimum delay between jump checks. Use this to prevent the player from immediately colliding with the ground after jumping." )]
 	[SerializeField] float _jumpCheckDelay = 0.1f;
-	bool _jumpCheck = false;
+	bool _isJumpCheckDelay = false;
 
 	bool _isOnGround = false;
 	#endregion
@@ -176,7 +176,7 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_isOnGround = false;
 
-		if ( !_jumpCheck )
+		if ( !_isJumpCheckDelay )
 		{
 			// spherecast down to detect when we're on the ground
 			RaycastHit hit;
@@ -190,7 +190,6 @@ public sealed class ActorPhysics : ActorComponent
 			                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
 
 			if ( _isOnGround &&
-			     !_jumpCheck &&
 			     !IsInState( PhysicsStateType.Climbing ) )
 			{
 				if ( !IsInState( PhysicsStateType.Grounded ) )
@@ -262,8 +261,7 @@ public sealed class ActorPhysics : ActorComponent
 					}
 				}
 
-				ClimbableTag climbTag = nearestCol.GetComponent<ClimbableTag>();
-				_climbTag = climbTag;
+				_climbTag = nearestCol.GetComponent<ClimbableTag>();
 				_climbSurface = _climbTag.GetComponent<Transform>();
 
 				climbing = true;
@@ -455,6 +453,7 @@ public sealed class ActorPhysics : ActorComponent
 	public void ChangeState( PhysicsStateType toState )
 	{
 		_currentStateType = toState;
+
 		_currentState.Exit();
 		_currentState = _stateMap[_currentStateType];
 		_currentState.Enter();
@@ -549,7 +548,7 @@ public sealed class ActorPhysics : ActorComponent
 	#region Jump Check Delay Timer
 	void StartJumpCheckDelayTimer()
 	{
-		_jumpCheck = true;
+		_isJumpCheckDelay = true;
 		Invoke( "EndJumpCheckDelay", _jumpCheckDelay );
 	}
 
@@ -564,7 +563,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	void EndJumpCheckDelay()
 	{
-		_jumpCheck = false;
+		_isJumpCheckDelay = false;
 	}
 	#endregion
 }
