@@ -206,14 +206,14 @@ public class PlayerCamera : ActorComponent
 		{
 			foreach( RaycastHit hit in hits )
 			{
-				float hitDist = (transform.position - hit.point).sqrMagnitude;
+				float hitDist = (actorHead - hit.point).sqrMagnitude;
 				if(hitDist < nearestDist && hit.transform && !hit.transform.GetComponent<NoZoom>())
 				{
 					nearestDist = hitDist;
 				}
 			}
 
-			_targetZoomDistance = Mathf.Sqrt( nearestDist );
+			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _defaultZoomDistance );
 		}
 		else
 		{
