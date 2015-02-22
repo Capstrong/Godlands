@@ -18,11 +18,10 @@ public sealed class ActorPhysics : ActorComponent
 
 	// States
 	#region States
-
 	[ReadOnly, SerializeField]
-	ActorStates _currentState = ActorStates.Jumping;
-	PhysicsState _currentStateMethod = new DefaultState();
-	Dictionary<ActorStates, PhysicsState> _stateMethodMap = new Dictionary<ActorStates, PhysicsState>();
+	ActorStates _currentStateType = ActorStates.Jumping;
+	PhysicsState _currentState = new DefaultState();
+	Dictionary<ActorStates, PhysicsState> _stateMap = new Dictionary<ActorStates, PhysicsState>();
 	#endregion
 
 	#region Movement
@@ -147,7 +146,7 @@ public sealed class ActorPhysics : ActorComponent
 		FollowBumper();
 
 		// Update
-		_currentStateMethod.Update();
+		_currentState.Update();
 
 		// Post-Update stuff
 		ConstrainBumper();
@@ -156,13 +155,13 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void RegisterStateMethod( ActorStates state, PhysicsState method )
 	{
-		if ( _stateMethodMap.ContainsKey( state ) )
+		if ( _stateMap.ContainsKey( state ) )
 		{
-			_stateMethodMap[state] = method;
+			_stateMap[state] = method;
 		}
 		else
 		{
-			_stateMethodMap.Add( state, method );
+			_stateMap.Add( state, method );
 		}
 	}
 
@@ -278,6 +277,25 @@ public sealed class ActorPhysics : ActorComponent
 		return climbing;
 	}
 
+	public void StartClimbing()
+	{
+		rigidbody.useGravity = false;
+		rigidbody.velocity = Vector3.zero;
+		lifter.gameObject.SetActive( false );
+		bumper.gameObject.SetActive( false );
+		climbBumper.gameObject.SetActive( true );
+	}
+
+	public void StopClimbing()
+	{
+		_climbSurface = null;
+		_climbTag = null;
+		rigidbody.useGravity = true;
+		lifter.gameObject.SetActive( true );
+		bumper.gameObject.SetActive( true );
+		climbBumper.gameObject.SetActive( false );
+	}
+
 	public void ClimbSurface( Vector3 movement )
 	{
 		DebugUtils.Assert( _climbSurface, "Cannot climb, surface is null" );
@@ -300,16 +318,6 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			Debug.LogError( "Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck" );
 		}
-	}
-
-	public void StopClimbing()
-	{
-		_climbSurface = null;
-		_climbTag = null;
-		rigidbody.useGravity = true;
-		lifter.gameObject.SetActive( true );
-		bumper.gameObject.SetActive( true );
-		climbBumper.gameObject.SetActive( false );
 	}
 
 	public bool JumpCheck()
@@ -347,12 +355,12 @@ public sealed class ActorPhysics : ActorComponent
 		}
 	}
 
-	public void StartGlide()
+	public void StartGliding()
 	{
 		rigidbody.useGravity = false;
 	}
 
-	public void EndGlide()
+	public void StopGliding()
 	{
 		rigidbody.useGravity = true;
 	}
@@ -418,9 +426,9 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		foreach ( ActorStates state in System.Enum.GetValues( typeof( ActorStates ) ) )
 		{
-			if ( !_stateMethodMap.ContainsKey( state ) )
+			if ( !_stateMap.ContainsKey( state ) )
 			{
-				_stateMethodMap.Add( state, new DefaultState() );
+				_stateMap.Add( state, new DefaultState() );
 			}
 		}
 	}
@@ -438,19 +446,10 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	public void ChangeState( ActorStates toState )
 	{
-		_currentState = toState;
-		_currentStateMethod.Exit();
-		_currentStateMethod = _stateMethodMap[_currentState];
-		_currentStateMethod.Enter();
-	}
-
-	public void StartClimbing()
-	{
-		rigidbody.useGravity = false;
-		rigidbody.velocity = Vector3.zero;
-		lifter.gameObject.SetActive( false );
-		bumper.gameObject.SetActive( false );
-		climbBumper.gameObject.SetActive( true );
+		_currentStateType = toState;
+		_currentState.Exit();
+		_currentState = _stateMap[_currentStateType];
+		_currentState.Enter();
 	}
 
 	/**
@@ -501,7 +500,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	bool IsInState( ActorStates checkState )
 	{
-		return _currentState == checkState;
+		return _currentStateType == checkState;
 	}
 
 	void SetFallSpeed( float fallSpeed )

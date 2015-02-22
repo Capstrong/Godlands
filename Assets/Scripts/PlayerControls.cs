@@ -203,7 +203,7 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Enter()
 		{
-			player.physics.StartGlide();
+			player.physics.StartGliding();
 			player.stats.StartUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", true );
 		}
@@ -242,7 +242,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.stats.StopUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", false );
-			player.physics.EndGlide();
+			player.physics.StopGliding();
 		}
 	}
 
