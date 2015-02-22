@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( PlayerActorStats ) )]
+[RequireComponent( typeof( PlayerStats ) )]
 public class Cutting : ActorComponent
 {
 	[SerializeField] LayerMask _cuttableLayer = 0;
@@ -14,11 +14,11 @@ public class Cutting : ActorComponent
 	[SerializeField] Vector3 _visualOffset = Vector3.zero;
 	[SerializeField] float _lookOverrideDuration = 0.5f;
 
-	PlayerActorStats _actorStats = null;
+	PlayerStats _actorStats = null;
 
 	void Start ()
 	{
-		_actorStats = GetComponent<PlayerActorStats>();
+		_actorStats = GetComponent<PlayerStats>();
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Cutting : ActorComponent
 		Vector3 camForward = Camera.main.transform.forward;
 		camForward.y = 0.0f;
 
-		actor.actorPhysics.OverrideLook( camForward, _lookOverrideDuration );
+		actor.physics.OverrideLook( camForward, _lookOverrideDuration );
 
 		Vector3 rotatedOffset = Quaternion.LookRotation( camForward ) * _visualOffset;
 
