@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( ActorPhysics ) )]
+[RequireComponent( typeof( ActorPhysics ), typeof( PlayerActor ) )]
 public class PlayerControls : MonoBehaviour
 {
 	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
@@ -9,6 +9,13 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _interactCheckRadius = 0.2f;
 
 	PlayerActor _actor;
+
+	[Tooltip( "Probably straight up" )]
+	[SerializeField] Vector3 _respawnOffset = new Vector3();
+	[ReadOnly( "Respawn Position" )]
+	[SerializeField] Vector3 _respawnPosition = new Vector3();
+	Quaternion _respawnRotation = new Quaternion();
+	
 	
 	Button _holdButton = new Button( "Hold" );
 	public Button holdButton
@@ -33,6 +40,9 @@ public class PlayerControls : MonoBehaviour
 		_actor = GetComponent<PlayerActor>();
 
 		SetupStateMethodMap();
+
+		_respawnPosition = transform.position + _respawnOffset;
+		_respawnRotation = transform.rotation;
 	}
 
 	void Update()
@@ -40,6 +50,11 @@ public class PlayerControls : MonoBehaviour
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
+		}
+
+		if ( Input.GetKeyDown( KeyCode.Y ) )
+		{
+			Respawn();
 		}
 
 		_holdButton.Update();
@@ -340,5 +355,18 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return inputVec;
+	}
+
+	public void Respawn()
+	{
+		Teleport( _respawnPosition, _respawnRotation );
+	}
+
+	private void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
+	{
+		transform.position = _respawnPosition;
+		transform.rotation = _respawnRotation;
+
+		_actor.physics.ChangeState( PhysicsStateType.Falling );
 	}
 }
