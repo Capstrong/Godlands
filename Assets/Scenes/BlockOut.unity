@@ -22799,7 +22799,6 @@ MonoBehaviour:
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 0}
-  _owner: {fileID: 0}
   _bodyRenderer: {fileID: 302426968}
 --- !u!114 &514309283
 MonoBehaviour:
@@ -46251,7 +46250,6 @@ MonoBehaviour:
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 0}
-  _owner: {fileID: 0}
   _bodyRenderer: {fileID: 118213900}
 --- !u!114 &1123280556
 MonoBehaviour:
@@ -50111,7 +50109,6 @@ MonoBehaviour:
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 0}
-  _owner: {fileID: 0}
   _bodyRenderer: {fileID: 164182324}
 --- !u!114 &1215378092
 MonoBehaviour:
@@ -54776,7 +54773,9 @@ Prefab:
       propertyPath: _statDictionary.values.Array.data[2].maxImage
       value: 
       objectReference: {fileID: 1332437484}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 13581880, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+    - {fileID: 13581878, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
   m_RootGameObject: {fileID: 298744666}
   m_IsPrefabParent: 0
@@ -86417,8 +86416,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2054674971}
   - 135: {fileID: 2054674972}
-  - 135: {fileID: 2054674974}
-  - 135: {fileID: 2054674973}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -86451,32 +86448,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .200000003
   m_Center: {x: 0, y: .200000003, z: 0}
---- !u!135 &2054674973
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13581880, guid: 562cb066185fbf84c92c6d56ebbdbf57,
-    type: 2}
-  m_PrefabInternal: {fileID: 1319761230}
-  m_GameObject: {fileID: 2054674970}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .400000006
-  m_Center: {x: 0, y: .600000024, z: 0}
---- !u!135 &2054674974
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13581878, guid: 562cb066185fbf84c92c6d56ebbdbf57,
-    type: 2}
-  m_PrefabInternal: {fileID: 1319761230}
-  m_GameObject: {fileID: 2054674970}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .300000012
-  m_Center: {x: 0, y: .400000006, z: 0}
 --- !u!1 &2056688468
 GameObject:
   m_ObjectHideFlags: 0

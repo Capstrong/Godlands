@@ -12,7 +12,7 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
 
-	[SerializeField] GodTag _owner = null;
+	GodTag _owner = null;
 	public GodTag owner
 	{
 		get { return _owner; }
@@ -50,7 +50,7 @@ public class BuddyStats : MonoBehaviour
 		name = "Buddy " + GetRandomName( ID );
 		apples = startingApples;
 		_particles = GetComponentInChildren<ParticleSystem>();
-		owner = _owner; // For owners set in the inspector
+		owner = GameObject.FindObjectOfType<GodTag>();
 	}
 
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
