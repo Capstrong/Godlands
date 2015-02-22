@@ -76,7 +76,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2 * Mathf.PI ) * 0.5f + 0.5f;
+		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2 * Mathf.PI ) * -0.5f + 0.5f;
 
 		_currentTimeRenderSettings = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
 
