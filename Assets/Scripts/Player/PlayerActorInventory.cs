@@ -136,16 +136,8 @@ public class PlayerActorInventory : ActorComponent
 		newBuddy.owner = GetComponent<GodTag>();
 		newBuddy.statType = buddyItemData.stat;
 
-		MeshRenderer[] childRenderers = newBuddy.gameObject.GetComponentsInChildren<MeshRenderer>();
-
-		foreach ( MeshRenderer meshRenderer in childRenderers )
-		{
-			if ( meshRenderer.gameObject.name == "Body" )
-			{
-				// buddyItemData.prefab.GetComponentInChildren<MeshRenderer>() was not working
-				meshRenderer.material.color = buddyItemData.statColor;
-			}
-		}
+		// this could be bad, should probably run it by Chris
+		newBuddy.bodyRenderer.material.color = buddyItemData.statColor;
 
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 

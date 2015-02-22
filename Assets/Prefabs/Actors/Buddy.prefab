@@ -266,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -33.2799988, y: -21.2399998, z: 12.1499996}
+  m_LocalPosition: {x: -37.1399994, y: -21.2700005, z: 15.3299999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470796}
@@ -523,7 +523,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 4941318c4cb9248478dae50723bf3d96, type: 2}
+  - {fileID: 2100000, guid: 369cb6b46b7354bbcb032bc9db77f0b6, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -662,15 +662,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 1
-  canDecreaseStamina: 1
-  decreaseResourcesTime: 60
-  currResourceTimer: 0
+  statType: 0
   startingApples: 10
   apples: 0
-  _startingOwner: {fileID: 0}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
+  _owner: {fileID: 0}
+  _bodyRenderer: {fileID: 2397488}
 --- !u!114 &11457846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
-  _currentState: 1
+  _currentStateType: 1
   _stoppingSpeed: .00100000005
   _stopMoveTime: .300000012
   _groundedMoveSpeed: 2
@@ -727,8 +725,6 @@ MonoBehaviour:
   _jumpColCheckTime: .5
   _lateJumpTime: .5
   _jumpCheckDelay: .100000001
-  _rollTime: 1
-  _rollCooldownTime: 1
   _climbLayer:
     serializedVersion: 2
     m_Bits: 0
