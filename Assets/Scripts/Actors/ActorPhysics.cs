@@ -97,11 +97,11 @@ public sealed class ActorPhysics : ActorComponent
 	float _jumpColCheckTimer = 0.0f; // TODO convert this to an invoke
 
 	[SerializeField] float _lateJumpTime = 0.5f;
-	bool _lateJump = false;
+	bool _lateJumpDelay = false;
 
 	[Tooltip( "The minimum delay between jump checks. Use this to prevent the player from immediately colliding with the ground after jumping." )]
-	[SerializeField] float _jumpCheckDelay = 0.1f;
-	bool _isJumpCheckDelay = false;
+	[SerializeField] float _jumpCheckDelayTime = 0.1f;
+	bool _jumpCheckDelay = false;
 
 	bool _isOnGround = false;
 	#endregion
@@ -176,7 +176,7 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_isOnGround = false;
 
-		if ( !_isJumpCheckDelay )
+		if ( !_jumpCheckDelay )
 		{
 			// spherecast down to detect when we're on the ground
 			RaycastHit hit;
@@ -199,10 +199,6 @@ public sealed class ActorPhysics : ActorComponent
 
 				CancelLateJumpTimer();
 			}
-			else if ( IsInState( PhysicsStateType.Grounded ) )
-			{
-				StartLateJumpTimer();
-			}
 		}
 
 		return _isOnGround;
@@ -219,24 +215,6 @@ public sealed class ActorPhysics : ActorComponent
 
 		_moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = _moveVec;
-
-		if ( _jumpColCheckTimer > _jumpColCheckTime )
-		{
-			if ( IsInState( PhysicsStateType.Grounded ) )
-			{
-				if ( _stopMoveTimer >= _stopMoveTime )
-				{
-					rigidbody.useGravity = false;
-					SetFallSpeed( 0.0f );
-				}
-
-				_stopMoveTimer += Time.deltaTime;
-			}
-			else
-			{
-				rigidbody.useGravity = true;
-			}
-		}
 	}
 
 	public bool ClimbCheck()
@@ -327,25 +305,25 @@ public sealed class ActorPhysics : ActorComponent
 
 	public bool JumpCheck()
 	{
-		if ( _isOnGround || _lateJump )
-		{
-			_lateJump = false;
-
-			Vector3 curVelocity = rigidbody.velocity;
-			curVelocity.y = jumpForce;
-			rigidbody.velocity = curVelocity;
-			rigidbody.useGravity = true;
-
-			_jumpColCheckTimer = 0.0f;
-			StartJumpCheckDelayTimer();
-
-			return true;
-		}
-
-		return false;
+		return _isOnGround || _lateJumpDelay;
 	}
 
-	public void JumpMovement( Vector3 inputVec )
+	public void DoJump()
+	{
+		Vector3 curVelocity = rigidbody.velocity;
+		curVelocity.y = jumpForce;
+		rigidbody.velocity = curVelocity;
+		rigidbody.useGravity = true;
+
+		_jumpColCheckTimer = 0.0f;
+
+		StartJumpCheckDelayTimer();
+	}
+
+	/**
+	 * Movement for both falling and gliding.
+	 */
+	public void AirMovement( Vector3 inputVec )
 	{
 		if ( inputVec.IsZero() )
 		{
@@ -524,9 +502,9 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	#region Late Jump Timer
-	void StartLateJumpTimer()
+	public void StartLateJumpTimer()
 	{
-		_lateJump = true;
+		_lateJumpDelay = true;
 		Invoke( "EndLateJump", _lateJumpTime );
 	}
 
@@ -541,15 +519,15 @@ public sealed class ActorPhysics : ActorComponent
 
 	void EndLateJump()
 	{
-		_lateJump = false;
+		_lateJumpDelay = false;
 	}
 	#endregion
 
 	#region Jump Check Delay Timer
 	void StartJumpCheckDelayTimer()
 	{
-		_isJumpCheckDelay = true;
-		Invoke( "EndJumpCheckDelay", _jumpCheckDelay );
+		_jumpCheckDelay = true;
+		Invoke( "EndJumpCheckDelay", _jumpCheckDelayTime );
 	}
 
 	void CancelJumpCheckDelayTimer()
@@ -563,7 +541,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	void EndJumpCheckDelay()
 	{
-		_isJumpCheckDelay = false;
+		_jumpCheckDelay = false;
 	}
 	#endregion
 }

@@ -14077,7 +14077,7 @@ MonoBehaviour:
   climbBumper: {fileID: 1552376112}
   _modelTurnSpeed: 7
   jumpForce: 12
-  _jumpCheckDistance: 1
+  _jumpCheckDistance: 1.5
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
@@ -14085,7 +14085,7 @@ MonoBehaviour:
   _minJumpDot: .5
   _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .25
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -22798,7 +22798,7 @@ MonoBehaviour:
   startingApples: 10
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
-  _sadMaterial: {fileID: 0}
+  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
   _bodyRenderer: {fileID: 302426968}
 --- !u!114 &514309283
 MonoBehaviour:
@@ -22833,7 +22833,7 @@ MonoBehaviour:
   _minJumpDot: .400000006
   _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .100000001
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -46249,7 +46249,7 @@ MonoBehaviour:
   startingApples: 10
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
-  _sadMaterial: {fileID: 0}
+  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
   _bodyRenderer: {fileID: 118213900}
 --- !u!114 &1123280556
 MonoBehaviour:
@@ -46284,7 +46284,7 @@ MonoBehaviour:
   _minJumpDot: .400000006
   _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .100000001
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -50108,7 +50108,7 @@ MonoBehaviour:
   startingApples: 10
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
-  _sadMaterial: {fileID: 0}
+  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
   _bodyRenderer: {fileID: 164182324}
 --- !u!114 &1215378092
 MonoBehaviour:
@@ -50143,7 +50143,7 @@ MonoBehaviour:
   _minJumpDot: .400000006
   _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .100000001
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 0
