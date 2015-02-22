@@ -179,6 +179,12 @@ public class PlayerControls : MonoBehaviour
 	 */
 	bool RaycastForward( out RaycastHit closestHit )
 	{
+		if( !_actor.actorResources )
+		{
+			closestHit = new RaycastHit();
+			return false;
+		}
+
 		Vector3 camPos = Camera.main.transform.position;
 		Vector3 camForward = Camera.main.transform.forward;
 
