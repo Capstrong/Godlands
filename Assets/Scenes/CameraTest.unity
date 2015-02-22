@@ -1911,8 +1911,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1040336882}
   - 33: {fileID: 1040336881}
-  - 64: {fileID: 1040336880}
   - 23: {fileID: 1040336879}
+  - 65: {fileID: 1040336880}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -1940,8 +1940,8 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &1040336880
-MeshCollider:
+--- !u!65 &1040336880
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1950,9 +1950,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 1, y: .999999642, z: 6.12323228e-17}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1040336881
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2298,6 +2297,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.18923163
@@ -2331,11 +2334,90 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceBounds.max
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480132, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: cam
       value: 
       objectReference: {fileID: 506018405}
-    m_RemovedComponents:
-    - {fileID: 11480132, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _rotationBounds.min
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _rotationBounds.max
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _focusOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _focusOffset.z
+      value: .230000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _focusOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _focusFollowSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _rotationBoundsWidth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _targetFocusDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceBounds.min
+      value: .100000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _collisionLayer.m_Bits
+      value: 4294966271
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistTurnSpeed
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistAngleRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].inSlope
+      value: .514010847
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].outSlope
+      value: .514010847
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[0].inSlope
+      value: 1.31358004
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[0].outSlope
+      value: 1.31358004
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
   m_RootGameObject: {fileID: 1864033163}
   m_IsPrefabParent: 0
@@ -3503,6 +3585,7 @@ GameObject:
   - 114: {fileID: 1864033172}
   - 114: {fileID: 1864033171}
   - 114: {fileID: 1864033170}
+  - 114: {fileID: 1864033169}
   - 114: {fileID: 1864033168}
   - 114: {fileID: 1864033167}
   - 114: {fileID: 1864033166}
@@ -3619,6 +3702,26 @@ MonoBehaviour:
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
       statToScaleRatio: 0
+--- !u!114 &1864033169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11480132, guid: 562cb066185fbf84c92c6d56ebbdbf57,
+    type: 2}
+  m_PrefabInternal: {fileID: 1297830821}
+  m_GameObject: {fileID: 1864033163}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be49a9923b011e84596c2e64764dcc2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
+  _buddies:
+  - {fileID: 0}
+  _lookOverrideDuration: .5
+  _buddyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1864033170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3633,17 +3736,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 506018405}
-  zoomSpeed: 100
-  defaultCamDist: 5
-  minCamDist: 1
-  camLayer:
+  _rotationBounds:
+    min: -30
+    max: 50
+  _vertRotationSpeed: 2
+  _horRotationSpeed: 2
+  _focusShiftSpeed: 7
+  _focusFollowSpeed: 12
+  _focusOffset: {x: 0, y: 0, z: .230000004}
+  _defaultZoomDistance: 10
+  _targetZoomDistance: 10
+  _zoomDistanceBounds:
+    min: .100000001
+    max: 20
+  _turnAssistCurve:
     serializedVersion: 2
-    m_Bits: 4294966527
-  hitPosOffsetDist: .5
-  rotSpeed: {x: 2.5, y: 2.5}
-  rotBounds:
-    min: 40
-    max: 350
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 1.31358004
+      outSlope: 1.31358004
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: .514010847
+      outSlope: .514010847
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  _turnAssistMinAngle: 20
+  _turnAssistTurnSpeed: .699999988
+  _collisionLayer:
+    serializedVersion: 2
+    m_Bits: 4294966271
 --- !u!114 &1864033171
 MonoBehaviour:
   m_ObjectHideFlags: 0
