@@ -11,6 +11,7 @@ public class BuddyStats : MonoBehaviour
 
 	PlayerStats _ownerStats = null;
 
+	[SerializeField] AudioSource _decrementStatSound = null;
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
 
@@ -88,6 +89,7 @@ public class BuddyStats : MonoBehaviour
 		resources--;
 
 		Emote( _sadMaterial );
+		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
 
 		if ( canDecreaseStat )
 		{

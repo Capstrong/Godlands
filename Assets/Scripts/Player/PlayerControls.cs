@@ -15,6 +15,8 @@ public class PlayerControls : MonoBehaviour
 	[ReadOnly( "Respawn Position" )]
 	[SerializeField] Vector3 _respawnPosition = new Vector3();
 	Quaternion _respawnRotation = new Quaternion();
+
+	[SerializeField] AudioSource _respawnSound = null;
 	
 	
 	Button _holdButton = new Button( "Hold" );
@@ -360,6 +362,7 @@ public class PlayerControls : MonoBehaviour
 	public void Respawn()
 	{
 		Teleport( _respawnPosition, _respawnRotation );
+		SoundManager.Play2DSound( _respawnSound );
 	}
 
 	private void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
