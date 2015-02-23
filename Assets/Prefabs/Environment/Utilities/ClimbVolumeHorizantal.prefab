@@ -29,7 +29,7 @@ GameObject:
   - 64: {fileID: 6452308}
   - 23: {fileID: 2352308}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Vines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,9 +41,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152308}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.2010002, y: .00800000038, z: 69.7839966}
-  m_LocalScale: {x: 1.0374887, y: 1.06181479, z: .171281323}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -62.7999992, y: 38.2000008, z: 68.8399963}
+  m_LocalScale: {x: 1.66193318, y: 1.70090127, z: .274372339}
   m_Children:
   - {fileID: 452310}
   m_Father: {fileID: 0}
@@ -95,7 +95,7 @@ MeshCollider:
   m_GameObject: {fileID: 152310}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022ea0c8d20624e0794fd3b29bb647de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovement: 0
-  yMovement: 0
+  _xMovement: 1
+  _yMovement: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
