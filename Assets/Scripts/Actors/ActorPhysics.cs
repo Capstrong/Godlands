@@ -165,6 +165,9 @@ public sealed class ActorPhysics : ActorComponent
 		}
 	}
 
+	/**
+	 * Returns true if the actor is on the ground, false otherwise.
+	 */
 	public bool GroundedCheck()
 	{
 		_isOnGround = false;
@@ -202,6 +205,10 @@ public sealed class ActorPhysics : ActorComponent
 		CalculateDesiredLook();
 	}
 
+	/**
+	 * Returns true if the actor is touching a climbable surface,
+	 * false otherwise.
+	 */
 	public bool ClimbCheck()
 	{
 		Collider[] colliders = Physics.OverlapSphere( transform.position, _climbCheckRadius, _climbLayer );
@@ -264,6 +271,9 @@ public sealed class ActorPhysics : ActorComponent
 		_desiredLook = Quaternion.LookRotation( lookVector );
 	}
 
+	/**
+	 * Returns true if the actor is able to jump, false otherwise.
+	 */
 	public bool JumpCheck()
 	{
 		return _isOnGround || _lateJumpDelay;
