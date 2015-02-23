@@ -188,6 +188,8 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GroundMovement( Vector3 moveVec )
 	{
+		FollowBumper();
+
 		if ( moveVec.IsZero() )
 		{
 			ComeToStop();
@@ -196,6 +198,8 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			MoveAtSpeed( moveVec, groundedMoveSpeed );
 		}
+
+		CalculateDesiredLook();
 	}
 
 	public bool ClimbCheck()
@@ -280,6 +284,8 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	public void AirMovement( Vector3 inputVec )
 	{
+		FollowBumper();
+
 		if ( inputVec.IsZero() )
 		{
 			ComeToStop();
@@ -307,6 +313,8 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GlideMovement( Vector3 inputVec )
 	{
+		FollowBumper();
+
 		if ( !inputVec.IsZero() )
 		{
 			_moveVec = Vector3.RotateTowards( _moveVec,
@@ -341,12 +349,9 @@ public sealed class ActorPhysics : ActorComponent
 
 	void FollowBumper()
 	{
-		if ( !IsInState( PhysicsStateType.Climbing ) )
-		{
-			Vector3 constrainedPos = _bumperTransform.position;
-			constrainedPos.y = transform.position.y;
-			transform.position = constrainedPos;
-		}
+		Vector3 constrainedPos = _bumperTransform.position;
+		constrainedPos.y = transform.position.y;
+		transform.position = constrainedPos;
 	}
 
 	void MoveAtSpeed( Vector3 moveDir, float moveSpeed )
@@ -357,8 +362,6 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec.y = rigidbody.velocity.y;
 
 		rigidbody.velocity = _moveVec;
-
-		CalculateDesiredLook();
 	}
 
 	public void ComeToStop()
@@ -450,11 +453,6 @@ public sealed class ActorPhysics : ActorComponent
 		    Time.deltaTime * _modelTurnSpeed );
 
 		_lastPos = transform.position;
-	}
-
-	bool IsInState( PhysicsStateType checkState )
-	{
-		return _currentStateType == checkState;
 	}
 
 	void SetFallSpeed( float fallSpeed )
