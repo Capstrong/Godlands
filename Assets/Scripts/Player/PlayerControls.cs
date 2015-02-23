@@ -239,7 +239,7 @@ public class PlayerControls : MonoBehaviour
 					}
 				}
 
-				player.controls.GroundMovement();
+				player.physics.GroundMovement( player.controls.GetMoveDirection() );
 
 				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
 			}
@@ -319,20 +319,6 @@ public class PlayerControls : MonoBehaviour
 		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
 	}
 	#endregion
-
-	void GroundMovement()
-	{
-		Vector3 inputVec = GetMoveDirection();
-
-		if ( inputVec.IsZero() )
-		{
-			_actor.physics.ComeToStop();
-		}
-		else
-		{
-			_actor.physics.GroundMovement( inputVec );
-		}
-	}
 
 	/**
 	 * Raycast forward from the camera's position to detect

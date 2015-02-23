@@ -78,6 +78,7 @@ public sealed class ActorPhysics : ActorComponent
 	Vector3 _lookOverride = Vector3.zero;
 
 	private Vector3 _lastPos;
+	private Quaternion _desiredLook;
 	#endregion
 
 	#region Jumping
@@ -106,9 +107,6 @@ public sealed class ActorPhysics : ActorComponent
 	[SerializeField] float _climbCheckRadius = 0.7f;
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _leanTowardsSurface = 0.5f;
-
-	//[SerializeField] float _climbCheckTime = 0.2f;
-	float _climbCheckTimer = 1f;
 
 	Transform _climbSurface = null;
 	ClimbableTag _climbTag;
@@ -145,6 +143,7 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		// Pre-Update stuff
 		FollowBumper();
+		_desiredLook = transform.rotation;
 
 		// Update
 		_currentState.Update();
@@ -189,15 +188,14 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GroundMovement( Vector3 moveVec )
 	{
-		MoveAtSpeed( moveVec, groundedMoveSpeed );
-	}
-
-	public void ComeToStop()
-	{
-		_moveVec = rigidbody.velocity * _stoppingSpeed;
-
-		_moveVec.y = rigidbody.velocity.y;
-		rigidbody.velocity = _moveVec;
+		if ( moveVec.IsZero() )
+		{
+			ComeToStop();
+		}
+		else
+		{
+			MoveAtSpeed( moveVec, groundedMoveSpeed );
+		}
 	}
 
 	public bool ClimbCheck()
@@ -246,25 +244,20 @@ public sealed class ActorPhysics : ActorComponent
 	public void ClimbSurface( Vector3 movement )
 	{
 		DebugUtils.Assert( _climbSurface, "Cannot climb, surface is null" );
+		DebugUtils.Assert( _climbTag, "Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck" );
+		DebugUtils.Assert( _climbTag.xMovement || _climbTag.yMovement, "Climb tag does not allow horizontal or vertical movement. Tag needs to allow at least one of these." );
 
-		if ( _climbTag )
-		{
-			DebugUtils.Assert( _climbTag.xMovement || _climbTag.yMovement );
+		Vector3 surfaceRelativeInput =
+			_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
+			_climbSurface.up * ( _climbTag.yMovement ? movement.z : 0.0f );
 
-			Vector3 surfaceRelativeInput =
-				_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
-				_climbSurface.up * ( _climbTag.yMovement ? movement.z : 0.0f );
+		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
+		rigidbody.velocity = _moveVec;
 
-			Debug.DrawRay( transform.position, surfaceRelativeInput * 10.0f );
-
-			_moveVec = surfaceRelativeInput * _climbMoveSpeed;
-
-			rigidbody.velocity = _moveVec;
-		}
-		else
-		{
-			Debug.LogError( "Cannot climb, surface isn't tagged. This is probably a problem in ClimbCheck" );
-		}
+		// calculate desired look
+		Vector3 lookVector = _climbSurface.forward;
+		lookVector.y *= _leanTowardsSurface;
+		_desiredLook = Quaternion.LookRotation( lookVector );
 	}
 
 	public bool JumpCheck()
@@ -283,7 +276,7 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	/**
-	 * Movement for both falling and gliding.
+	 * Movement for both jumping and falling.
 	 */
 	public void AirMovement( Vector3 inputVec )
 	{
@@ -298,6 +291,8 @@ public sealed class ActorPhysics : ActorComponent
 
 			rigidbody.velocity = _moveVec;
 		}
+
+		CalculateDesiredLook();
 	}
 
 	public void StartGliding()
@@ -325,6 +320,8 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec.y = -_glideDescentRate;
 
 		rigidbody.velocity = _moveVec;
+
+		CalculateDesiredLook();
 	}
 
 	public void OverrideLook( Vector3 lookDir, float time )
@@ -359,6 +356,16 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec = moveDir * moveSpeed;
 		_moveVec.y = rigidbody.velocity.y;
 
+		rigidbody.velocity = _moveVec;
+
+		CalculateDesiredLook();
+	}
+
+	public void ComeToStop()
+	{
+		_moveVec = rigidbody.velocity * _stoppingSpeed;
+
+		_moveVec.y = rigidbody.velocity.y;
 		rigidbody.velocity = _moveVec;
 	}
 
@@ -400,6 +407,32 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	/**
+	 * This calculates the desired look based on desired
+	 * direction of movement and the actual direction
+	 * of movement. If this is not how the look direction
+	 * should be calculated for the current movement type,
+	 * do not call this method.
+	 */
+	void CalculateDesiredLook()
+	{
+		Vector3 actualVelocity = transform.position - _lastPos;
+		actualVelocity.y = 0.0f;
+
+		Vector3 intendedVelocity = rigidbody.velocity;
+		intendedVelocity.y = 0.0f;
+
+		Vector3 lookVec =
+			( _overrideLook ?
+				_lookOverride :
+				Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight ) );
+
+		if ( !lookVec.IsZero() )
+		{
+			_desiredLook = Quaternion.LookRotation( lookVec, transform.up );
+		}
+	}
+
+	/**
 	 * Orients the model to face the direction of movement
 	 *
 	 * Orientation is reactive to velocity, meaning the
@@ -411,35 +444,9 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	void OrientSelf()
 	{
-		Quaternion desiredLook = transform.rotation;
-		if ( IsInState( PhysicsStateType.Climbing ) )
-		{
-			Vector3 lookVector = _climbSurface.forward;
-			lookVector.y *= _leanTowardsSurface;
-			desiredLook = Quaternion.LookRotation( lookVector );
-		}
-		else
-		{
-			Vector3 actualVelocity = transform.position - _lastPos;
-			actualVelocity.y = 0.0f;
-
-			Vector3 intendedVelocity = rigidbody.velocity;
-			intendedVelocity.y = 0.0f;
-
-			Vector3 lookVec =
-				( _overrideLook ?
-				_lookOverride :
-				Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight ) );
-
-			if ( !lookVec.IsZero() )
-			{
-				desiredLook = Quaternion.LookRotation( lookVec, transform.up );
-			}
-		}
-
 		transform.rotation = Quaternion.Lerp(
 		    transform.rotation,
-		    desiredLook,
+		    _desiredLook,
 		    Time.deltaTime * _modelTurnSpeed );
 
 		_lastPos = transform.position;
