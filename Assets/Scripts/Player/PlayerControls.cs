@@ -114,7 +114,6 @@ public class PlayerControls : MonoBehaviour
 		public override void Enter()
 		{
 			player.animator.SetBool( "isJumping", true );
-			player.physics.StartLateJumpTimer();
 		}
 
 		public override void Update()
@@ -180,6 +179,7 @@ public class PlayerControls : MonoBehaviour
 			else
 			{
 				player.physics.ChangeState( PhysicsStateType.Falling );
+				player.physics.StartLateJumpTimer();
 			}
 		}
 
@@ -246,6 +246,7 @@ public class PlayerControls : MonoBehaviour
 			else
 			{
 				player.physics.ChangeState( PhysicsStateType.Falling );
+				player.physics.StartLateJumpTimer();
 			}
 		}
 

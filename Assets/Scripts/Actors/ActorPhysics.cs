@@ -35,9 +35,6 @@ public sealed class ActorPhysics : ActorComponent
 	[Header( "Movement" )]
 	[SerializeField] float _stoppingSpeed = 0.001f;
 
-	[SerializeField] float _stopMoveTime = 0.3f;
-	float _stopMoveTimer = 0f;
-
 	[SerializeField] float _groundedMoveSpeed = 6f;
 	public float groundedMoveSpeed
 	{
@@ -92,9 +89,6 @@ public sealed class ActorPhysics : ActorComponent
 
 	[SerializeField] LayerMask _jumpLayer = 0;
 	[SerializeField] float _minJumpDot = 0.4f;
-
-	[SerializeField] float _jumpColCheckTime = 0.5f;
-	float _jumpColCheckTimer = 0.0f; // TODO convert this to an invoke
 
 	[SerializeField] float _lateJumpTime = 0.5f;
 	bool _lateJumpDelay = false;
@@ -188,17 +182,6 @@ public sealed class ActorPhysics : ActorComponent
 			                    _jumpLayer );
 			_isOnGround = ( hit.transform &&
 			                Vector3.Dot( hit.normal, Vector3.up ) > _minJumpDot );
-
-			if ( _isOnGround &&
-			     !IsInState( PhysicsStateType.Climbing ) )
-			{
-				if ( !IsInState( PhysicsStateType.Grounded ) )
-				{
-					_stopMoveTimer = 0f;
-				}
-
-				CancelLateJumpTimer();
-			}
 		}
 
 		return _isOnGround;
@@ -219,45 +202,26 @@ public sealed class ActorPhysics : ActorComponent
 
 	public bool ClimbCheck()
 	{
-		_climbCheckTimer += Time.deltaTime;
-
-		bool climbing = false;
-		//if ( climbCheckTimer > climbCheckTime )
+		Collider[] colliders = Physics.OverlapSphere( transform.position, _climbCheckRadius, _climbLayer );
+		if ( colliders.Length > 0 )
 		{
-			Collider[] colliders = Physics.OverlapSphere( transform.position, _climbCheckRadius, _climbLayer );
-			if ( colliders.Length > 0 )
+			Collider nearestCol = colliders[0];
+			float shortestDistance = float.MaxValue;
+			foreach ( Collider col in colliders )
 			{
-				Collider nearestCol = colliders[0];
-				float shortestDistance = float.MaxValue;
-				foreach ( Collider col in colliders )
+				float distance = ( col.transform.position - transform.position ).sqrMagnitude;
+				if ( distance < shortestDistance )
 				{
-					float distance =  ( col.transform.position - transform.position ).sqrMagnitude;
-					if ( distance < shortestDistance )
-					{
-						nearestCol = col;
-						shortestDistance = distance;
-					}
+					nearestCol = col;
+					shortestDistance = distance;
 				}
-
-				_climbTag = nearestCol.GetComponent<ClimbableTag>();
-				_climbSurface = _climbTag.GetComponent<Transform>();
-
-				climbing = true;
-			}
-			else
-			{
-				StopClimbing();
-				climbing = false;
 			}
 
-			_climbCheckTimer = 0f;
+			_climbTag = nearestCol.GetComponent<ClimbableTag>();
+			_climbSurface = _climbTag.GetComponent<Transform>();
 		}
-		//else
-		//{
-		//	climbing = true;
-		//}
-		
-		return climbing;
+
+		return colliders.Length > 0;
 	}
 
 	public void StartClimbing()
@@ -314,8 +278,6 @@ public sealed class ActorPhysics : ActorComponent
 		curVelocity.y = jumpForce;
 		rigidbody.velocity = curVelocity;
 		rigidbody.useGravity = true;
-
-		_jumpColCheckTimer = 0.0f;
 
 		StartJumpCheckDelayTimer();
 	}
