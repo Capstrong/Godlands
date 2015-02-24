@@ -20,12 +20,18 @@ public sealed class ActorPhysics : ActorComponent
 	#region States
 	[ReadOnly, SerializeField]
 	PhysicsStateType _currentStateType = PhysicsStateType.Jumping;
+	public PhysicsStateType currentStateType
+	{
+		get{ return _currentStateType; }
+	}
+
 	PhysicsState _currentState = new DefaultState();
+
 	Dictionary<PhysicsStateType, PhysicsState> _stateMap = new Dictionary<PhysicsStateType, PhysicsState>();
 
 	public delegate void StateCallback( PhysicsStateType physicsStateType );
-	public StateCallback ExitStateCallback;
-	public StateCallback EnterStateCallback;
+	public StateCallback ExitStateCallback = delegate {};
+	public StateCallback EnterStateCallback = delegate {};
 	
 	public class DefaultState : PhysicsState
 	{
@@ -416,21 +422,13 @@ public sealed class ActorPhysics : ActorComponent
 	public void ChangeState( PhysicsStateType toState )
 	{
 		_currentState.Exit();
-
-		if( ExitStateCallback != null )
-		{
-			ExitStateCallback( _currentStateType );
-		}
+		ExitStateCallback( _currentStateType );
 
 		_currentStateType = toState;
 		_currentState = _stateMap[_currentStateType];
 
 		_currentState.Enter();
-
-		if( EnterStateCallback != null )
-		{
-			EnterStateCallback( _currentStateType );
-		}
+		EnterStateCallback( _currentStateType );
 	}
 
 	/**

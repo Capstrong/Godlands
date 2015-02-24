@@ -2192,7 +2192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
+  m_LocalPosition: {x: -70.1200027, y: 20.2770004, z: 65.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -2392,12 +2392,26 @@ MonoBehaviour:
     min: -50
     max: 50
   _vertRotationSpeed: 2
-  _horRotationSpeed: 2
+  _horRotationSpeedStateMap:
+    keys: 0100000002000000040000000300000000000000
+    values:
+    - 2
+    - 2
+    - .5
+    - 2
+    - 2
   _focusShiftSpeed: 7
   _focusFollowSpeed: 12
   _focusOffset: {x: 0, y: 0, z: .330000013}
-  _defaultZoomDistance: 10
   _targetZoomDistance: 10
+  _zoomDistanceStateMap:
+    keys: 0100000002000000040000000300000000000000
+    values:
+    - 10
+    - 10
+    - 7
+    - 12
+    - 10
   _zoomDistanceBounds:
     min: 1
     max: 25

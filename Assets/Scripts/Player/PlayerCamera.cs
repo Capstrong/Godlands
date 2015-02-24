@@ -1,22 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class DictionaryOfPhysicsStateTypeAndFloat : SerializableDictionary<PhysicsStateType, float> {}
+
 public class PlayerCamera : ActorComponent 
 {
-	ActorPhysics actorPhysics = null; // Need this so we can change the camera in different states
-
 	[ReadOnly]
 	public Camera cam = null;
 
 	// Rotation
 	[SerializeField] MinMaxF _rotationBounds = new MinMaxF( -30f, 50f );
-	float _rotationBoundsWidth = 50f; // This determines how close to the bounds rotation will be dampened
+
+	[Range( 0f, 90f)]
+	float _rotationBoundsWidth = 50f; // degrees away from either bounds the rotation is slowed
 
 	[SerializeField] float _vertRotationSpeed = 2f; // Vertical
-	[SerializeField] float _horRotationSpeed = 2f; // Horizontal
-
-	[SerializeField] float _defaultHorRotationSpeed = 2f;
-	[SerializeField] float _glideHorRotationSpeed = 0.5f;
+	public DictionaryOfPhysicsStateTypeAndFloat _horRotationSpeedStateMap = null;	// 2, 0.5
 
 	// Focus
 	Vector3 _headOffset = new Vector3( 0f, 1.75f, 0f );
@@ -27,14 +27,10 @@ public class PlayerCamera : ActorComponent
 	[SerializeField] Vector3 _focusOffset = new Vector3( 0f, 0f, 0.4f ); // How far offset is the camera it's intended position
 
 	// Zoom
-	float _currentZoomDistance = 0f;
-
-	[SerializeField] float _zoomDistance = 10f; // Probably should add zoom distance for closeup mode, far away mode, etc
-
-	[SerializeField] float _defaultZoomDistance = 10f;
-	[SerializeField] float _glideZoomDistance = 7f;
-
+	[ReadOnly("ZoomDistance")] float _currentZoomDistance = 0f; // Current camera zoom
 	[SerializeField] float _targetZoomDistance = 10f;
+
+	public DictionaryOfPhysicsStateTypeAndFloat _zoomDistanceStateMap = null;	// 10, 7
 
 	[SerializeField] MinMaxF _zoomDistanceBounds = new MinMaxF( 1f, 25f );
 
@@ -49,11 +45,8 @@ public class PlayerCamera : ActorComponent
 	public override void Awake()
 	{
 		base.Awake();
-
+	
 		cam = Camera.main;
-		actorPhysics = GetComponent<ActorPhysics>();
-
-		actorPhysics.EnterStateCallback += EnterCameraState;
 	}
 
 	void FixedUpdate ()
@@ -79,20 +72,6 @@ public class PlayerCamera : ActorComponent
 		if ( Input.GetKeyDown( KeyCode.T ) )
 		{
 			Application.CaptureScreenshot( "Screenshot_" + System.DateTime.Now.ToString( "yyyy.MM.dd.HH.mm.ss" ) + ".png", 4 );
-		}
-	}
-
-	void EnterCameraState( PhysicsStateType physicsStateType )
-	{
-		if( physicsStateType == PhysicsStateType.Gliding )
-		{
-			_horRotationSpeed = _glideHorRotationSpeed;
-			_zoomDistance = _glideZoomDistance;
-		}
-		else
-		{
-			_horRotationSpeed = _defaultHorRotationSpeed;
-			_zoomDistance = _defaultZoomDistance;
 		}
 	}
 
@@ -142,7 +121,7 @@ public class PlayerCamera : ActorComponent
 		{
 			cam.transform.RotateAround( transform.position,
 			                            cam.transform.up,
-			                            xMouseInput * _horRotationSpeed );
+			                            xMouseInput * _horRotationSpeedStateMap[actor.physics.currentStateType] );
 			
 			cam.transform.RotateAround( transform.position,
 			                            cam.transform.right,
@@ -177,20 +156,17 @@ public class PlayerCamera : ActorComponent
 		float xEuler = cam.transform.eulerAngles.x;
 		float speedMod = 1f;
 
-		// Bottom rotation
-		if( xEuler > 270f && yInput < 0f ) 
+		if( xEuler > 270f && yInput < 0f ) // Bottom rotation
 		{
 			xEuler -= 360f + _rotationBounds.min;
-			speedMod = Mathf.Lerp( 0f, 1f, Mathf.InverseLerp( 0f, _rotationBoundsWidth, xEuler ) );
+			speedMod = xEuler/_rotationBoundsWidth;
 		}
-
-		// Top rotation
-		if( xEuler < 90f && yInput > 0f )
+		else if( xEuler < 90f && yInput > 0f ) // Top rotation
 		{
 			xEuler -= _rotationBounds.min;
-			speedMod = Mathf.Lerp( 1f, 0f, Mathf.InverseLerp( _rotationBounds.Difference - _rotationBoundsWidth,
-			                                              	  _rotationBounds.Difference, 
-			                                              	  xEuler ) );
+			speedMod = 1f - Mathf.InverseLerp( _rotationBounds.Range - _rotationBoundsWidth,
+			                                   _rotationBounds.Range, 
+			                                   xEuler );
 		}
 
 		return speedMod;
@@ -209,33 +185,33 @@ public class PlayerCamera : ActorComponent
 		                            cam.transform.up,
 		                            turnSpeedMod * _turnAssistTurnSpeed * xMoveInput );
 
-		_targetZoomDistance = _zoomDistance;
+		_targetZoomDistance = _zoomDistanceStateMap[actor.physics.currentStateType];
 	}
 	
 	void KeepLineOfSight( Vector3 actorHead, Vector3 actorToCam )
 	{
 		float nearestDist = Mathf.Infinity;
 		RaycastHit[] hits = Physics.RaycastAll( actorHead,
-		                                        actorToCam,
-		                                        _zoomDistanceBounds.max,
-		                                        _collisionLayer );
+                                                actorToCam,
+                                                _zoomDistanceBounds.max,
+                                                _collisionLayer );
 
 		if(hits.Length > 0)
 		{
 			foreach( RaycastHit hit in hits )
 			{
 				float hitDist = (actorHead - hit.point).sqrMagnitude;
-				if(hitDist < nearestDist && hit.transform && !hit.transform.GetComponent<NoZoom>())
+				if(hitDist < nearestDist && hit.transform)
 				{
 					nearestDist = hitDist;
 				}
 			}
 
-			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _zoomDistance );
+			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _zoomDistanceStateMap[actor.physics.currentStateType] );
 		}
 		else
 		{
-			_targetZoomDistance = _zoomDistance;
+			_targetZoomDistance = _zoomDistanceStateMap[actor.physics.currentStateType];
 		}
 	}
 }

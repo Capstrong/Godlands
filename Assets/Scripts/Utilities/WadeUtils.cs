@@ -554,7 +554,7 @@ public struct MinMaxF
 	public float min;
 	public float max;
 
-	public float Difference
+	public float Range
 	{
 		get { return max - min; }
 	}
@@ -577,7 +577,7 @@ public struct MinMaxI
 	public int min;
 	public int max;
 
-	public int Difference
+	public int Range
 	{
 		get { return max - min; }
 	}
