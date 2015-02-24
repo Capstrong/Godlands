@@ -8,7 +8,8 @@ public enum PhysicsStateType
 	Jumping,
 	Falling,
 	Climbing,
-	Gliding
+	Gliding,
+	Sprinting,
 }
 
 public sealed class ActorPhysics : ActorComponent
@@ -43,6 +44,8 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		get { return _groundedMoveSpeed; }
 	}
+
+	[SerializeField] float _sprintMoveSpeed = 12f;
 
 	[SerializeField] float _jumpMoveSpeed = 6f;
 
@@ -211,6 +214,11 @@ public sealed class ActorPhysics : ActorComponent
 	public void GroundMovement( Vector3 moveVec )
 	{
 		MoveAtSpeed( moveVec, groundedMoveSpeed );
+	}
+
+	public void SprintMovement( Vector3 moveVec )
+	{
+		MoveAtSpeed( moveVec, _sprintMoveSpeed );
 	}
 
 	public void ComeToStop()

@@ -28,6 +28,12 @@ public class PlayerControls : MonoBehaviour
 		get { return _jumpButton; }
 	}
 
+	Button _sprintButton = new Button( "Sprint" );
+	public Button sprintButton
+	{
+		get { return _sprintButton; }
+	}
+
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
@@ -45,6 +51,7 @@ public class PlayerControls : MonoBehaviour
 		_holdButton.Update();
 		_useButton.Update();
 		_jumpButton.Update();
+		_sprintButton.Update();
 	}
 
 	#region Physics States
@@ -158,6 +165,11 @@ public class PlayerControls : MonoBehaviour
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
 
+				if ( player.controls.sprintButton )
+				{
+					player.physics.ChangeState( PhysicsStateType.Sprinting );
+				}
+
 				if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
@@ -190,6 +202,39 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		public override void Exit() { }
+	}
+
+	public class Sprinting : PhysicsState
+	{
+		PlayerActor player;
+
+		public Sprinting( PlayerActor player )
+		{
+			this.player = player;
+		}
+
+		public override void Enter() { }
+
+		public override void Update()
+		{
+			if ( player.physics.GroundedCheck() )
+			{
+				if ( !player.controls.sprintButton )
+				{
+					player.physics.ChangeState( PhysicsStateType.Grounded );
+				}
+
+				player.controls.GroundMovement( true );
+
+				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+			}
+			else
+			{
+				player.physics.ChangeState( PhysicsStateType.Falling );
+			}
+		}
+
+		public override void Exit() { }
 	}
 
 	public class Gliding : PhysicsState
@@ -248,15 +293,16 @@ public class PlayerControls : MonoBehaviour
 
 	void SetupStateMethodMap()
 	{
-		_actor.physics.RegisterState( PhysicsStateType.Jumping,  new Jumping( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Falling,  new Jumping( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Grounded, new Grounded( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Climbing, new Climbing( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Jumping,   new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Falling,   new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Grounded,  new Grounded( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Climbing,  new Climbing( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Gliding,   new Gliding( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Sprinting, new Sprinting( _actor ) );
 	}
 	#endregion
 
-	void GroundMovement()
+	void GroundMovement( bool isSprinting = false )
 	{
 		Vector3 inputVec = GetMoveDirection();
 
@@ -266,7 +312,14 @@ public class PlayerControls : MonoBehaviour
 		}
 		else
 		{
-			_actor.physics.GroundMovement( inputVec );
+			if ( isSprinting )
+			{
+				_actor.physics.SprintMovement( inputVec );
+			}
+			else
+			{
+				_actor.physics.GroundMovement( inputVec );
+			}
 		}
 	}
 
