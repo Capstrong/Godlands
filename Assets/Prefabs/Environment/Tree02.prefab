@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3357476}
   - 23: {fileID: 2357476}
   - 95: {fileID: 9557476}
+  - 64: {fileID: 6475422}
   m_Layer: 0
   m_Name: Tree02
   m_TagString: Untagged
@@ -56,6 +57,19 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157476}
+  m_Mesh: {fileID: 4300000, guid: 7c7b3e99d540f494e8065572b19e4127, type: 3}
+--- !u!64 &6475422
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 7c7b3e99d540f494e8065572b19e4127, type: 3}
 --- !u!95 &9557476
 Animator:

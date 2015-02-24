@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3332186}
   - 23: {fileID: 2332186}
   - 95: {fileID: 9532186}
+  - 64: {fileID: 6488484}
   m_Layer: 0
   m_Name: Mushroom02
   m_TagString: Untagged
@@ -56,6 +57,19 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132186}
+  m_Mesh: {fileID: 4300000, guid: ff4a42c7da66a4c4bb206e7a4923c359, type: 3}
+--- !u!64 &6488484
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: ff4a42c7da66a4c4bb206e7a4923c359, type: 3}
 --- !u!95 &9532186
 Animator:
