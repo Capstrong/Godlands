@@ -219,6 +219,12 @@ public class PlayerControls : MonoBehaviour
 		{
 			if ( player.physics.GroundedCheck() )
 			{
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
+				{
+					player.physics.ChangeState( PhysicsStateType.Jumping );
+				}
+
 				if ( !player.controls.sprintButton )
 				{
 					player.physics.ChangeState( PhysicsStateType.Grounded );

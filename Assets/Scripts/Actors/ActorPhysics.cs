@@ -63,10 +63,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	public float normalizedMoveSpeed
 	{
-		get
-		{
-			return rigidbody.velocity.magnitude / sprintMoveSpeed;
-		}
+		get { return rigidbody.velocity.magnitude / sprintMoveSpeed; }
 	}
 
 	/**
