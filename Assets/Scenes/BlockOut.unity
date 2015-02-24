@@ -18660,7 +18660,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
-  _sprintMoveSpeed: 12
+  _sprintMoveSpeed: 8.5
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
@@ -18699,20 +18699,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 58908145}
-  zoomSpeed: 100
-  defaultCamDist: 5
-  minCamDist: 1
-  camLayer:
+  _rotationBounds:
+    min: -50
+    max: 50
+  _vertRotationSpeed: 2
+  _horRotationSpeedStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 2
+    - .5
+    - 2
+    - 2
+    - 2
+    - 1.5
+  _focusShiftSpeed: 7
+  _focusFollowSpeed: 12
+  _focusOffset: {x: 0, y: 0, z: .400000006}
+  _targetZoomDistance: 10
+  _zoomDistanceStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 6
+    - 7
+    - 10
+    - 10
+    - 10
+    - 10
+  _zoomDistanceBounds:
+    min: 1
+    max: 25
+  _turnAssistCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  _turnAssistMinAngle: 20
+  _turnAssistTurnSpeed: .699999988
+  _collisionLayer:
     serializedVersion: 2
     m_Bits: 1
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  hitPosOffsetDist: .5
-  rotSpeed: {x: 2.5, y: 2.5}
-  rotBounds:
-    min: 40
-    max: 350
 --- !u!114 &298744673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80584,6 +80619,26 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 2121103966}
     m_Modifications:
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_LocalPosition.x
       value: -.349999994
@@ -80648,6 +80703,110 @@ Prefab:
       propertyPath: _statDictionary.values.Array.data[2].maxImage
       value: 
       objectReference: {fileID: 1332437484}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.keys.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.keys.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[1]
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[4]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _horRotationSpeedStateMap.values.Array.data[5]
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[0]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[1]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[2]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[3]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[4]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _zoomDistanceStateMap.values.Array.data[5]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _turnAssistCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480134, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _rotationBounds.min
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480136, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
+      propertyPath: _sprintMoveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 13581880, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
     - {fileID: 13581878, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}

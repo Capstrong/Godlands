@@ -402,7 +402,7 @@ public class PlayerControls : MonoBehaviour
 		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
 		RaycastHit[] hits = Physics.SphereCastAll(
-			new Ray( camPos, camForward ),
+			new Ray( transform.position, camForward ),
 			_interactCheckRadius,
 			_interactCheckDistance,
 			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
