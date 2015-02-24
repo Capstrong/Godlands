@@ -33,7 +33,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &170798
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +667,6 @@ MonoBehaviour:
   apples: 0
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
-  _owner: {fileID: 0}
   _bodyRenderer: {fileID: 2397488}
 --- !u!114 &11457846
 MonoBehaviour:
@@ -698,7 +697,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
   m_Name: 
@@ -706,7 +705,6 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _stopMoveTime: .300000012
   _groundedMoveSpeed: 2
   _jumpMoveSpeed: 2
   _rollMoveSpeed: 2
@@ -722,9 +720,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   _minJumpDot: .400000006
-  _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .100000001
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 0

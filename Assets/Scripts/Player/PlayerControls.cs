@@ -60,13 +60,22 @@ public class PlayerControls : MonoBehaviour
 		public override void Enter()
 		{
 			player.animator.SetBool( "isJumping", true );
+			player.physics.DoJump();
 		}
 
 		public override void Update()
 		{
 			if ( player.physics.GroundedCheck() )
 			{
-				player.physics.ChangeState( PhysicsStateType.Grounded );
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
+				{
+					player.physics.ChangeState( PhysicsStateType.Jumping );
+				}
+				else
+				{
+					player.physics.ChangeState( PhysicsStateType.Grounded );
+				}
 			}
 			else
 			{
@@ -82,7 +91,57 @@ public class PlayerControls : MonoBehaviour
 				}
 				else
 				{
-					player.physics.JumpMovement( player.controls.GetMoveDirection() );
+					player.physics.AirMovement( player.controls.GetMoveDirection() );
+				}
+			}
+		}
+
+		public override void Exit()
+		{
+			player.animator.SetBool( "isJumping", false );
+		}
+	}
+
+	public class Falling : PhysicsState
+	{
+		public PlayerActor player;
+
+		public Falling( PlayerActor player )
+		{
+			this.player = player;
+		}
+
+		public override void Enter()
+		{
+			player.animator.SetBool( "isJumping", true );
+		}
+
+		public override void Update()
+		{
+			if ( player.physics.GroundedCheck() )
+			{
+				player.physics.ChangeState( PhysicsStateType.Grounded );
+			}
+			else if ( player.controls.jumpButton.down &&
+			          player.physics.JumpCheck() )
+			{
+				player.physics.ChangeState( PhysicsStateType.Jumping );
+			}
+			else
+			{
+				if ( player.controls.holdButton &&
+				     player.physics.ClimbCheck() )
+				{
+					player.physics.ChangeState( PhysicsStateType.Climbing );
+				}
+
+				if ( player.controls.holdButton.down && player.stats.CanUseStat( Stat.Gliding ) )
+				{
+					player.physics.ChangeState( PhysicsStateType.Gliding );
+				}
+				else
+				{
+					player.physics.AirMovement( player.controls.GetMoveDirection() );
 				}
 			}
 		}
@@ -111,15 +170,16 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Update()
 		{
-			if ( player.physics.ClimbCheck() &&
-			     player.controls.holdButton &&
-			     player.stats.CanUseStat( Stat.Stamina ) )
+			if ( player.controls.holdButton &&
+			     player.stats.CanUseStat( Stat.Stamina ) &&
+			     player.physics.ClimbCheck() )
 			{
 				player.physics.ClimbSurface( player.controls.GetMoveInput() );
 			}
 			else
 			{
 				player.physics.ChangeState( PhysicsStateType.Falling );
+				player.physics.StartLateJumpTimer();
 			}
 		}
 
@@ -151,14 +211,12 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
-
-				if ( player.controls.holdButton &&
-				     player.physics.ClimbCheck() )
+				else if ( player.controls.holdButton &&
+				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
-
-				if ( player.controls.useButton.down )
+				else if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
 					{
@@ -179,13 +237,14 @@ public class PlayerControls : MonoBehaviour
 					}
 				}
 
-				player.controls.GroundMovement();
+				player.physics.GroundMovement( player.controls.GetMoveDirection() );
 
 				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
 			}
 			else
 			{
 				player.physics.ChangeState( PhysicsStateType.Falling );
+				player.physics.StartLateJumpTimer();
 			}
 		}
 
@@ -210,27 +269,27 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Update()
 		{
-			if ( player.controls.jumpButton.down &&
-			     player.physics.JumpCheck() )
-			{
-				player.physics.ChangeState( PhysicsStateType.Jumping );
-			}
-			else if ( player.controls.holdButton &&
-			          player.physics.ClimbCheck() )
+			if ( player.controls.holdButton &&
+			     player.physics.ClimbCheck() )
 			{
 				player.physics.ChangeState( PhysicsStateType.Climbing );
 			}
-			else if ( player.controls.holdButton &&
-			          player.stats.CanUseStat( Stat.Gliding ) )
+			else if ( player.physics.GroundedCheck() )
 			{
-				if ( !player.physics.GroundedCheck() )
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
 				{
-					player.physics.GlideMovement( player.controls.GetMoveDirection() );
+					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
 				else
 				{
 					player.physics.ChangeState( PhysicsStateType.Grounded );
 				}
+			}
+			else if ( player.controls.holdButton &&
+			          player.stats.CanUseStat( Stat.Gliding ) )
+			{
+				player.physics.GlideMovement( player.controls.GetMoveDirection() );
 			}
 			else
 			{
@@ -249,26 +308,12 @@ public class PlayerControls : MonoBehaviour
 	void SetupStateMethodMap()
 	{
 		_actor.physics.RegisterState( PhysicsStateType.Jumping,  new Jumping( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Falling,  new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Falling,  new Falling( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Grounded, new Grounded( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Climbing, new Climbing( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
 	}
 	#endregion
-
-	void GroundMovement()
-	{
-		Vector3 inputVec = GetMoveDirection();
-
-		if ( inputVec.IsZero() )
-		{
-			_actor.physics.ComeToStop();
-		}
-		else
-		{
-			_actor.physics.GroundMovement( inputVec );
-		}
-	}
 
 	/**
 	 * Raycast forward from the camera's position to detect
