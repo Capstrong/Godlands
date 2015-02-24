@@ -5,25 +5,25 @@ public class MoveToDestination : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private ActorPhysics actorPhysics;
+	private BehaviorPhysicsController controller;
 	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
-		actorPhysics = gameObject.GetComponent<ActorPhysics>();
+		controller = gameObject.GetComponent<BehaviorPhysicsController>();
 		info = gameObject.GetComponent<BehaviorTreeInfo>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		actorPhysics.GroundMovement( ( info.destination - transform.position ).normalized );
+		controller.moveDirection = ( info.destination - transform.position ).normalized;
 
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
 		{
 			info.destination = Vector3.zero;
-			actorPhysics.ComeToStop();
+			controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}
 		else
@@ -37,7 +37,7 @@ public class FollowTarget : LeafNode
 {
 	private GameObject gameObject;
 	private Transform transform;
-	private ActorPhysics actorPhysics;
+	private BehaviorPhysicsController controller;
 	private BehaviorTreeInfo info;
 
 	public override void Init( Hashtable data )
@@ -45,17 +45,17 @@ public class FollowTarget : LeafNode
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
 		info = gameObject.GetComponent<BehaviorTreeInfo>();
-		actorPhysics = gameObject.GetComponent<ActorPhysics>();
+		controller = gameObject.GetComponent<BehaviorPhysicsController>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		actorPhysics.GroundMovement( ( info.followTarget.position - transform.position ).normalized );
+		controller.moveDirection = ( info.followTarget.position - transform.position ).normalized;
 
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
 		{
 			info.followTarget = null;
-			actorPhysics.ComeToStop();
+			controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}
 		else

@@ -16318,6 +16318,7 @@ GameObject:
   - 114: {fileID: 514309280}
   - 114: {fileID: 514309279}
   - 114: {fileID: 514309278}
+  - 114: {fileID: 514309286}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -16444,13 +16445,13 @@ MonoBehaviour:
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   _minJumpDot: .400000006
   _lateJumpTime: .5
   _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
@@ -16484,6 +16485,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &514309286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11406010, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1187952654}
+  m_GameObject: {fileID: 514309276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bc3f0f03516174abc2376832c2e3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &518606253
 GameObject:
   m_ObjectHideFlags: 0
@@ -31140,7 +31154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1005349706
 Transform:
   m_ObjectHideFlags: 0
@@ -33300,6 +33314,7 @@ GameObject:
   - 114: {fileID: 1123280553}
   - 114: {fileID: 1123280552}
   - 114: {fileID: 1123280551}
+  - 114: {fileID: 1123280559}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -33426,13 +33441,13 @@ MonoBehaviour:
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   _minJumpDot: .400000006
   _lateJumpTime: .5
   _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
@@ -33466,6 +33481,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1123280559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11406010, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1888263438}
+  m_GameObject: {fileID: 1123280549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bc3f0f03516174abc2376832c2e3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1125005669
 GameObject:
   m_ObjectHideFlags: 0
@@ -35791,6 +35819,7 @@ GameObject:
   - 114: {fileID: 1215378089}
   - 114: {fileID: 1215378088}
   - 114: {fileID: 1215378086}
+  - 114: {fileID: 1215378095}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -35917,13 +35946,13 @@ MonoBehaviour:
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   _minJumpDot: .400000006
   _lateJumpTime: .5
   _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
@@ -35957,6 +35986,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1215378095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11406010, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 2134689828}
+  m_GameObject: {fileID: 1215378085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bc3f0f03516174abc2376832c2e3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1220783185
 GameObject:
   m_ObjectHideFlags: 0
@@ -44741,7 +44783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1613573088
 Transform:
   m_ObjectHideFlags: 0
@@ -46373,7 +46415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1661516026
 Transform:
   m_ObjectHideFlags: 0
