@@ -2193,8 +2193,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
+  m_LocalRotation: {x: .00130014506, y: .676045895, z: -.00133305695, w: -.736857235}
+  m_LocalPosition: {x: -35.2560005, y: -19.7169991, z: 16.0130005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -2352,10 +2352,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 180122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c5808a54328b24e9e66362a1559c12, type: 3}
+  m_Script: {fileID: 11500000, guid: 97f6ff81a8d254b77aab2e30eb476b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactCheckDistance: 7
+  _interactCheckDistance: 5
   _interactCheckRadius: .200000003
 --- !u!114 &11480132
 MonoBehaviour:
@@ -2390,20 +2390,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 0}
-  zoomSpeed: 100
-  defaultCamDist: 5
-  minCamDist: 1
-  camLayer:
+  _rotationBounds:
+    min: -50
+    max: 50
+  _vertRotationSpeed: 2
+  _horRotationSpeed: 2
+  _focusShiftSpeed: 7
+  _focusFollowSpeed: 12
+  _focusOffset: {x: 0, y: 0, z: .330000013}
+  _defaultZoomDistance: 10
+  _targetZoomDistance: 10
+  _zoomDistanceBounds:
+    min: 1
+    max: 25
+  _turnAssistCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 1.46632195
+      outSlope: 1.46632195
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  _turnAssistMinAngle: 20
+  _turnAssistTurnSpeed: .699999988
+  _collisionLayer:
     serializedVersion: 2
     m_Bits: 1
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  hitPosOffsetDist: .5
-  rotSpeed: {x: 2.5, y: 2.5}
-  rotBounds:
-    min: 40
-    max: 350
 --- !u!114 &11480136
 MonoBehaviour:
   m_ObjectHideFlags: 1
