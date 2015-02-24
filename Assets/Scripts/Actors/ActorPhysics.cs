@@ -146,7 +146,6 @@ public sealed class ActorPhysics : ActorComponent
 	void FixedUpdate()
 	{
 		// Pre-Update stuff
-		FollowBumper();
 		_desiredLook = transform.rotation;
 
 		// Update
@@ -449,10 +448,11 @@ public sealed class ActorPhysics : ActorComponent
 		Vector3 intendedVelocity = rigidbody.velocity;
 		intendedVelocity.y = 0.0f;
 
-		Vector3 lookVec =
-			( _overrideLook ?
+		Vector3 weightedVelocity = Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight );
+
+		Vector3 lookVec = ( _overrideLook ?
 				_lookOverride :
-				Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight ) );
+				weightedVelocity );
 
 		if ( !lookVec.IsZero() )
 		{

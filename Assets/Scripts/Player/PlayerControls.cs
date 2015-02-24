@@ -170,9 +170,9 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Update()
 		{
-			if ( player.physics.ClimbCheck() &&
-			     player.controls.holdButton &&
-			     player.stats.CanUseStat( Stat.Stamina ) )
+			if ( player.controls.holdButton &&
+			     player.stats.CanUseStat( Stat.Stamina ) &&
+			     player.physics.ClimbCheck() )
 			{
 				player.physics.ClimbSurface( player.controls.GetMoveInput() );
 			}
@@ -211,14 +211,12 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
-
-				if ( player.controls.holdButton &&
-				     player.physics.ClimbCheck() )
+				else if ( player.controls.holdButton &&
+				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
-
-				if ( player.controls.useButton.down )
+				else if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
 					{
@@ -276,25 +274,22 @@ public class PlayerControls : MonoBehaviour
 			{
 				player.physics.ChangeState( PhysicsStateType.Climbing );
 			}
-			else if ( player.controls.holdButton &&
-			          player.stats.CanUseStat( Stat.Gliding ) )
+			else if ( player.physics.GroundedCheck() )
 			{
-				if ( !player.physics.GroundedCheck() )
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
 				{
-					player.physics.GlideMovement( player.controls.GetMoveDirection() );
+					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
 				else
 				{
-					if ( player.controls.jumpButton.down &&
-					     player.physics.JumpCheck() )
-					{
-						player.physics.ChangeState( PhysicsStateType.Jumping );
-					}
-					else
-					{
-						player.physics.ChangeState( PhysicsStateType.Grounded );
-					}
+					player.physics.ChangeState( PhysicsStateType.Grounded );
 				}
+			}
+			else if ( player.controls.holdButton &&
+			          player.stats.CanUseStat( Stat.Gliding ) )
+			{
+				player.physics.GlideMovement( player.controls.GetMoveDirection() );
 			}
 			else
 			{
