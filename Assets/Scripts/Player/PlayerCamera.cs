@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerCamera : ActorComponent 
 {
+	ActorPhysics actorPhysics = null; // Need this so we can change the camera in different states
+
+	[ReadOnly]
 	public Camera cam = null;
 
 	// Rotation
@@ -11,6 +14,9 @@ public class PlayerCamera : ActorComponent
 
 	[SerializeField] float _vertRotationSpeed = 2f; // Vertical
 	[SerializeField] float _horRotationSpeed = 2f; // Horizontal
+
+	[SerializeField] float _defaultHorRotationSpeed = 2f;
+	[SerializeField] float _glideHorRotationSpeed = 0.5f;
 
 	// Focus
 	Vector3 _headOffset = new Vector3( 0f, 1.75f, 0f );
@@ -22,7 +28,12 @@ public class PlayerCamera : ActorComponent
 
 	// Zoom
 	float _currentZoomDistance = 0f;
-	[SerializeField] float _defaultZoomDistance = 10f; // Probably should add zoom distance for closeup mode, far away mode, etc
+
+	[SerializeField] float _zoomDistance = 10f; // Probably should add zoom distance for closeup mode, far away mode, etc
+
+	[SerializeField] float _defaultZoomDistance = 10f;
+	[SerializeField] float _glideZoomDistance = 7f;
+
 	[SerializeField] float _targetZoomDistance = 10f;
 
 	[SerializeField] MinMaxF _zoomDistanceBounds = new MinMaxF( 1f, 25f );
@@ -39,17 +50,10 @@ public class PlayerCamera : ActorComponent
 	{
 		base.Awake();
 
-		if( !cam )
-		{
-			if( Camera.main )
-			{
-				cam = Camera.main;
-			}
-			else
-			{
-				cam = FindObjectOfType<Camera>();
-			}
-		}
+		cam = Camera.main;
+		actorPhysics = GetComponent<ActorPhysics>();
+
+		actorPhysics.EnterStateCallback += EnterCameraState;
 	}
 
 	void FixedUpdate ()
@@ -75,6 +79,20 @@ public class PlayerCamera : ActorComponent
 		if ( Input.GetKeyDown( KeyCode.T ) )
 		{
 			Application.CaptureScreenshot( "Screenshot_" + System.DateTime.Now.ToString( "yyyy.MM.dd.HH.mm.ss" ) + ".png", 4 );
+		}
+	}
+
+	void EnterCameraState( PhysicsStateType physicsStateType )
+	{
+		if( physicsStateType == PhysicsStateType.Gliding )
+		{
+			_horRotationSpeed = _glideHorRotationSpeed;
+			_zoomDistance = _glideZoomDistance;
+		}
+		else
+		{
+			_horRotationSpeed = _defaultHorRotationSpeed;
+			_zoomDistance = _defaultZoomDistance;
 		}
 	}
 
@@ -191,7 +209,7 @@ public class PlayerCamera : ActorComponent
 		                            cam.transform.up,
 		                            turnSpeedMod * _turnAssistTurnSpeed * xMoveInput );
 
-		_targetZoomDistance = _defaultZoomDistance;
+		_targetZoomDistance = _zoomDistance;
 	}
 	
 	void KeepLineOfSight( Vector3 actorHead, Vector3 actorToCam )
@@ -213,11 +231,11 @@ public class PlayerCamera : ActorComponent
 				}
 			}
 
-			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _defaultZoomDistance );
+			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _zoomDistance );
 		}
 		else
 		{
-			_targetZoomDistance = _defaultZoomDistance;
+			_targetZoomDistance = _zoomDistance;
 		}
 	}
 }

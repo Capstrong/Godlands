@@ -22,6 +22,10 @@ public sealed class ActorPhysics : ActorComponent
 	PhysicsStateType _currentStateType = PhysicsStateType.Jumping;
 	PhysicsState _currentState = new DefaultState();
 	Dictionary<PhysicsStateType, PhysicsState> _stateMap = new Dictionary<PhysicsStateType, PhysicsState>();
+
+	public delegate void StateCallback( PhysicsStateType physicsStateType );
+	public StateCallback ExitStateCallback;
+	public StateCallback EnterStateCallback;
 	
 	public class DefaultState : PhysicsState
 	{
@@ -412,11 +416,22 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	public void ChangeState( PhysicsStateType toState )
 	{
-		_currentStateType = toState;
-
 		_currentState.Exit();
+
+		if( ExitStateCallback != null )
+		{
+			ExitStateCallback( _currentStateType );
+		}
+
+		_currentStateType = toState;
 		_currentState = _stateMap[_currentStateType];
+
 		_currentState.Enter();
+
+		if( EnterStateCallback != null )
+		{
+			EnterStateCallback( _currentStateType );
+		}
 	}
 
 	/**
