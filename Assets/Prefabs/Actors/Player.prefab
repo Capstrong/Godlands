@@ -42,8 +42,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 418824}
   - 135: {fileID: 13518824}
-  - 135: {fileID: 13581878}
-  - 135: {fileID: 13581880}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -2193,8 +2191,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: .00130014506, y: .676045895, z: -.00133305695, w: -.736857235}
-  m_LocalPosition: {x: -35.2560005, y: -19.7169991, z: 16.0130005}
+  m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
+  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -2437,7 +2435,6 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
@@ -2447,15 +2444,14 @@ MonoBehaviour:
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
   jumpForce: 12
-  _jumpCheckDistance: 1
+  _jumpCheckDistance: 1.5
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 257
   _minJumpDot: .5
-  _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .25
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -2498,30 +2494,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .200000003
   m_Center: {x: 0, y: .200000003, z: 0}
---- !u!135 &13581878
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .300000012
-  m_Center: {x: 0, y: .400000006, z: 0}
---- !u!135 &13581880
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .400000006
-  m_Center: {x: 0, y: .600000024, z: 0}
 --- !u!136 &13610286
 CapsuleCollider:
   m_ObjectHideFlags: 1

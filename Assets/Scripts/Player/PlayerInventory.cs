@@ -103,6 +103,8 @@ public class PlayerInventory : ActorComponent
 
 	void CheckGiveResources( RaycastHit hitInfo )
 	{
+		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
+
 		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
 		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
