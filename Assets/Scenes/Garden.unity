@@ -10728,6 +10728,7 @@ GameObject:
   - 4: {fileID: 246210135}
   - 33: {fileID: 246210134}
   - 23: {fileID: 246210133}
+  - 64: {fileID: 246210136}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -10776,6 +10777,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 625
+--- !u!64 &246210136
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 609216344}
+  m_GameObject: {fileID: 246210132}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &246801533
 GameObject:
   m_ObjectHideFlags: 0
@@ -10786,6 +10801,7 @@ GameObject:
   - 4: {fileID: 246801536}
   - 33: {fileID: 246801535}
   - 23: {fileID: 246801534}
+  - 64: {fileID: 246801537}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -10834,6 +10850,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 642
+--- !u!64 &246801537
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1179872557}
+  m_GameObject: {fileID: 246801533}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &247994520
 GameObject:
   m_ObjectHideFlags: 0
@@ -13238,6 +13268,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
+  _sprintMoveSpeed: 8.5
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
@@ -13246,7 +13277,7 @@ MonoBehaviour:
   climbBumper: {fileID: 1980287456}
   _modelTurnSpeed: 7
   jumpForce: 12
-  _jumpCheckDistance: 1
+  _jumpCheckDistance: 1.5
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
@@ -13276,20 +13307,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 58908145}
-  zoomSpeed: 100
-  defaultCamDist: 5
-  minCamDist: 1
-  camLayer:
+  _rotationBounds:
+    min: -50
+    max: 50
+  _vertRotationSpeed: 2
+  _horRotationSpeedStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 2
+    - .5
+    - 2
+    - 2
+    - 2
+    - 1.5
+  _focusShiftSpeed: 4
+  _focusFollowSpeed: 12
+  _focusOffset: {x: 0, y: 0, z: .400000006}
+  _targetZoomDistance: 10
+  _zoomDistanceStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 6
+    - 7
+    - 10
+    - 10
+    - 10
+    - 10
+  _zoomDistanceBounds:
+    min: 1
+    max: 25
+  _turnAssistCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  _turnAssistMinAngle: 20
+  _turnAssistTurnSpeed: .699999988
+  _collisionLayer:
     serializedVersion: 2
     m_Bits: 1
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  hitPosOffsetDist: .5
-  rotSpeed: {x: 2.5, y: 2.5}
-  rotBounds:
-    min: 40
-    max: 350
 --- !u!114 &298744673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15401,6 +15467,7 @@ GameObject:
   - 4: {fileID: 344747048}
   - 33: {fileID: 344747047}
   - 23: {fileID: 344747046}
+  - 64: {fileID: 344747049}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -15449,6 +15516,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 699
+--- !u!64 &344747049
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 927628062}
+  m_GameObject: {fileID: 344747045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &345130314
 GameObject:
   m_ObjectHideFlags: 0
@@ -20250,6 +20331,7 @@ GameObject:
   - 4: {fileID: 437958282}
   - 33: {fileID: 437958281}
   - 23: {fileID: 437958280}
+  - 64: {fileID: 437958283}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -20298,6 +20380,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 649
+--- !u!64 &437958283
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 470938461}
+  m_GameObject: {fileID: 437958279}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &438012710
 Prefab:
   m_ObjectHideFlags: 0
@@ -23158,6 +23254,7 @@ GameObject:
   - 4: {fileID: 493798159}
   - 33: {fileID: 493798158}
   - 23: {fileID: 493798157}
+  - 64: {fileID: 493798160}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -23206,6 +23303,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 658
+--- !u!64 &493798160
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 873675757}
+  m_GameObject: {fileID: 493798156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &498701845
 GameObject:
   m_ObjectHideFlags: 0
@@ -28166,6 +28277,7 @@ GameObject:
   - 4: {fileID: 602065162}
   - 33: {fileID: 602065161}
   - 23: {fileID: 602065160}
+  - 64: {fileID: 602065163}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -28214,6 +28326,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 704
+--- !u!64 &602065163
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 699116588}
+  m_GameObject: {fileID: 602065159}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &604796931
 GameObject:
   m_ObjectHideFlags: 0
@@ -32541,6 +32667,7 @@ GameObject:
   - 4: {fileID: 702221554}
   - 33: {fileID: 702221553}
   - 23: {fileID: 702221552}
+  - 64: {fileID: 702221555}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -32589,6 +32716,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 691
+--- !u!64 &702221555
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 851576673}
+  m_GameObject: {fileID: 702221551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &703751278
 GameObject:
   m_ObjectHideFlags: 0
@@ -33389,6 +33530,7 @@ GameObject:
   - 4: {fileID: 718435594}
   - 33: {fileID: 718435593}
   - 23: {fileID: 718435592}
+  - 64: {fileID: 718435595}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -33437,6 +33579,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 687
+--- !u!64 &718435595
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 2017815075}
+  m_GameObject: {fileID: 718435591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &718918749
 GameObject:
   m_ObjectHideFlags: 0
@@ -38544,6 +38700,7 @@ GameObject:
   - 4: {fileID: 825055017}
   - 33: {fileID: 825055016}
   - 23: {fileID: 825055015}
+  - 64: {fileID: 825055018}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -38592,6 +38749,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 628
+--- !u!64 &825055018
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 720805439}
+  m_GameObject: {fileID: 825055014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &825560675
 GameObject:
   m_ObjectHideFlags: 0
@@ -42016,6 +42187,7 @@ GameObject:
   - 4: {fileID: 901823917}
   - 33: {fileID: 901823916}
   - 23: {fileID: 901823915}
+  - 64: {fileID: 901823918}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -42064,6 +42236,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 657
+--- !u!64 &901823918
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1396515314}
+  m_GameObject: {fileID: 901823914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &903690042
 GameObject:
   m_ObjectHideFlags: 0
@@ -44351,6 +44537,7 @@ GameObject:
   - 4: {fileID: 949209768}
   - 33: {fileID: 949209767}
   - 23: {fileID: 949209766}
+  - 64: {fileID: 949209769}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -44399,6 +44586,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 705
+--- !u!64 &949209769
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1959375651}
+  m_GameObject: {fileID: 949209765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &949643511
 GameObject:
   m_ObjectHideFlags: 0
@@ -47277,8 +47478,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1017472059}
   - 135: {fileID: 1017472062}
-  - 135: {fileID: 1017472061}
-  - 135: {fileID: 1017472060}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -47298,32 +47497,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 298744667}
   m_RootOrder: 0
---- !u!135 &1017472060
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13581880, guid: 562cb066185fbf84c92c6d56ebbdbf57,
-    type: 2}
-  m_PrefabInternal: {fileID: 1966178639}
-  m_GameObject: {fileID: 1017472058}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .400000006
-  m_Center: {x: 0, y: .600000024, z: 0}
---- !u!135 &1017472061
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13581878, guid: 562cb066185fbf84c92c6d56ebbdbf57,
-    type: 2}
-  m_PrefabInternal: {fileID: 1966178639}
-  m_GameObject: {fileID: 1017472058}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .300000012
-  m_Center: {x: 0, y: .400000006, z: 0}
 --- !u!135 &1017472062
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -49752,6 +49925,7 @@ GameObject:
   - 4: {fileID: 1068942196}
   - 33: {fileID: 1068942195}
   - 23: {fileID: 1068942194}
+  - 64: {fileID: 1068942197}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -49800,6 +49974,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 665
+--- !u!64 &1068942197
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1322971120}
+  m_GameObject: {fileID: 1068942193}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1069729600
 Prefab:
   m_ObjectHideFlags: 0
@@ -53329,6 +53517,7 @@ GameObject:
   - 4: {fileID: 1141979825}
   - 33: {fileID: 1141979824}
   - 23: {fileID: 1141979823}
+  - 64: {fileID: 1141979826}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -53377,6 +53566,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 641
+--- !u!64 &1141979826
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 349312696}
+  m_GameObject: {fileID: 1141979822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1142367076
 GameObject:
   m_ObjectHideFlags: 0
@@ -55510,6 +55713,7 @@ GameObject:
   - 4: {fileID: 1192485885}
   - 33: {fileID: 1192485884}
   - 23: {fileID: 1192485883}
+  - 64: {fileID: 1192485886}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -55558,6 +55762,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 650
+--- !u!64 &1192485886
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1636998503}
+  m_GameObject: {fileID: 1192485882}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1195720479
 Prefab:
   m_ObjectHideFlags: 0
@@ -55880,6 +56098,7 @@ GameObject:
   - 4: {fileID: 1199729729}
   - 33: {fileID: 1199729728}
   - 23: {fileID: 1199729727}
+  - 64: {fileID: 1199729730}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -55928,6 +56147,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 698
+--- !u!64 &1199729730
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 222362347}
+  m_GameObject: {fileID: 1199729726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1199823030
 Prefab:
   m_ObjectHideFlags: 0
@@ -56514,6 +56747,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 2
+  _sprintMoveSpeed: 12
   _jumpMoveSpeed: 2
   _rollMoveSpeed: 2
   _climbMoveSpeed: 2
@@ -57252,6 +57486,7 @@ GameObject:
   - 4: {fileID: 1236135684}
   - 33: {fileID: 1236135683}
   - 23: {fileID: 1236135682}
+  - 64: {fileID: 1236135685}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -57300,6 +57535,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 676
+--- !u!64 &1236135685
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089939020}
+  m_GameObject: {fileID: 1236135681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1241074791
 Prefab:
   m_ObjectHideFlags: 0
@@ -60560,6 +60809,7 @@ GameObject:
   - 4: {fileID: 1312040780}
   - 33: {fileID: 1312040779}
   - 23: {fileID: 1312040778}
+  - 64: {fileID: 1312040781}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -60608,6 +60858,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 627
+--- !u!64 &1312040781
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 927992433}
+  m_GameObject: {fileID: 1312040777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1316348927
 GameObject:
   m_ObjectHideFlags: 0
@@ -62640,6 +62904,7 @@ GameObject:
   - 4: {fileID: 1357913174}
   - 33: {fileID: 1357913173}
   - 23: {fileID: 1357913172}
+  - 64: {fileID: 1357913175}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -62688,6 +62953,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 630
+--- !u!64 &1357913175
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1871370515}
+  m_GameObject: {fileID: 1357913171}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1360698241
 Prefab:
   m_ObjectHideFlags: 0
@@ -67460,6 +67739,7 @@ GameObject:
   - 4: {fileID: 1474087838}
   - 33: {fileID: 1474087837}
   - 23: {fileID: 1474087836}
+  - 64: {fileID: 1474087839}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -67508,6 +67788,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 700
+--- !u!64 &1474087839
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 973544304}
+  m_GameObject: {fileID: 1474087835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1001 &1474202363
 Prefab:
   m_ObjectHideFlags: 0
@@ -68319,6 +68613,7 @@ GameObject:
   - 4: {fileID: 1494561026}
   - 33: {fileID: 1494561025}
   - 23: {fileID: 1494561024}
+  - 64: {fileID: 1494561027}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -68367,6 +68662,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 634
+--- !u!64 &1494561027
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1889859584}
+  m_GameObject: {fileID: 1494561023}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1494666969
 GameObject:
   m_ObjectHideFlags: 0
@@ -69847,6 +70156,7 @@ GameObject:
   - 4: {fileID: 1520061741}
   - 33: {fileID: 1520061740}
   - 23: {fileID: 1520061739}
+  - 64: {fileID: 1520061742}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -69895,6 +70205,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 692
+--- !u!64 &1520061742
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1263263654}
+  m_GameObject: {fileID: 1520061738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1520777345
 GameObject:
   m_ObjectHideFlags: 0
@@ -72772,6 +73096,7 @@ GameObject:
   - 4: {fileID: 1576447938}
   - 33: {fileID: 1576447937}
   - 23: {fileID: 1576447936}
+  - 64: {fileID: 1576447939}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -72820,6 +73145,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 629
+--- !u!64 &1576447939
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 623366142}
+  m_GameObject: {fileID: 1576447935}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1578527914
 GameObject:
   m_ObjectHideFlags: 0
@@ -77222,6 +77561,7 @@ GameObject:
   - 4: {fileID: 1675374329}
   - 33: {fileID: 1675374328}
   - 23: {fileID: 1675374327}
+  - 64: {fileID: 1675374330}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -77270,6 +77610,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 632
+--- !u!64 &1675374330
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1792072931}
+  m_GameObject: {fileID: 1675374326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1675810242
 GameObject:
   m_ObjectHideFlags: 0
@@ -83642,6 +83996,7 @@ GameObject:
   - 4: {fileID: 1780961464}
   - 33: {fileID: 1780961463}
   - 23: {fileID: 1780961462}
+  - 64: {fileID: 1780961465}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -83690,6 +84045,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 678
+--- !u!64 &1780961465
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 842380368}
+  m_GameObject: {fileID: 1780961461}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1789155131
 GameObject:
   m_ObjectHideFlags: 0
@@ -87443,6 +87812,7 @@ GameObject:
   - 4: {fileID: 1850494372}
   - 33: {fileID: 1850494371}
   - 23: {fileID: 1850494370}
+  - 64: {fileID: 1850494373}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -87491,6 +87861,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 686
+--- !u!64 &1850494373
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 1490563220}
+  m_GameObject: {fileID: 1850494369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1850543244
 GameObject:
   m_ObjectHideFlags: 0
@@ -91856,6 +92240,7 @@ GameObject:
   - 4: {fileID: 1962662206}
   - 33: {fileID: 1962662205}
   - 23: {fileID: 1962662204}
+  - 64: {fileID: 1962662207}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -91904,6 +92289,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 633
+--- !u!64 &1962662207
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+    type: 2}
+  m_PrefabInternal: {fileID: 769064060}
+  m_GameObject: {fileID: 1962662203}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!1 &1962954505
 GameObject:
   m_ObjectHideFlags: 0
