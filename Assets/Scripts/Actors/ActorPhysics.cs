@@ -8,7 +8,8 @@ public enum PhysicsStateType
 	Jumping,
 	Falling,
 	Climbing,
-	Gliding
+	Gliding,
+	Sprinting,
 }
 
 public sealed class ActorPhysics : ActorComponent
@@ -41,6 +42,12 @@ public sealed class ActorPhysics : ActorComponent
 		get { return _groundedMoveSpeed; }
 	}
 
+	[SerializeField] float _sprintMoveSpeed = 12f;
+	public float sprintMoveSpeed
+	{
+		get { return _sprintMoveSpeed; }
+	}
+
 	[SerializeField] float _jumpMoveSpeed = 6f;
 
 	[SerializeField] float _rollMoveSpeed = 6f;
@@ -50,6 +57,11 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	[SerializeField] float _climbMoveSpeed = 6f;
+
+	public float normalizedMoveSpeed
+	{
+		get { return rigidbody.velocity.magnitude / sprintMoveSpeed; }
+	}
 
 	/**
 	 * The last direction the actor moved in.
@@ -188,17 +200,22 @@ public sealed class ActorPhysics : ActorComponent
 		return _isOnGround;
 	}
 
-	public void GroundMovement( Vector3 moveVec )
+	public void GroundMovement( Vector3 moveVec, bool isSprinting = false )
 	{
-		FollowBumper();
-
 		if ( moveVec.IsZero() )
 		{
 			ComeToStop();
 		}
 		else
 		{
-			MoveAtSpeed( moveVec, groundedMoveSpeed );
+			if ( isSprinting )
+			{
+				MoveAtSpeed( moveVec, sprintMoveSpeed );
+			}
+			else
+			{
+				MoveAtSpeed( moveVec, groundedMoveSpeed );
+			}
 		}
 
 		CalculateDesiredLook();
