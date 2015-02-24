@@ -14,7 +14,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static float dayCycleTimer { get { return instance._dayCycleTimer; } }
 
-	[ReadOnly( "Day Cycle Timer" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." )]
+	[Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." )]
 	[SerializeField] float _dayCycleTimer = 0f;
 
 	[SerializeField] Image _midnightOverlay = null;

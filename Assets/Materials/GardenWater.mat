@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Tree_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: b926aa154c85b465ab23e7c13cdde0be, type: 3}
+  m_Name: GardenWater
+  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,19 +17,12 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 2032dbbb617d3244caf29a2938364425, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 2800000, guid: 91d92c18b88ba40d49b66e10d4986339, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _NormalMap
+          name: _BumpMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -41,18 +34,18 @@ Material:
         second: .5
       data:
         first:
-          name: _EmissiveStrength
-        second: 0
+          name: _Shininess
+        second: .699999988
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 0, b: .0206894875, a: 1}
+        second: {r: .367647052, g: .502839684, b: 1, a: 1}
       data:
         first:
-          name: _ColorOverlayA
-        second: {r: .24290657, g: .529411793, b: .171280295, a: 1}
+          name: _Emission
+        second: {r: .5, g: .176470578, b: .176470578, a: 0}
       data:
         first:
-          name: _ColorOverlayB
-        second: {r: 1, g: 0, b: 0, a: 1}
+          name: _SpecColor
+        second: {r: 1, g: 1, b: 1, a: 0}
