@@ -21,7 +21,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	bool _hasStartedMidnightOverlay = false;
 
-	Coroutine _midnightOverlayCoroutine = null;
+	IEnumerator _midnightOverlayCoroutine = null;
 
 	public delegate void EndOfDayCallback();
 
@@ -31,6 +31,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	{
 		_dayCycleTimer = _dayStartTime;
 		_endOfDayCallback += InitEndOfDayCallback; // Add in an empty method so it isn't null
+
+		_midnightOverlayCoroutine = FadeInMidnightOverlay();
 	}
 
 	// Update is called once per frame
@@ -65,7 +67,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	void StartMidnightOverlay()
 	{
 		_hasStartedMidnightOverlay = true;
-		_midnightOverlayCoroutine = StartCoroutine( FadeInMidnightOverlay() );
+		StartCoroutine( FadeInMidnightOverlay() );
 	}
 
 	void EndMidnightOverlay()
