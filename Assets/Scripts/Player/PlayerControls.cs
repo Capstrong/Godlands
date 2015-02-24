@@ -193,7 +193,7 @@ public class PlayerControls : MonoBehaviour
 
 				player.controls.GroundMovement();
 
-				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude / player.physics.sprintMoveSpeed );
 			}
 			else
 			{
@@ -226,7 +226,7 @@ public class PlayerControls : MonoBehaviour
 
 				player.controls.GroundMovement( true );
 
-				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude / player.physics.sprintMoveSpeed );
 			}
 			else
 			{

@@ -46,6 +46,10 @@ public sealed class ActorPhysics : ActorComponent
 	}
 
 	[SerializeField] float _sprintMoveSpeed = 12f;
+	public float sprintMoveSpeed
+	{
+		get { return _sprintMoveSpeed; }
+	}
 
 	[SerializeField] float _jumpMoveSpeed = 6f;
 
