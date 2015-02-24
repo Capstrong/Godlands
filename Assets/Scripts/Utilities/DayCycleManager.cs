@@ -74,18 +74,18 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 		StopCoroutine( _midnightOverlayCoroutine );
 
-		Color color = _midnightOverlay.color;
-		color.a = 0.0f;
-		_midnightOverlay.color = color;
+		Color overlayColor = _midnightOverlay.color;
+		overlayColor.a = 0.0f;
+		_midnightOverlay.color = overlayColor;
 	}
 
 	IEnumerator FadeInMidnightOverlay()
 	{
 		while ( true )
 		{
-			Color color = _midnightOverlay.color;
-			color.a = ( _dayCycleTimer - _blackOutStartTime ) / ( _dayCycleLength - _blackOutStartTime );
-			_midnightOverlay.color = color;
+			Color overlayColor = _midnightOverlay.color;
+			overlayColor.a = ( _dayCycleTimer - _blackOutStartTime ) / ( _dayCycleLength - _blackOutStartTime );
+			_midnightOverlay.color = overlayColor;
 			yield return null;
 		}
 	}

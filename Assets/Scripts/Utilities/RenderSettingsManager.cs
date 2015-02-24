@@ -49,7 +49,33 @@ public struct RenderSettingsData
 public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager> 
 {
 	[SerializeField] RenderSettingsData _currentRenderSettings = new RenderSettingsData();
+	RenderSettingsData _currentRenderSettingsProperty
+	{
+		get { return _currentRenderSettings; }
+
+		set 
+		{ 
+			_currentRenderSettings = value; 
+			RenderSettings.skybox = _currentRenderSettings.skyMaterial;
+		}
+	}
+
 	[SerializeField] TimeRenderSettings _currentTimeRenderSettings = new TimeRenderSettings();
+	TimeRenderSettings _currentTimeRenderSettingsProperty
+	{
+		get { return _currentTimeRenderSettings; }
+
+		set
+		{
+			_currentTimeRenderSettings = value;
+
+			RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
+			RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
+			RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
+			_dirLight.color = _currentTimeRenderSettings.lightColor;
+			_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
+		}
+	}
 
 	[SerializeField] Light _dirLight = null;
 	int _curSkyboxTintPropertyID = 0;
@@ -59,14 +85,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	float _daylightIntensity = 1.0f;
 	public float daylightIntensity
 	{
-		get
-		{
-			return _daylightIntensity;
-		}
-		private set
-		{
-			_daylightIntensity = value;
-		}
+		get { return _daylightIntensity; }
+		private set { _daylightIntensity = value; }
 	}
 
 	void Awake()
@@ -76,55 +96,30 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2 * Mathf.PI ) * -0.5f + 0.5f;
+		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2.0f * Mathf.PI ) * -0.5f + 0.5f;
 
-		_currentTimeRenderSettings = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
-
-		ApplyTimeRenderSettings();
+		_currentTimeRenderSettingsProperty = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
 	}
 
 	public static void TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
 	{
-		instance._TransitionRenderSettings( newRenderSettings, shiftTime );
-	}
-
-	void _TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
-	{
-		StopAllCoroutines(); // TODO: Make this not a sledgehammer solution
-		StartCoroutine( TransitionRenderSettingsRoutine( newRenderSettings, shiftTime ) );
-	}
-
-	void ApplyTimeRenderSettings()
-	{
-		RenderSettings.skybox = _currentRenderSettings.skyMaterial;
-		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
-		RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
-		RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
-
-		if ( _dirLight )
-		{
-			_dirLight.color = _currentTimeRenderSettings.lightColor;
-			_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
-		}
-		else
-		{
-			Debug.LogWarning( "Cannot change light values, no light is available." );
-		}
+		instance.StopAllCoroutines(); // TODO: Make this not a sledgehammer solution
+		instance.StartCoroutine( instance.TransitionRenderSettingsRoutine( newRenderSettings, shiftTime ) );
 	}
 
 	IEnumerator TransitionRenderSettingsRoutine( RenderSettingsData newRenderSettings, float settingShiftTime )
 	{
-		RenderSettingsData oldRenderSettings = _currentRenderSettings;
+		RenderSettingsData oldRenderSettings = _currentRenderSettingsProperty;
 
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
 		{
-			_currentRenderSettings = RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime );
+			_currentRenderSettingsProperty = RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime );
 
 			settingShiftTimer += Time.deltaTime;
 			yield return 0;
 		}
 
-		_currentRenderSettings = newRenderSettings;
+		_currentRenderSettingsProperty = newRenderSettings;
 	}
 }
