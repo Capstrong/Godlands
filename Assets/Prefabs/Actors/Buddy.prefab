@@ -66,7 +66,7 @@ GameObject:
   - 114: {fileID: 11483758}
   - 114: {fileID: 11414764}
   - 114: {fileID: 11457846}
-  - 114: {fileID: 11406010}
+  - 114: {fileID: 11409692}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24caee78a42d24a67b29c1197a0fa443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11406010
+--- !u!114 &11409692
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -676,11 +676,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 0
-  startingApples: 10
-  apples: 0
+  _startingResourceCount: 10
+  _resources: 0
+  _decrementStatSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
   _bodyRenderer: {fileID: 2397488}
+  _isAlive: 1
+  _disableStatDecrease: 0
 --- !u!114 &11457846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -710,7 +713,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
   m_Name: 

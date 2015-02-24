@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &107948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 407948}
+  - 114: {fileID: 11407948}
+  m_Layer: 0
+  m_Name: BuddyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &107950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 407950}
+  - 114: {fileID: 11407950}
+  m_Layer: 0
+  m_Name: DayCycleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &121584
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,6 +79,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &407948
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -76.6692657, y: 10.0706635, z: -147.750931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 3
+--- !u!4 &407950
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -86.5299988, y: -2.57999992, z: -149.009995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 0
 --- !u!4 &421584
 Transform:
   m_ObjectHideFlags: 1
@@ -58,7 +114,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 484490}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &484490
 Transform:
   m_ObjectHideFlags: 1
@@ -69,8 +125,10 @@ Transform:
   m_LocalPosition: {x: 86.5299988, y: 2.57999992, z: 149.009995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 407950}
   - {fileID: 484492}
   - {fileID: 421584}
+  - {fileID: 407948}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &484492
@@ -84,7 +142,34 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 484490}
-  m_RootOrder: 0
+  m_RootOrder: 1
+--- !u!114 &11407948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d95017324708544ba5a4e9cd7e0ce12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11407950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dayCycleLength: 120
+  _dayStartTime: 40
+  _blackOutStartTime: 110
+  _dayCycleTimer: 0
+  _midnightOverlay: {fileID: 0}
 --- !u!114 &11421584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,10 +195,14 @@ MonoBehaviour:
       fogColor: {r: .300501138, g: .228806242, b: .338235319, a: 1}
       fogDensity: .0199999996
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+  _currentTimeRenderSettings:
+    skyColor: {r: .330891252, g: .124567457, b: .352941155, a: 1}
+    lightColor: {r: .625003099, g: .391327858, b: .691176474, a: 1}
+    lightIntensity: .300000012
+    fogColor: {r: .300501138, g: .228806242, b: .338235319, a: 1}
+    fogDensity: .0199999996
   _dirLight: {fileID: 0}
-  _dayCycleTime: 60
-  _dayCycleTimer: 21.3400002
-  timeOfDay: .808105826
+  _daylightIntensity: 0
 --- !u!114 &11484492
 MonoBehaviour:
   m_ObjectHideFlags: 1

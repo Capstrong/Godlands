@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof( ActorPhysics ) )]
+[RequireComponent( typeof( ActorPhysics ), typeof( PlayerActor ) )]
 public class PlayerControls : MonoBehaviour
 {
 	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
@@ -9,6 +9,16 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _interactCheckRadius = 0.2f;
 
 	PlayerActor _actor;
+
+	[Tooltip( "Probably straight up" )]
+	[SerializeField] Vector3 _respawnOffset = Vector3.zero;
+	[ReadOnly( "Respawn Position" )]
+	[SerializeField] Vector3 _respawnPosition = Vector3.zero;
+	Quaternion _respawnRotation = Quaternion.identity;
+
+	[SerializeField] AudioSource _respawnSound = null;
+	
+	Transform _cameraTransform = null;
 	
 	Button _holdButton = new Button( "Hold" );
 	public Button holdButton
@@ -31,8 +41,14 @@ public class PlayerControls : MonoBehaviour
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
+		_cameraTransform = Camera.main.transform;
 
 		SetupStateMethodMap();
+
+		_respawnPosition = transform.position + _respawnOffset;
+		_respawnRotation = transform.rotation;
+
+		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 	}
 
 	void Update()
@@ -40,6 +56,11 @@ public class PlayerControls : MonoBehaviour
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{
 			Application.Quit();
+		}
+
+		if ( Input.GetKeyDown( KeyCode.Y ) )
+		{
+			Respawn();
 		}
 
 		_holdButton.Update();
@@ -323,8 +344,8 @@ public class PlayerControls : MonoBehaviour
 	 */
 	bool RaycastForward( out RaycastHit closestHit )
 	{
-		Vector3 camPos = Camera.main.transform.position;
-		Vector3 camForward = Camera.main.transform.forward;
+		Vector3 camPos = _cameraTransform.position;
+		Vector3 camForward = _cameraTransform.forward;
 
 		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
@@ -385,5 +406,19 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return inputVec;
+	}
+
+	public void Respawn()
+	{
+		Teleport( _respawnPosition, _respawnRotation );
+		SoundManager.Play2DSound( _respawnSound );
+	}
+
+	private void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
+	{
+		transform.position = _respawnPosition;
+		transform.rotation = _respawnRotation;
+
+		_actor.physics.ChangeState( PhysicsStateType.Falling );
 	}
 }
