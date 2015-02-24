@@ -17,17 +17,20 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	[ReadOnly( "Day Cycle Timer" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." )]
 	[SerializeField] float _dayCycleTimer = 0f;
 
-	[SerializeField] PlayerControls _playerControls = null;
-
 	[SerializeField] Image _midnightOverlay = null;
 
 	bool _hasStartedMidnightOverlay = false;
 
 	Coroutine _midnightOverlayCoroutine = null;
 
+	public delegate void EndOfDayCallback();
+
+	EndOfDayCallback _endOfDayCallback;
+
 	void Start()
 	{
 		_dayCycleTimer = _dayStartTime;
+		_endOfDayCallback += InitEndOfDayCallback; // Add in an empty method so it isn't null
 	}
 
 	// Update is called once per frame
@@ -41,11 +44,22 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 		if ( _dayCycleTimer > _dayCycleLength )
 		{
-			BuddyManager.DecrementAllBuddyResources();
-			_playerControls.Respawn();
+			_endOfDayCallback();
 			_dayCycleTimer = _dayCycleTimer - _dayCycleLength + _dayStartTime; // Take overflow into account
 			EndMidnightOverlay();
 		}
+	}
+
+	void InitEndOfDayCallback() { }
+
+	public static void RegisterEndOfDayCallback( EndOfDayCallback callback )
+	{
+		instance._endOfDayCallback += callback;
+	}
+
+	public static void DeregisterEndOfDayCallback( EndOfDayCallback callback )
+	{
+		instance._endOfDayCallback += callback;
 	}
 
 	void StartMidnightOverlay()
@@ -74,7 +88,5 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 			_midnightOverlay.color = color;
 			yield return null;
 		}
-
-
 	}
 }

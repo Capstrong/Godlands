@@ -47,6 +47,8 @@ public class PlayerControls : MonoBehaviour
 
 		_respawnPosition = transform.position + _respawnOffset;
 		_respawnRotation = transform.rotation;
+
+		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 	}
 
 	void Update()
