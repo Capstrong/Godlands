@@ -399,13 +399,13 @@ public class PlayerControls : MonoBehaviour
 		Vector3 camPos = _cameraTransform.position;
 		Vector3 camForward = _cameraTransform.forward;
 
+	
 		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
-		RaycastHit[] hits = Physics.SphereCastAll(
-			new Ray( transform.position, camForward ),
-			_interactCheckRadius,
-			_interactCheckDistance,
-			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
+		RaycastHit[] hits = Physics.SphereCastAll( new Ray( camPos, camForward ),
+			                                       _interactCheckRadius,
+			                                       _interactCheckDistance,
+			                                       _actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
 
 		if ( hits.Length == 0 )
 		{
@@ -470,6 +470,8 @@ public class PlayerControls : MonoBehaviour
 	{
 		transform.position = _respawnPosition;
 		transform.rotation = _respawnRotation;
+
+		_actor.actorCamera.cam.transform.position = _respawnPosition;
 
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
 	}

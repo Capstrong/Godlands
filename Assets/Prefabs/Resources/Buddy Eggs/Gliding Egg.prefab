@@ -26,6 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 459318}
   - 114: {fileID: 11455876}
+  - 135: {fileID: 13558494}
   m_Layer: 0
   m_Name: Gliding Egg
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   resourceData: {fileID: 11400000, guid: 0662390e9f195ed48bab47f894f69024, type: 2}
   amount: 1
   used: 0
+--- !u!135 &13558494
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -98,6 +98,7 @@ public sealed class ActorPhysics : ActorComponent
 	float _lookIntentionWeight = 0.002f;
 	bool _overrideLook = false;
 	Vector3 _lookOverride = Vector3.zero;
+	float _minLookVecTurnStrength = 0.0005f; // This stops jittering from  happening when moveVec is super small
 
 	private Vector3 _lastPos;
 	private Quaternion _desiredLook;
@@ -469,9 +470,9 @@ public sealed class ActorPhysics : ActorComponent
 				_lookOverride :
 				weightedVelocity );
 
-		if ( !lookVec.IsZero() )
+		if ( lookVec.magnitude > _minLookVecTurnStrength )
 		{
-			_desiredLook = Quaternion.LookRotation( lookVec, transform.up );
+			_desiredLook = Quaternion.LookRotation( lookVec.normalized, transform.up );
 		}
 	}
 
