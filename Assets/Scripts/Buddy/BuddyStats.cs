@@ -4,10 +4,9 @@ using System.Collections;
 public class BuddyStats : MonoBehaviour
 {
 	public Stat statType = Stat.Invalid;
-	[SerializeField] bool canDecreaseStat = true;
-	[SerializeField] int startingResources = 10;
+	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
-	[SerializeField] int resources = 0;
+	[SerializeField] int _resources = 0;
 
 	PlayerStats _ownerStats = null;
 
@@ -44,6 +43,9 @@ public class BuddyStats : MonoBehaviour
 		get { return _isAlive; }
 	}
 
+	[Header( "Debug Settings" )]
+	[SerializeField] bool _disableStatDecrease = false;
+
 	ParticleSystem _particles;
 
 	uint ID = 0;
@@ -52,7 +54,7 @@ public class BuddyStats : MonoBehaviour
 	{
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
-		resources = startingResources;
+		_resources = _startingResourceCount;
 		_particles = GetComponentInChildren<ParticleSystem>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
@@ -78,7 +80,7 @@ public class BuddyStats : MonoBehaviour
 	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
 
-		resources++;
+		_resources++;
 
 		actorStats.IncrementMaxStat( statType );
 		Emote( _heartMaterial );
@@ -86,17 +88,17 @@ public class BuddyStats : MonoBehaviour
 
 	public void DecrementResources()
 	{
-		resources--;
+		_resources--;
 
 		Emote( _sadMaterial );
 		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
 
-		if ( canDecreaseStat )
+		if ( !_disableStatDecrease )
 		{
 			_ownerStats.DecrementMaxStat( statType );
 		}
 
-		if ( resources <= 0 )
+		if ( _resources <= 0 )
 		{
 			Kill();
 		}

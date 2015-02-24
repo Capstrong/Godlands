@@ -11,13 +11,14 @@ public class PlayerControls : MonoBehaviour
 	PlayerActor _actor;
 
 	[Tooltip( "Probably straight up" )]
-	[SerializeField] Vector3 _respawnOffset = new Vector3();
+	[SerializeField] Vector3 _respawnOffset = Vector3.zero;
 	[ReadOnly( "Respawn Position" )]
-	[SerializeField] Vector3 _respawnPosition = new Vector3();
-	Quaternion _respawnRotation = new Quaternion();
+	[SerializeField] Vector3 _respawnPosition = Vector3.zero;
+	Quaternion _respawnRotation = Quaternion.identity;
 
 	[SerializeField] AudioSource _respawnSound = null;
 	
+	Transform _cameraTransform = null;
 	
 	Button _holdButton = new Button( "Hold" );
 	public Button holdButton
@@ -40,6 +41,7 @@ public class PlayerControls : MonoBehaviour
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
+		_cameraTransform = Camera.main.transform;
 
 		SetupStateMethodMap();
 
@@ -295,8 +297,8 @@ public class PlayerControls : MonoBehaviour
 	 */
 	bool RaycastForward( out RaycastHit closestHit )
 	{
-		Vector3 camPos = Camera.main.transform.position;
-		Vector3 camForward = Camera.main.transform.forward;
+		Vector3 camPos = _cameraTransform.position;
+		Vector3 camForward = _cameraTransform.forward;
 
 		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
