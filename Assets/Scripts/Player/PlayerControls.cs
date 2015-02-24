@@ -211,14 +211,12 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
-
-				if ( player.controls.holdButton &&
-				     player.physics.ClimbCheck() )
+				else if ( player.controls.holdButton &&
+				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
-
-				if ( player.controls.useButton.down )
+				else if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
 					{

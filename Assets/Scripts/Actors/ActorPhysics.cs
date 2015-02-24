@@ -142,7 +142,6 @@ public sealed class ActorPhysics : ActorComponent
 	void FixedUpdate()
 	{
 		// Pre-Update stuff
-		FollowBumper();
 		_desiredLook = transform.rotation;
 
 		// Update
