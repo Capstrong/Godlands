@@ -10,7 +10,7 @@ public class RenderSettingsZone : MonoBehaviour
 	{
 		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
-			RenderSettingsManager.ChangeTargetRenderSettings( _renderSettings, _shiftTime );
+			RenderSettingsManager.TransitionRenderSettings( _renderSettings, _shiftTime );
 		}
 	}
 	

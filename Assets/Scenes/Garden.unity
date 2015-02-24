@@ -13,9 +13,9 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_Fog: 1
-  m_FogColor: {r: 1, g: .595588207, b: .756163538, a: 1}
+  m_FogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
   m_FogMode: 3
-  m_FogDensity: .0130000003
+  m_FogDensity: .0120000001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: 0, g: 0, b: 0, a: 1}
@@ -6921,7 +6921,7 @@ Transform:
   m_LocalScale: {x: 46.0231323, y: 55.5993919, z: 136.526917}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &148834395
 GameObject:
   m_ObjectHideFlags: 0
@@ -13237,7 +13237,6 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
@@ -13253,9 +13252,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   _minJumpDot: .5
-  _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .25
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -13386,11 +13384,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 298744666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c5808a54328b24e9e66362a1559c12, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c9fdab7b70c039499dbf9f51bebb132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactCheckDistance: 7
+  _interactCheckDistance: 5
   _interactCheckRadius: .200000003
+  _respawnOffset: {x: 0, y: 2, z: 0}
+  _respawnPosition: {x: 0, y: 0, z: 0}
+  _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
 --- !u!1001 &302039582
 Prefab:
   m_ObjectHideFlags: 0
@@ -19155,7 +19156,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: 1, g: .735294104, b: .839350939, a: 1}
+  m_Color: {r: .717241406, g: .397058845, b: 1, a: 1}
   m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
@@ -36019,10 +36020,14 @@ MonoBehaviour:
       fogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
       fogDensity: .0120000001
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+  _currentTimeRenderSettings:
+    skyColor: {r: .195334747, g: 0, b: .264705896, a: 1}
+    lightColor: {r: .717241406, g: .397058845, b: 1, a: 1}
+    lightIntensity: .5
+    fogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
+    fogDensity: .0120000001
   _dirLight: {fileID: 416504298}
-  _dayCycleTime: 60
-  _dayCycleTimer: 0
-  timeOfDay: 0
+  _daylightIntensity: 0
 --- !u!1 &772485782
 GameObject:
   m_ObjectHideFlags: 0
@@ -56391,6 +56396,7 @@ GameObject:
   - 114: {fileID: 1215378089}
   - 114: {fileID: 1215378088}
   - 114: {fileID: 1215378086}
+  - 114: {fileID: 1215378095}
   m_Layer: 8
   m_Name: Buddy
   m_TagString: Untagged
@@ -56484,11 +56490,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 1
-  startingApples: 10
-  apples: 0
+  _startingResourceCount: 10
+  _resources: 0
+  _decrementStatSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
   _bodyRenderer: {fileID: 164182324}
+  _isAlive: 1
+  _disableStatDecrease: 0
 --- !u!114 &1215378092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56504,7 +56513,6 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _stopMoveTime: .300000012
   _groundedMoveSpeed: 2
   _jumpMoveSpeed: 2
   _rollMoveSpeed: 2
@@ -56518,14 +56526,13 @@ MonoBehaviour:
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   _minJumpDot: .400000006
-  _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .100000001
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   _climbCheckRadius: .699999988
   _leanTowardsSurface: .5
   _glideHorizontalSpeed: 5
@@ -56559,6 +56566,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1215378095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11409692, guid: 430bb384d018f438083cae6e1236532d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1836512725}
+  m_GameObject: {fileID: 1215378085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48bc3f0f03516174abc2376832c2e3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &1217172807
 GameObject:
   m_ObjectHideFlags: 0
@@ -63320,7 +63340,7 @@ Transform:
   m_LocalScale: {x: 66.4438858, y: 55.5993919, z: 68.2824936}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1001 &1378490706
 Prefab:
   m_ObjectHideFlags: 0
@@ -73804,6 +73824,50 @@ Prefab:
   m_RootGameObject: {fileID: 1139112040}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1598484812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1598484814}
+  - 114: {fileID: 1598484813}
+  m_Layer: 0
+  m_Name: DayCycleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1598484813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1598484812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dayCycleLength: 60
+  _dayStartTime: 0
+  _blackOutStartTime: 0
+  _dayCycleTimer: 0
+  _midnightOverlay: {fileID: 0}
+--- !u!4 &1598484814
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1598484812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1600085412
 GameObject:
   m_ObjectHideFlags: 0
@@ -89969,7 +90033,7 @@ Transform:
   m_LocalScale: {x: 112.601418, y: 22.5792217, z: 81.0919571}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1 &1903584045
 GameObject:
   m_ObjectHideFlags: 0

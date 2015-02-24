@@ -4,11 +4,13 @@ using System.Collections;
 public class BuddyStats : MonoBehaviour
 {
 	public Stat statType = Stat.Invalid;
-	[SerializeField] int startingApples = 10;
-	[SerializeField] int apples = 0;
+	[SerializeField] int _startingResourceCount = 10;
+	[ReadOnly("Current Resources")]
+	[SerializeField] int _resources = 0;
 
 	PlayerStats _ownerStats = null;
 
+	[SerializeField] AudioSource _decrementStatSound = null;
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
 
@@ -34,11 +36,15 @@ public class BuddyStats : MonoBehaviour
 		get { return _bodyRenderer; }
 	}
 
-	bool _isAlive = true;
+	[ReadOnly( "Is Alive" )]
+	[SerializeField] bool _isAlive = true;
 	public bool isAlive
 	{
 		get { return _isAlive; }
 	}
+
+	[Header( "Debug Settings" )]
+	[SerializeField] bool _disableStatDecrease = false;
 
 	ParticleSystem _particles;
 
@@ -48,9 +54,10 @@ public class BuddyStats : MonoBehaviour
 	{
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
-		apples = startingApples;
+		_resources = _startingResourceCount;
 		_particles = GetComponentInChildren<ParticleSystem>();
 		owner = GameObject.FindObjectOfType<GodTag>();
+		BuddyManager.RegisterBuddy( this );
 	}
 
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
@@ -73,10 +80,28 @@ public class BuddyStats : MonoBehaviour
 	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
 
-		apples++;
+		_resources++;
 
 		actorStats.IncrementMaxStat( statType );
 		Emote( _heartMaterial );
+	}
+
+	public void DecrementResources()
+	{
+		_resources--;
+
+		Emote( _sadMaterial );
+		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
+
+		if ( !_disableStatDecrease )
+		{
+			_ownerStats.DecrementMaxStat( statType );
+		}
+
+		if ( _resources <= 0 )
+		{
+			Kill();
+		}
 	}
 
 	public void Emote( Material emoteMaterial )
