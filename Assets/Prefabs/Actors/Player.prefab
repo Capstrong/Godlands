@@ -2421,7 +2421,6 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _stopMoveTime: .300000012
   _groundedMoveSpeed: 6
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
@@ -2431,15 +2430,14 @@ MonoBehaviour:
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
   jumpForce: 12
-  _jumpCheckDistance: 1
+  _jumpCheckDistance: 1.5
   _jumpCheckRadius: .5
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 257
   _minJumpDot: .5
-  _jumpColCheckTime: .5
   _lateJumpTime: .5
-  _jumpCheckDelay: .25
+  _jumpCheckDelayTime: .100000001
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
