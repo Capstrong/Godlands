@@ -61,6 +61,14 @@ public sealed class ActorPhysics : ActorComponent
 
 	[SerializeField] float _climbMoveSpeed = 6f;
 
+	public float normalizedMoveSpeed
+	{
+		get
+		{
+			return rigidbody.velocity.magnitude / sprintMoveSpeed;
+		}
+	}
+
 	/**
 	 * The last direction the actor moved in.
 	 *
