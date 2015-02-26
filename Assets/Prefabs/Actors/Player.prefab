@@ -42,8 +42,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 418824}
   - 135: {fileID: 13518824}
-  - 135: {fileID: 13581878}
-  - 135: {fileID: 13581880}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -2194,7 +2192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .675377846, z: 0, w: -.737471938}
-  m_LocalPosition: {x: -33.8800011, y: -21.3400002, z: 17.7999992}
+  m_LocalPosition: {x: -.349999994, y: -18.7000008, z: 23.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418824}
@@ -2393,20 +2391,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   cam: {fileID: 0}
-  zoomSpeed: 100
-  defaultCamDist: 5
-  minCamDist: 1
-  camLayer:
+  _rotationBounds:
+    min: -50
+    max: 50
+  _vertRotationSpeed: 2
+  _horRotationSpeedStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 2
+    - .5
+    - 2
+    - 2
+    - 2
+    - 1.5
+  _focusShiftSpeed: 4
+  _focusFollowSpeed: 12
+  _focusOffset: {x: 0, y: 0, z: .400000006}
+  _targetZoomDistance: 10
+  _zoomDistanceStateMap:
+    keys: 050000000400000003000000020000000100000000000000
+    values:
+    - 6
+    - 7
+    - 10
+    - 10
+    - 10
+    - 10
+  _zoomDistanceBounds:
+    min: 1
+    max: 25
+  _turnAssistCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  _turnAssistMinAngle: 20
+  _turnAssistTurnSpeed: .699999988
+  _collisionLayer:
     serializedVersion: 2
     m_Bits: 1
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  hitPosOffsetDist: .5
-  rotSpeed: {x: 2.5, y: 2.5}
-  rotBounds:
-    min: 40
-    max: 350
 --- !u!114 &11480136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2422,6 +2455,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
+  _sprintMoveSpeed: 8.5
   _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
@@ -2480,30 +2514,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .200000003
   m_Center: {x: 0, y: .200000003, z: 0}
---- !u!135 &13581878
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .300000012
-  m_Center: {x: 0, y: .400000006, z: 0}
---- !u!135 &13581880
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .400000006
-  m_Center: {x: 0, y: .600000024, z: 0}
 --- !u!136 &13610286
 CapsuleCollider:
   m_ObjectHideFlags: 1

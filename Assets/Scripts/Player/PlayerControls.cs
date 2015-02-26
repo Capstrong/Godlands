@@ -38,6 +38,12 @@ public class PlayerControls : MonoBehaviour
 		get { return _jumpButton; }
 	}
 
+	Button _sprintButton = new Button( "Sprint" );
+	public Button sprintButton
+	{
+		get { return _sprintButton; }
+	}
+
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
@@ -66,6 +72,7 @@ public class PlayerControls : MonoBehaviour
 		_holdButton.Update();
 		_useButton.Update();
 		_jumpButton.Update();
+		_sprintButton.Update();
 	}
 
 	#region Physics States
@@ -237,6 +244,10 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
+				else if ( player.controls.sprintButton )
+				{
+					player.physics.ChangeState( PhysicsStateType.Sprinting );
+				}
 				else if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
@@ -260,7 +271,7 @@ public class PlayerControls : MonoBehaviour
 
 				player.physics.GroundMovement( player.controls.GetMoveDirection() );
 
-				player.animator.SetFloat( "moveSpeed", player.rigidbody.velocity.magnitude );
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
 			}
 			else
 			{
@@ -270,6 +281,46 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		public override void Exit() { }
+	}
+
+	public class Sprinting : PhysicsState
+	{
+		PlayerActor player;
+
+		public Sprinting( PlayerActor player )
+		{
+			this.player = player;
+		}
+
+		public override void Enter() { }
+
+		public override void Update()
+		{
+			if ( player.physics.GroundedCheck() )
+			{
+				if ( player.controls.jumpButton.down &&
+				     player.physics.JumpCheck() )
+				{
+					player.physics.ChangeState( PhysicsStateType.Jumping );
+				}
+
+				if ( !player.controls.sprintButton )
+				{
+					player.physics.ChangeState( PhysicsStateType.Grounded );
+				}
+
+				player.physics.GroundMovement( player.controls.GetMoveDirection(), true );
+
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+			}
+			else
+			{
+				player.physics.ChangeState( PhysicsStateType.Falling );
+			}
+		}
+
+		public override void Exit() { }
+
 	}
 
 	public class Gliding : PhysicsState
@@ -333,6 +384,7 @@ public class PlayerControls : MonoBehaviour
 		_actor.physics.RegisterState( PhysicsStateType.Grounded, new Grounded( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Climbing, new Climbing( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Sprinting, new Sprinting( _actor ) );	
 	}
 	#endregion
 
@@ -350,7 +402,7 @@ public class PlayerControls : MonoBehaviour
 		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
 		RaycastHit[] hits = Physics.SphereCastAll(
-			new Ray( camPos, camForward ),
+			new Ray( transform.position, camForward ),
 			_interactCheckRadius,
 			_interactCheckDistance,
 			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );

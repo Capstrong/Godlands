@@ -553,6 +553,16 @@ public struct MinMaxF
 
 	public float min;
 	public float max;
+
+	public float Range
+	{
+		get { return max - min; }
+	}
+
+	public void Clamp( ref float v )
+	{
+		v = Mathf.Clamp( v, min, max );
+	}
 }
 
 [System.Serializable]
@@ -566,6 +576,16 @@ public struct MinMaxI
 	
 	public int min;
 	public int max;
+
+	public int Range
+	{
+		get { return max - min; }
+	}
+
+	public void Clamp( ref int v )
+	{
+		v = Mathf.Clamp( v, min, max );
+	}
 }
 
 // Credit to Unity Wiki for original version of this
