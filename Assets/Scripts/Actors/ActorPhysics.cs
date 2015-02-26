@@ -467,12 +467,12 @@ public sealed class ActorPhysics : ActorComponent
 		Vector3 weightedVelocity = Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight );
 
 		Vector3 lookVec = ( _overrideLook ?
-				_lookOverride :
-				weightedVelocity );
+		                    _lookOverride :
+		                    weightedVelocity );
 
-		if ( lookVec.magnitude > _minLookVecTurnStrength )
+		if ( lookVec.sqrMagnitude > _minLookVecTurnStrength * _minLookVecTurnStrength )
 		{
-			_desiredLook = Quaternion.LookRotation( lookVec.normalized, transform.up );
+			_desiredLook = Quaternion.LookRotation( lookVec, transform.up );
 		}
 	}
 

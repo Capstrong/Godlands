@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
 	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
 	[SerializeField] float _interactCheckDistance = 5.0f;
 	[SerializeField] float _interactCheckRadius = 0.2f;
+	[SerializeField] Vector3 _interactRaycastOrigin = Vector3.zero;
 
 	PlayerActor _actor;
 
@@ -396,16 +397,16 @@ public class PlayerControls : MonoBehaviour
 	 */
 	bool RaycastForward( out RaycastHit closestHit )
 	{
-		Vector3 camPos = _cameraTransform.position;
+		Vector3 rayOrigin = transform.position + _interactRaycastOrigin;
 		Vector3 camForward = _cameraTransform.forward;
-
 	
-		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
+		Debug.DrawRay( rayOrigin, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
-		RaycastHit[] hits = Physics.SphereCastAll( new Ray( camPos, camForward ),
-			                                       _interactCheckRadius,
-			                                       _interactCheckDistance,
-			                                       _actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
+		RaycastHit[] hits = Physics.SphereCastAll(
+			new Ray( rayOrigin, camForward ),
+			_interactCheckRadius,
+			_interactCheckDistance,
+			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
 
 		if ( hits.Length == 0 )
 		{
@@ -414,10 +415,10 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		closestHit = hits[0];
-		float closestDistance = ( camPos - closestHit.point ).sqrMagnitude;
+		float closestDistance = ( rayOrigin - closestHit.point ).sqrMagnitude;
 		foreach ( RaycastHit hit in hits )
 		{
-			float hitDistance = ( camPos - hit.point ).sqrMagnitude;
+			float hitDistance = ( rayOrigin - hit.point ).sqrMagnitude;
 			if ( hitDistance < closestDistance )
 			{
 				closestHit = hit;
@@ -474,5 +475,12 @@ public class PlayerControls : MonoBehaviour
 		_actor.actorCamera.cam.transform.position = _respawnPosition;
 
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawSphere( GetComponent<Transform>().position + _interactRaycastOrigin,
+		                   0.1f );
 	}
 }
