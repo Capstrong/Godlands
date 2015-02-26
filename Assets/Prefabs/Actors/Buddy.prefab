@@ -10,8 +10,24 @@ GameObject:
   - 4: {fileID: 401526}
   - 198: {fileID: 19801526}
   - 199: {fileID: 19901526}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Emote Emitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &126138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 426138}
+  - 65: {fileID: 6526138}
+  m_Layer: 8
+  m_Name: Bounding Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +59,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 470798}
   - 135: {fileID: 13570798}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Lifter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +83,7 @@ GameObject:
   - 114: {fileID: 11414764}
   - 114: {fileID: 11457846}
   - 114: {fileID: 11409692}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Buddy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +98,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 487196}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +115,7 @@ GameObject:
   - 4: {fileID: 487198}
   - 33: {fileID: 3387198}
   - 23: {fileID: 2387198}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +132,7 @@ GameObject:
   - 4: {fileID: 487200}
   - 33: {fileID: 3387200}
   - 23: {fileID: 2387200}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +149,7 @@ GameObject:
   - 4: {fileID: 487202}
   - 33: {fileID: 3387202}
   - 23: {fileID: 2387202}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +166,7 @@ GameObject:
   - 4: {fileID: 487204}
   - 33: {fileID: 3387204}
   - 23: {fileID: 2387204}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +183,7 @@ GameObject:
   - 4: {fileID: 487206}
   - 33: {fileID: 3387206}
   - 23: {fileID: 2387206}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +200,7 @@ GameObject:
   - 4: {fileID: 487208}
   - 33: {fileID: 3387208}
   - 23: {fileID: 2387208}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +217,7 @@ GameObject:
   - 4: {fileID: 497486}
   - 33: {fileID: 3397488}
   - 23: {fileID: 2397488}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +233,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 497488}
   - 95: {fileID: 9597488}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Transform Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,6 +252,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 476348}
   m_RootOrder: 3
+--- !u!4 &426138
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126138}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 476348}
+  m_RootOrder: 4
 --- !u!4 &470796
 Transform:
   m_ObjectHideFlags: 1
@@ -267,13 +295,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -37.1399994, y: -21.2700005, z: 15.3299999}
+  m_LocalPosition: {x: -3.52999997, y: -18.8099995, z: 22.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470796}
   - {fileID: 470798}
   - {fileID: 497488}
   - {fileID: 401526}
+  - {fileID: 426138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &487196
@@ -611,6 +640,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &6526138
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5, z: 1}
+  m_Center: {x: 0, y: .75, z: 0}
 --- !u!95 &9597488
 Animator:
   serializedVersion: 3
@@ -675,7 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 0
+  statType: 2
   _startingResourceCount: 10
   _resources: 0
   _decrementStatSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
@@ -713,7 +754,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a79bd9d29ca14278877207423466cc7, type: 3}
   m_Name: 
@@ -722,6 +763,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 2
+  _sprintMoveSpeed: 12
   _jumpMoveSpeed: 2
   _rollMoveSpeed: 2
   _climbMoveSpeed: 2
