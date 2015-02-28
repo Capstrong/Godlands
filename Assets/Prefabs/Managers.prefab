@@ -166,11 +166,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dayCycleTimer: 44.6500015
-  _dayCycleLength: 500
+  _dayCycleLength: 300
   _dayStartTime: 30
   _blackoutDuration: 5
   _lightupDuration: 5
   _midnightOverlay: {fileID: 0}
+  _disableMidnight: 1
 --- !u!114 &11421584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,13 +197,14 @@ MonoBehaviour:
       fogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
       fogDensity: .0149999997
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+  _dirLight: {fileID: 0}
+  _nightFraction: .200000003
   _currentTimeRenderSettings:
     skyColor: {r: .14865838, g: .111647286, b: .388967395, a: 1}
     lightColor: {r: .95247525, g: .95247525, b: .95247525, a: 1}
     lightIntensity: .0414653048
     fogColor: {r: .214878187, g: .155437112, b: .368599623, a: 1}
     fogDensity: .0140800579
-  _dirLight: {fileID: 0}
   _daylightIntensity: .0766617954
 --- !u!114 &11484492
 MonoBehaviour:

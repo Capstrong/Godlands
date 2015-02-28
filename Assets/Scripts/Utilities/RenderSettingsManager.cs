@@ -3,23 +3,23 @@ using System.Collections;
 using System;
 
 [Serializable]
-public class TimeRenderSettings
+public struct TimeRenderSettings
 {
-	public Color skyColor = Color.white;
-	public Color lightColor = Color.white;
-	public float lightIntensity = 0.5f;
-	public Color fogColor = Color.white;
-	public float fogDensity = 0.05f;
+	public Color skyColor;
+	public Color lightColor;
+	public float lightIntensity;
+	public Color fogColor;
+	public float fogDensity;
 
 	public static TimeRenderSettings Lerp(TimeRenderSettings fromSettings, TimeRenderSettings toSettings, float t)
 	{
 		TimeRenderSettings returnSettings = new TimeRenderSettings();
 
-		returnSettings.skyColor = Color.Lerp(       fromSettings.skyColor,       toSettings.skyColor, t );
-		returnSettings.lightColor = Color.Lerp(     fromSettings.lightColor,     toSettings.lightColor, t );
+		returnSettings.skyColor =       Color.Lerp( fromSettings.skyColor,       toSettings.skyColor,       t );
+		returnSettings.lightColor =     Color.Lerp( fromSettings.lightColor,     toSettings.lightColor,     t );
 		returnSettings.lightIntensity = Mathf.Lerp( fromSettings.lightIntensity, toSettings.lightIntensity, t );
-		returnSettings.fogColor = Color.Lerp(       fromSettings.fogColor,       toSettings.fogColor, t );
-		returnSettings.fogDensity = Mathf.Lerp(     fromSettings.fogDensity,     toSettings.fogDensity, t );
+		returnSettings.fogColor =       Color.Lerp( fromSettings.fogColor,       toSettings.fogColor,       t );
+		returnSettings.fogDensity =     Mathf.Lerp( fromSettings.fogDensity,     toSettings.fogDensity,     t );
 
 		return returnSettings;
 	}
@@ -53,13 +53,20 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	{
 		get { return _currentRenderSettings; }
 
-		set 
-		{ 
-			_currentRenderSettings = value; 
+		set
+		{
+			_currentRenderSettings = value;
 			RenderSettings.skybox = _currentRenderSettings.skyMaterial;
 		}
 	}
 
+	[SerializeField] Light _dirLight = null;
+	int _curSkyboxTintPropertyID = 0;
+
+	[Tooltip( "The percent of the end of the day cycle that stays completely dark." )]
+	[SerializeField] float _nightFraction = 0.1f;
+
+	[ReadOnly]
 	[SerializeField] TimeRenderSettings _currentTimeRenderSettings = new TimeRenderSettings();
 	TimeRenderSettings _currentTimeRenderSettingsProperty
 	{
@@ -77,12 +84,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		}
 	}
 
-	[SerializeField] Light _dirLight = null;
-	int _curSkyboxTintPropertyID = 0;
-
 	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
-	[SerializeField]
-	float _daylightIntensity = 1.0f;
+	[SerializeField] float _daylightIntensity = 1.0f;
 	public float daylightIntensity
 	{
 		get { return _daylightIntensity; }
@@ -96,7 +99,16 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		daylightIntensity = Mathf.Cos( DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength * 2.0f * Mathf.PI ) * -0.5f + 0.5f;
+		float timeOfDay = DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength;
+		if ( timeOfDay < ( 1.0f - _nightFraction ) )
+		{
+			daylightIntensity =
+			    Mathf.Cos( timeOfDay * 2.0f * Mathf.PI / ( 1.0f - _nightFraction ) ) * -0.5f + 0.5f;
+		}
+		else
+		{
+			daylightIntensity = 0.0f;
+		}
 
 		_currentTimeRenderSettingsProperty = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
 	}

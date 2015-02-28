@@ -31,6 +31,10 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	EndOfDayCallback _endOfDayCallback = delegate() { };
 
+	[Space( 10 ), Header( "Debug" )]
+	[Tooltip( "Disable the midnight overlay and reseting the player's position." )]
+	[SerializeField] bool _disableMidnight = false;
+
 	void Start()
 	{
 		_dayCycleTimer = _dayStartTime;
@@ -41,18 +45,27 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	{
 		_dayCycleTimer += Time.deltaTime;
 
-		if ( !_hasStartedMidnightOverlay && _dayCycleTimer > ( _dayCycleLength - _blackoutDuration ) )
+		if ( !_hasStartedMidnightOverlay &&
+			_dayCycleTimer > ( _dayCycleLength - _blackoutDuration )
+			&& !_disableMidnight )
 		{
 			StartMidnightOverlay();
 		}
 
 		if ( _dayCycleTimer > _dayCycleLength )
 		{
-			_dayCycleTimer = _dayStartTime;
-			EndMidnightOverlay();
-			StartMorningOverlay();
+			if ( !_disableMidnight )
+			{
+				_dayCycleTimer = _dayStartTime;
+				EndMidnightOverlay();
+				StartMorningOverlay();
 
-			_endOfDayCallback();
+				_endOfDayCallback();
+			}
+			else
+			{
+				_dayCycleTimer = 0.0f;
+			}
 		}
 	}
 
