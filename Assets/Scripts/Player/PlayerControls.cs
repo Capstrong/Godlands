@@ -142,11 +142,6 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.animator.SetBool( "isJumping", false );
 		}
-
-		private void StopForceUp()
-		{
-			_forceUp = false;
-		}
 	}
 
 	public class Falling : PhysicsState
