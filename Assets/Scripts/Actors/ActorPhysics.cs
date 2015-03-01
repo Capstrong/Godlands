@@ -79,7 +79,8 @@ public sealed class ActorPhysics : ActorComponent
 	 * Used for things like gliding or rolling where
 	 * The actor needs to keep moving in the last direction.
 	 */
-	Vector3 _moveVec = Vector3.zero;
+	[ReadOnly]
+	[SerializeField] Vector3 _moveVec = Vector3.zero;
 	#endregion
 
 	#region Collisions
@@ -193,6 +194,12 @@ public sealed class ActorPhysics : ActorComponent
 	public bool GroundedCheck()
 	{
 		_isOnGround = false;
+
+		if ( WadeUtils.IsPositive( rigidbody.velocity.y ) )
+		{
+			// If moving upward, we're probably not sitting on the ground
+			return false;
+		}
 
 		if ( !_jumpCheckDelay )
 		{
@@ -320,18 +327,26 @@ public sealed class ActorPhysics : ActorComponent
 	/**
 	 * Movement for both jumping and falling.
 	 */
-	public void AirMovement( Vector3 inputVec )
+	public void AirMovement( Vector3 inputVec, bool forceUp = false )
 	{
 		FollowBumper();
 
-		if ( inputVec.IsZero() )
+		if ( inputVec.IsZero() && !forceUp )
 		{
 			ComeToStop();
 		}
 		else
 		{
 			_moveVec = inputVec * _jumpMoveSpeed;
-			_moveVec.y = rigidbody.velocity.y;
+
+			if ( forceUp )
+			{
+				_moveVec.y = jumpForce;
+			}
+			else
+			{
+				_moveVec.y = rigidbody.velocity.y;
+			}
 
 			rigidbody.velocity = _moveVec;
 		}
