@@ -79,7 +79,7 @@ public sealed class ActorPhysics : ActorComponent
 	 * Used for things like gliding or rolling where
 	 * The actor needs to keep moving in the last direction.
 	 */
-	[ReadOnly]
+	[ReadOnly("Move Vector")]
 	[SerializeField] Vector3 _moveVec = Vector3.zero;
 	#endregion
 
@@ -108,8 +108,15 @@ public sealed class ActorPhysics : ActorComponent
 	#region Jumping
 	[Space( 10 ), Header( "Jumping" )]
 	[SerializeField] float jumpForce = 8.5f;
+	[Tooltip("Maximum length of time in seconds that the physics will push the player up while holding the jump button")]
+	[SerializeField] float _maxJumpForceTime = 0f;
+	public float maxJumpForceTime
+	{
+		get { return _maxJumpForceTime; }
+	}
 
 	[SerializeField] float _jumpCheckDistance = 1.0f;
+	[Tooltip("Keep this under the radius of the bumper")]
 	[SerializeField] float _jumpCheckRadius = 0.5f;
 
 	[SerializeField] LayerMask _jumpLayer = 0;
@@ -195,19 +202,13 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_isOnGround = false;
 
-		if ( WadeUtils.IsPositive( rigidbody.velocity.y ) )
-		{
-			// If moving upward, we're probably not sitting on the ground
-			return false;
-		}
-
 		if ( !_jumpCheckDelay )
 		{
 			// spherecast down to detect when we're on the ground
 			RaycastHit hit;
 			Physics.SphereCast( transform.position + Vector3.up,
 			                    _jumpCheckRadius,
-			                    -Vector3.up * _jumpCheckDistance,
+			                    -Vector3.up,
 			                    out hit,
 			                    _jumpCheckDistance,
 			                    _jumpLayer );
