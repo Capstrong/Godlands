@@ -19,7 +19,7 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: b9be0c15efe8ad9489fdeead114d8ec5, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4134,7 +4134,6 @@ GameObject:
   - 92: {fileID: 58908144}
   - 124: {fileID: 58908143}
   - 81: {fileID: 58908142}
-  - 45: {fileID: 58908147}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4207,14 +4206,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2121103966}
   m_RootOrder: 0
---- !u!45 &58908147
-Skybox:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58908141}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: b9be0c15efe8ad9489fdeead114d8ec5, type: 2}
 --- !u!1 &59444133
 GameObject:
   m_ObjectHideFlags: 0
@@ -10397,8 +10388,8 @@ MonoBehaviour:
     nightSettings:
       skyColor: {r: .121568628, g: .0313725509, b: .345098048, a: 1}
       lightColor: {r: .404411793, g: .48245433, b: 1, a: 1}
-      lightIntensity: .0199999996
-      fogColor: {r: .180392161, g: .0862745121, b: .321568638, a: 1}
+      lightIntensity: .00999999978
+      fogColor: {r: .0872945711, g: .0131379776, b: .198529422, a: 1}
       fogDensity: .0149999997
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   _shiftTime: 7.5
@@ -74545,7 +74536,7 @@ MonoBehaviour:
     nightSettings:
       skyColor: {r: .327574223, g: .0302768201, b: .411764681, a: 1}
       lightColor: {r: .358823627, g: 0, b: .448529422, a: 1}
-      lightIntensity: .0199999996
+      lightIntensity: .00999999978
       fogColor: {r: .170496345, g: 0, b: .20588237, a: 1}
       fogDensity: .00800000038
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
@@ -118084,10 +118075,10 @@ MonoBehaviour:
       fogColor: {r: 1, g: .60760653, b: .463235319, a: 1}
       fogDensity: .0130000003
     nightSettings:
-      skyColor: {r: .323529422, g: .16612874, b: .0451989695, a: 1}
+      skyColor: {r: .279411793, g: .126047015, b: .00821800157, a: 1}
       lightColor: {r: 1, g: .656389415, b: .433823526, a: 1}
-      lightIntensity: .0149999997
-      fogColor: {r: .345588207, g: .188379467, b: .0508218035, a: 1}
+      lightIntensity: .00999999978
+      fogColor: {r: .227941155, g: .120674737, b: .0268166047, a: 1}
       fogDensity: .0149999997
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   _shiftTime: 7.5
@@ -132028,8 +132019,8 @@ MonoBehaviour:
     nightSettings:
       skyColor: {r: .160784319, g: .172549024, b: .258823544, a: 1}
       lightColor: {r: .5, g: .645114899, b: 1, a: 1}
-      lightIntensity: .0199999996
-      fogColor: {r: .160784319, g: .168627456, b: .262745112, a: 1}
+      lightIntensity: .00999999978
+      fogColor: {r: .0598507784, g: .0705183744, b: .198529422, a: 1}
       fogDensity: .0299999993
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   _shiftTime: 7.5
