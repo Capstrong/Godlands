@@ -308,8 +308,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void DoJump()
 	{
-		Vector3 curVelocity = rigidbody.velocity;
-		curVelocity.y = 0;
+		Vector3 curVelocity = rigidbody.velocity.SetY( 0f );
 		_jumpMoveSpeed = curVelocity.magnitude;
 		curVelocity.y = jumpForce;
 		rigidbody.velocity = curVelocity;
