@@ -8,26 +8,31 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static float dayCycleLength { get { return instance._dayCycleLength; } }
 
-	[ReadOnly( "Time Of Day" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
-	float _dayCycleTimer = 0f;
+	[ReadOnly( "Current Time" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
+	float _currentTime = 0f;
 
 	[Tooltip( "The length (in seconds) of a day" )]
-	[SerializeField] float _dayCycleLength = 60.0f;
+	[SerializeField] float _dayCycleLength = 300.0f;
 
-	[SerializeField] float _dayStartTime = 0f;
+	[Range( 0.0f, 1.0f ), Tooltip( "The percent through the day that the morning starts." )]
+	[SerializeField] float _dayStartTime = .1f;
+	float morningTime
+	{
+		get
+		{
+			return _dayCycleLength * _dayStartTime;
+		}
+	}
+
 	[Tooltip( "The duration, in seconds, of the midnight fade out effect." )]
 	[SerializeField] float _blackoutDuration = 5.0f;
 
 	[Tooltip( "The duration, in seconds, of the morning fade in effect." )]
 	[SerializeField] float _lightupDuration = 5.0f;
 
-	public static float dayCycleTimer { get { return instance._dayCycleTimer; } }
+	public static float currentTime { get { return instance._currentTime; } }
 
 	[SerializeField] Image _midnightOverlay = null;
-
-	bool _hasStartedMidnightOverlay = false;
-
-	Coroutine _midnightOverlayCoroutine = null;
 
 	EndOfDayCallback _endOfDayCallback = delegate() { };
 
@@ -37,36 +42,22 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void Start()
 	{
-		_dayCycleTimer = _dayStartTime;
+		if ( !_disableMidnight )
+		{
+			MorningReset();
+		}
 	}
 
-	// Update is called once per frame
 	void Update ()
 	{
-		_dayCycleTimer += Time.deltaTime;
+		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
+	}
 
-		if ( !_hasStartedMidnightOverlay &&
-			_dayCycleTimer > ( _dayCycleLength - _blackoutDuration )
-			&& !_disableMidnight )
-		{
-			StartMidnightOverlay();
-		}
-
-		if ( _dayCycleTimer > _dayCycleLength )
-		{
-			if ( !_disableMidnight )
-			{
-				_dayCycleTimer = _dayStartTime;
-				EndMidnightOverlay();
-				StartMorningOverlay();
-
-				_endOfDayCallback();
-			}
-			else
-			{
-				_dayCycleTimer = 0.0f;
-			}
-		}
+	void MorningReset()
+	{
+		_currentTime = morningTime;
+		StartMorningOverlay();
+		Invoke( "StartMidnightOverlay", ( _dayCycleLength - _blackoutDuration ) - _currentTime );
 	}
 
 	public static void RegisterEndOfDayCallback( EndOfDayCallback callback )
@@ -81,19 +72,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay()
 	{
-		_hasStartedMidnightOverlay = true;
-		_midnightOverlayCoroutine = StartCoroutine( FadeInMidnightOverlay() );
-	}
-
-	void EndMidnightOverlay()
-	{
-		_hasStartedMidnightOverlay = false;
-
-		StopCoroutine( _midnightOverlayCoroutine );
-		_midnightOverlayCoroutine = null;
-
-		Color overlayColor = _midnightOverlay.color;
-		_midnightOverlay.color = overlayColor;
+		StartCoroutine( FadeInMidnightOverlay() );
 	}
 
 	void StartMorningOverlay()
@@ -109,11 +88,20 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		float elapsedTime = 0.0f;
 		while ( true )
 		{
-			elapsedTime += Time.deltaTime;
-			Color overlayColor = _midnightOverlay.color;
-			overlayColor.a = elapsedTime / _blackoutDuration;
-			_midnightOverlay.color = overlayColor;
-			yield return null;
+			if ( elapsedTime < _blackoutDuration )
+			{
+				elapsedTime += Time.deltaTime;
+				Color overlayColor = _midnightOverlay.color;
+				overlayColor.a = elapsedTime / _blackoutDuration;
+				_midnightOverlay.color = overlayColor;
+				yield return null;
+			}
+			else
+			{
+				MorningReset();
+				_endOfDayCallback();
+				break;
+			}
 		}
 	}
 
@@ -125,13 +113,12 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		float elapsedTime = 0.0f;
 		while ( true )
 		{
-			elapsedTime += Time.deltaTime;
-			Color overlayColor = _midnightOverlay.color;
-			overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
-			_midnightOverlay.color = overlayColor;
-
 			if ( elapsedTime < _lightupDuration )
 			{
+				elapsedTime += Time.deltaTime;
+				Color overlayColor = _midnightOverlay.color;
+				overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
+				_midnightOverlay.color = overlayColor;
 				yield return null;
 			}
 			else

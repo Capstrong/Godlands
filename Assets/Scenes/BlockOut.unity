@@ -13,9 +13,9 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_Fog: 1
-  m_FogColor: {r: .631624162, g: .799669504, b: .97745043, a: 1}
+  m_FogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
   m_FogMode: 3
-  m_FogDensity: .00339570804
+  m_FogDensity: .0149999997
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
@@ -26529,8 +26529,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 3
   m_Type: 1
-  m_Color: {r: .998302698, g: .998302698, b: .998302698, a: 1}
-  m_Intensity: .290437073
+  m_Color: {r: .948529422, g: .948529422, b: .948529422, a: 1}
+  m_Intensity: .00999999978
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -45393,12 +45393,12 @@ MonoBehaviour:
   _dirLight: {fileID: 416504298}
   _nightFraction: .200000003
   _currentTimeRenderSettings:
-    skyColor: {r: .663497984, g: .891113877, b: .976238132, a: 1}
-    lightColor: {r: .998302698, g: .998302698, b: .998302698, a: 1}
-    lightIntensity: .290437073
-    fogColor: {r: .631624162, g: .799669504, b: .97745043, a: 1}
-    fogDensity: .00339570804
-  _daylightIntensity: .967024326
+    skyColor: {r: .0674442127, g: 0, b: .279411793, a: 1}
+    lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
+    lightIntensity: .00999999978
+    fogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
+    fogDensity: .0149999997
+  _daylightIntensity: 0
 --- !u!1 &699790005
 GameObject:
   m_ObjectHideFlags: 0
@@ -62378,10 +62378,6 @@ Prefab:
     - target: {fileID: 11421584, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentRenderSettings.daySettings.skyColor.b
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
-      propertyPath: _dayCycleLength
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
@@ -99059,13 +99055,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dayCycleTimer: 44.6500015
-  _dayCycleLength: 100
-  _dayStartTime: 30
+  _currentTime: 0
+  _dayCycleLength: 300
+  _dayStartTime: .100000001
   _blackoutDuration: 5
   _lightupDuration: 5
   _midnightOverlay: {fileID: 457358958}
-  _disableMidnight: 1
+  _disableMidnight: 0
 --- !u!1 &1582974177
 GameObject:
   m_ObjectHideFlags: 0

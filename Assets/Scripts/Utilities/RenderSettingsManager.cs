@@ -99,7 +99,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		float timeOfDay = DayCycleManager.dayCycleTimer / DayCycleManager.dayCycleLength;
+		float timeOfDay = DayCycleManager.currentTime / DayCycleManager.dayCycleLength;
 		if ( timeOfDay < ( 1.0f - _nightFraction ) )
 		{
 			daylightIntensity =
