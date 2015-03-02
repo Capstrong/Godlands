@@ -9,6 +9,13 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _interactCheckRadius = 0.2f;
 	[SerializeField] Vector3 _interactRaycastOrigin = Vector3.zero;
 
+	[Tooltip("Maximum length of time in seconds that the physics will push the player up while holding the jump button")]
+	[SerializeField] float _maxJumpForceTime = 0f;
+	public float maxJumpForceTime
+	{
+		get { return _maxJumpForceTime; }
+	}
+
 	PlayerActor _actor;
 
 	[Tooltip( "Probably straight up" )]
@@ -81,6 +88,9 @@ public class PlayerControls : MonoBehaviour
 	{
 		public PlayerActor player;
 
+		bool _forceUp = true; // Stays true until the player releases the button or the timer runs out
+		float _jumpTimer = 0f;
+
 		public Jumping( PlayerActor player )
 		{
 			this.player = player;
@@ -90,10 +100,20 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.animator.SetBool( "isJumping", true );
 			player.physics.DoJump();
+			_jumpTimer = 0f;
+			_forceUp = true;
 		}
 
 		public override void Update()
 		{
+			_jumpTimer += Time.deltaTime;
+
+			// Whether to continue forcing upwards with constant velocity
+			if ( _forceUp && ( !player.controls.jumpButton || _jumpTimer > player.controls.maxJumpForceTime ) )
+			{
+				_forceUp = false;
+			}
+
 			if ( player.physics.GroundedCheck() )
 			{
 				if ( player.controls.jumpButton.down &&
@@ -120,7 +140,7 @@ public class PlayerControls : MonoBehaviour
 				}
 				else
 				{
-					player.physics.AirMovement( player.controls.GetMoveDirection() );
+					player.physics.AirMovement( player.controls.GetMoveDirection(), _forceUp );
 				}
 			}
 		}

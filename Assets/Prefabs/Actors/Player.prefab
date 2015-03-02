@@ -2458,22 +2458,23 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
-  _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
+  _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
   lifter: {fileID: 13518824}
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
-  jumpForce: 12
+  jumpForce: 8
+  _maxJumpForceTime: .300000012
   _jumpCheckDistance: 1.5
-  _jumpCheckRadius: .5
+  _jumpCheckRadius: .449999988
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1
   _minJumpDot: .5
   _lateJumpTime: .5
-  _jumpCheckDelayTime: .100000001
+  _jumpCheckDelayTime: .200000003
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
