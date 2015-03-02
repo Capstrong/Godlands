@@ -9,6 +9,13 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _interactCheckRadius = 0.2f;
 	[SerializeField] Vector3 _interactRaycastOrigin = Vector3.zero;
 
+	[Tooltip("Maximum length of time in seconds that the physics will push the player up while holding the jump button")]
+	[SerializeField] float _maxJumpForceTime = 0f;
+	public float maxJumpForceTime
+	{
+		get { return _maxJumpForceTime; }
+	}
+
 	PlayerActor _actor;
 
 	[Tooltip( "Probably straight up" )]
@@ -102,7 +109,7 @@ public class PlayerControls : MonoBehaviour
 			_jumpTimer += Time.deltaTime;
 
 			// Whether to continue forcing upwards with constant velocity
-			if ( _forceUp && ( !player.controls.jumpButton || _jumpTimer > player.physics.maxJumpForceTime ) )
+			if ( _forceUp && ( !player.controls.jumpButton || _jumpTimer > player.controls.maxJumpForceTime ) )
 			{
 				_forceUp = false;
 			}

@@ -108,12 +108,6 @@ public sealed class ActorPhysics : ActorComponent
 	#region Jumping
 	[Space( 10 ), Header( "Jumping" )]
 	[SerializeField] float jumpForce = 8.5f;
-	[Tooltip("Maximum length of time in seconds that the physics will push the player up while holding the jump button")]
-	[SerializeField] float _maxJumpForceTime = 0f;
-	public float maxJumpForceTime
-	{
-		get { return _maxJumpForceTime; }
-	}
 
 	[SerializeField] float _jumpCheckDistance = 1.0f;
 	[Tooltip("Keep this under the radius of the bumper")]
@@ -161,6 +155,8 @@ public sealed class ActorPhysics : ActorComponent
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
+
+		DebugUtils.Assert( _jumpCheckRadius < ( (SphereCollider) bumper ).radius );
 
 		InitializeStateMethodMap();
 	}
