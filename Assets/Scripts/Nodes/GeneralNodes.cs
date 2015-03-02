@@ -97,7 +97,14 @@ public class IsTargetWithinLimits : LeafNode
 		//	return NodeStatus.RUNNING;
 		//}
 
-		return NodeStatus.SUCCESS;
+		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.followTarget.position, _limits.colliders[0] ) )
+		{
+			return NodeStatus.SUCCESS;
+		}
+		else
+		{
+			return NodeStatus.FAILURE;
+		}
 	}
 }
 

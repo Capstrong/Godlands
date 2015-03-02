@@ -54,14 +54,17 @@ public static class MathUtils
 
 	public static bool IsWithinInfiniteVerticalCylinder( Vector3 testPoint, CapsuleCollider collider )
 	{
-		return IsWithinInfiniteVerticalCylinder( testPoint, collider.center, collider.radius );
+		return IsWithinInfiniteVerticalCylinder( testPoint, collider.transform.position + collider.center, collider.radius * collider.transform.localScale.x );
 	}
 
 	public static bool IsWithinInfiniteVerticalCylinder( Vector3 testPoint, Vector3 cylinderCenter, float cylinderRadius )
 	{
 		float squaredRadius = cylinderRadius * cylinderRadius;
 
-		return ( testPoint - cylinderCenter ).sqrMagnitude <= squaredRadius;
+		Vector3 difference = testPoint - cylinderCenter;
+		difference.y = 0;
+
+		return difference.sqrMagnitude <= squaredRadius;
 	}
 
 	#endregion
