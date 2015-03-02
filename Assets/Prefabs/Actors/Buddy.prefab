@@ -83,6 +83,7 @@ GameObject:
   - 114: {fileID: 11414764}
   - 114: {fileID: 11457846}
   - 114: {fileID: 11409692}
+  - 114: {fileID: 11494900}
   m_Layer: 2
   m_Name: Buddy
   m_TagString: Untagged
@@ -803,6 +804,19 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   moveSpeed: 2
   watchDistance: 10
+--- !u!114 &11494900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d100496724a9941b742c3f6c2c8703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiredTag: BuddyLimits
+  _colliders: []
 --- !u!135 &13570796
 SphereCollider:
   m_ObjectHideFlags: 1
