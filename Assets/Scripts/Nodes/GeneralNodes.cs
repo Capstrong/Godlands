@@ -65,6 +65,42 @@ public class FollowTarget : LeafNode
 	}
 }
 
+public class IsTargetWithinLimits : LeafNode
+{
+	private GameObject _gameObject;
+	private Transform _transform;
+	private BehaviorPhysicsController _controller;
+	private BehaviorTreeInfo _info;
+	private Limits _limits;
+
+	public override void Init( Hashtable data )
+	{
+		_gameObject = (GameObject)data["gameObject"];
+		_transform = _gameObject.GetComponent<Transform>();
+		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
+		_controller = _gameObject.GetComponent<BehaviorPhysicsController>();
+		_limits = _gameObject.GetComponent<Limits>();
+	}
+
+	public override NodeStatus Tick()
+	{
+		//_controller.moveDirection = ( _info.followTarget.position - _transform.position ).normalized;
+
+		//if ( Vector3.Distance( _transform.position, _info.followTarget.position ) < 0.5f )
+		//{
+		//	_info.followTarget = null;
+		//	_controller.moveDirection = Vector3.zero;
+		//	return NodeStatus.SUCCESS;
+		//}
+		//else
+		//{
+		//	return NodeStatus.RUNNING;
+		//}
+
+		return NodeStatus.SUCCESS;
+	}
+}
+
 /**
  * @brief Check if any gods are within the watch distance.
  *

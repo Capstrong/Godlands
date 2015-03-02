@@ -23,6 +23,7 @@ public static class MathUtils
 		return ( x % m + m ) % m;
 	}
 
+	#region Vectors
 	/*
 	 * These extension methods are for built in stuff that can't directly 
 	 * be changed like rigidbody.velocity or transform.position
@@ -47,4 +48,21 @@ public static class MathUtils
 		copyVec.z = z;
 		return copyVec;
 	}
+	#endregion
+
+	#region Colliders
+
+	public static bool IsWithinInfiniteVerticalCylinder( Vector3 testPoint, CapsuleCollider collider )
+	{
+		return IsWithinInfiniteVerticalCylinder( testPoint, collider.center, collider.radius );
+	}
+
+	public static bool IsWithinInfiniteVerticalCylinder( Vector3 testPoint, Vector3 cylinderCenter, float cylinderRadius )
+	{
+		float squaredRadius = cylinderRadius * cylinderRadius;
+
+		return ( testPoint - cylinderCenter ).sqrMagnitude <= squaredRadius;
+	}
+
+	#endregion
 }
