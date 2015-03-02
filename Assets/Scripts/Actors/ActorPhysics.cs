@@ -156,7 +156,16 @@ public sealed class ActorPhysics : ActorComponent
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
 
-		DebugUtils.Assert( _jumpCheckRadius < ( (SphereCollider) bumper ).radius );
+#if UNITY_EDITOR
+		if ( bumper as CapsuleCollider )
+		{
+			DebugUtils.Assert( _jumpCheckRadius < ( (CapsuleCollider) bumper ).radius );
+		}
+		else if ( bumper as SphereCollider )
+		{
+			DebugUtils.Assert( _jumpCheckRadius < ( (SphereCollider) bumper ).radius );
+		}
+#endif
 
 		InitializeStateMethodMap();
 	}
