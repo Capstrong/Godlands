@@ -33,6 +33,40 @@ public class MoveToDestination : LeafNode
 	}
 }
 
+public class TryInOrder : Compositor
+{
+	private int _currentChild = 0;
+
+	public override void Init( Hashtable data )
+	{
+		base.Init( data );
+		_currentChild = 0;
+	}
+
+	public override NodeStatus Tick()
+	{
+		int failures = 0;
+		foreach ( TreeNode child in _children )
+		{
+			switch( child.Tick() )
+			{
+				case NodeStatus.SUCCESS:
+					return NodeStatus.SUCCESS;
+				case NodeStatus.RUNNING:
+					return NodeStatus.RUNNING;
+				case NodeStatus.FAILURE:
+					++failures;
+					if ( failures >= _children.Count )
+					{
+						return NodeStatus.FAILURE;
+					}
+					break;
+			}
+		}
+		return NodeStatus.RUNNING;
+	}
+}
+
 public class FollowTarget : LeafNode
 {
 	private GameObject gameObject;
@@ -42,6 +76,7 @@ public class FollowTarget : LeafNode
 
 	public override void Init( Hashtable data )
 	{
+		Debug.Log("Init follow target");
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
 		info = gameObject.GetComponent<BehaviorTreeInfo>();
@@ -50,6 +85,8 @@ public class FollowTarget : LeafNode
 
 	public override NodeStatus Tick()
 	{
+		Debug.Log("Tick follow target");
+
 		controller.moveDirection = ( info.followTarget.position - transform.position ).normalized;
 
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
@@ -75,6 +112,7 @@ public class IsTargetWithinLimits : LeafNode
 
 	public override void Init( Hashtable data )
 	{
+		Debug.Log("Init is target within limits");
 		_gameObject = (GameObject)data["gameObject"];
 		_transform = _gameObject.GetComponent<Transform>();
 		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
@@ -97,12 +135,16 @@ public class IsTargetWithinLimits : LeafNode
 		//	return NodeStatus.RUNNING;
 		//}
 
+		Debug.Log("Tick is target within limits");
+
 		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.followTarget.position, _limits.colliders[0] ) )
 		{
+			Debug.Log("true");
 			return NodeStatus.SUCCESS;
 		}
 		else
 		{
+			Debug.Log("false");
 			return NodeStatus.FAILURE;
 		}
 	}

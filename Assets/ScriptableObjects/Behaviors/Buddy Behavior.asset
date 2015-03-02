@@ -17,29 +17,23 @@ MonoBehaviour:
     children: 01000000
   - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 02000000
-  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 030000000a000000
-  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 04000000
-  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 0500000006000000
-  - typename: GodsWithinWatchDistance, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
+  - typename: TryInOrder, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 0300000008000000
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 070000000800000009000000
+    children: 0400000005000000
   - typename: ChooseTargetGod, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
+  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    children: 0600000007000000
   - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
   - typename: FollowTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0b0000000c0000000d000000
+    children: 090000000a0000000b000000
   - typename: Idle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 
   - typename: PickRandomDestinationInRadius, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
