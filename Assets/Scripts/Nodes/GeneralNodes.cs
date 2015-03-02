@@ -20,6 +20,9 @@ public class MoveToDestination : LeafNode
 	{
 		controller.moveDirection = ( info.destination - transform.position ).normalized;
 
+		Debug.DrawLine( transform.position, info.destination );
+		Debug.Log("Move to destination tick: " + info.destination );
+
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
 		{
 			info.destination = Vector3.zero;
@@ -33,37 +36,30 @@ public class MoveToDestination : LeafNode
 	}
 }
 
-public class TryInOrder : Compositor
+public class SetTargetAsDestination : LeafNode
 {
-	private int _currentChild = 0;
+	private GameObject gameObject;
+	private BehaviorTreeInfo info;
+	private BehaviorPhysicsController controller;
 
 	public override void Init( Hashtable data )
 	{
-		base.Init( data );
-		_currentChild = 0;
+		gameObject = (GameObject) data["gameObject"];
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
+		controller = gameObject.GetComponent<BehaviorPhysicsController>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		int failures = 0;
-		foreach ( TreeNode child in _children )
+		if ( info.followTarget == null )
 		{
-			switch( child.Tick() )
-			{
-				case NodeStatus.SUCCESS:
-					return NodeStatus.SUCCESS;
-				case NodeStatus.RUNNING:
-					return NodeStatus.RUNNING;
-				case NodeStatus.FAILURE:
-					++failures;
-					if ( failures >= _children.Count )
-					{
-						return NodeStatus.FAILURE;
-					}
-					break;
-			}
+			Debug.LogError("Follow target is null");
+			return NodeStatus.FAILURE;
 		}
-		return NodeStatus.RUNNING;
+
+		info.destination = info.followTarget.position;
+		controller.moveDirection = Vector3.zero;
+		return NodeStatus.SUCCESS;
 	}
 }
 
@@ -102,7 +98,7 @@ public class FollowTarget : LeafNode
 	}
 }
 
-public class IsTargetWithinLimits : LeafNode
+public class IsDestinationWithinLimits : LeafNode
 {
 	private GameObject _gameObject;
 	private Transform _transform;
@@ -122,29 +118,16 @@ public class IsTargetWithinLimits : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		//_controller.moveDirection = ( _info.followTarget.position - _transform.position ).normalized;
+		//Debug.Log("Tick is target within limits");
 
-		//if ( Vector3.Distance( _transform.position, _info.followTarget.position ) < 0.5f )
-		//{
-		//	_info.followTarget = null;
-		//	_controller.moveDirection = Vector3.zero;
-		//	return NodeStatus.SUCCESS;
-		//}
-		//else
-		//{
-		//	return NodeStatus.RUNNING;
-		//}
-
-		Debug.Log("Tick is target within limits");
-
-		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.followTarget.position, _limits.colliders[0] ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.destination, _limits.colliders[0] ) )
 		{
-			Debug.Log("true");
+			//Debug.Log("true");
 			return NodeStatus.SUCCESS;
 		}
 		else
 		{
-			Debug.Log("false");
+			Debug.Log("Destination not within limits");
 			return NodeStatus.FAILURE;
 		}
 	}
@@ -202,6 +185,7 @@ public class ChooseTargetGod : LeafNode
 				.sqrMagnitude < info.watchDistance * info.watchDistance )
 			{
 				info.followTarget = god.GetComponent<Transform>();
+				Debug.Log("Target God chosen");
 				return NodeStatus.SUCCESS;
 			}
 		}

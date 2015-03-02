@@ -31,6 +31,7 @@ public class PickRandomDestinationInRadius : LeafNode
 	private Transform transform;
 	private BehaviorTreeInfo baseInfo;
 	private BuddyInfo buddyInfo;
+	private BehaviorPhysicsController controller;
 
 	public override void Init( Hashtable data )
 	{
@@ -38,6 +39,7 @@ public class PickRandomDestinationInRadius : LeafNode
 		transform = gameObject.GetComponent<Transform>();
 		baseInfo = gameObject.GetComponent<BehaviorTreeInfo>();
 		buddyInfo = gameObject.GetComponent<BuddyInfo>();
+		controller = gameObject.GetComponent<BehaviorPhysicsController>();
 	}
 
 	public override NodeStatus Tick()
@@ -47,6 +49,9 @@ public class PickRandomDestinationInRadius : LeafNode
 		offset.z = offset.y;
 		offset.y = 0;
 		baseInfo.destination = transform.position + offset;
+		controller.moveDirection = Vector3.zero;
+
+		Debug.Log("Random location chosen");
 
 		return NodeStatus.SUCCESS;
 	}
