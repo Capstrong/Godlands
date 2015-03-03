@@ -56,7 +56,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	void MorningReset()
 	{
 		_currentTime = morningTime;
-		StartMorningOverlay();
+		StartCoroutine( FadeOutMidnightOverlay() );
 		Invoke( "StartMidnightOverlay", ( _dayCycleLength - _blackoutDuration ) - _currentTime );
 	}
 
@@ -73,11 +73,6 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	void StartMidnightOverlay()
 	{
 		StartCoroutine( FadeInMidnightOverlay() );
-	}
-
-	void StartMorningOverlay()
-	{
-		StartCoroutine( FadeOutMidnightOverlay() );
 	}
 
 	/**

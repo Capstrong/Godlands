@@ -11,17 +11,13 @@ public struct TimeRenderSettings
 	public Color fogColor;
 	public float fogDensity;
 
-	public static TimeRenderSettings Lerp(TimeRenderSettings fromSettings, TimeRenderSettings toSettings, float t)
+	public static void Lerp(TimeRenderSettings fromSettings, TimeRenderSettings toSettings, float t, out TimeRenderSettings outSettings)
 	{
-		TimeRenderSettings returnSettings = new TimeRenderSettings();
-
-		returnSettings.skyColor =       Color.Lerp( fromSettings.skyColor,       toSettings.skyColor,       t );
-		returnSettings.lightColor =     Color.Lerp( fromSettings.lightColor,     toSettings.lightColor,     t );
-		returnSettings.lightIntensity = Mathf.Lerp( fromSettings.lightIntensity, toSettings.lightIntensity, t );
-		returnSettings.fogColor =       Color.Lerp( fromSettings.fogColor,       toSettings.fogColor,       t );
-		returnSettings.fogDensity =     Mathf.Lerp( fromSettings.fogDensity,     toSettings.fogDensity,     t );
-
-		return returnSettings;
+		outSettings.skyColor =       Color.Lerp( fromSettings.skyColor,       toSettings.skyColor,       t );
+		outSettings.lightColor =     Color.Lerp( fromSettings.lightColor,     toSettings.lightColor,     t );
+		outSettings.lightIntensity = Mathf.Lerp( fromSettings.lightIntensity, toSettings.lightIntensity, t );
+		outSettings.fogColor =       Color.Lerp( fromSettings.fogColor,       toSettings.fogColor,       t );
+		outSettings.fogDensity =     Mathf.Lerp( fromSettings.fogDensity,     toSettings.fogDensity,     t );
 	}
 }
 
@@ -33,15 +29,11 @@ public struct RenderSettingsData
 
 	public Material skyMaterial;
 
-	public static RenderSettingsData Lerp(RenderSettingsData fromSettings, RenderSettingsData toSettings, float t)
+	public static void Lerp(RenderSettingsData fromSettings, RenderSettingsData toSettings, float t, out RenderSettingsData outSettings )
 	{
-		RenderSettingsData returnSettings = new RenderSettingsData();
-
-		returnSettings.daySettings = TimeRenderSettings.Lerp( fromSettings.daySettings, toSettings.daySettings, t );
-		returnSettings.nightSettings = TimeRenderSettings.Lerp( fromSettings.nightSettings, toSettings.nightSettings, t );
-		returnSettings.skyMaterial = ( t < 0.5f ) ? fromSettings.skyMaterial : toSettings.skyMaterial;
-
-		return returnSettings;
+		TimeRenderSettings.Lerp( fromSettings.daySettings, toSettings.daySettings, t, out outSettings.daySettings );
+		TimeRenderSettings.Lerp( fromSettings.nightSettings, toSettings.nightSettings, t, out outSettings.nightSettings );
+		outSettings.skyMaterial = ( t < 0.5f ) ? fromSettings.skyMaterial : toSettings.skyMaterial;
 	}
 }
 
@@ -68,21 +60,6 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	[ReadOnly]
 	[SerializeField] TimeRenderSettings _currentTimeRenderSettings = new TimeRenderSettings();
-	TimeRenderSettings _currentTimeRenderSettingsProperty
-	{
-		get { return _currentTimeRenderSettings; }
-
-		set
-		{
-			_currentTimeRenderSettings = value;
-
-			RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
-			RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
-			RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
-			_dirLight.color = _currentTimeRenderSettings.lightColor;
-			_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
-		}
-	}
 
 	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
 	[SerializeField] float _daylightIntensity = 1.0f;
@@ -99,18 +76,15 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		float timeOfDay = DayCycleManager.currentTime / DayCycleManager.dayCycleLength;
-		if ( timeOfDay < ( 1.0f - _nightFraction ) )
-		{
-			daylightIntensity =
-			    Mathf.Cos( timeOfDay * 2.0f * Mathf.PI / ( 1.0f - _nightFraction ) ) * -0.5f + 0.5f;
-		}
-		else
-		{
-			daylightIntensity = 0.0f;
-		}
+		float timeOfDay = timeOfDay = DayCycleManager.currentTime / ( DayCycleManager.dayCycleLength * ( 1.0f - _nightFraction) );
+		timeOfDay = Mathf.Clamp01( timeOfDay );
+		daylightIntensity = Mathf.Cos( timeOfDay * 2.0f * Mathf.PI ) * -0.5f + 0.5f;
 
-		_currentTimeRenderSettingsProperty = TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings, _currentRenderSettings.daySettings, daylightIntensity );
+		TimeRenderSettings.Lerp( _currentRenderSettings.nightSettings,
+		                         _currentRenderSettings.daySettings,
+		                         daylightIntensity,
+		                         out _currentTimeRenderSettings );
+		UpdateRenderSettings();
 	}
 
 	public static void TransitionRenderSettings( RenderSettingsData newRenderSettings, float shiftTime )
@@ -126,12 +100,22 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
 		{
-			_currentRenderSettingsProperty = RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime );
+			RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime, out _currentRenderSettings );
+			UpdateRenderSettings();
 
 			settingShiftTimer += Time.deltaTime;
 			yield return 0;
 		}
 
 		_currentRenderSettingsProperty = newRenderSettings;
+	}
+
+	void UpdateRenderSettings()
+	{
+		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
+		RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
+		RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
+		_dirLight.color = _currentTimeRenderSettings.lightColor;
+		_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
 	}
 }
