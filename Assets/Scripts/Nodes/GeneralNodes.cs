@@ -71,7 +71,6 @@ public class FollowTarget : LeafNode
 
 	public override void Init( Hashtable data )
 	{
-		Debug.Log("Init follow target");
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
 		info = gameObject.GetComponent<BehaviorTreeInfo>();
@@ -80,8 +79,6 @@ public class FollowTarget : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		Debug.Log("Tick follow target");
-
 		controller.moveDirection = ( info.followTarget.position - transform.position ).normalized;
 
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )

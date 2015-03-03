@@ -16,6 +16,6 @@ public class LimitsManager : SingletonBehaviour<LimitsManager> {
 	void Start()
 	{
 		_colliders = ( from go in GameObject.FindGameObjectsWithTag( _requiredTag )
-		               select( go.collider as CapsuleCollider ) ).ToArray<CapsuleCollider>();
+		               select( (CapsuleCollider) go.collider ) ).ToArray<CapsuleCollider>();
 	}
 }
