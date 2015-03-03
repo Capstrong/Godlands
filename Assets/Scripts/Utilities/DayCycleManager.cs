@@ -4,55 +4,61 @@ using UnityEngine.UI;
 
 public class DayCycleManager : SingletonBehaviour<DayCycleManager> 
 {
+	public delegate void EndOfDayCallback();
+
 	public static float dayCycleLength { get { return instance._dayCycleLength; } }
 
+	[ReadOnly( "Current Time" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
+	float _currentTime = 0f;
+
 	[Tooltip( "The length (in seconds) of a day" )]
-	[SerializeField] float _dayCycleLength = 60.0f;
+	[SerializeField] float _dayCycleLength = 300.0f;
 
-	[SerializeField] float _dayStartTime = 0f;
-	[SerializeField] float _blackOutStartTime = 0f;
+	[Range( 0.0f, 1.0f ), Tooltip( "The percent through the day that the morning starts." )]
+	[SerializeField] float _dayStartTime = .1f;
+	float morningTime
+	{
+		get
+		{
+			return _dayCycleLength * _dayStartTime;
+		}
+	}
 
-	public static float dayCycleTimer { get { return instance._dayCycleTimer; } }
+	[Tooltip( "The duration, in seconds, of the midnight fade out effect." )]
+	[SerializeField] float _blackoutDuration = 5.0f;
 
-	[Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." )]
-	[SerializeField] float _dayCycleTimer = 0f;
+	[Tooltip( "The duration, in seconds, of the morning fade in effect." )]
+	[SerializeField] float _lightupDuration = 5.0f;
+
+	public static float currentTime { get { return instance._currentTime; } }
 
 	[SerializeField] Image _midnightOverlay = null;
 
-	bool _hasStartedMidnightOverlay = false;
+	EndOfDayCallback _endOfDayCallback = delegate() { };
 
-	IEnumerator _midnightOverlayCoroutine = null;
-
-	public delegate void EndOfDayCallback();
-
-	EndOfDayCallback _endOfDayCallback;
+	[Space( 10 ), Header( "Debug" )]
+	[Tooltip( "Disable the midnight overlay and reseting the player's position." )]
+	[SerializeField] bool _disableMidnight = false;
 
 	void Start()
 	{
-		_dayCycleTimer = _dayStartTime;
-		_endOfDayCallback += InitEndOfDayCallback; // Add in an empty method so it isn't null
-
-		_midnightOverlayCoroutine = FadeInMidnightOverlay();
-	}
-
-	// Update is called once per frame
-	void Update () {
-		_dayCycleTimer += Time.deltaTime;
-
-		if ( !_hasStartedMidnightOverlay && _dayCycleTimer > _blackOutStartTime )
+		if ( !_disableMidnight )
 		{
-			StartMidnightOverlay();
-		}
-
-		if ( _dayCycleTimer > _dayCycleLength )
-		{
-			_endOfDayCallback();
-			_dayCycleTimer = _dayCycleTimer - _dayCycleLength + _dayStartTime; // Take overflow into account
-			EndMidnightOverlay();
+			MorningReset();
 		}
 	}
 
-	void InitEndOfDayCallback() { }
+	void Update ()
+	{
+		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
+	}
+
+	void MorningReset()
+	{
+		_currentTime = morningTime;
+		StartCoroutine( FadeOutMidnightOverlay() );
+		Invoke( "StartMidnightOverlay", ( _dayCycleLength - _blackoutDuration ) - _currentTime );
+	}
 
 	public static void RegisterEndOfDayCallback( EndOfDayCallback callback )
 	{
@@ -61,34 +67,59 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static void DeregisterEndOfDayCallback( EndOfDayCallback callback )
 	{
-		instance._endOfDayCallback += callback;
+		instance._endOfDayCallback -= callback;
 	}
 
 	void StartMidnightOverlay()
 	{
-		_hasStartedMidnightOverlay = true;
 		StartCoroutine( FadeInMidnightOverlay() );
 	}
 
-	void EndMidnightOverlay()
-	{
-		_hasStartedMidnightOverlay = false;
-
-		StopCoroutine( _midnightOverlayCoroutine );
-
-		Color overlayColor = _midnightOverlay.color;
-		overlayColor.a = 0.0f;
-		_midnightOverlay.color = overlayColor;
-	}
-
+	/**
+	 * Used to fade to black at midnight.
+	 */
 	IEnumerator FadeInMidnightOverlay()
 	{
+		float elapsedTime = 0.0f;
 		while ( true )
 		{
-			Color overlayColor = _midnightOverlay.color;
-			overlayColor.a = ( _dayCycleTimer - _blackOutStartTime ) / ( _dayCycleLength - _blackOutStartTime );
-			_midnightOverlay.color = overlayColor;
-			yield return null;
+			if ( elapsedTime < _blackoutDuration )
+			{
+				elapsedTime += Time.deltaTime;
+				Color overlayColor = _midnightOverlay.color;
+				overlayColor.a = elapsedTime / _blackoutDuration;
+				_midnightOverlay.color = overlayColor;
+				yield return null;
+			}
+			else
+			{
+				MorningReset();
+				_endOfDayCallback();
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Used to fade back to light in the morning.
+	 */
+	IEnumerator FadeOutMidnightOverlay()
+	{
+		float elapsedTime = 0.0f;
+		while ( true )
+		{
+			if ( elapsedTime < _lightupDuration )
+			{
+				elapsedTime += Time.deltaTime;
+				Color overlayColor = _midnightOverlay.color;
+				overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
+				_midnightOverlay.color = overlayColor;
+				yield return null;
+			}
+			else
+			{
+				break;
+			}
 		}
 	}
 }

@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &165298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 465298}
+  - 65: {fileID: 6565302}
+  - 65: {fileID: 6565300}
+  - 65: {fileID: 6565298}
+  - 114: {fileID: 11465298}
+  m_Layer: 13
+  m_Name: Mushroom Cave Render Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &465298
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165298}
+  m_LocalRotation: {x: 0, y: -.707106888, z: 0, w: .707106769}
+  m_LocalPosition: {x: -85.1999969, y: 6.19999981, z: -105.199997}
+  m_LocalScale: {x: 100.903717, y: 122.614601, z: 192.713348}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!65 &6565298
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .300000012, y: 1, z: .560000002}
+  m_Center: {x: .680000007, y: 0, z: -.99000001}
+--- !u!65 &6565300
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .800000012, y: 1, z: .519999981}
+  m_Center: {x: .899999976, y: 0, z: .159999996}
+--- !u!65 &6565302
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.65999997}
+  m_Center: {x: 0, y: 0, z: -.430000007}
+--- !u!114 &11465298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 618bf3a63170349e883e3dc54d68e340, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderSettings:
+    daySettings:
+      skyColor: {r: 1, g: .919675469, b: .470588207, a: 1}
+      lightColor: {r: 1, g: .607843161, b: .447058827, a: 1}
+      lightIntensity: .300000012
+      fogColor: {r: 1, g: .60760653, b: .463235319, a: 1}
+      fogDensity: .0130000003
+    nightSettings:
+      skyColor: {r: .279411793, g: .126047015, b: .00821800157, a: 1}
+      lightColor: {r: 1, g: .656389415, b: .433823526, a: 1}
+      lightIntensity: .00999999978
+      fogColor: {r: .227941155, g: .120674737, b: .0268166047, a: 1}
+      fogDensity: .0149999997
+    skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+  _shiftTime: 7.5
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 165298}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
