@@ -9,4 +9,9 @@ public class BehaviorTreeInfo : MonoBehaviour
 
 	public float moveSpeed;
 	public float watchDistance;
+
+	void OnDrawGizmos()
+	{
+		Gizmos.DrawWireSphere(transform.position, watchDistance);
+	}
 }
