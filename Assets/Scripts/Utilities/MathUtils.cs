@@ -52,6 +52,18 @@ public static class MathUtils
 
 	#region Colliders
 
+	public static bool IsWithinInfiniteVerticalCylinders( Vector3 testPoint, CapsuleCollider[] colliders )
+	{
+		foreach ( CapsuleCollider collider in colliders )
+		{
+			if (IsWithinInfiniteVerticalCylinder( testPoint, collider ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static bool IsWithinInfiniteVerticalCylinder( Vector3 testPoint, CapsuleCollider collider )
 	{
 		return IsWithinInfiniteVerticalCylinder( testPoint, collider.transform.position + collider.center, collider.radius * collider.transform.localScale.x );

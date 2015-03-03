@@ -106,7 +106,6 @@ public class IsTargetWithinLimits : LeafNode
 
 	public override void Init( Hashtable data )
 	{
-		//Debug.Log("Init is target within limits");
 		_gameObject = (GameObject)data["gameObject"];
 		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
 		_limits = _gameObject.GetComponent<Limits>();
@@ -114,16 +113,12 @@ public class IsTargetWithinLimits : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		//Debug.Log("Tick is target within limits");
-
-		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.followTarget.position, _limits.colliders[0] ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.followTarget.position, _limits.colliders ) )
 		{
-			//Debug.Log("true");
 			return NodeStatus.SUCCESS;
 		}
 		else
 		{
-			Debug.Log("Target not within limits");
 			return NodeStatus.FAILURE;
 		}
 	}
@@ -137,7 +132,6 @@ public class IsDestinationWithinLimits : LeafNode
 
 	public override void Init( Hashtable data )
 	{
-		//Debug.Log("Init is target within limits");
 		_gameObject = (GameObject)data["gameObject"];
 		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
 		_limits = _gameObject.GetComponent<Limits>();
@@ -145,16 +139,12 @@ public class IsDestinationWithinLimits : LeafNode
 
 	public override NodeStatus Tick()
 	{
-		//Debug.Log("Tick is target within limits");
-
-		if ( MathUtils.IsWithinInfiniteVerticalCylinder( _info.destination, _limits.colliders[0] ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.destination, _limits.colliders ) )
 		{
-			//Debug.Log("true");
 			return NodeStatus.SUCCESS;
 		}
 		else
 		{
-			Debug.Log("Destination not within limits");
 			return NodeStatus.FAILURE;
 		}
 	}
