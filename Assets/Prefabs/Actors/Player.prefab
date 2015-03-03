@@ -2290,7 +2290,6 @@ MonoBehaviour:
     keys: 010000000300000002000000
     values:
     - startingMax: 0
-      maxIncrement: .5
       useRate: .119999997
       rechargeRate: 1
       currentMax: 0
@@ -2302,7 +2301,6 @@ MonoBehaviour:
       rechargeDelayTime: 2
       rechargeTimer: 0
     - startingMax: 0
-      maxIncrement: .5
       useRate: .5
       rechargeRate: .5
       currentMax: 0
@@ -2314,7 +2312,6 @@ MonoBehaviour:
       rechargeDelayTime: 2
       rechargeTimer: 0
     - startingMax: 0
-      maxIncrement: .5
       useRate: .119999997
       rechargeRate: .5
       currentMax: 0
@@ -2458,6 +2455,8 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
+  jumpMoveSpeed: 0
+  _jumpMoveSpeedChangeRate: .100000001
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
   _moveVec: {x: 0, y: 0, z: 0}

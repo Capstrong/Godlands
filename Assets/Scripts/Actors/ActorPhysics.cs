@@ -58,7 +58,11 @@ public sealed class ActorPhysics : ActorComponent
 		get { return _sprintMoveSpeed; }
 	}
 
-	float _jumpMoveSpeed = 0f;
+	[ReadOnly("Jump move speed")]
+	public float jumpMoveSpeed = 0f;
+
+	[SerializeField]
+	float _jumpMoveSpeedChangeRate = 0f;
 
 	[SerializeField] float _rollMoveSpeed = 6f;
 	public float rollMoveSpeed
@@ -322,7 +326,7 @@ public sealed class ActorPhysics : ActorComponent
 	public void DoJump()
 	{
 		Vector3 curVelocity = rigidbody.velocity.SetY( 0f );
-		_jumpMoveSpeed = curVelocity.magnitude;
+		jumpMoveSpeed = curVelocity.magnitude;
 		curVelocity.y = jumpForce;
 		rigidbody.velocity = curVelocity;
 		rigidbody.useGravity = true;
@@ -343,7 +347,9 @@ public sealed class ActorPhysics : ActorComponent
 		}
 		else
 		{
-			_moveVec = inputVec * _jumpMoveSpeed;
+			_moveVec += inputVec * jumpMoveSpeed * _jumpMoveSpeedChangeRate;
+
+			_moveVec = _moveVec.normalized * jumpMoveSpeed;
 
 			if ( forceUp )
 			{
