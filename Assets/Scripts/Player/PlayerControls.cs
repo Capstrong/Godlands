@@ -65,7 +65,7 @@ public class PlayerControls : MonoBehaviour
 		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if ( Input.GetKeyDown( KeyCode.Escape ) )
 		{

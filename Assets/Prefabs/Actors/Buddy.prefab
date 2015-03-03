@@ -764,16 +764,16 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 2
   _sprintMoveSpeed: 12
-  _jumpMoveSpeed: 2
   _rollMoveSpeed: 2
   _climbMoveSpeed: 2
+  _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13570796}
   lifter: {fileID: 13570798}
   climbBumper: {fileID: 0}
   _modelTurnSpeed: 5
   jumpForce: 8.5
   _jumpCheckDistance: 1
-  _jumpCheckRadius: .5
+  _jumpCheckRadius: .25
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1
