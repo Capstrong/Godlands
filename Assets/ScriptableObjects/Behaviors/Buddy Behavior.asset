@@ -17,7 +17,7 @@ MonoBehaviour:
     children: 01000000
   - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 02000000
-  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - typename: Selector, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 0300000009000000
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 0400000005000000
@@ -36,28 +36,33 @@ MonoBehaviour:
   - typename: MoveToDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
+  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 0a000000
   - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 0a00000010000000
+    children: 0b0000000f000000
   - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0b000000
+    children: 0c000000
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0c0000000d0000000e0000000f000000
+    children: 0d0000000e000000
   - typename: ChooseTargetGod, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
-  - typename: SetTargetAsDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 
-  - typename: IsDestinationWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: NullNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 11000000120000001300000014000000
+    children: 100000001100000016000000
   - typename: Idle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 
+  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    children: 12000000
+  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 13000000
+  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    children: 1400000015000000
   - typename: PickRandomDestinationInRadius, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
