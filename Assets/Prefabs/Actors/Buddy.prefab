@@ -83,7 +83,6 @@ GameObject:
   - 114: {fileID: 11414764}
   - 114: {fileID: 11457846}
   - 114: {fileID: 11409692}
-  - 114: {fileID: 11494900}
   m_Layer: 2
   m_Name: Buddy
   m_TagString: Untagged
@@ -248,7 +247,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101526}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 1.03900003, z: 0}
+  m_LocalPosition: {x: 0, y: 1.90499997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476348}
@@ -296,8 +295,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.52999997, y: -18.8099995, z: 22.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.27999997, y: -18.7399998, z: 19.5900002}
+  m_LocalScale: {x: 1, y: .956956387, z: 1}
   m_Children:
   - {fileID: 470796}
   - {fileID: 470798}
@@ -415,8 +414,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: .882000029, z: 0}
+  m_LocalScale: {x: 1.45779264, y: 2.10640335, z: 1.45779276}
   m_Children:
   - {fileID: 487196}
   - {fileID: 497486}
@@ -554,7 +553,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 369cb6b46b7354bbcb032bc9db77f0b6, type: 2}
+  - {fileID: 2100000, guid: a5649c67af36f4f2da3eb5879f04de42, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -651,8 +650,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5, z: 1}
-  m_Center: {x: 0, y: .75, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &9597488
 Animator:
   serializedVersion: 3
@@ -717,7 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec89baa488a04937be7c0faa6861095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statType: 2
+  statType: 3
   _startingResourceCount: 10
   _resources: 0
   _decrementStatSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
@@ -804,19 +803,6 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   moveSpeed: 2
   watchDistance: 10
---- !u!114 &11494900
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83d100496724a9941b742c3f6c2c8703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _requiredTag: BuddyLimits
-  _colliders: []
 --- !u!135 &13570796
 SphereCollider:
   m_ObjectHideFlags: 1
