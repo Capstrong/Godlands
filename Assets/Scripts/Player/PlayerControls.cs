@@ -140,6 +140,15 @@ public class PlayerControls : MonoBehaviour
 				}
 				else
 				{
+					if ( player.controls.sprintButton )
+					{
+						player.physics.jumpMoveSpeed = player.physics.sprintMoveSpeed;
+					}
+					else
+					{
+						player.physics.jumpMoveSpeed = player.physics.groundedMoveSpeed;
+					}
+
 					player.physics.AirMovement( player.controls.GetMoveDirection(), _forceUp );
 				}
 			}
