@@ -7,6 +7,14 @@ public class PlayerControls : MonoBehaviour
 	[Tooltip( "The distance forward from the camera's position to check for objects that can be interacted with." )]
 	[SerializeField] float _interactCheckDistance = 5.0f;
 	[SerializeField] float _interactCheckRadius = 0.2f;
+	[SerializeField] Vector3 _interactRaycastOrigin = Vector3.zero;
+
+	[Tooltip("Maximum length of time in seconds that the physics will push the player up while holding the jump button")]
+	[SerializeField] float _maxJumpForceTime = 0f;
+	public float maxJumpForceTime
+	{
+		get { return _maxJumpForceTime; }
+	}
 
 	PlayerActor _actor;
 
@@ -80,6 +88,9 @@ public class PlayerControls : MonoBehaviour
 	{
 		public PlayerActor player;
 
+		bool _forceUp = true; // Stays true until the player releases the button or the timer runs out
+		float _jumpTimer = 0f;
+
 		public Jumping( PlayerActor player )
 		{
 			this.player = player;
@@ -89,10 +100,20 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.animator.SetBool( "isJumping", true );
 			player.physics.DoJump();
+			_jumpTimer = 0f;
+			_forceUp = true;
 		}
 
 		public override void Update()
 		{
+			_jumpTimer += Time.deltaTime;
+
+			// Whether to continue forcing upwards with constant velocity
+			if ( _forceUp && ( !player.controls.jumpButton || _jumpTimer > player.controls.maxJumpForceTime ) )
+			{
+				_forceUp = false;
+			}
+
 			if ( player.physics.GroundedCheck() )
 			{
 				if ( player.controls.jumpButton.down &&
@@ -119,7 +140,7 @@ public class PlayerControls : MonoBehaviour
 				}
 				else
 				{
-					player.physics.AirMovement( player.controls.GetMoveDirection() );
+					player.physics.AirMovement( player.controls.GetMoveDirection(), _forceUp );
 				}
 			}
 		}
@@ -396,13 +417,13 @@ public class PlayerControls : MonoBehaviour
 	 */
 	bool RaycastForward( out RaycastHit closestHit )
 	{
-		Vector3 camPos = _cameraTransform.position;
+		Vector3 rayOrigin = transform.position + _interactRaycastOrigin;
 		Vector3 camForward = _cameraTransform.forward;
-
-		Debug.DrawRay( camPos, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
+	
+		Debug.DrawRay( rayOrigin, camForward * _interactCheckDistance, Color.yellow, 1.0f, false );
 
 		RaycastHit[] hits = Physics.SphereCastAll(
-			new Ray( transform.position, camForward ),
+			new Ray( rayOrigin, camForward ),
 			_interactCheckRadius,
 			_interactCheckDistance,
 			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
@@ -414,10 +435,10 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		closestHit = hits[0];
-		float closestDistance = ( camPos - closestHit.point ).sqrMagnitude;
+		float closestDistance = ( rayOrigin - closestHit.point ).sqrMagnitude;
 		foreach ( RaycastHit hit in hits )
 		{
-			float hitDistance = ( camPos - hit.point ).sqrMagnitude;
+			float hitDistance = ( rayOrigin - hit.point ).sqrMagnitude;
 			if ( hitDistance < closestDistance )
 			{
 				closestHit = hit;
@@ -471,6 +492,15 @@ public class PlayerControls : MonoBehaviour
 		transform.position = _respawnPosition;
 		transform.rotation = _respawnRotation;
 
+		_actor.actorCamera.cam.transform.position = _respawnPosition;
+
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawSphere( GetComponent<Transform>().position + _interactRaycastOrigin,
+		                   0.1f );
 	}
 }

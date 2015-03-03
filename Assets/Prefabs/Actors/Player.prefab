@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 418824}
   - 135: {fileID: 13518824}
+  - 135: {fileID: 13516604}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -1401,7 +1402,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176976}
   m_LocalRotation: {x: 0, y: -.70710665, z: 0, w: .707106948}
-  m_LocalPosition: {x: 0, y: 0, z: .131999999}
+  m_LocalPosition: {x: -.0710000023, y: 0, z: .131999999}
   m_LocalScale: {x: .24999997, y: .25, z: .24999997}
   m_Children:
   - {fileID: 477052}
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactCheckDistance: 5
   _interactCheckRadius: .200000003
+  _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
   _respawnOffset: {x: 0, y: 2, z: 0}
   _respawnPosition: {x: 0, y: 0, z: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
@@ -2456,22 +2458,23 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
-  _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
+  _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
   lifter: {fileID: 13518824}
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
-  jumpForce: 12
+  jumpForce: 8
+  _maxJumpForceTime: .300000012
   _jumpCheckDistance: 1.5
-  _jumpCheckRadius: .5
+  _jumpCheckRadius: .449999988
   _jumpLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   _minJumpDot: .5
   _lateJumpTime: .5
-  _jumpCheckDelayTime: .100000001
+  _jumpCheckDelayTime: .200000003
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -2502,6 +2505,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9c3999c9a541b40a8c32b9da1834fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &13516604
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .300000012
+  m_Center: {x: 0, y: .400000006, z: 0}
 --- !u!135 &13518824
 SphereCollider:
   m_ObjectHideFlags: 1

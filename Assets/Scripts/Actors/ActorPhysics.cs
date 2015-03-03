@@ -58,7 +58,7 @@ public sealed class ActorPhysics : ActorComponent
 		get { return _sprintMoveSpeed; }
 	}
 
-	[SerializeField] float _jumpMoveSpeed = 6f;
+	float _jumpMoveSpeed = 0f;
 
 	[SerializeField] float _rollMoveSpeed = 6f;
 	public float rollMoveSpeed
@@ -79,7 +79,8 @@ public sealed class ActorPhysics : ActorComponent
 	 * Used for things like gliding or rolling where
 	 * The actor needs to keep moving in the last direction.
 	 */
-	Vector3 _moveVec = Vector3.zero;
+	[ReadOnly("Move Vector")]
+	[SerializeField] Vector3 _moveVec = Vector3.zero;
 	#endregion
 
 	#region Collisions
@@ -98,6 +99,7 @@ public sealed class ActorPhysics : ActorComponent
 	float _lookIntentionWeight = 0.002f;
 	bool _overrideLook = false;
 	Vector3 _lookOverride = Vector3.zero;
+	float _minLookVecTurnStrength = 0.0005f; // This stops jittering from  happening when moveVec is super small
 
 	private Vector3 _lastPos;
 	private Quaternion _desiredLook;
@@ -108,6 +110,7 @@ public sealed class ActorPhysics : ActorComponent
 	[SerializeField] float jumpForce = 8.5f;
 
 	[SerializeField] float _jumpCheckDistance = 1.0f;
+	[Tooltip("Keep this under the radius of the bumper")]
 	[SerializeField] float _jumpCheckRadius = 0.5f;
 
 	[SerializeField] LayerMask _jumpLayer = 0;
@@ -152,6 +155,8 @@ public sealed class ActorPhysics : ActorComponent
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
+
+		DebugUtils.Assert( _jumpCheckRadius < ( (SphereCollider) bumper ).radius );
 
 		InitializeStateMethodMap();
 	}
@@ -199,7 +204,7 @@ public sealed class ActorPhysics : ActorComponent
 			RaycastHit hit;
 			Physics.SphereCast( transform.position + Vector3.up,
 			                    _jumpCheckRadius,
-			                    -Vector3.up * _jumpCheckDistance,
+			                    -Vector3.up,
 			                    out hit,
 			                    _jumpCheckDistance,
 			                    _jumpLayer );
@@ -307,7 +312,8 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void DoJump()
 	{
-		Vector3 curVelocity = rigidbody.velocity;
+		Vector3 curVelocity = rigidbody.velocity.SetY( 0f );
+		_jumpMoveSpeed = curVelocity.magnitude;
 		curVelocity.y = jumpForce;
 		rigidbody.velocity = curVelocity;
 		rigidbody.useGravity = true;
@@ -318,18 +324,26 @@ public sealed class ActorPhysics : ActorComponent
 	/**
 	 * Movement for both jumping and falling.
 	 */
-	public void AirMovement( Vector3 inputVec )
+	public void AirMovement( Vector3 inputVec, bool forceUp = false )
 	{
 		FollowBumper();
 
-		if ( inputVec.IsZero() )
+		if ( inputVec.IsZero() && !forceUp )
 		{
 			ComeToStop();
 		}
 		else
 		{
 			_moveVec = inputVec * _jumpMoveSpeed;
-			_moveVec.y = rigidbody.velocity.y;
+
+			if ( forceUp )
+			{
+				_moveVec.y = jumpForce;
+			}
+			else
+			{
+				_moveVec.y = rigidbody.velocity.y;
+			}
 
 			rigidbody.velocity = _moveVec;
 		}
@@ -466,10 +480,10 @@ public sealed class ActorPhysics : ActorComponent
 		Vector3 weightedVelocity = Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight );
 
 		Vector3 lookVec = ( _overrideLook ?
-				_lookOverride :
-				weightedVelocity );
+		                    _lookOverride :
+		                    weightedVelocity );
 
-		if ( !lookVec.IsZero() )
+		if ( lookVec.sqrMagnitude > _minLookVecTurnStrength * _minLookVecTurnStrength )
 		{
 			_desiredLook = Quaternion.LookRotation( lookVec, transform.up );
 		}
