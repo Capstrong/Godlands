@@ -242,7 +242,7 @@ public sealed class ActorPhysics : ActorComponent
 		if ( colliders.Length > 0 )
 		{
 			Collider nearestCol = colliders[0];
-			float shortestDistance = float.MaxValue;
+			float shortestDistance = ( nearestCol.transform.position - transform.position ).sqrMagnitude;
 			foreach ( Collider col in colliders )
 			{
 				float distance = ( col.transform.position - transform.position ).sqrMagnitude;
@@ -287,7 +287,7 @@ public sealed class ActorPhysics : ActorComponent
 
 		Vector3 surfaceRelativeInput =
 			_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
-			_climbSurface.up * ( _climbTag.yMovement ? movement.z : 0.0f );
+			_climbSurface.up    * ( _climbTag.yMovement ? movement.z : 0.0f );
 
 		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 		rigidbody.velocity = _moveVec;

@@ -109,6 +109,7 @@ public class PlayerControls : MonoBehaviour
 			else
 			{
 				if ( player.controls.holdButton &&
+				     player.stats.CanUseStat( Stat.Stamina ) &&
 				     player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
@@ -159,6 +160,7 @@ public class PlayerControls : MonoBehaviour
 			else
 			{
 				if ( player.controls.holdButton &&
+				     player.stats.CanUseStat( Stat.Stamina ) &&
 				     player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
@@ -208,7 +210,6 @@ public class PlayerControls : MonoBehaviour
 			else
 			{
 				player.physics.ChangeState( PhysicsStateType.Falling );
-				player.physics.StartLateJumpTimer();
 			}
 		}
 
@@ -217,6 +218,7 @@ public class PlayerControls : MonoBehaviour
 			player.animator.SetBool( "isClimbing", false );
 			player.stats.StopUsingStat( Stat.Stamina );
 			player.physics.StopClimbing();
+			player.physics.StartLateJumpTimer();
 		}
 	}
 
@@ -241,6 +243,7 @@ public class PlayerControls : MonoBehaviour
 					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
 				else if ( player.controls.holdButton &&
+				          player.stats.CanUseStat( Stat.Stamina ) &&
 				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
