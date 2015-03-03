@@ -153,6 +153,9 @@ public class PlayerInventory : ActorComponent
 
 		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
+
+		// manually add the buddy's values to our stat.
+		newBuddy.RecalculateStatValue();
 	}
 
 	void PickupItem( InventoryItemData itemData )

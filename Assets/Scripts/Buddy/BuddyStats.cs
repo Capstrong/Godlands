@@ -105,6 +105,11 @@ public class BuddyStats : MonoBehaviour
 		}
 	}
 
+	public void RecalculateStatValue()
+	{
+		_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
+	}
+
 	public void Emote( Material emoteMaterial )
 	{
 		_particles.Clear();
