@@ -2357,6 +2357,7 @@ MonoBehaviour:
   _interactCheckDistance: 5
   _interactCheckRadius: .200000003
   _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
+  _maxJumpForceTime: .25
   _respawnOffset: {x: 0, y: 2, z: 0}
   _respawnPosition: {x: 0, y: 0, z: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
@@ -2458,22 +2459,22 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
-  _jumpMoveSpeed: 6
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
+  _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
   lifter: {fileID: 13518824}
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
-  jumpForce: 12
+  jumpForce: 8
   _jumpCheckDistance: 1.5
-  _jumpCheckRadius: .5
+  _jumpCheckRadius: .449999988
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1
   _minJumpDot: .5
   _lateJumpTime: .5
-  _jumpCheckDelayTime: .5
+  _jumpCheckDelayTime: .200000003
   _climbLayer:
     serializedVersion: 2
     m_Bits: 512
