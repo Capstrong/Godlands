@@ -21,7 +21,6 @@ public class MoveToDestination : LeafNode
 		controller.moveDirection = ( info.destination - transform.position ).normalized;
 
 		Debug.DrawLine( transform.position, info.destination );
-		Debug.Log("Move to destination tick: " + info.destination );
 
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
 		{
@@ -102,18 +101,16 @@ public class IsTargetWithinLimits : LeafNode
 {
 	private GameObject _gameObject;
 	private BehaviorTreeInfo _info;
-	private Limits _limits;
 
 	public override void Init( Hashtable data )
 	{
 		_gameObject = (GameObject)data["gameObject"];
 		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
-		_limits = _gameObject.GetComponent<Limits>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.followTarget.position, _limits.colliders ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.followTarget.position, LimitsManager.colliders ) )
 		{
 			return NodeStatus.SUCCESS;
 		}
@@ -128,18 +125,16 @@ public class IsDestinationWithinLimits : LeafNode
 {
 	private GameObject _gameObject;
 	private BehaviorTreeInfo _info;
-	private Limits _limits;
 
 	public override void Init( Hashtable data )
 	{
 		_gameObject = (GameObject)data["gameObject"];
 		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
-		_limits = _gameObject.GetComponent<Limits>();
 	}
 
 	public override NodeStatus Tick()
 	{
-		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.destination, _limits.colliders ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.destination, LimitsManager.colliders ) )
 		{
 			return NodeStatus.SUCCESS;
 		}
@@ -202,7 +197,6 @@ public class ChooseTargetGod : LeafNode
 				.sqrMagnitude < info.watchDistance * info.watchDistance )
 			{
 				info.followTarget = god.GetComponent<Transform>();
-				Debug.Log("Target God chosen");
 				return NodeStatus.SUCCESS;
 			}
 		}

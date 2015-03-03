@@ -48,6 +48,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &157794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 457794}
+  - 114: {fileID: 11457794}
+  m_Layer: 0
+  m_Name: BuddyLimitsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &184490
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +131,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 484490}
   m_RootOrder: 2
+--- !u!4 &457794
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 4
 --- !u!4 &484490
 Transform:
   m_ObjectHideFlags: 1
@@ -129,6 +157,7 @@ Transform:
   - {fileID: 484492}
   - {fileID: 421584}
   - {fileID: 407948}
+  - {fileID: 457794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &484492
@@ -168,7 +197,7 @@ MonoBehaviour:
   _dayCycleLength: 120
   _dayStartTime: 40
   _blackOutStartTime: 110
-  _dayCycleTimer: 0
+  _dayCycleTimer: 44.6500015
   _midnightOverlay: {fileID: 0}
 --- !u!114 &11421584
 MonoBehaviour:
@@ -183,26 +212,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRenderSettings:
     daySettings:
-      skyColor: {r: .0323410109, g: .0112456745, b: .191176474, a: 1}
+      skyColor: {r: .45588237, g: .797362924, b: 1, a: 1}
       lightColor: {r: 1, g: 1, b: 1, a: 1}
-      lightIntensity: .0199999996
-      fogColor: {r: .0407810025, g: .0181660857, b: .176470578, a: 1}
-      fogDensity: .0149999997
-    nightSettings:
-      skyColor: {r: .477941155, g: .719168365, b: 1, a: 1}
-      lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
       lightIntensity: .300000012
-      fogColor: {r: .654411793, g: .828397632, b: 1, a: 1}
-      fogDensity: .00499999989
+      fogColor: {r: .647058845, g: .823529422, b: 1, a: 1}
+      fogDensity: .00300000003
+    nightSettings:
+      skyColor: {r: .123150565, g: .054714527, b: .338235319, a: 1}
+      lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
+      lightIntensity: .0199999996
+      fogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
+      fogDensity: .0149999997
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
   _currentTimeRenderSettings:
-    skyColor: {r: .477941155, g: .719168365, b: 1, a: 1}
-    lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
-    lightIntensity: .300000012
-    fogColor: {r: .654411793, g: .828397632, b: 1, a: 1}
-    fogDensity: .00499999989
+    skyColor: {r: .404979467, g: .68374908, b: .89876008, a: 1}
+    lightColor: {r: .992125809, g: .992125809, b: .992125809, a: 1}
+    lightIntensity: .25716427
+    fogColor: {r: .575452328, g: .712835491, b: .895385444, a: 1}
+    fogDensity: .00483581703
   _dirLight: {fileID: 0}
-  _daylightIntensity: 0
+  _daylightIntensity: .847015262
+--- !u!114 &11457794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d100496724a9941b742c3f6c2c8703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _requiredTag: BuddyLimits
+  _colliders: []
 --- !u!114 &11484492
 MonoBehaviour:
   m_ObjectHideFlags: 1
