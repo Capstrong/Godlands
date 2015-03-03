@@ -20,6 +20,8 @@ public class MoveToDestination : LeafNode
 	{
 		controller.moveDirection = ( info.destination - transform.position ).normalized;
 
+		Debug.DrawLine( transform.position, info.destination );
+
 		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
 		{
 			info.destination = Vector3.zero;
@@ -30,6 +32,33 @@ public class MoveToDestination : LeafNode
 		{
 			return NodeStatus.RUNNING;
 		}
+	}
+}
+
+public class SetTargetAsDestination : LeafNode
+{
+	private GameObject gameObject;
+	private BehaviorTreeInfo info;
+	private BehaviorPhysicsController controller;
+
+	public override void Init( Hashtable data )
+	{
+		gameObject = (GameObject) data["gameObject"];
+		info = gameObject.GetComponent<BehaviorTreeInfo>();
+		controller = gameObject.GetComponent<BehaviorPhysicsController>();
+	}
+
+	public override NodeStatus Tick()
+	{
+		if ( info.followTarget == null )
+		{
+			Debug.LogError("Follow target is null");
+			return NodeStatus.FAILURE;
+		}
+
+		info.destination = info.followTarget.position;
+		controller.moveDirection = Vector3.zero;
+		return NodeStatus.SUCCESS;
 	}
 }
 
@@ -61,6 +90,54 @@ public class FollowTarget : LeafNode
 		else
 		{
 			return NodeStatus.RUNNING;
+		}
+	}
+}
+
+public class IsTargetWithinLimits : LeafNode
+{
+	private GameObject _gameObject;
+	private BehaviorTreeInfo _info;
+
+	public override void Init( Hashtable data )
+	{
+		_gameObject = (GameObject)data["gameObject"];
+		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
+	}
+
+	public override NodeStatus Tick()
+	{
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.followTarget.position, LimitsManager.colliders ) )
+		{
+			return NodeStatus.SUCCESS;
+		}
+		else
+		{
+			return NodeStatus.FAILURE;
+		}
+	}
+}
+
+public class IsDestinationWithinLimits : LeafNode
+{
+	private GameObject _gameObject;
+	private BehaviorTreeInfo _info;
+
+	public override void Init( Hashtable data )
+	{
+		_gameObject = (GameObject)data["gameObject"];
+		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
+	}
+
+	public override NodeStatus Tick()
+	{
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.destination, LimitsManager.colliders ) )
+		{
+			return NodeStatus.SUCCESS;
+		}
+		else
+		{
+			return NodeStatus.FAILURE;
 		}
 	}
 }

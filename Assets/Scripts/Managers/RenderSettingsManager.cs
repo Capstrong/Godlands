@@ -76,7 +76,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void Update()
 	{
-		float timeOfDay = timeOfDay = DayCycleManager.currentTime / ( DayCycleManager.dayCycleLength * ( 1.0f - _nightFraction) );
+		float timeOfDay = DayCycleManager.currentTime / ( DayCycleManager.dayCycleLength * ( 1.0f - _nightFraction) );
 		timeOfDay = Mathf.Clamp01( timeOfDay );
 		daylightIntensity = Mathf.Cos( timeOfDay * 2.0f * Mathf.PI ) * -0.5f + 0.5f;
 

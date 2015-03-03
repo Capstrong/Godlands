@@ -133,6 +133,12 @@ public class PlayerInventory : ActorComponent
 
 	void SpawnBuddy()
 	{
+		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
+		{
+			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+			return;
+		}
+
 		BuddyItemData buddyItemData = (BuddyItemData)heldResources[resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * _buddySpawnDistance,
