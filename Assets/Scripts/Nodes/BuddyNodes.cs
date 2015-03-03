@@ -51,8 +51,6 @@ public class PickRandomDestinationInRadius : LeafNode
 		baseInfo.destination = transform.position + offset;
 		controller.moveDirection = Vector3.zero;
 
-		Debug.Log("Random location chosen");
-
 		return NodeStatus.SUCCESS;
 	}
 }
