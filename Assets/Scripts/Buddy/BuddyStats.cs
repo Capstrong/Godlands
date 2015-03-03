@@ -7,6 +7,7 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
+	[SerializeField] float _statPerResource = 1.0f;
 
 	PlayerStats _ownerStats = null;
 
@@ -82,7 +83,7 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		actorStats.IncrementMaxStat( statType );
+		actorStats.SetMaxStat( statType, _resources * _statPerResource );
 		Emote( _heartMaterial );
 	}
 
@@ -95,7 +96,7 @@ public class BuddyStats : MonoBehaviour
 
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.DecrementMaxStat( statType );
+			_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
 		}
 
 		if ( _resources <= 0 )

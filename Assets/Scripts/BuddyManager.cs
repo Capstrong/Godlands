@@ -23,6 +23,6 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 			buddyStat.DecrementResources();
 		}
 
-		instance._buddyStats.RemoveAll( buddyStat => buddyStat.isAlive == false ); // Predicate statement
+		instance._buddyStats.RemoveAll( buddyStat => buddyStat.isAlive == false );
 	}
 }

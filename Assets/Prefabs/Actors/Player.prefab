@@ -2289,7 +2289,7 @@ MonoBehaviour:
   _statDictionary:
     keys: 010000000300000002000000
     values:
-    - startingMax: 1
+    - startingMax: 0
       maxIncrement: .5
       useRate: .119999997
       rechargeRate: 1
@@ -2301,7 +2301,7 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 1
+    - startingMax: 0
       maxIncrement: .5
       useRate: .5
       rechargeRate: .5
@@ -2313,16 +2313,16 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 10
-      maxIncrement: 5
-      useRate: 1.5
-      rechargeRate: 10
-      currentMax: 10
-      currentValue: 10
+    - startingMax: 0
+      maxIncrement: .5
+      useRate: .119999997
+      rechargeRate: .5
+      currentMax: 0
+      currentValue: 0
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: .100000001
+      statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
 --- !u!114 &11435354
@@ -2374,8 +2374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
-  _buddies:
-  - {fileID: 0}
+  _buddies: []
   _lookOverrideDuration: .5
   _buddyLayer:
     serializedVersion: 2
