@@ -1,24 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Limits : MonoBehaviour {
 
 	[SerializeField] string _requiredTag;
 	[ReadOnly("Capsule Colliders")]
-	[SerializeField] List<CapsuleCollider> _colliders;
-	public List<CapsuleCollider> colliders
+	[SerializeField] CapsuleCollider[] _colliders;
+	public CapsuleCollider[] colliders
 	{
 		get { return _colliders; }
 	}
 
 	void Start()
 	{
-		GameObject[] limitObjects = GameObject.FindGameObjectsWithTag( _requiredTag );
-
-		foreach ( GameObject limitObject in limitObjects )
-		{
-			_colliders.Add( (CapsuleCollider) limitObject.collider );
-		}
+		_colliders = ( from go in GameObject.FindGameObjectsWithTag( _requiredTag )
+		               select( go.collider as CapsuleCollider ) ).ToArray<CapsuleCollider>();
 	}
 }
