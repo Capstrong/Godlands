@@ -176,7 +176,7 @@ public class PlayerCamera : ActorComponent
 	{
 		float xMoveInput = InputUtils.GetAxis( "Horizontal" );
 
-		float angleDistance = Mathf.Acos( Vector3.Dot( -actorToCam.normalized, rigidbody.velocity.normalized ) ) * Mathf.Rad2Deg;
+		float angleDistance = Mathf.Acos( Vector3.Dot( -actorToCam.normalized, GetComponent<Rigidbody>().velocity.normalized ) ) * Mathf.Rad2Deg;
 	
 		float turnSpeedMod = Mathf.InverseLerp( _turnAssistMinAngle, 180f, angleDistance );
 		turnSpeedMod = _turnAssistCurve.Evaluate( turnSpeedMod );

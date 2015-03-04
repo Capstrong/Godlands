@@ -33,10 +33,10 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		GameObject audioSourceObj = new GameObject( "AudioPool_" + audioObjs.Count.ToString(), typeof( AudioSource ) );
 		audioSourceObj.transform.parent = audioObjHolder.transform;
 		
-		audioObjs.Add( audioSourceObj.audio );
-		audioSourceObj.audio.playOnAwake = false;
+		audioObjs.Add( audioSourceObj.GetComponent<AudioSource>() );
+		audioSourceObj.GetComponent<AudioSource>().playOnAwake = false;
 		
-		return audioSourceObj.audio;
+		return audioSourceObj.GetComponent<AudioSource>();
 	}
 
 	public static AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )

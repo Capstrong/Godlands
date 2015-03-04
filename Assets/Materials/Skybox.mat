@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Skybox
   m_Shader: {fileID: 104, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -62,7 +63,15 @@ Material:
           m_Texture: {fileID: 2800000, guid: 13cdfc574d51f473d92d8d7b5e454ee7, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+    m_Floats:
+      data:
+        first:
+          name: _Exposure
+        second: 1
+      data:
+        first:
+          name: _Rotation
+        second: 0
     m_Colors:
       data:
         first:
@@ -71,4 +80,4 @@ Material:
       data:
         first:
           name: _Tint
-        second: {r: .190745071, g: .205583647, b: .472672909, a: 1}
+        second: {r: .123150565, g: .054714527, b: .338235319, a: 1}

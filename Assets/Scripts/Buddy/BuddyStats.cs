@@ -113,7 +113,7 @@ public class BuddyStats : MonoBehaviour
 	public void Emote( Material emoteMaterial )
 	{
 		_particles.Clear();
-		_particles.renderer.material = emoteMaterial;
+		_particles.GetComponent<Renderer>().material = emoteMaterial;
 		_particles.Emit( 1 );
 	}
 

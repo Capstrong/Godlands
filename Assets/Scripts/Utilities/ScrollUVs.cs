@@ -8,12 +8,12 @@ public class ScrollUVs : MonoBehaviour
 
 	void Awake () 
 	{
-		currentOffset = renderer.material.GetTextureOffset("_MainTex");
+		currentOffset = GetComponent<Renderer>().material.GetTextureOffset("_MainTex");
 	}
 
 	void Update () 
 	{
 		currentOffset += uvSpeed * Time.deltaTime;
-		renderer.material.SetTextureOffset("_MainTex", currentOffset);
+		GetComponent<Renderer>().material.SetTextureOffset("_MainTex", currentOffset);
 	}
 }

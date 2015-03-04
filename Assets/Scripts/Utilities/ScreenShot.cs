@@ -39,14 +39,14 @@ public class ScreenShot : MonoBehaviour
 
 	IEnumerator TakeSelfie()
 	{
-		camera.enabled = true;
+		GetComponent<Camera>().enabled = true;
 
 		yield return new WaitForEndOfFrame();
 
 		renderTex = new RenderTexture(resWidth, resHeight, 32);
-		camera.targetTexture = renderTex;
+		GetComponent<Camera>().targetTexture = renderTex;
 
-		camera.Render();
+		GetComponent<Camera>().Render();
 		RenderTexture.active = renderTex; // RenderTexture must be a static class
 
 		Texture2D screenShot = new Texture2D(renderTex.width, renderTex.height, TextureFormat.RGB24, false);
@@ -58,7 +58,7 @@ public class ScreenShot : MonoBehaviour
 		byte[] bytes = screenShot.EncodeToPNG();
 
 		// nulling these avoids errors
-		camera.targetTexture = null;
+		GetComponent<Camera>().targetTexture = null;
 		RenderTexture.active = null;
 
 #if !UNITY_WEBPLAYER
@@ -68,6 +68,6 @@ public class ScreenShot : MonoBehaviour
 			File.WriteAllBytes(Application.dataPath + "/../" + ScreenShotName(renderTex.width, renderTex.height), bytes);
 	#endif
 #endif
-		camera.enabled = false;
+		GetComponent<Camera>().enabled = false;
 	}
 }

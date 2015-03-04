@@ -60,8 +60,8 @@ public class Cuttable : MonoBehaviour
 		Invoke( "ReadyToReactivate", _respawnTime );
 
 		_deactivated = true;
-		renderer.enabled = false;
-		collider.isTrigger = true;
+		GetComponent<Renderer>().enabled = false;
+		GetComponent<Collider>().isTrigger = true;
 		_readyToReactivate = false;
 	}
 
@@ -92,8 +92,8 @@ public class Cuttable : MonoBehaviour
 	void Reactivate()
 	{
 		_deactivated = false;
-		renderer.enabled = true;
-		collider.isTrigger = false;
+		GetComponent<Renderer>().enabled = true;
+		GetComponent<Collider>().isTrigger = false;
 		_readyToReactivate = false;
 		_health = _startingHealth;
 	}
