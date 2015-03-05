@@ -12,6 +12,6 @@ public class BehaviorTreeInfo : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		Gizmos.DrawWireSphere(transform.position, watchDistance);
+		Gizmos.DrawWireSphere( transform.position, watchDistance );
 	}
 }

@@ -54,7 +54,7 @@ public class PlayerStats : ActorComponent
 		DebugUtils.Assert( maxValue > 0.0f, "Max stat value must be greater than 0." );
 
 		StatObject statObject = _statDictionary[stat];
-		statObject.currentMax = maxValue; // assume maxValue is a sane value.
+		statObject.currentMax = maxValue;
 		ScaleMaxImage( statObject );
 	}
 

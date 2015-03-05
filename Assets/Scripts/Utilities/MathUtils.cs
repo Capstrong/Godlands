@@ -56,7 +56,7 @@ public static class MathUtils
 	{
 		foreach ( CapsuleCollider collider in colliders )
 		{
-			if (IsWithinInfiniteVerticalCylinder( testPoint, collider ) )
+			if ( IsWithinInfiniteVerticalCylinder( testPoint, collider ) )
 			{
 				return true;
 			}

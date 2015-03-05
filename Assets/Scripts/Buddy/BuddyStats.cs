@@ -83,7 +83,7 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		actorStats.SetMaxStat( statType, _resources * _statPerResource );
+		RecalculateStatValue();
 		Emote( _heartMaterial );
 	}
 
@@ -94,10 +94,7 @@ public class BuddyStats : MonoBehaviour
 		Emote( _sadMaterial );
 		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
 
-		if ( !_disableStatDecrease )
-		{
-			_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
-		}
+		RecalculateStatValue();
 
 		if ( _resources <= 0 )
 		{
@@ -107,7 +104,10 @@ public class BuddyStats : MonoBehaviour
 
 	public void RecalculateStatValue()
 	{
-		_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
+		if ( !_disableStatDecrease )
+		{
+			_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
+		}
 	}
 
 	public void Emote( Material emoteMaterial )
