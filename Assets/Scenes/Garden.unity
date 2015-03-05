@@ -10728,7 +10728,7 @@ GameObject:
   - 4: {fileID: 246210135}
   - 33: {fileID: 246210134}
   - 23: {fileID: 246210133}
-  - 64: {fileID: 246210136}
+  - 95: {fileID: 246210136}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -10749,7 +10749,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -10764,7 +10764,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 609216344}
   m_GameObject: {fileID: 246210132}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &246210135
 Transform:
   m_ObjectHideFlags: 0
@@ -10777,20 +10777,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 625
---- !u!64 &246210136
-MeshCollider:
+--- !u!95 &246210136
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 609216344}
   m_GameObject: {fileID: 246210132}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &246801533
 GameObject:
   m_ObjectHideFlags: 0
@@ -10801,7 +10803,7 @@ GameObject:
   - 4: {fileID: 246801536}
   - 33: {fileID: 246801535}
   - 23: {fileID: 246801534}
-  - 64: {fileID: 246801537}
+  - 95: {fileID: 246801537}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -10822,7 +10824,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -10837,7 +10839,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1179872557}
   m_GameObject: {fileID: 246801533}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &246801536
 Transform:
   m_ObjectHideFlags: 0
@@ -10850,20 +10852,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 642
---- !u!64 &246801537
-MeshCollider:
+--- !u!95 &246801537
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1179872557}
   m_GameObject: {fileID: 246801533}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &247994520
 GameObject:
   m_ObjectHideFlags: 0
@@ -13269,6 +13273,7 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
+  _jumpMoveSpeedChangeRate: .25
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
   _moveVec: {x: 0, y: 0, z: 0}
@@ -13278,7 +13283,7 @@ MonoBehaviour:
   _modelTurnSpeed: 7
   jumpForce: 8
   _jumpCheckDistance: 1.5
-  _jumpCheckRadius: .449999988
+  _jumpCheckRadius: .200000003
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -13370,8 +13375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
-  _buddies:
-  - {fileID: 1215378086}
+  _buddies: []
   _lookOverrideDuration: .5
   _buddyLayer:
     serializedVersion: 2
@@ -13393,8 +13397,7 @@ MonoBehaviour:
   _statDictionary:
     keys: 010000000300000002000000
     values:
-    - startingMax: 1
-      maxIncrement: .5
+    - startingMax: 0
       useRate: .119999997
       rechargeRate: 1
       currentMax: 0
@@ -13405,8 +13408,7 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 1
-      maxIncrement: .5
+    - startingMax: 0
       useRate: .5
       rechargeRate: .5
       currentMax: 0
@@ -13417,16 +13419,15 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 10
-      maxIncrement: 5
-      useRate: 1.5
-      rechargeRate: 10
-      currentMax: 10
-      currentValue: 10
+    - startingMax: 0
+      useRate: .119999997
+      rechargeRate: .5
+      currentMax: 0
+      currentValue: 0
       isUsing: 0
       currentImage: {fileID: 422666722}
       maxImage: {fileID: 1537080317}
-      statToScaleRatio: .100000001
+      statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
 --- !u!114 &298744676
@@ -13456,7 +13457,7 @@ MonoBehaviour:
   _interactCheckDistance: 5
   _interactCheckRadius: .200000003
   _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
-  _maxJumpForceTime: 0
+  _maxJumpForceTime: .25
   _respawnOffset: {x: 0, y: 2, z: 0}
   _respawnPosition: {x: 0, y: 0, z: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
@@ -15469,7 +15470,7 @@ GameObject:
   - 4: {fileID: 344747048}
   - 33: {fileID: 344747047}
   - 23: {fileID: 344747046}
-  - 64: {fileID: 344747049}
+  - 95: {fileID: 344747049}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -15490,7 +15491,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -15505,7 +15506,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 927628062}
   m_GameObject: {fileID: 344747045}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &344747048
 Transform:
   m_ObjectHideFlags: 0
@@ -15518,20 +15519,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 699
---- !u!64 &344747049
-MeshCollider:
+--- !u!95 &344747049
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 927628062}
   m_GameObject: {fileID: 344747045}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &345130314
 GameObject:
   m_ObjectHideFlags: 0
@@ -20333,7 +20336,7 @@ GameObject:
   - 4: {fileID: 437958282}
   - 33: {fileID: 437958281}
   - 23: {fileID: 437958280}
-  - 64: {fileID: 437958283}
+  - 95: {fileID: 437958283}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -20354,7 +20357,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -20369,7 +20372,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 470938461}
   m_GameObject: {fileID: 437958279}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &437958282
 Transform:
   m_ObjectHideFlags: 0
@@ -20382,20 +20385,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 649
---- !u!64 &437958283
-MeshCollider:
+--- !u!95 &437958283
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 470938461}
   m_GameObject: {fileID: 437958279}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &438012710
 Prefab:
   m_ObjectHideFlags: 0
@@ -23256,7 +23261,7 @@ GameObject:
   - 4: {fileID: 493798159}
   - 33: {fileID: 493798158}
   - 23: {fileID: 493798157}
-  - 64: {fileID: 493798160}
+  - 95: {fileID: 493798160}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -23277,7 +23282,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -23292,7 +23297,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 873675757}
   m_GameObject: {fileID: 493798156}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &493798159
 Transform:
   m_ObjectHideFlags: 0
@@ -23305,20 +23310,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 658
---- !u!64 &493798160
-MeshCollider:
+--- !u!95 &493798160
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 873675757}
   m_GameObject: {fileID: 493798156}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &498701845
 GameObject:
   m_ObjectHideFlags: 0
@@ -28279,7 +28286,7 @@ GameObject:
   - 4: {fileID: 602065162}
   - 33: {fileID: 602065161}
   - 23: {fileID: 602065160}
-  - 64: {fileID: 602065163}
+  - 95: {fileID: 602065163}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -28300,7 +28307,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -28315,7 +28322,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 699116588}
   m_GameObject: {fileID: 602065159}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &602065162
 Transform:
   m_ObjectHideFlags: 0
@@ -28328,20 +28335,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 704
---- !u!64 &602065163
-MeshCollider:
+--- !u!95 &602065163
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 699116588}
   m_GameObject: {fileID: 602065159}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &604796931
 GameObject:
   m_ObjectHideFlags: 0
@@ -32669,7 +32678,7 @@ GameObject:
   - 4: {fileID: 702221554}
   - 33: {fileID: 702221553}
   - 23: {fileID: 702221552}
-  - 64: {fileID: 702221555}
+  - 95: {fileID: 702221555}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -32690,7 +32699,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -32705,7 +32714,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 851576673}
   m_GameObject: {fileID: 702221551}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &702221554
 Transform:
   m_ObjectHideFlags: 0
@@ -32718,20 +32727,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 691
---- !u!64 &702221555
-MeshCollider:
+--- !u!95 &702221555
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 851576673}
   m_GameObject: {fileID: 702221551}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &703751278
 GameObject:
   m_ObjectHideFlags: 0
@@ -33532,7 +33543,7 @@ GameObject:
   - 4: {fileID: 718435594}
   - 33: {fileID: 718435593}
   - 23: {fileID: 718435592}
-  - 64: {fileID: 718435595}
+  - 95: {fileID: 718435595}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -33553,7 +33564,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -33568,7 +33579,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 2017815075}
   m_GameObject: {fileID: 718435591}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &718435594
 Transform:
   m_ObjectHideFlags: 0
@@ -33581,20 +33592,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 687
---- !u!64 &718435595
-MeshCollider:
+--- !u!95 &718435595
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 2017815075}
   m_GameObject: {fileID: 718435591}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &718918749
 GameObject:
   m_ObjectHideFlags: 0
@@ -36178,13 +36191,14 @@ MonoBehaviour:
       fogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
       fogDensity: .0120000001
     skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+  _dirLight: {fileID: 416504298}
+  _nightFraction: .100000001
   _currentTimeRenderSettings:
     skyColor: {r: .195334747, g: 0, b: .264705896, a: 1}
     lightColor: {r: .717241406, g: .397058845, b: 1, a: 1}
     lightIntensity: .5
     fogColor: {r: .0819979832, g: 0, b: .154411793, a: 1}
     fogDensity: .0120000001
-  _dirLight: {fileID: 416504298}
   _daylightIntensity: 0
 --- !u!1 &772485782
 GameObject:
@@ -38702,7 +38716,7 @@ GameObject:
   - 4: {fileID: 825055017}
   - 33: {fileID: 825055016}
   - 23: {fileID: 825055015}
-  - 64: {fileID: 825055018}
+  - 95: {fileID: 825055018}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -38723,7 +38737,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -38738,7 +38752,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 720805439}
   m_GameObject: {fileID: 825055014}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &825055017
 Transform:
   m_ObjectHideFlags: 0
@@ -38751,20 +38765,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 628
---- !u!64 &825055018
-MeshCollider:
+--- !u!95 &825055018
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 720805439}
   m_GameObject: {fileID: 825055014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &825560675
 GameObject:
   m_ObjectHideFlags: 0
@@ -42189,7 +42205,7 @@ GameObject:
   - 4: {fileID: 901823917}
   - 33: {fileID: 901823916}
   - 23: {fileID: 901823915}
-  - 64: {fileID: 901823918}
+  - 95: {fileID: 901823918}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -42210,7 +42226,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -42225,7 +42241,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1396515314}
   m_GameObject: {fileID: 901823914}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &901823917
 Transform:
   m_ObjectHideFlags: 0
@@ -42238,20 +42254,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 657
---- !u!64 &901823918
-MeshCollider:
+--- !u!95 &901823918
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1396515314}
   m_GameObject: {fileID: 901823914}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &903690042
 GameObject:
   m_ObjectHideFlags: 0
@@ -44539,7 +44557,7 @@ GameObject:
   - 4: {fileID: 949209768}
   - 33: {fileID: 949209767}
   - 23: {fileID: 949209766}
-  - 64: {fileID: 949209769}
+  - 95: {fileID: 949209769}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -44560,7 +44578,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -44575,7 +44593,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1959375651}
   m_GameObject: {fileID: 949209765}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &949209768
 Transform:
   m_ObjectHideFlags: 0
@@ -44588,20 +44606,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 705
---- !u!64 &949209769
-MeshCollider:
+--- !u!95 &949209769
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1959375651}
   m_GameObject: {fileID: 949209765}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &949643511
 GameObject:
   m_ObjectHideFlags: 0
@@ -49941,7 +49961,7 @@ GameObject:
   - 4: {fileID: 1068942196}
   - 33: {fileID: 1068942195}
   - 23: {fileID: 1068942194}
-  - 64: {fileID: 1068942197}
+  - 95: {fileID: 1068942197}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -49962,7 +49982,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -49977,7 +49997,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1322971120}
   m_GameObject: {fileID: 1068942193}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1068942196
 Transform:
   m_ObjectHideFlags: 0
@@ -49990,20 +50010,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 665
---- !u!64 &1068942197
-MeshCollider:
+--- !u!95 &1068942197
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1322971120}
   m_GameObject: {fileID: 1068942193}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1069729600
 Prefab:
   m_ObjectHideFlags: 0
@@ -53533,7 +53555,7 @@ GameObject:
   - 4: {fileID: 1141979825}
   - 33: {fileID: 1141979824}
   - 23: {fileID: 1141979823}
-  - 64: {fileID: 1141979826}
+  - 95: {fileID: 1141979826}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -53554,7 +53576,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -53569,7 +53591,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 349312696}
   m_GameObject: {fileID: 1141979822}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1141979825
 Transform:
   m_ObjectHideFlags: 0
@@ -53582,20 +53604,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 641
---- !u!64 &1141979826
-MeshCollider:
+--- !u!95 &1141979826
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 349312696}
   m_GameObject: {fileID: 1141979822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1142367076
 GameObject:
   m_ObjectHideFlags: 0
@@ -55729,7 +55753,7 @@ GameObject:
   - 4: {fileID: 1192485885}
   - 33: {fileID: 1192485884}
   - 23: {fileID: 1192485883}
-  - 64: {fileID: 1192485886}
+  - 95: {fileID: 1192485886}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -55750,7 +55774,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -55765,7 +55789,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1636998503}
   m_GameObject: {fileID: 1192485882}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1192485885
 Transform:
   m_ObjectHideFlags: 0
@@ -55778,20 +55802,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 650
---- !u!64 &1192485886
-MeshCollider:
+--- !u!95 &1192485886
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1636998503}
   m_GameObject: {fileID: 1192485882}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1195720479
 Prefab:
   m_ObjectHideFlags: 0
@@ -56114,7 +56140,7 @@ GameObject:
   - 4: {fileID: 1199729729}
   - 33: {fileID: 1199729728}
   - 23: {fileID: 1199729727}
-  - 64: {fileID: 1199729730}
+  - 95: {fileID: 1199729730}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -56135,7 +56161,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -56150,7 +56176,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 222362347}
   m_GameObject: {fileID: 1199729726}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1199729729
 Transform:
   m_ObjectHideFlags: 0
@@ -56163,20 +56189,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 698
---- !u!64 &1199729730
-MeshCollider:
+--- !u!95 &1199729730
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 222362347}
   m_GameObject: {fileID: 1199729726}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1199823030
 Prefab:
   m_ObjectHideFlags: 0
@@ -56740,8 +56768,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statType: 1
-  _startingResourceCount: 10
+  _startingResourceCount: 7
   _resources: 0
+  _statPerResource: .0500000007
   _decrementStatSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
   _heartMaterial: {fileID: 2100000, guid: eb42365168a51424f8ac428cefa25cf4, type: 2}
   _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
@@ -56765,6 +56794,7 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 2
   _sprintMoveSpeed: 12
+  _jumpMoveSpeedChangeRate: .100000001
   _rollMoveSpeed: 2
   _climbMoveSpeed: 2
   _moveVec: {x: 0, y: 0, z: 0}
@@ -56774,7 +56804,7 @@ MonoBehaviour:
   _modelTurnSpeed: 5
   jumpForce: 8.5
   _jumpCheckDistance: 1
-  _jumpCheckRadius: .5
+  _jumpCheckRadius: .25
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -57503,7 +57533,7 @@ GameObject:
   - 4: {fileID: 1236135684}
   - 33: {fileID: 1236135683}
   - 23: {fileID: 1236135682}
-  - 64: {fileID: 1236135685}
+  - 95: {fileID: 1236135685}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -57524,7 +57554,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -57539,7 +57569,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1089939020}
   m_GameObject: {fileID: 1236135681}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1236135684
 Transform:
   m_ObjectHideFlags: 0
@@ -57552,20 +57582,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 676
---- !u!64 &1236135685
-MeshCollider:
+--- !u!95 &1236135685
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1089939020}
   m_GameObject: {fileID: 1236135681}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1241074791
 Prefab:
   m_ObjectHideFlags: 0
@@ -60826,7 +60858,7 @@ GameObject:
   - 4: {fileID: 1312040780}
   - 33: {fileID: 1312040779}
   - 23: {fileID: 1312040778}
-  - 64: {fileID: 1312040781}
+  - 95: {fileID: 1312040781}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -60847,7 +60879,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -60862,7 +60894,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 927992433}
   m_GameObject: {fileID: 1312040777}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1312040780
 Transform:
   m_ObjectHideFlags: 0
@@ -60875,20 +60907,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 627
---- !u!64 &1312040781
-MeshCollider:
+--- !u!95 &1312040781
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 927992433}
   m_GameObject: {fileID: 1312040777}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1316348927
 GameObject:
   m_ObjectHideFlags: 0
@@ -62921,7 +62955,7 @@ GameObject:
   - 4: {fileID: 1357913174}
   - 33: {fileID: 1357913173}
   - 23: {fileID: 1357913172}
-  - 64: {fileID: 1357913175}
+  - 95: {fileID: 1357913175}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -62942,7 +62976,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -62957,7 +62991,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1871370515}
   m_GameObject: {fileID: 1357913171}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1357913174
 Transform:
   m_ObjectHideFlags: 0
@@ -62970,20 +63004,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 630
---- !u!64 &1357913175
-MeshCollider:
+--- !u!95 &1357913175
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1871370515}
   m_GameObject: {fileID: 1357913171}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1360698241
 Prefab:
   m_ObjectHideFlags: 0
@@ -67756,7 +67792,7 @@ GameObject:
   - 4: {fileID: 1474087838}
   - 33: {fileID: 1474087837}
   - 23: {fileID: 1474087836}
-  - 64: {fileID: 1474087839}
+  - 95: {fileID: 1474087839}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -67777,7 +67813,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -67792,7 +67828,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 973544304}
   m_GameObject: {fileID: 1474087835}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1474087838
 Transform:
   m_ObjectHideFlags: 0
@@ -67805,20 +67841,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 700
---- !u!64 &1474087839
-MeshCollider:
+--- !u!95 &1474087839
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 973544304}
   m_GameObject: {fileID: 1474087835}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1474202363
 Prefab:
   m_ObjectHideFlags: 0
@@ -68630,7 +68668,7 @@ GameObject:
   - 4: {fileID: 1494561026}
   - 33: {fileID: 1494561025}
   - 23: {fileID: 1494561024}
-  - 64: {fileID: 1494561027}
+  - 95: {fileID: 1494561027}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -68651,7 +68689,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -68666,7 +68704,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1889859584}
   m_GameObject: {fileID: 1494561023}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1494561026
 Transform:
   m_ObjectHideFlags: 0
@@ -68679,20 +68717,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 634
---- !u!64 &1494561027
-MeshCollider:
+--- !u!95 &1494561027
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1889859584}
   m_GameObject: {fileID: 1494561023}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1494666969
 GameObject:
   m_ObjectHideFlags: 0
@@ -70173,7 +70213,7 @@ GameObject:
   - 4: {fileID: 1520061741}
   - 33: {fileID: 1520061740}
   - 23: {fileID: 1520061739}
-  - 64: {fileID: 1520061742}
+  - 95: {fileID: 1520061742}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -70194,7 +70234,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -70209,7 +70249,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1263263654}
   m_GameObject: {fileID: 1520061738}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1520061741
 Transform:
   m_ObjectHideFlags: 0
@@ -70222,20 +70262,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 692
---- !u!64 &1520061742
-MeshCollider:
+--- !u!95 &1520061742
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1263263654}
   m_GameObject: {fileID: 1520061738}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1520777345
 GameObject:
   m_ObjectHideFlags: 0
@@ -73113,7 +73155,7 @@ GameObject:
   - 4: {fileID: 1576447938}
   - 33: {fileID: 1576447937}
   - 23: {fileID: 1576447936}
-  - 64: {fileID: 1576447939}
+  - 95: {fileID: 1576447939}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -73134,7 +73176,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -73149,7 +73191,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 623366142}
   m_GameObject: {fileID: 1576447935}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1576447938
 Transform:
   m_ObjectHideFlags: 0
@@ -73162,20 +73204,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 629
---- !u!64 &1576447939
-MeshCollider:
+--- !u!95 &1576447939
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 623366142}
   m_GameObject: {fileID: 1576447935}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1578527914
 GameObject:
   m_ObjectHideFlags: 0
@@ -74207,11 +74251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentTime: 0
   _dayCycleLength: 60
   _dayStartTime: 0
-  _blackOutStartTime: 0
-  _dayCycleTimer: 0
+  _blackoutDuration: 5
+  _lightupDuration: 5
   _midnightOverlay: {fileID: 0}
+  _disableMidnight: 0
 --- !u!4 &1598484814
 Transform:
   m_ObjectHideFlags: 0
@@ -77578,7 +77624,7 @@ GameObject:
   - 4: {fileID: 1675374329}
   - 33: {fileID: 1675374328}
   - 23: {fileID: 1675374327}
-  - 64: {fileID: 1675374330}
+  - 95: {fileID: 1675374330}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -77599,7 +77645,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -77614,7 +77660,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1792072931}
   m_GameObject: {fileID: 1675374326}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1675374329
 Transform:
   m_ObjectHideFlags: 0
@@ -77627,20 +77673,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 632
---- !u!64 &1675374330
-MeshCollider:
+--- !u!95 &1675374330
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1792072931}
   m_GameObject: {fileID: 1675374326}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1675810242
 GameObject:
   m_ObjectHideFlags: 0
@@ -84054,7 +84102,7 @@ GameObject:
   - 4: {fileID: 1780961464}
   - 33: {fileID: 1780961463}
   - 23: {fileID: 1780961462}
-  - 64: {fileID: 1780961465}
+  - 95: {fileID: 1780961465}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -84075,7 +84123,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -84090,7 +84138,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 842380368}
   m_GameObject: {fileID: 1780961461}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1780961464
 Transform:
   m_ObjectHideFlags: 0
@@ -84103,20 +84151,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 678
---- !u!64 &1780961465
-MeshCollider:
+--- !u!95 &1780961465
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 842380368}
   m_GameObject: {fileID: 1780961461}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1789155131
 GameObject:
   m_ObjectHideFlags: 0
@@ -87870,7 +87920,7 @@ GameObject:
   - 4: {fileID: 1850494372}
   - 33: {fileID: 1850494371}
   - 23: {fileID: 1850494370}
-  - 64: {fileID: 1850494373}
+  - 95: {fileID: 1850494373}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -87891,7 +87941,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -87906,7 +87956,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1490563220}
   m_GameObject: {fileID: 1850494369}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1850494372
 Transform:
   m_ObjectHideFlags: 0
@@ -87919,20 +87969,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 686
---- !u!64 &1850494373
-MeshCollider:
+--- !u!95 &1850494373
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 1490563220}
   m_GameObject: {fileID: 1850494369}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1850543244
 GameObject:
   m_ObjectHideFlags: 0
@@ -92298,7 +92350,7 @@ GameObject:
   - 4: {fileID: 1962662206}
   - 33: {fileID: 1962662205}
   - 23: {fileID: 1962662204}
-  - 64: {fileID: 1962662207}
+  - 95: {fileID: 1962662207}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -92319,7 +92371,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -92334,7 +92386,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 769064060}
   m_GameObject: {fileID: 1962662203}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
 --- !u!4 &1962662206
 Transform:
   m_ObjectHideFlags: 0
@@ -92347,20 +92399,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 152475106}
   m_RootOrder: 633
---- !u!64 &1962662207
-MeshCollider:
+--- !u!95 &1962662207
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6475422, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
+  m_PrefabParentObject: {fileID: 9554058, guid: d4f9d8a9b28eb7144bd627b09fa4b301,
     type: 2}
   m_PrefabInternal: {fileID: 769064060}
   m_GameObject: {fileID: 1962662203}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1962954505
 GameObject:
   m_ObjectHideFlags: 0
