@@ -2289,8 +2289,7 @@ MonoBehaviour:
   _statDictionary:
     keys: 010000000300000002000000
     values:
-    - startingMax: 1
-      maxIncrement: .5
+    - startingMax: 0
       useRate: .119999997
       rechargeRate: 1
       currentMax: 0
@@ -2301,8 +2300,7 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 1
-      maxIncrement: .5
+    - startingMax: 0
       useRate: .5
       rechargeRate: .5
       currentMax: 0
@@ -2313,16 +2311,15 @@ MonoBehaviour:
       statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
-    - startingMax: 10
-      maxIncrement: 5
-      useRate: 1.5
-      rechargeRate: 10
-      currentMax: 10
-      currentValue: 10
+    - startingMax: 0
+      useRate: .119999997
+      rechargeRate: .5
+      currentMax: 0
+      currentValue: 0
       isUsing: 0
       currentImage: {fileID: 0}
       maxImage: {fileID: 0}
-      statToScaleRatio: .100000001
+      statToScaleRatio: 1
       rechargeDelayTime: 2
       rechargeTimer: 0
 --- !u!114 &11435354
@@ -2374,8 +2371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 0}
   resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
-  _buddies:
-  - {fileID: 0}
+  _buddies: []
   _lookOverrideDuration: .5
   _buddyLayer:
     serializedVersion: 2
@@ -2459,6 +2455,7 @@ MonoBehaviour:
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 6
   _sprintMoveSpeed: 8.5
+  _jumpMoveSpeedChangeRate: .25
   _rollMoveSpeed: 6
   _climbMoveSpeed: 4
   _moveVec: {x: 0, y: 0, z: 0}
@@ -2468,7 +2465,7 @@ MonoBehaviour:
   _modelTurnSpeed: 7
   jumpForce: 8
   _jumpCheckDistance: 1.5
-  _jumpCheckRadius: .449999988
+  _jumpCheckRadius: .200000003
   _jumpLayer:
     serializedVersion: 2
     m_Bits: 1

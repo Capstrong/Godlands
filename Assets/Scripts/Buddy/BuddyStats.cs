@@ -7,6 +7,7 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
+	[SerializeField] float _statPerResource = 1.0f;
 
 	PlayerStats _ownerStats = null;
 
@@ -82,7 +83,7 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		actorStats.IncrementMaxStat( statType );
+		RecalculateStatValue();
 		Emote( _heartMaterial );
 	}
 
@@ -93,14 +94,19 @@ public class BuddyStats : MonoBehaviour
 		Emote( _sadMaterial );
 		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
 
-		if ( !_disableStatDecrease )
-		{
-			_ownerStats.DecrementMaxStat( statType );
-		}
+		RecalculateStatValue();
 
 		if ( _resources <= 0 )
 		{
 			Kill();
+		}
+	}
+
+	public void RecalculateStatValue()
+	{
+		if ( !_disableStatDecrease )
+		{
+			_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
 		}
 	}
 

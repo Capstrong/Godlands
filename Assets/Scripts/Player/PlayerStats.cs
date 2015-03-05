@@ -15,7 +15,6 @@ public enum Stat
 public class StatObject
 {
 	public float startingMax = 0.0f;
-	public float maxIncrement = 0.0f;
 	public float useRate = 0.0f; // Stat units per second
 	public float rechargeRate = 0.0f;
 	public float currentMax = 0.0f;
@@ -42,7 +41,7 @@ public class PlayerStats : ActorComponent
 	{
 		base.Awake();
 
-		foreach (KeyValuePair<Stat,StatObject> pair in _statDictionary)
+		foreach ( KeyValuePair<Stat, StatObject> pair in _statDictionary )
 		{
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
@@ -50,23 +49,18 @@ public class PlayerStats : ActorComponent
 		}
 	}
 
-	public void IncrementMaxStat( Stat stat )
+	public void SetMaxStat( Stat stat, float maxValue )
 	{
-		StatObject statObject = _statDictionary[stat];
-		statObject.currentMax += statObject.maxIncrement;
-		ScaleCurrImage( statObject );
-	}
+		DebugUtils.Assert( maxValue > 0.0f, "Max stat value must be greater than 0." );
 
-	public void DecrementMaxStat( Stat stat )
-	{
 		StatObject statObject = _statDictionary[stat];
-		statObject.currentMax = Mathf.Max(statObject.currentMax - statObject.maxIncrement, 0.0f); // decrement and clamp at a minimum of 0
+		statObject.currentMax = maxValue;
 		ScaleMaxImage( statObject );
 	}
 
 	public bool CanUseStat( Stat stat )
 	{
-		return (_statDictionary[stat].currentValue > 0.0f);
+		return ( _statDictionary[stat].currentValue > 0.0f );
 	}
 
 	public void StartUsingStat( Stat stat )
@@ -82,6 +76,11 @@ public class PlayerStats : ActorComponent
 	public float GetStatValue( Stat stat )
 	{
 		return _statDictionary[stat].currentValue;
+	}
+
+	public float GetStatMaxValue( Stat stat )
+	{
+		return _statDictionary[stat].currentMax;
 	}
 
 	void Update()

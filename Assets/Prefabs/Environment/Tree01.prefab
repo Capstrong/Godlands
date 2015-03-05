@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 469874}
   - 33: {fileID: 3369874}
   - 23: {fileID: 2369874}
-  - 64: {fileID: 6475422}
+  - 95: {fileID: 9554058}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -25,8 +25,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169874}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -43.5499992, y: -21.7700005, z: 15.5200005}
-  m_LocalScale: {x: .0153350625, y: .0153350588, z: .0153350588}
+  m_LocalPosition: {x: -10.2908325, y: 51.1778259, z: -5.61773682}
+  m_LocalScale: {x: .00999999978, y: .00999999978, z: .00999999978}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7920c68b817632e41992c8fad9504010, type: 2}
+  - {fileID: 2100000, guid: 583ea687b9040ad42b3a68dcdc21a65f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -56,20 +56,22 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169874}
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
---- !u!64 &6475422
-MeshCollider:
+  m_Mesh: {fileID: 4300002, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+--- !u!95 &9554058
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169874}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

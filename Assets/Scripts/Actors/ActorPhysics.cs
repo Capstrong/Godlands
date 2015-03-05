@@ -58,7 +58,8 @@ public sealed class ActorPhysics : ActorComponent
 		get { return _sprintMoveSpeed; }
 	}
 
-	float _jumpMoveSpeed = 0f;
+	[SerializeField]
+	float _jumpMoveSpeedChangeRate = 0.1f;
 
 	[SerializeField] float _rollMoveSpeed = 6f;
 	public float rollMoveSpeed
@@ -255,7 +256,7 @@ public sealed class ActorPhysics : ActorComponent
 		if ( colliders.Length > 0 )
 		{
 			Collider nearestCol = colliders[0];
-			float shortestDistance = float.MaxValue;
+			float shortestDistance = ( nearestCol.transform.position - transform.position ).sqrMagnitude;
 			foreach ( Collider col in colliders )
 			{
 				float distance = ( col.transform.position - transform.position ).sqrMagnitude;
@@ -300,7 +301,7 @@ public sealed class ActorPhysics : ActorComponent
 
 		Vector3 surfaceRelativeInput =
 			_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
-			_climbSurface.up * ( _climbTag.yMovement ? movement.z : 0.0f );
+			_climbSurface.up    * ( _climbTag.yMovement ? movement.z : 0.0f );
 
 		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 		rigidbody.velocity = _moveVec;
@@ -322,7 +323,6 @@ public sealed class ActorPhysics : ActorComponent
 	public void DoJump()
 	{
 		Vector3 curVelocity = rigidbody.velocity.SetY( 0f );
-		_jumpMoveSpeed = curVelocity.magnitude;
 		curVelocity.y = jumpForce;
 		rigidbody.velocity = curVelocity;
 		rigidbody.useGravity = true;
@@ -343,7 +343,13 @@ public sealed class ActorPhysics : ActorComponent
 		}
 		else
 		{
-			_moveVec = inputVec * _jumpMoveSpeed;
+			_moveVec += inputVec * _jumpMoveSpeedChangeRate;
+			_moveVec.y = 0.0f;
+
+			if ( _moveVec.sqrMagnitude > _sprintMoveSpeed * _sprintMoveSpeed )
+			{
+				_moveVec = _moveVec.normalized * _sprintMoveSpeed;
+			}
 
 			if ( forceUp )
 			{
