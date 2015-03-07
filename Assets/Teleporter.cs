@@ -3,28 +3,32 @@ using System.Collections;
 
 public class Teleporter : MonoBehaviour {
 
-	[ReadOnly("Target Transform")]
-	[SerializeField] Transform _targetTransform = null;
+	Transform _targetTransform = null;
+	[SerializeField] string _name = "";
 
-	// Use this for initialization
 	void Start () {
 		_targetTransform = GetComponentInChildren<TeleportTargetTag>().gameObject.GetComponent<Transform>();
+
+		TextMesh[] textMeshes =  GetComponentsInChildren<TextMesh>();
+
+		foreach ( TextMesh textMesh in textMeshes )
+		{
+			textMesh.text =_name;
+		}
 	}
 
 	void OnTriggerEnter( Collider col )
 	{
-		Debug.Log("Trigger entered");
-
 		if ( col.gameObject.transform.parent == null )
 		{
 			return;
 		}
 
-		PlayerControls controls = col.gameObject.transform.parent.gameObject.GetComponent<PlayerControls>();
+		// Get to the player from the bumper
+		PlayerControls controls = col.gameObject.GetComponent<Transform>().parent.gameObject.GetComponent<PlayerControls>();
 
 		if ( controls != null )
 		{
-			Debug.Log("Teleporting");
 			controls.Teleport( _targetTransform.position, _targetTransform.rotation );
 		}
 	}
