@@ -5,6 +5,7 @@ public class Teleporter : MonoBehaviour {
 
 	Transform _targetTransform = null;
 	[SerializeField] string _name = "";
+	[SerializeField] AudioSource _teleportSound = null;
 
 	void Start () {
 		_targetTransform = GetComponentInChildren<TeleportTargetTag>().gameObject.GetComponent<Transform>();
@@ -30,6 +31,7 @@ public class Teleporter : MonoBehaviour {
 		if ( controls != null )
 		{
 			controls.Teleport( _targetTransform.position, _targetTransform.rotation );
+			SoundManager.Play2DSound( _teleportSound );
 		}
 	}
 }
