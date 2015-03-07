@@ -15,6 +15,6 @@ public class LimitsManager : SingletonBehaviour<LimitsManager> {
 	void Start()
 	{
 		_colliders = ( from go in GameObject.FindObjectsOfType<BuddyLimitsTag>()
-		               select( (CapsuleCollider) go.collider ) ).ToArray<CapsuleCollider>();
+		               select( (CapsuleCollider) go.GetComponent<Collider>() ) ).ToArray<CapsuleCollider>();
 	}
 }
