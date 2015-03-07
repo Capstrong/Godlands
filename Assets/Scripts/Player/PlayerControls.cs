@@ -490,7 +490,7 @@ public class PlayerControls : MonoBehaviour
 		SoundManager.Play2DSound( _respawnSound );
 	}
 
-	private void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
+	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
 	{
 		transform.position = _respawnPosition;
 		transform.rotation = _respawnRotation;
