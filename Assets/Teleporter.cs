@@ -13,10 +13,18 @@ public class Teleporter : MonoBehaviour {
 
 	void OnTriggerEnter( Collider col )
 	{
-		PlayerControls controls = col.gameObject.GetComponent<PlayerControls>();
+		Debug.Log("Trigger entered");
+
+		if ( col.gameObject.transform.parent == null )
+		{
+			return;
+		}
+
+		PlayerControls controls = col.gameObject.transform.parent.gameObject.GetComponent<PlayerControls>();
 
 		if ( controls != null )
 		{
+			Debug.Log("Teleporting");
 			controls.Teleport( _targetTransform.position, _targetTransform.rotation );
 		}
 	}
