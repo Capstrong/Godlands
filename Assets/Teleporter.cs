@@ -20,17 +20,17 @@ public class Teleporter : MonoBehaviour {
 
 	void OnTriggerEnter( Collider col )
 	{
-		if ( col.gameObject.transform.parent == null )
+		if ( !col.gameObject.transform.parent )
 		{
 			return;
 		}
 
 		// Get to the player from the bumper
-		PlayerControls controls = col.gameObject.GetComponent<Transform>().parent.gameObject.GetComponent<PlayerControls>();
+		PlayerControls controls = col.gameObject.GetComponentInParent<PlayerControls>();
 
-		if ( controls != null )
+		if ( controls )
 		{
-			controls.Teleport( _targetTransform.position, _targetTransform.rotation );
+			controls.Teleport( _targetTransform.position, _targetTransform.rotation, false );
 			SoundManager.Play2DSound( _teleportSound );
 		}
 	}

@@ -490,12 +490,15 @@ public class PlayerControls : MonoBehaviour
 		SoundManager.Play2DSound( _respawnSound );
 	}
 
-	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
+	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion(), bool snapCamera = true )
 	{
 		transform.position = toPosition;
 		transform.rotation = toRotation;
 
-		_actor.actorCamera.cam.transform.position = toPosition;
+		if ( snapCamera )
+		{
+			_cameraTransform.position = toPosition;
+		}
 
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
 	}
