@@ -7,13 +7,18 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
-	[SerializeField] float _statPerResource = 1.0f;
+	[SerializeField] int _minIdealResources = 0;
+	[SerializeField] int _maxIdealResources = 0;
+	[SerializeField] int _nightlyResourceDrain = 0;
+	[SerializeField] float _statIncrement = 0f;
 
 	PlayerStats _ownerStats = null;
 
 	[SerializeField] AudioSource _decrementStatSound = null;
 	[SerializeField] Material _heartMaterial = null;
 	[SerializeField] Material _sadMaterial = null;
+	[SerializeField] Material _happyMaterial = null;
+	[SerializeField] Material _neutralMaterial = null;
 
 	GodTag _owner = null;
 	public GodTag owner
@@ -85,8 +90,16 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		RecalculateStatValue();
 		Emote( _heartMaterial );
+
+		if ( _resources < _minIdealResources )
+		{
+			Emote( _neutralMaterial );
+		}
+		else if ( ( _resources > _maxIdealResources ) )
+		{
+			Emote( _sadMaterial );
+		}
 	}
 
 	public void DecrementResources()
@@ -96,19 +109,27 @@ public class BuddyStats : MonoBehaviour
 		Emote( _sadMaterial );
 		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
 
-		RecalculateStatValue();
-
 		if ( _resources <= 0 )
 		{
 			Kill();
 		}
 	}
 
-	public void RecalculateStatValue()
+	public void AffectStats()
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( statType, _resources * _statPerResource );
+			if ( _resources < _minIdealResources || _resources > _maxIdealResources )
+			{
+				Emote( _sadMaterial );
+
+				_ownerStats.SetMaxStat( statType, _ownerStats.GetStatMaxValue( statType ) - _statIncrement );
+			}
+			else
+			{
+				Emote( _happyMaterial );
+				_ownerStats.SetMaxStat( statType, _ownerStats.GetStatMaxValue( statType ) + _statIncrement );
+			}
 		}
 	}
 

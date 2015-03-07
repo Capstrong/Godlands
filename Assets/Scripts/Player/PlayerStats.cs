@@ -45,8 +45,20 @@ public class PlayerStats : ActorComponent
 		{
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
-			ScaleMaxImage( pair.Value );
+			pair.Value.currentImage.enabled = false;
+			pair.Value.maxImage.enabled = false;
 		}
+	}
+
+	public void InitializeStat( Stat stat )
+	{
+		StatObject statObject = _statDictionary[stat];
+		statObject.currentMax = statObject.startingMax;
+		statObject.currentValue = 0;
+		statObject.currentImage.enabled = true;
+		statObject.maxImage.enabled = true;
+		ScaleMaxImage( statObject );
+		ScaleCurrImage( statObject );
 	}
 
 	public void SetMaxStat( Stat stat, float maxValue )

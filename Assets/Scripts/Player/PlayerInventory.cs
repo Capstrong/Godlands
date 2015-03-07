@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent( typeof( PlayerCamera ) )]
+[RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )]
 public class PlayerInventory : ActorComponent
 {
 	InventoryScrollBar inventoryBar;
@@ -155,7 +155,7 @@ public class PlayerInventory : ActorComponent
 		UpdateResourceList();
 
 		// manually add the buddy's values to our stat.
-		newBuddy.RecalculateStatValue();
+		_playerActor.stats.InitializeStat( buddyItemData.stat );
 	}
 
 	void PickupItem( InventoryItemData itemData )
