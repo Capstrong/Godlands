@@ -11,8 +11,8 @@ public enum Level
 public static class LevelUtils
 {
 	public static string[] levels = { "",
-	                               "controlsScreen",
-	                               "BlockOut"};
+	                                  "ControlsScreen",
+	                                  "BlockOut"};
 
 	public static void LoadLevel( Level level )
 	{
