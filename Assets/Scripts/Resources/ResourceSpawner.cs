@@ -43,7 +43,7 @@ public class ResourceSpawner : MonoBehaviour
 				}
 				
 				// change position to ray hit pos with offset depending on resource size
-				spawnPosition = hit.point + hit.normal * resourcePrefab.collider.bounds.size.y;
+				spawnPosition = hit.point + hit.normal * resourcePrefab.bounds.size.y;
 
 				break;
 			}

@@ -2,13 +2,20 @@
 using System.Collections;
 using System.IO;
 
+[RequireComponent( typeof( Camera ) )]
 public class ScreenShot : MonoBehaviour 
 {
-
 	[SerializeField] int resWidth = 1024;
 	[SerializeField] int resHeight = 1024;
 
 	[SerializeField] RenderTexture renderTex;
+
+	private Camera _camera;
+
+	void Awake()
+	{
+		_camera = GetComponent<Camera>();
+	}
 
 	public static string ScreenShotName(int width, int height)
 	{
@@ -39,14 +46,14 @@ public class ScreenShot : MonoBehaviour
 
 	IEnumerator TakeSelfie()
 	{
-		camera.enabled = true;
+		_camera.enabled = true;
 
 		yield return new WaitForEndOfFrame();
 
 		renderTex = new RenderTexture(resWidth, resHeight, 32);
-		camera.targetTexture = renderTex;
+		_camera.targetTexture = renderTex;
 
-		camera.Render();
+		_camera.Render();
 		RenderTexture.active = renderTex; // RenderTexture must be a static class
 
 		Texture2D screenShot = new Texture2D(renderTex.width, renderTex.height, TextureFormat.RGB24, false);
@@ -58,7 +65,7 @@ public class ScreenShot : MonoBehaviour
 		byte[] bytes = screenShot.EncodeToPNG();
 
 		// nulling these avoids errors
-		camera.targetTexture = null;
+		_camera.targetTexture = null;
 		RenderTexture.active = null;
 
 #if !UNITY_WEBPLAYER
@@ -68,6 +75,6 @@ public class ScreenShot : MonoBehaviour
 			File.WriteAllBytes(Application.dataPath + "/../" + ScreenShotName(renderTex.width, renderTex.height), bytes);
 	#endif
 #endif
-		camera.enabled = false;
+		_camera.enabled = false;
 	}
 }

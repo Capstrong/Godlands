@@ -42,11 +42,17 @@ public class PlayerCamera : ActorComponent
 	// Collision Zoom
 	[SerializeField] LayerMask _collisionLayer = 0;
 
+	private Rigidbody _rigidbody;
+
 	public override void Awake()
 	{
 		base.Awake();
+
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	
 		cam = Camera.main;
+		_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void FixedUpdate ()
@@ -64,9 +70,10 @@ public class PlayerCamera : ActorComponent
 	void Update()
 	{
 		//Lock cursor
-		if(Input.GetMouseButtonDown(0))
+		if ( Input.GetMouseButtonDown( 0 ) )
 		{
-			Screen.lockCursor = true;
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
 		}
 
 		if ( Input.GetKeyDown( KeyCode.T ) )
@@ -176,7 +183,7 @@ public class PlayerCamera : ActorComponent
 	{
 		float xMoveInput = InputUtils.GetAxis( "Horizontal" );
 
-		float angleDistance = Mathf.Acos( Vector3.Dot( -actorToCam.normalized, rigidbody.velocity.normalized ) ) * Mathf.Rad2Deg;
+		float angleDistance = Mathf.Acos( Vector3.Dot( -actorToCam.normalized, _rigidbody.velocity.normalized ) ) * Mathf.Rad2Deg;
 	
 		float turnSpeedMod = Mathf.InverseLerp( _turnAssistMinAngle, 180f, angleDistance );
 		turnSpeedMod = _turnAssistCurve.Evaluate( turnSpeedMod );
