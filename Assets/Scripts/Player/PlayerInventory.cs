@@ -18,7 +18,11 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _lookOverrideDuration = 0.5f;
 
 	// types and current count
-	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
+	[System.Serializable]
+	public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
+
+	[ReadOnly("Inventory")]
+	[SerializeField] InventoryDictionary inventory = new InventoryDictionary();
 
 	// currently held types to show on UI bar
 	List<InventoryItemData> heldResources = new List<InventoryItemData>();
