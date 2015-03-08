@@ -90,8 +90,6 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		Emote( _heartMaterial );
-
 		if ( _resources < _minIdealResources )
 		{
 			Emote( _neutralMaterial );
@@ -104,7 +102,7 @@ public class BuddyStats : MonoBehaviour
 
 	public void DecrementResources()
 	{
-		_resources--;
+		_resources -= _nightlyResourceDrain;
 
 		Emote( _sadMaterial );
 		SoundManager.Play3DSoundAtPosition( _decrementStatSound, transform.position );
