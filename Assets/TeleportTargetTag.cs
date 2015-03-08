@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyLimitsTag : MonoBehaviour
-{
+public class TeleportTargetTag : MonoBehaviour {
+
 }

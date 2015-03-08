@@ -48,6 +48,7 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] bool _disableStatDecrease = false;
 
 	ParticleSystem _particles;
+	Renderer _particlesRenderer;
 
 	uint ID = 0;
 
@@ -57,6 +58,7 @@ public class BuddyStats : MonoBehaviour
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
 		_particles = GetComponentInChildren<ParticleSystem>();
+		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
 	}
@@ -113,7 +115,7 @@ public class BuddyStats : MonoBehaviour
 	public void Emote( Material emoteMaterial )
 	{
 		_particles.Clear();
-		_particles.GetComponent<Renderer>().material = emoteMaterial;
+		_particlesRenderer.material = emoteMaterial;
 		_particles.Emit( 1 );
 	}
 

@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent( typeof( Renderer ) )]
 public class ScrollUVs : MonoBehaviour 
 {
-	Vector2 currentOffset;
 	[SerializeField] Vector2 uvSpeed = Vector2.zero;
+	private Vector2 _currentOffset;
+	private Renderer _renderer;
 
 	void Awake () 
 	{
-		currentOffset = GetComponent<Renderer>().material.GetTextureOffset("_MainTex");
+		_renderer = GetComponent<Renderer>();
+		_currentOffset = _renderer.material.GetTextureOffset("_MainTex");
 	}
 
 	void Update () 
 	{
-		currentOffset += uvSpeed * Time.deltaTime;
-		GetComponent<Renderer>().material.SetTextureOffset("_MainTex", currentOffset);
+		_currentOffset += uvSpeed * Time.deltaTime;
+		_renderer.material.SetTextureOffset("_MainTex", _currentOffset);
 	}
 }

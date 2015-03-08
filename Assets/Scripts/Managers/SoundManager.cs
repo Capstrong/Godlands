@@ -10,33 +10,34 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
 	AudioSource defaultSource;
 
-    void Awake()
-    {
+	void Awake()
+	{
 		defaultSource = gameObject.AddComponent<AudioSource>();
 		defaultSource.playOnAwake = false;
 
 		SetupPool( gameObject );
-    }
+	}
 
 	void SetupPool( GameObject soundManagerObj )
 	{
 		// Create object to hold sounders
 		audioObjHolder = new GameObject( "AudioPool" );
 		audioObjHolder.transform.parent = soundManagerObj.transform;
-		
+
 		loopObjHolder = new GameObject( "AudioPool_Loops" );
 		loopObjHolder.transform.parent = soundManagerObj.transform;
 	}
-	
+
 	AudioSource CreateAudioObj()
 	{
 		GameObject audioSourceObj = new GameObject( "AudioPool_" + audioObjs.Count.ToString(), typeof( AudioSource ) );
 		audioSourceObj.transform.parent = audioObjHolder.transform;
-		
-		audioObjs.Add( audioSourceObj.GetComponent<AudioSource>() );
-		audioSourceObj.GetComponent<AudioSource>().playOnAwake = false;
-		
-		return audioSourceObj.GetComponent<AudioSource>();
+
+		AudioSource audioSource = audioSourceObj.GetComponent<AudioSource>();
+		audioObjs.Add( audioSource );
+		audioSource.playOnAwake = false;
+
+		return audioSource;
 	}
 
 	public static AudioSource Play3DSoundAtPosition( AudioSource sourceData, Vector3 position )
@@ -55,7 +56,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 	}
 
 	AudioSource IPlay3DSoundAtPosition( AudioSource sourceData, Vector3 position )
-    {
+	{
 		AudioSource source = GetSource();
 
 		source.transform.position = position;
@@ -63,10 +64,10 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		audioObjs.Add( source );
 
 		return source;
-    }
+	}
 
 	AudioSource IPlay3DSoundAndFollow( AudioSource sourceData, Transform target )
-    {
+	{
 		AudioSource source = GetSource();
 
 		source.transform.position = target.position;
@@ -75,17 +76,17 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		audioObjs.Add( source );
 
 		return source;
-    }
+	}
 
 	AudioSource IPlay2DSound( AudioSource sourceData )
-    {
+	{
 		AudioSource source = GetSource();
 
 		PlayAudioObj( sourceData, source );
 		audioObjs.Add( source );
 
 		return source;
-    }
+	}
 
 	AudioSource GetSource()
 	{
@@ -99,7 +100,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 			}
 		}
 
-		if(!returnSource)
+		if ( !returnSource )
 		{
 			returnSource = CreateAudioObj();
 		}
@@ -107,31 +108,31 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		return returnSource;
 	}
 
-	void PlayAudioObj( AudioSource sourceData, AudioSource source)
+	void PlayAudioObj( AudioSource sourceData, AudioSource source )
 	{
-		source.MakeCopyOf(sourceData);
+		source.MakeCopyOf( sourceData );
 		source.Play();
 
-        if ( !source.loop )
+		if ( !source.loop )
 		{
 			StartCoroutine( ReturnSourceToPool( source, audioObjHolder.transform ) );
 		}
-    }
-	
+	}
+
 	void ResetSource( AudioSource source )
 	{
 		source.GetCopyOf( defaultSource );
 	}
 
-    IEnumerator ReturnSourceToPool( AudioSource audioSource, Transform parent )
-    {
+	IEnumerator ReturnSourceToPool( AudioSource audioSource, Transform parent )
+	{
 		yield return new WaitForSeconds( audioSource.clip.length );
 
-		if( !audioSource.loop )
+		if ( !audioSource.loop )
 		{
 			ResetSource( audioSource );
 			audioSource.transform.position = parent.position;
 			audioSource.transform.parent = parent;
 		}
-    }
+	}
 }

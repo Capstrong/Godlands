@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: weeds_01_d
-  m_Shader: {fileID: 10511, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHATEST_ON
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: 2450
+  m_Name: Teleporter
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_LightmapFlags: 0
+  m_CustomRenderQueue: 3000
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: fc8450ad63cea4b5cb9f8af6ec39b556, type: 3}
+          m_Texture: {fileID: 2800000, guid: 0f039a43528856548a359c46d97fe345, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -53,7 +53,7 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 4d71c6322d4fe54428719b1c0a0d0038, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -81,7 +81,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .100000001
+        second: .5
       data:
         first:
           name: _SrcBlend
@@ -89,7 +89,7 @@ Material:
       data:
         first:
           name: _DstBlend
-        second: 0
+        second: 10
       data:
         first:
           name: _Parallax
@@ -97,11 +97,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 1
+        second: 0
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: .579999983
       data:
         first:
           name: _BumpScale
@@ -121,52 +121,25 @@ Material:
       data:
         first:
           name: _EmissionScaleUI
-        second: 0
+        second: .200000003
       data:
         first:
           name: _Mode
-        second: 1
+        second: 3
       data:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _Occlusion
-        second: 7.5
-      data:
-        first:
-          name: _BaseLight
-        second: .349999994
-      data:
-        first:
-          name: _AO
-        second: 2.4000001
-      data:
-        first:
-          name: _SquashAmount
-        second: 1
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: .200000003, g: .194482759, b: 0, a: .200000003}
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .737254918, g: 1, b: 0, a: .443137258}
       data:
         first:
           name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _TreeInstanceColor
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _TreeInstanceScale
-        second: {r: 1, g: 1, b: 1, a: 1}
---- !u!1002 &2100001
-EditorExtensionImpl:
-  serializedVersion: 6
+        second: {r: 1, g: .972413778, b: 0, a: 1}
