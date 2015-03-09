@@ -148,7 +148,7 @@ public class PlayerInventory : ActorComponent
 		                                     transform.position + transform.forward * _buddySpawnDistance,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.owner = GetComponent<GodTag>();
-		newBuddy.statType = buddyItemData.stat;
+		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
 
 		// this could be bad, should probably run it by Chris
 		newBuddy.bodyRenderer.material.color = buddyItemData.statColor;
@@ -157,9 +157,6 @@ public class PlayerInventory : ActorComponent
 
 		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
-
-		// manually add the buddy's values to our stat.
-		_playerActor.stats.InitializeStat( buddyItemData.stat );
 	}
 
 	void PickupItem( InventoryItemData itemData )

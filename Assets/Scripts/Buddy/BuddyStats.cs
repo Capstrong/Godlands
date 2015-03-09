@@ -3,7 +3,20 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	public Stat statType = Stat.Invalid;
+	private Stat _statType = Stat.Invalid;
+	public Stat statType
+	{
+		get
+		{
+			return _statType;
+		}
+		set
+		{
+			_statType = value;
+			RecalculateStat();
+		}
+	}
+
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
