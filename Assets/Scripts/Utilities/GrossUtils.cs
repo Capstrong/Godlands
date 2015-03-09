@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public static class GrossUtils
+public static class Utils
 {
 	// Tries to load the filepath as the given type
 	// Returns false and logs an error if the file could not be loaded. Returns true otherwise

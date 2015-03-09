@@ -151,6 +151,9 @@ public class PlayerInventory : ActorComponent
 		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
 
 		// this could be bad, should probably run it by Chris
+
+		// will need to write a shader with color mask for the buddies so we can change just the onesie color
+		// once that's in this will be changed to material.SetColor("_ColorPropertyName", buddyItemData.statColor) - Chris
 		newBuddy.bodyRenderer.material.color = buddyItemData.statColor;
 
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
