@@ -161,6 +161,13 @@ public class BuddyStats : MonoBehaviour
 		RestartEmoteRoutine();
 	}
 
+	public void NightlyEvent()
+	{
+		DecrementResources();
+		AffectHappinessWithHunger();
+		RecalculateStat();
+	}
+
 	public void DecrementResources()
 	{
 		_resources -= _nightlyResourceDrain;
