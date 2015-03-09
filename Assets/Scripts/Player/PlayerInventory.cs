@@ -74,7 +74,7 @@ public class PlayerInventory : ActorComponent
 
 		float scrollAmount = InputUtils.GetAxis("Scroll");
 
-		if ( scrollAmount < WadeUtils.SMALLNUMBER && scrollAmount > -WadeUtils.SMALLNUMBER )
+		if ( WadeUtils.IsZero( scrollAmount ) )
 		{
 			if ( _altScrollButton.positiveDown )
 			{
@@ -84,15 +84,14 @@ public class PlayerInventory : ActorComponent
 			{
 				scrollAmount = -1f;
 			}
-			else
-			{
-				return;
-			}
 		}
 
-		int nextIndex = resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
-		resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
-		SpawnResourceObject();
+		if ( !WadeUtils.IsZero( scrollAmount ) )
+		{
+			int nextIndex = resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
+			resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
+			SpawnResourceObject();
+		}
 	}
 
 	public bool CanUseItemWithoutTarget()
