@@ -31,8 +31,8 @@ public class BuddyStats : MonoBehaviour
 	}
 
 	[Tooltip( "Used for setting the color of the buddy when it is created." )]
-	[SerializeField] MeshRenderer _bodyRenderer = null;
-	public MeshRenderer bodyRenderer
+	[SerializeField] SkinnedMeshRenderer _bodyRenderer = null;
+	public SkinnedMeshRenderer bodyRenderer
 	{
 		get { return _bodyRenderer; }
 	}

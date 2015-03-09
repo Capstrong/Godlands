@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 936ace6091ce442709d3b34edcd03a55
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
     100002: PM3D_ZSphere_4
@@ -60,6 +60,13 @@ ModelImporter:
     100108: transform4
     100110: transform5
     100112: transform6
+    100114: Buddy
+    100116: Eye2
+    100118: Eye3
+    100120: L_Finger_0
+    100122: L_Finger_1
+    100124: R_Finger_0
+    100126: R_Finger_1
     400000: //RootNode
     400002: PM3D_ZSphere_4
     400004: PM3D_ZSphere_5
@@ -117,25 +124,41 @@ ModelImporter:
     400108: transform4
     400110: transform5
     400112: transform6
+    400114: Buddy
+    400116: Eye2
+    400118: Eye3
+    400120: L_Finger_0
+    400122: L_Finger_1
+    400124: R_Finger_0
+    400126: R_Finger_1
     2300000: PM3D_ZSphere_4
     2300002: PM3D_ZSphere_5
     2300004: polySurface12
     2300006: polySurface13
     2300008: polySurface14
     2300010: polySurface15
+    2300012: Eye2
+    2300014: Eye3
     3300000: PM3D_ZSphere_4
     3300002: PM3D_ZSphere_5
     3300004: polySurface12
     3300006: polySurface13
     3300008: polySurface14
     3300010: polySurface15
+    3300012: Eye2
+    3300014: Eye3
     4300000: PM3D_ZSphere_4
     4300002: PM3D_ZSphere_5
     4300004: polySurface12
     4300006: polySurface13
     4300008: polySurface14
     4300010: polySurface15
+    4300012: Buddy
+    4300014: Eye2
+    4300016: Eye3
+    7400000: Take 001
     9500000: //RootNode
+    13700000: Buddy
   materials:
     importMaterials: 1
     materialName: 0
@@ -163,11 +186,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
@@ -185,8 +210,10 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Root
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
