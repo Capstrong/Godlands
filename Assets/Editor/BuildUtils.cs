@@ -9,7 +9,8 @@ public class BuildUnityPlayer : MonoBehaviour
 	public static void PerformBuild()
 	{
 		// the scenes we want to include in the build
-		string[] scenes = {"Scenes/BlockOut.unity"};
+		string[] scenes = { "Scenes/BlockOut.unity",
+		                    "Scenes/ControlsScreen.unity"};
 
 		DateTime currentDate = DateTime.Now;
 		string buildName = "Godlands_" + currentDate.ToShortDateString();
