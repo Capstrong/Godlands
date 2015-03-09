@@ -58,11 +58,11 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] Material _sadMaterial     = null;
 	[SerializeField] Material _happyMaterial   = null;
 	[SerializeField] Material _neutralMaterial = null;
-	[Tooltip("Time in seconds between happiness emotes")]
 	[SerializeField] Material _hungryMaterial  = null;
 	[SerializeField] Material _fullMaterial    = null;
 	[SerializeField] Material _overFedMaterial = null;
 
+	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
@@ -113,7 +113,7 @@ public class BuddyStats : MonoBehaviour
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
 		_happiness = _startingHappiness;
-		AdjustHappiness(0); // To initial sound and stuff
+		AdjustHappiness( 0 ); // To initialize sound and stuff
 		RestartEmoteRoutine();
 	}
 
@@ -136,11 +136,7 @@ public class BuddyStats : MonoBehaviour
 	public void GiveResource( PlayerStats actorStats, ResourceData resourceData)
 	{
 		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
-
-		if ( resourceData == null )
-		{
-			return;
-		}
+		DebugUtils.Assert( resourceData, "Trying to give null resource" );
 
 		_resources++;
 
