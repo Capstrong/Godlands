@@ -67,6 +67,8 @@ ModelImporter:
     100122: L_Finger_1
     100124: R_Finger_0
     100126: R_Finger_1
+    100128: nurbsCircle27
+    100130: nurbsCircle28
     400000: //RootNode
     400002: PM3D_ZSphere_4
     400004: PM3D_ZSphere_5
@@ -131,6 +133,8 @@ ModelImporter:
     400122: L_Finger_1
     400124: R_Finger_0
     400126: R_Finger_1
+    400128: nurbsCircle27
+    400130: nurbsCircle28
     2300000: PM3D_ZSphere_4
     2300002: PM3D_ZSphere_5
     2300004: polySurface12
@@ -156,7 +160,7 @@ ModelImporter:
     4300012: Buddy
     4300014: Eye2
     4300016: Eye3
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
     13700000: Buddy
   materials:
@@ -174,7 +178,99 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Buddy
+        weight: 1
+      - path: nurbsCircle27
+        weight: 1
+      - path: nurbsCircle27/nurbsCircle28
+        weight: 1
+      - path: nurbsCircle27/Root
+        weight: 1
+      - path: nurbsCircle27/Root/L_Leg
+        weight: 1
+      - path: nurbsCircle27/Root/L_Leg/L_Knee
+        weight: 1
+      - path: nurbsCircle27/Root/L_Leg/L_Knee/L_Foot
+        weight: 1
+      - path: nurbsCircle27/Root/R_Leg
+        weight: 1
+      - path: nurbsCircle27/Root/R_Leg/R_Knee
+        weight: 1
+      - path: nurbsCircle27/Root/R_Leg/R_Knee/R_Foot
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Finger_0
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Finger_0/L_Finger_1
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Thumb_0
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head/Eye2
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head/Eye3
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Finger_0
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Finger_0/R_Finger_1
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Thumb_0
+        weight: 1
+      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
