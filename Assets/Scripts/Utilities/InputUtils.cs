@@ -63,3 +63,63 @@ public struct Button
 		_buttonDown = InputUtils.GetButton( _buttonName );
 	}
 }
+
+public struct AxisButtons
+{
+	enum ButtonState
+	{
+		Invalid,
+		Positive,
+		Negative,
+		Neutral,
+	}
+
+	readonly string _buttonName;
+
+	ButtonState _currentState;
+	ButtonState _lastState;
+
+	public AxisButtons( string buttonName )
+	{
+		_buttonName = buttonName;
+
+		_currentState = ButtonState.Neutral;
+		_lastState = ButtonState.Neutral;
+	}
+
+	public bool positiveDown
+	{
+		get
+		{
+			return ( _currentState == ButtonState.Positive ) &&  ( _lastState != ButtonState.Positive );
+		}
+	}
+
+	public bool negativeDown
+	{
+		get
+		{
+			return ( _currentState == ButtonState.Negative ) &&  ( _lastState != ButtonState.Negative );
+		}
+	}
+
+	public void Update()
+	{
+		_lastState = _currentState;
+
+		float axisInput = InputUtils.GetAxis( _buttonName );
+
+		if ( WadeUtils.IsPositive( axisInput ) )
+		{
+			_currentState = ButtonState.Positive;
+		}
+		else if ( WadeUtils.IsNegative( axisInput ) )
+		{
+			_currentState = ButtonState.Negative;
+		}
+		else
+		{
+			_currentState = ButtonState.Neutral;
+		}
+	}
+}

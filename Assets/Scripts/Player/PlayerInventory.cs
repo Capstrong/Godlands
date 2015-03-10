@@ -39,6 +39,8 @@ public class PlayerInventory : ActorComponent
 	}
 
 	[SerializeField] float _buddySpawnDistance = 3.0f;
+	
+	AxisButtons _altScrollButton = new AxisButtons("Alt_Scroll");
 
 	public override void Awake()
 	{
@@ -62,16 +64,35 @@ public class PlayerInventory : ActorComponent
 	// Update is called once per frame
 	void Update()
 	{
+		_altScrollButton.Update();
 		CheckScroll();
 	}
 
 	void CheckScroll()
 	{
-		float scrollAmount = Input.GetAxis( "Scroll" + PlatformUtils.platformName );
-		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResources.Count > 0 )
+		if ( heldResources.Count <= 1 )
 		{
-			// Need to do this so >0 rounds up and <0 rounds down
-			int nextIndex = resourceIndex + Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 );
+			// Nothing to scroll
+			return;
+		}
+
+		float scrollAmount = InputUtils.GetAxis("Scroll");
+
+		if ( WadeUtils.IsZero( scrollAmount ) )
+		{
+			if ( _altScrollButton.positiveDown )
+			{
+				scrollAmount = 1f;
+			}
+			else if ( _altScrollButton.negativeDown )
+			{
+				scrollAmount = -1f;
+			}
+		}
+
+		if ( !WadeUtils.IsZero( scrollAmount ) )
+		{
+			int nextIndex = resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
 			resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
 			SpawnResourceObject();
 		}
