@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Flowers_01_Diffuse
   m_Shader: {fileID: 4800000, guid: b926aa154c85b465ab23e7c13cdde0be, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -17,14 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 74e948bd3069bfc43b915157a68c4e96, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 2800000, guid: 9ebeec25cd53bff498a7ebb922058540, type: 3}
+          m_Texture: {fileID: 2800000, guid: 28ea3bbcf9ee43c42bae087e0908966e, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -32,6 +26,13 @@ Material:
           name: _NormalMap
         second:
           m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 2800000, guid: 9ebeec25cd53bff498a7ebb922058540, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -42,7 +43,7 @@ Material:
       data:
         first:
           name: _EmissiveStrength
-        second: .137500063
+        second: 0
     m_Colors:
       data:
         first:
