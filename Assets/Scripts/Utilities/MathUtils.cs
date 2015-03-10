@@ -79,5 +79,10 @@ public static class MathUtils
 		return difference.sqrMagnitude <= squaredRadius;
 	}
 
+	public static bool RandBool()
+	{
+		return ( Random.Range( 0, 2 ) == 0 ); 
+	}
+
 	#endregion
 }

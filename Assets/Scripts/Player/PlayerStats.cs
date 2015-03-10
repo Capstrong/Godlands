@@ -45,7 +45,6 @@ public class PlayerStats : ActorComponent
 		{
 			pair.Value.currentMax = pair.Value.startingMax;
 			pair.Value.currentValue = pair.Value.startingMax;
-			ScaleMaxImage( pair.Value );
 		}
 	}
 
