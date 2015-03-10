@@ -20,7 +20,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 	{
 		foreach ( BuddyStats buddyStat in instance._buddyStats )
 		{
-			buddyStat.DecrementResources();
+			buddyStat.NightlyEvent();
 		}
 
 		instance._buddyStats.RemoveAll( buddyStat => buddyStat.isAlive == false );

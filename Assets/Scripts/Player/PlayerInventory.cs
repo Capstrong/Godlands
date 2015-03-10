@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent( typeof( PlayerCamera ) )]
+[RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )]
 public class PlayerInventory : ActorComponent
 {
 	InventoryScrollBar inventoryBar;
@@ -18,7 +18,11 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _lookOverrideDuration = 0.5f;
 
 	// types and current count
-	Dictionary<InventoryItemData, int> inventory = new Dictionary<InventoryItemData, int>();
+	[System.Serializable]
+	public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
+
+	[ReadOnly("Inventory")]
+	[SerializeField] InventoryDictionary inventory = new InventoryDictionary();
 
 	// currently held types to show on UI bar
 	List<InventoryItemData> heldResources = new List<InventoryItemData>();
@@ -35,6 +39,8 @@ public class PlayerInventory : ActorComponent
 	}
 
 	[SerializeField] float _buddySpawnDistance = 3.0f;
+	
+	AxisButtons _altScrollButton = new AxisButtons("Alt_Scroll");
 
 	public override void Awake()
 	{
@@ -58,16 +64,35 @@ public class PlayerInventory : ActorComponent
 	// Update is called once per frame
 	void Update()
 	{
+		_altScrollButton.Update();
 		CheckScroll();
 	}
 
 	void CheckScroll()
 	{
-		float scrollAmount = Input.GetAxis( "Scroll" + PlatformUtils.platformName );
-		if ( ( scrollAmount > WadeUtils.SMALLNUMBER || scrollAmount < -WadeUtils.SMALLNUMBER ) & heldResources.Count > 0 )
+		if ( heldResources.Count <= 1 )
 		{
-			// Need to do this so >0 rounds up and <0 rounds down
-			int nextIndex = resourceIndex + Mathf.Clamp( Mathf.RoundToInt( scrollAmount ), -1, 1 );
+			// Nothing to scroll
+			return;
+		}
+
+		float scrollAmount = InputUtils.GetAxis("Scroll");
+
+		if ( WadeUtils.IsZero( scrollAmount ) )
+		{
+			if ( _altScrollButton.positiveDown )
+			{
+				scrollAmount = 1f;
+			}
+			else if ( _altScrollButton.negativeDown )
+			{
+				scrollAmount = -1f;
+			}
+		}
+
+		if ( !WadeUtils.IsZero( scrollAmount ) )
+		{
+			int nextIndex = resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
 			resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
 			SpawnResourceObject();
 		}
@@ -144,7 +169,7 @@ public class PlayerInventory : ActorComponent
 		                                     transform.position + transform.forward * _buddySpawnDistance,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.owner = GetComponent<GodTag>();
-		newBuddy.statType = buddyItemData.stat;
+		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
 
 		// this could be bad, should probably run it by Chris
 
@@ -156,9 +181,6 @@ public class PlayerInventory : ActorComponent
 
 		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
-
-		// manually add the buddy's values to our stat.
-		newBuddy.RecalculateStatValue();
 	}
 
 	void PickupItem( InventoryItemData itemData )
