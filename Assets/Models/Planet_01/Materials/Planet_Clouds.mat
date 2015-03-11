@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Planet_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: d1406aedb767e46c1b6714b174ae160e, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON
-  m_LightmapFlags: 5
-  m_CustomRenderQueue: 2450
+  m_Name: Planet_Clouds
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 0
+  m_CustomRenderQueue: 3000
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -81,7 +81,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .519999981
+        second: .529999971
       data:
         first:
           name: _SrcBlend
@@ -89,7 +89,7 @@ Material:
       data:
         first:
           name: _DstBlend
-        second: 0
+        second: 10
       data:
         first:
           name: _Parallax
@@ -97,11 +97,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 1
+        second: 0
       data:
         first:
           name: _Glossiness
-        second: .699999988
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -125,20 +125,16 @@ Material:
       data:
         first:
           name: _Mode
-        second: 1
+        second: 3
       data:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _RimPower
-        second: 4.33928537
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: -0, g: -0, b: -0, a: -0}
       data:
         first:
           name: _Color
@@ -147,7 +143,3 @@ Material:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _RimColor
-        second: {r: .154411793, g: .370182455, b: 1, a: 1}
