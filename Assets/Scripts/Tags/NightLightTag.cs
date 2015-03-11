@@ -25,8 +25,16 @@ public class NightLightTag : MonoBehaviour
 
 		// calculate time until the light
 		// needs to turn on again.
-		float timeToOn = DayCycleManager.dayCycleLength * _timeOn - DayCycleManager.currentTime;
-		Invoke( "EnableLight", timeToOn );
+		float timeOnSeconds = DayCycleManager.dayCycleLength * _timeOn;
+		if ( DayCycleManager.currentTime < timeOnSeconds )
+		{
+			float timeToOn = timeOnSeconds - DayCycleManager.currentTime;
+			Invoke( "EnableLight", timeToOn );
+		}
+		else
+		{
+			EnableLight();
+		}
 	}
 
 	void EnableLight()
