@@ -5,15 +5,15 @@ public class NightLightTag : MonoBehaviour
 {
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _timeOn = 0.6f;
-	[SerializeField] float _fadeTime = 1.0f;
+	[SerializeField] float _fadeInTime = 1.0f;
 
 	private Light _light;
-	private float _lightIntensity;
+	private float _maxLightIntensity;
 
 	void Awake()
 	{
 		_light = GetComponent<Light>();
-		_lightIntensity = _light.intensity;
+		_maxLightIntensity = _light.intensity;
 	}
 
 	void Start()
@@ -50,9 +50,9 @@ public class NightLightTag : MonoBehaviour
 
 	IEnumerator FadeLight()
 	{
-		while ( _light.intensity < _lightIntensity )
+		while ( _light.intensity < _maxLightIntensity )
 		{
-			_light.intensity += _lightIntensity * Time.deltaTime / _fadeTime;
+			_light.intensity += _maxLightIntensity * Time.deltaTime / _fadeInTime;
 			yield return null;
 		}
 	}
