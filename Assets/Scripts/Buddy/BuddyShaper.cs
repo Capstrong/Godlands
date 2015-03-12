@@ -20,9 +20,32 @@ public class BuddyShaper : MonoBehaviour
 	[SerializeField] MinMaxF colorOffsetRange = new MinMaxF( 0f, 0.15f );
 	[SerializeField] Color[] skinColors = null;
 
+	Vector3 initPos = Vector3.zero;
+	Vector3 initScale = Vector3.one;
+	Color initColor = Color.white;
+
+	[SerializeField] bool debugRandomizer = false;
+
 	void Awake()
 	{
 		skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
+
+		initPos = transform.position;
+		initScale = transform.localScale;
+		initColor = skinnedMeshRend.material.color;
+
+		if( debugRandomizer )
+		{
+			InvokeRepeating( "RandomizeBuddy", 0.3f, 0.3f );
+		}
+	}
+
+	void RandomizeBuddy()
+	{
+		for( int i = 0; i < 13; i++ )
+		{
+			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
+		}
 
 		AdjustBlendShapes();
 		AdjustSize();
@@ -38,7 +61,7 @@ public class BuddyShaper : MonoBehaviour
 			
 			if( i == legIndex )
 			{
-				transform.position += Vector3.up * setWeight * legHeightOffsetMod;
+				transform.position = initPos + Vector3.up * setWeight * legHeightOffsetMod;
 			}
 		}
 		
@@ -49,7 +72,7 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustSize()
 	{
-		Vector3 adjustedScale = transform.localScale;
+		Vector3 adjustedScale = initScale;
 		adjustedScale.y *= heightScaleRange.Random;
 
 		transform.localScale = adjustedScale;
@@ -62,7 +85,7 @@ public class BuddyShaper : MonoBehaviour
 		                              Mathf.Clamp01( colorOffsetRange.Random ),
 		                              0f );
 
-		skinnedMeshRend.material.color += colorOffset;
+		skinnedMeshRend.material.color = initColor + colorOffset;
 		skinnedMeshRend.material.SetColor( "_SkinColor", skinColors[Random.Range( 0, skinColors.Length )] );
 	}
 }
