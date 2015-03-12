@@ -8,7 +8,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static float dayCycleLength { get { return instance._dayCycleLength; } }
 
-	[ReadOnly( "Current Time" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
+	[Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
 	float _currentTime = 0f;
 
 	[Tooltip( "The length (in seconds) of a day" )]

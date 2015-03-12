@@ -36,11 +36,11 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130960}
-  m_Enabled: 1
-  serializedVersion: 3
+  m_Enabled: 0
+  serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: .765517235, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 3
   m_Range: 15
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -49,21 +49,18 @@ Light:
     m_Resolution: -1
     m_Strength: 1
     m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
+    m_NormalBias: .400000006
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 1
-  m_ShadowSamples: 1
+  m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
 --- !u!114 &11419032
 MonoBehaviour:
@@ -76,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958bf06bd8886ed488321311808967de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _timeOn: .600000024
+  _fadeTime: 10
 --- !u!114 &11456838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,4 +100,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 130960}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

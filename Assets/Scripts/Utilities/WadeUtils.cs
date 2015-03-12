@@ -563,6 +563,11 @@ public struct MinMaxF
 	{
 		v = Mathf.Clamp( v, min, max );
 	}
+
+	public float Random
+	{
+		get{ return UnityEngine.Random.Range( min, max ); }
+	}
 }
 
 [System.Serializable]
@@ -585,6 +590,11 @@ public struct MinMaxI
 	public void Clamp( ref int v )
 	{
 		v = Mathf.Clamp( v, min, max );
+	}
+
+	public int Random
+	{
+		get{ return UnityEngine.Random.Range( min, max ); }
 	}
 }
 
