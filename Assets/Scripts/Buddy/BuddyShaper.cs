@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyShaper : MonoBehaviour 
+public class BuddyShaper : MonoBehaviour
 {
 	// Blend Shapes
 	[SerializeField] int[] overlapBlendIndices = null;
@@ -20,9 +20,32 @@ public class BuddyShaper : MonoBehaviour
 	[SerializeField] MinMaxF colorOffsetRange = new MinMaxF( 0f, 0.15f );
 	[SerializeField] Color[] skinColors = null;
 
+	Vector3 initPos = Vector3.zero;
+	Vector3 initScale = Vector3.one;
+	Color initColor = Color.white;
+
+	[SerializeField] bool debugRandomizer = false;
+
 	void Awake()
 	{
 		skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
+
+		initPos = transform.position;
+		initScale = transform.localScale;
+		initColor = skinnedMeshRend.material.color;
+
+		if( debugRandomizer )
+		{
+			InvokeRepeating( "RandomizeBuddy", 0.3f, 0.3f );
+		}
+	}
+
+	void RandomizeBuddy()
+	{
+		for( int i = 0; i < 13; i++ )
+		{
+			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
+		}
 
 		AdjustBlendShapes();
 		AdjustSize();
@@ -31,29 +54,28 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustBlendShapes()
 	{
-		foreach ( int i in overlapBlendIndices )
+		foreach( int i in overlapBlendIndices )
 		{
 			float setWeight = Random.Range( 0f, 100f );
 			skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
 
-			if ( i == legIndex )
+			if( i == legIndex )
 			{
-				transform.position += Vector3.up * setWeight * legHeightOffsetMod;
+				transform.position = initPos + Vector3.up * setWeight * legHeightOffsetMod;
 			}
 		}
 
-		if ( exclusiveBlendIndices.Length > 0 )
-		{
-			int exclusiveBlendIndex = Random.Range( 0, exclusiveBlendIndices.Length );
-			skinnedMeshRend.SetBlendShapeWeight( exclusiveBlendIndices[exclusiveBlendIndex],
-			                                     Random.Range( exclusiveBlendRange.min, exclusiveBlendRange.max ) );
-		}
+		int exclusiveBlendIndex = Random.Range( 0, exclusiveBlendIndices.Length );
+		skinnedMeshRend.SetBlendShapeWeight( exclusiveBlendIndices[exclusiveBlendIndex],
+		                                    Random.Range( exclusiveBlendRange.min, exclusiveBlendRange.max ) );
 	}
 
 	void AdjustSize()
 	{
-		transform.localScale =
-		    transform.localScale.SetY( heightScaleRange.random );
+		Vector3 adjustedScale = initScale;
+		adjustedScale.y *= heightScaleRange.random;
+
+		transform.localScale = adjustedScale;
 	}
 
 	void AdjustColor()
@@ -63,7 +85,7 @@ public class BuddyShaper : MonoBehaviour
 		                               Mathf.Clamp01( colorOffsetRange.random ),
 		                               0f );
 
-		skinnedMeshRend.material.color += colorOffset;
+		skinnedMeshRend.material.color = initColor + colorOffset;
 		skinnedMeshRend.material.SetColor( "_SkinColor", skinColors[Random.Range( 0, skinColors.Length )] );
 	}
 }

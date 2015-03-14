@@ -165,7 +165,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     motionNodeName: 
     animationCompression: 1
     animationRotationError: .5
@@ -186,10 +186,10 @@ ModelImporter:
       loop: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -197,155 +197,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Scale
-        weight: 1
-      - path: Scale/Skeleton
-        weight: 1
-      - path: Scale/Skeleton/Hips
-        weight: 1
-      - path: Scale/Skeleton/Hips/LeftUpLeg
-        weight: 1
-      - path: Scale/Skeleton/Hips/LeftUpLeg/LeftLeg
-        weight: 1
-      - path: Scale/Skeleton/Hips/LeftUpLeg/LeftLeg/LeftFoot
-        weight: 1
-      - path: Scale/Skeleton/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
-        weight: 1
-      - path: Scale/Skeleton/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase/L_foot_toe01
-        weight: 1
-      - path: Scale/Skeleton/Hips/RightUpLeg
-        weight: 1
-      - path: Scale/Skeleton/Hips/RightUpLeg/RightLeg
-        weight: 1
-      - path: Scale/Skeleton/Hips/RightUpLeg/RightLeg/RightFoot
-        weight: 1
-      - path: Scale/Skeleton/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
-        weight: 1
-      - path: Scale/Skeleton/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase/R_foot_toe01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_index01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_index01/L_index02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_index01/L_index02/L_index03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_index01/L_index02/L_index03/L_index04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_middle01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_middle01/L_middle02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_middle01/L_middle02/L_middle03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_middle01/L_middle02/L_middle03/L_middle04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_pinky01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_pinky01/L_pinky02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_pinky01/L_pinky02/L_pinky03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_pinky01/L_pinky02/L_pinky03/L_pinky04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_ring01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_ring01/L_ring02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_ring01/L_ring02/L_ring03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_ring01/L_ring02/L_ring03/L_ring04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_thumb01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_thumb01/L_thumb02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/L_clavicle01/LeftArm/LeftForeArm/LeftHand/L_thumb01/L_thumb02/L_thumb03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/BunnyEyes
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/Head
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/L_ear01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/L_ear01/L_ear02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/L_ear01/L_ear02/L_ear03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/L_ear01/L_ear02/L_ear03/L_earEnd
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/R_ear01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/R_ear01/R_ear02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/R_ear01/R_ear02/R_ear03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/Neck/R_ear01/R_ear02/R_ear03/R_earEnd
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_index01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_index01/R_index02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_index01/R_index02/R_index03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_index01/R_index02/R_index03/R_index04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_middle01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_middle01/R_middle02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_middle01/R_middle02/R_middle03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_middle01/R_middle02/R_middle03/R_middle04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_pinky01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_pinky01/R_pinky02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_pinky01/R_pinky02/R_pinky03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_pinky01/R_pinky02/R_pinky03/R_pinky04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_ring01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_ring01/R_ring02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_ring01/R_ring02/R_ring03
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_ring01/R_ring02/R_ring03/R_ring04
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_thumb01
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_thumb01/R_thumb02
-        weight: 1
-      - path: Scale/Skeleton/Hips/Spine/Spine01/Spine02/R_clavicle01/RightArm/RightForeArm/RightHand/R_thumb01/R_thumb02/R_thumb03
-        weight: 1
+      transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1
@@ -383,8 +235,8 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: C_hip01
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8946ab9baea6190449958d9627aeed32,
+    rootMotionBoneName: Hips
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 73563f9b8dcdb47cb92fd18ffa77b2ce,
     type: 3}
   animationType: 2
   additionalBone: 0

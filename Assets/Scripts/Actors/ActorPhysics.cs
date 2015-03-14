@@ -327,6 +327,8 @@ public sealed class ActorPhysics : ActorComponent
 		_rigidbody.velocity = curVelocity;
 		_rigidbody.useGravity = true;
 
+		actor.animator.Play("Jump");
+
 		StartJumpCheckDelayTimer();
 	}
 
