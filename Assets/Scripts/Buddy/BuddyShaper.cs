@@ -53,14 +53,14 @@ public class BuddyShaper : MonoBehaviour
 	void AdjustSize()
 	{
 		transform.localScale =
-		    transform.localScale.SetY( heightScaleRange.Random );
+		    transform.localScale.SetY( heightScaleRange.random );
 	}
 
 	void AdjustColor()
 	{
-		Color colorOffset = new Color( -Mathf.Clamp01( colorOffsetRange.Random ),
-		                               Mathf.Clamp01( colorOffsetRange.Random ),
-		                               Mathf.Clamp01( colorOffsetRange.Random ),
+		Color colorOffset = new Color( -Mathf.Clamp01( colorOffsetRange.random ),
+		                               Mathf.Clamp01( colorOffsetRange.random ),
+		                               Mathf.Clamp01( colorOffsetRange.random ),
 		                               0f );
 
 		skinnedMeshRend.material.color += colorOffset;

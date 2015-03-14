@@ -2397,7 +2397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &351370174
 Transform:
   m_ObjectHideFlags: 0
@@ -3481,6 +3481,26 @@ Prefab:
     - target: {fileID: 445154, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: _alphaRange.max
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: _alphaRange.min
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: _rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: _lightIntensityRange.min
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: _lightIntensityRange.max
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
@@ -5784,7 +5804,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _dayCycleLength
-      value: 100
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _disableMidnight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
@@ -12121,7 +12145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2121103966
 Transform:
   m_ObjectHideFlags: 0

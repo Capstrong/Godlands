@@ -8,16 +8,17 @@
 		_RimPower ("Rim Power", Range(0.5,10.0)) = 3.0
 		_LightDir ("Light Direction", Vector) = (1.0, 0.0, 0.0, 1.0)
 		_LightIntensity ("Light Intensity", Float) = 4.0
+		_AlphaIntensity ("Alpha Intesity", Float) = 0.5
 	}
 
 	SubShader
 	{
 		Lighting Off
-		Tags { "RenderType" = "Opaque" }
+		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		Fog { Mode Off }
 
 		CGPROGRAM
-		#pragma surface surf Lambert
+		#pragma surface surf Lambert alpha
 
 		sampler2D _MainTex;
 		sampler2D _CloudTex;
@@ -25,6 +26,7 @@
 		float _RimPower;
 		float4 _LightDir;
 		float _LightIntensity;
+		float _AlphaIntensity;
 
 		struct Input
 		{
@@ -38,13 +40,33 @@
 			o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb;
 			o.Albedo += tex2D (_CloudTex, IN.uv_CloudTex).rgb;
 
+			float3 L = normalize (-_LightDir.xyz);
+
+			// TODO: Add a slight amount of ambient lighting to make
+			// the planet more interesting at night.
+
 			// Calculate diffuse light
-			half NdotL = dot (o.Normal, normalize (-_LightDir.xyz));
-			o.Albedo *= max (NdotL, 1e-6) * _LightIntensity;
+			half NdotL = dot (o.Normal, L);
+			o.Albedo *= saturate (max (NdotL, 1e-6) * _LightIntensity);
+
+			// TODO: When the planet is completely dark (light vector is opposite view vector)
+			// add a slight rim glow to dark side of moon.
+
+			// TODO: Instead of making the dark side transparent, make
+			// the color match the background, that way it blends in,
+			// but still blocks out the sky box.
 
 			// Calculate rim glow
 			half rim = 1.0 - saturate (dot (normalize (IN.viewDir), o.Normal));
 			o.Emission = _RimColor.rgb * pow (rim, _RimPower) * o.Albedo;
+
+			// Make dark spots fade away
+			// effectively do the rim glow effect,
+			// but from the light's perspective.
+			// It's similar to using the diffuse calculation,
+			// but we get more control over how the alpha fades.
+			half alpha_rim = 1.0 - saturate (NdotL);
+			o.Alpha = 1.0 - (_AlphaIntensity * pow (alpha_rim, _RimPower));
 		}
 		ENDCG
 	}

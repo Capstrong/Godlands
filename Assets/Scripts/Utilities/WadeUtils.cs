@@ -554,17 +554,17 @@ public struct MinMaxF
 	public float min;
 	public float max;
 
-	public float Range
-	{
-		get { return max - min; }
-	}
-
 	public void Clamp( ref float v )
 	{
 		v = Mathf.Clamp( v, min, max );
 	}
 
-	public float Random
+	public float range
+	{
+		get { return max - min; }
+	}
+
+	public float random
 	{
 		get{ return UnityEngine.Random.Range( min, max ); }
 	}
