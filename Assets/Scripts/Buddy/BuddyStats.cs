@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyStats : MonoBehaviour
+public class BuddyStats : ActorComponent
 {
 	private Stat _statType = Stat.Invalid;
 	public Stat statType
@@ -98,17 +98,19 @@ public class BuddyStats : MonoBehaviour
 	[Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
-	ParticleSystem _particles;
+	[SerializeField] ParticleSystem _particles;
 	Renderer _particlesRenderer;
+	[SerializeField] ParticleSystem _deadParticleSystem;
 
 	uint ID = 0;
 
 	void Awake()
 	{
+		base.Awake();
+
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
-		_particles = GetComponentInChildren<ParticleSystem>();
 		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
@@ -200,6 +202,11 @@ public class BuddyStats : MonoBehaviour
 	public void AdjustHappiness( float deltaHappiness )
 	{
 		_happiness += deltaHappiness;
+
+		if ( _happiness < 0 )
+		{
+			_happiness = 0;
+		}
 
 		if ( _happiness < _minNeutralHappiness
 			 && _currentHappinessState != HappinessState.Sad )
@@ -298,6 +305,12 @@ public class BuddyStats : MonoBehaviour
 		_particles.Emit( 1 );
 	}
 
+	public void EmoteDeath()
+	{
+		_deadParticleSystem.Clear();
+		_deadParticleSystem.Emit( 1 );
+	}
+
 	/**
 	 * @brief Kill the buddy.
 	 * 
@@ -311,6 +324,12 @@ public class BuddyStats : MonoBehaviour
 	{
 		_isAlive = false;
 		Destroy( GetComponent<AIController>() );
+		_happiness = 0;
+		RecalculateStat();
+		EmoteDeath();
+		actor.physics.ComeToStop();
+
+		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 }

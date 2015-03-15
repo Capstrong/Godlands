@@ -48,6 +48,12 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		}
 	}
 
+	void OnValidate()
+	{
+		CancelInvoke( "StartMidnightOverlay" );
+		Invoke( "StartMidnightOverlay", ( _dayCycleLength - _blackoutDuration ) - _currentTime );
+	}
+
 	void Update ()
 	{
 		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
