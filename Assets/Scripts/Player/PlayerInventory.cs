@@ -246,11 +246,10 @@ public class PlayerInventory : ActorComponent
 		InventoryItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryItem>();
 		if ( inventoryItem && !inventoryItem.used )
 		{
-			inventoryItem.used = true;
+			inventoryItem.Use();
 
 			PickupItem( inventoryItem.resourceData );
 
-			Destroy( other.gameObject );
 			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
 		}
 	}
