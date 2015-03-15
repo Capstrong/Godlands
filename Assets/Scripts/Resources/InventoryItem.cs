@@ -4,16 +4,16 @@ using System.Collections;
 public class InventoryItem : MonoBehaviour
 {
 	public InventoryItemData resourceData;
-	public int amount = 1;
-	[Tooltip( "In seconds" )]
-	[SerializeField] float _respawnTime = 600f;
-	[Tooltip( "Whether this item will repawn after some time" )]
-	[SerializeField] bool _canRespawn = true;
-
+	[HideInInspector] public GameObject beaconObj = null;
 	public bool used = false;
 
+	[Header( "Respawning" )]
+	[Tooltip( "Whether this item will repawn after some time" )]
+	[SerializeField] bool _canRespawn = true;
+	[Tooltip( "In seconds" )]
+	[SerializeField] float _respawnTime = 600f;
+
 	Renderer _renderer = null;
-	public GameObject beaconObj = null;
 	Renderer _beaconRenderer = null;
 
 	void Start()
