@@ -19,6 +19,13 @@ public class InventoryItem : MonoBehaviour
 	void Start()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
+
+		if ( resourceData as BuddyItemData )
+		{
+			// All buddies are unique and should have unique data
+			resourceData = Instantiate<InventoryItemData>(resourceData);
+		}
+
 		if ( beaconObj )
 		{
 			_beaconRenderer = beaconObj.GetComponent<Renderer>();
