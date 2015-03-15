@@ -11,6 +11,6 @@ public class ResourceHolder : MonoBehaviour
 	{
 		resource = WadeUtils.Instantiate( resource, Vector3.up * resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( transform, false );
-		resource.GetComponent<InventoryItem>().beaconObj = gameObject;
+		resource.GetComponent<InventoryItem>().beaconObj = GetComponentInChildren<BeaconTag>().gameObject;
 	}
 }

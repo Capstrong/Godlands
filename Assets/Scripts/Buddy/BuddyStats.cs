@@ -104,7 +104,7 @@ public class BuddyStats : ActorComponent
 
 	uint ID = 0;
 
-	void Awake()
+	public override void Awake()
 	{
 		base.Awake();
 
