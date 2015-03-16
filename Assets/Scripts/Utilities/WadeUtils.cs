@@ -566,7 +566,12 @@ public struct MinMaxF
 
 	public float Random
 	{
-		get{ return UnityEngine.Random.Range( min, max ); }
+		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public bool IsOutside( float v )
+	{
+		return ( v < min || max < v );
 	}
 }
 
@@ -594,7 +599,12 @@ public struct MinMaxI
 
 	public int Random
 	{
-		get{ return UnityEngine.Random.Range( min, max ); }
+		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public bool IsOutside( int v )
+	{
+		return ( v < min || max < v );
 	}
 }
 

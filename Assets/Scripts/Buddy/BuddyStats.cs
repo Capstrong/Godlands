@@ -3,45 +3,22 @@ using System.Collections;
 
 public class BuddyStats : ActorComponent
 {
-	private Stat _statType = Stat.Invalid;
-	public Stat statType
-	{
-		get
-		{
-			return _statType;
-		}
-		set
-		{
-			_statType = value;
-			RecalculateStat();
-		}
-	}
-
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
-	[SerializeField] int _minIdealResources = 0;
-	[SerializeField] int _maxIdealResources = 0;
+	[SerializeField] MinMaxI _idealResourcesRange = new MinMaxI();
 	[SerializeField] int _nightlyResourceDrain = 0;
-	[SerializeField] float _nightlyHappinessIncrement = 0f;
+	[SerializeField] float _nightlyHappinessDecrement = 0f;
+	[Tooltip( "Amount of that happiness immediately increased by when given a resource" )]
+	[SerializeField] float _happinessIncrementPerResource = 0f;
 
-	[Tooltip("Threshold of happiness between sad and neutral")]
-	[SerializeField] float _minNeutralHappiness = 0f;
-	[Tooltip("Threshold of happiness between neutral and sad")]
-	[SerializeField] float _minHappyHappiness = 0f;
+	[Tooltip( "Below the min is sad, within the bounds is neutral and above the max is happy." )]
+	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly("Happiness")]
 	[SerializeField] float _happiness = 0f;
 	[SerializeField] float _statPerHappiness = 0f;
-
-	enum HappinessState
-	{
-		Invalid,
-		Sad,
-		Neutral,
-		Happy,
-	}
 
 	PlayerStats _ownerStats = null;
 
@@ -66,17 +43,21 @@ public class BuddyStats : ActorComponent
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
-	[Header( "Debug Settings" )]
-	[SerializeField] bool _disableStatDecrease = false;
+	[SerializeField] ParticleSystem _particles = null;
+	[SerializeField] ParticleSystem _deadParticleSystem = null;
+	Renderer _particlesRenderer = null;
 
-	[SerializeField] ParticleSystem _particles;
-	Renderer _particlesRenderer;
-	[SerializeField] ParticleSystem _deadParticleSystem;
-
-	[ReadOnly( "Item Data" )]
-	public BuddyItemData itemData = null;
+	BuddyItemData _itemData = null;
 
 	uint ID = 0;
+
+	enum HappinessState
+	{
+		Invalid,
+		Sad,
+		Neutral,
+		Happy,
+	}
 
 	GodTag _owner = null;
 	public GodTag owner
@@ -107,6 +88,9 @@ public class BuddyStats : ActorComponent
 		get { return _isAlive; }
 	}
 
+	[Header( "Debug Settings" )]
+	[SerializeField] bool _disableStatDecrease = false;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -118,8 +102,19 @@ public class BuddyStats : ActorComponent
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
 		_happiness = _startingHappiness;
-		AdjustHappiness( 0 ); // To initialize sound and stuff
 		RestartEmoteRoutine();
+	}
+
+	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
+	{
+		_itemData = buddyItemData;
+		owner = godTag;
+
+		// will need to write a shader with color mask for the buddies so we can change just the onesie color
+		// once that's in this will be changed to material.SetColor("_ColorPropertyName", buddyItemData.statColor) - Chris
+		bodyRenderer.material.color = buddyItemData.statColor;
+
+		AdjustHappiness( 0 ); // To initialize sound and stats and stuff
 	}
 
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
@@ -145,17 +140,22 @@ public class BuddyStats : ActorComponent
 
 		_resources++;
 
-		if ( _resources < _minIdealResources )
+		if ( _resources < _idealResourcesRange.min )
 		{
+			// Hungry
 			Emote( _hungryMaterial );
 			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			AdjustHappiness( _happinessIncrementPerResource );
 		}
-		else if ( _resources > _maxIdealResources )
+		else if ( _resources > _idealResourcesRange.max )
 		{
+			// Overfed
 			Emote( _overFedMaterial );
 		}
 		else
 		{
+			// Full
+			AdjustHappiness( _happinessIncrementPerResource );
 			Emote( _fullMaterial );
 		}
 
@@ -166,7 +166,6 @@ public class BuddyStats : ActorComponent
 	{
 		DecrementResources();
 		AffectHappinessWithHunger();
-		RecalculateStat();
 	}
 
 	public void DecrementResources()
@@ -183,13 +182,9 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			if ( _resources < _minIdealResources || _resources > _maxIdealResources )
+			if ( _idealResourcesRange.IsOutside( _resources ) )
 			{
-				AdjustHappiness( -_nightlyHappinessIncrement );
-			}
-			else
-			{
-				AdjustHappiness( _nightlyHappinessIncrement );
+				AdjustHappiness( -_nightlyHappinessDecrement );
 			}
 		}
 	}
@@ -198,7 +193,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( statType, _happiness * _statPerHappiness );
+			_ownerStats.SetMaxStat( _itemData.stat, _happiness * _statPerHappiness );
 		}
 	}
 
@@ -211,7 +206,14 @@ public class BuddyStats : ActorComponent
 			_happiness = 0;
 		}
 
-		if ( _happiness < _minNeutralHappiness
+		RecalculateStat();
+
+		if ( _happiness < 0 )
+		{
+			_happiness = 0;
+		}
+
+		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
 		{
 			// Sad
@@ -222,7 +224,7 @@ public class BuddyStats : ActorComponent
 			}
 			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _sadSound, transform );
 		}
-		else if ( _happiness > _minHappyHappiness
+		else if ( _happiness > _neutralHappinessRange.max
 				  && _currentHappinessState != HappinessState.Happy )
 		{
 			// Happy
@@ -266,11 +268,11 @@ public class BuddyStats : ActorComponent
 
 			if ( didHappinessEmoteLast )
 			{
-				if ( _resources < _minIdealResources )
+				if ( _resources < _idealResourcesRange.min )
 				{
 					Emote( _hungryMaterial );
 				}
-				else if ( _resources > _maxIdealResources )
+				else if ( _resources > _idealResourcesRange.max )
 				{
 					Emote( _overFedMaterial );
 				}
@@ -283,11 +285,11 @@ public class BuddyStats : ActorComponent
 			}
 			else
 			{
-				if ( _happiness < _minNeutralHappiness )
+				if ( _happiness < _neutralHappinessRange.min )
 				{
 					Emote( _sadMaterial );
 				}
-				else if ( _happiness > _minHappyHappiness )
+				else if ( _happiness > _neutralHappinessRange.max )
 				{
 					Emote( _happyMaterial );
 				}
@@ -336,7 +338,7 @@ public class BuddyStats : ActorComponent
 		Rigidbody rigidbody = GetComponent<Rigidbody>();
 		rigidbody.isKinematic = true;
 
-		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		_itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 
 		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
