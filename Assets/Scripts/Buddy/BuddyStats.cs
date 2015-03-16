@@ -111,8 +111,6 @@ public class BuddyStats : ActorComponent
 		itemData = buddyItemData;
 		owner = godTag;
 
-		// will need to write a shader with color mask for the buddies so we can change just the onesie color
-		// once that's in this will be changed to material.SetColor("_ColorPropertyName", buddyItemData.statColor) - Chris
 		bodyRenderer.material.color = buddyItemData.statColor;
 
 		AdjustHappiness( 0 ); // To initialize sound and stats and stuff

@@ -543,48 +543,54 @@ public static class WadeUtils
 }
 
 [System.Serializable]
-public class MinMax<T> where T : IComparable
+public struct MinMaxF
 {
-	public T min;
-	public T max;
+	public float min;
+	public float max;
 
-	public MinMax(T _min, T _max)
+	public MinMaxF(float _min, float _max)
 	{
 		min = _min;
 		max = _max;
 	}
-
-	public float range
-	{
-		get { return max.CompareTo( min ); }
-	}
-
-	public bool IsOutside( T v )
-	{
-		return ( v.CompareTo( min ) < 0 || v.CompareTo( max ) > 0 );
-	}
-}
-
-[System.Serializable]
-public class MinMaxF : MinMax<float>
-{
-	public MinMaxF( float _min = 0, float _max = 0 ) : base( _min, _max ) { }
 
 	public void Clamp( ref float v )
 	{
 		v = Mathf.Clamp( v, min, max );
 	}
 
+	public float range
+	{
+		get { return max - min; }
+	}
+
 	public float random
 	{
 		get { return UnityEngine.Random.Range( min, max ); }
 	}
+
+	public bool IsOutside( float v )
+	{
+		return ( v < min || max < v );
+	}
 }
 
 [System.Serializable]
-public class MinMaxI : MinMax<int>
+public struct MinMaxI
 {
-	public MinMaxI( int _min = 0, int _max = 0 ) : base( _min, _max ) { }
+	public int min;
+	public int max;
+
+	public MinMaxI(int _min, int _max)
+	{
+		min = _min;
+		max = _max;
+	}
+
+	public int Range
+	{
+		get { return max - min; }
+	}
 
 	public void Clamp( ref int v )
 	{
@@ -594,6 +600,11 @@ public class MinMaxI : MinMax<int>
 	public int Random
 	{
 		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public bool IsOutside( int v )
+	{
+		return ( v < min || max < v );
 	}
 }
 
