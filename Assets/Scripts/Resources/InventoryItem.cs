@@ -7,28 +7,12 @@ public class InventoryItem : MonoBehaviour
 	[HideInInspector] public GameObject beaconObj = null;
 	public bool used = false;
 
-	[Header( "Respawning" )]
-	[Tooltip( "Whether this item will repawn after some time" )]
-	[SerializeField] bool _canRespawn = true;
-	[Tooltip( "In seconds" )]
-	[SerializeField] float _respawnTime = 600f;
+	protected Renderer _renderer = null;
+	protected Renderer _beaconRenderer = null;
 
-	Renderer _renderer = null;
-	Renderer _beaconRenderer = null;
-
-	void Start()
+	public virtual void Start()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
-
-		BuddyItemData buddyItemData =  resourceData as BuddyItemData;
-
-		if ( buddyItemData )
-		{
-			// All buddies are unique and should have unique data
-			// This code looks pretty jank but it pretty much has to be this way
-			resourceData = Instantiate<BuddyItemData>( buddyItemData );
-			( (BuddyItemData) resourceData ).respawnItem = this;
-		}
 
 		if ( beaconObj )
 		{
@@ -36,15 +20,10 @@ public class InventoryItem : MonoBehaviour
 		}
 	}
 
-	public void Use()
+	public virtual void Use()
 	{
 		used = true;
 		_renderer.enabled = false;
-
-		if ( _canRespawn )
-		{
-			Invoke( "Enable", _respawnTime );
-		}
 
 		if ( _beaconRenderer )
 		{

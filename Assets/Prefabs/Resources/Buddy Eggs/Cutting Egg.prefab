@@ -25,8 +25,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 459318}
-  - 114: {fileID: 11455876}
   - 135: {fileID: 13578396}
+  - 114: {fileID: 11457978}
   m_Layer: 0
   m_Name: Cutting Egg
   m_TagString: Untagged
@@ -90,7 +90,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 106190}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11455876
+--- !u!114 &11457978
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -98,15 +98,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 159318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15b9d1a5f96285f46acdaba5e37e32b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5498577bbcb057c4e8a681ecc6750fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   resourceData: {fileID: 11400000, guid: 7eb8bc3a04021f847a17f42c0ff99d4c, type: 2}
-  amount: 1
-  _respawnTime: 600
-  _canRespawn: 0
-  used: 0
   beaconObj: {fileID: 0}
+  used: 0
+  _respawnTime: 600
 --- !u!135 &13578396
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -43,12 +43,10 @@ public class BehaviorPhysicsController : MonoBehaviour
 	public class Dead : PhysicsState
 	{
 		Actor actor;
-		BehaviorPhysicsController controller;
 
 		public Dead( Actor actor )
 		{
 			this.actor = actor;
-			controller = actor.GetComponent<BehaviorPhysicsController>();
 		}
 
 		public override void Enter() { }
