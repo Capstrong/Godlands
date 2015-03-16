@@ -6,7 +6,7 @@ public class ResourceSpawner : MonoBehaviour
 	public ResourceHolder resourceHolderPrefab;
 	public Collider resourcePrefab;
 
-	float groundCheckDist = 3f;
+	float groundCheckDist = 7f;
 
 	public int total;
 	public float radius;
