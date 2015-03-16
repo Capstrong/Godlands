@@ -200,6 +200,12 @@ public class BuddyStats : ActorComponent
 	public void AdjustHappiness( float deltaHappiness )
 	{
 		_happiness += deltaHappiness;
+
+		if ( _happiness < 0 )
+		{
+			_happiness = 0;
+		}
+
 		RecalculateStat();
 
 		if ( _happiness < 0 )
