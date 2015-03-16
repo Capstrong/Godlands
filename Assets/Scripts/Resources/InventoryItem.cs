@@ -4,20 +4,19 @@ using System.Collections;
 public class InventoryItem : MonoBehaviour
 {
 	public InventoryItemData resourceData;
-	[HideInInspector] public GameObject beaconObj = null;
 	public bool used = false;
 
-	protected Renderer _renderer = null;
-	protected Renderer _beaconRenderer = null;
+	Renderer _renderer = null;
+	ResourceHolder _resourceHolder = null;
 
 	public virtual void Start()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
+	}
 
-		if ( beaconObj )
-		{
-			_beaconRenderer = beaconObj.GetComponent<Renderer>();
-		}
+	public void Initialize( ResourceHolder resourceHolder )
+	{
+		_resourceHolder = resourceHolder;
 	}
 
 	public virtual void Use()
@@ -25,9 +24,9 @@ public class InventoryItem : MonoBehaviour
 		used = true;
 		_renderer.enabled = false;
 
-		if ( _beaconRenderer )
+		if ( _resourceHolder )
 		{
-			_beaconRenderer.enabled = false;
+			_resourceHolder.Disable();
 		}
 	}
 
@@ -35,9 +34,10 @@ public class InventoryItem : MonoBehaviour
 	{
 		used = false;
 		_renderer.enabled = true;
-		if ( _beaconRenderer )
+
+		if ( _resourceHolder )
 		{
-			_beaconRenderer.enabled = true;
+			_resourceHolder.Enable();
 		}
 	}
 }
