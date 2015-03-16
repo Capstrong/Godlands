@@ -66,9 +66,6 @@ public class BuddyStats : ActorComponent
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
-	[Header( "Debug Settings" )]
-	[SerializeField] bool _disableStatDecrease = false;
-
 	[SerializeField] ParticleSystem _particles;
 	Renderer _particlesRenderer;
 	[SerializeField] ParticleSystem _deadParticleSystem;
@@ -106,6 +103,9 @@ public class BuddyStats : ActorComponent
 	{
 		get { return _isAlive; }
 	}
+
+	[Space( 10 ), Header( "Debug Settings" )]
+	[SerializeField] bool _disableStatDecrease = false;
 
 	public override void Awake()
 	{
