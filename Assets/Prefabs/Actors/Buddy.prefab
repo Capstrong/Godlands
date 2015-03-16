@@ -1288,12 +1288,15 @@ MonoBehaviour:
   actor: {fileID: 0}
   _startingResourceCount: 14
   _resources: 0
-  _minIdealResources: 17
-  _maxIdealResources: 22
+  _idealResourcesRange:
+    min: 17
+    max: 22
   _nightlyResourceDrain: 10
-  _nightlyHappinessIncrement: 2
-  _minNeutralHappiness: 12
-  _minHappyHappiness: 20
+  _nightlyHappinessDecrement: 2
+  _happinessIncrementPerResource: .150000006
+  _neutralHappinessRange:
+    min: 12
+    max: 20
   _startingHappiness: 10
   _happiness: 0
   _statPerHappiness: .0209999997
@@ -1310,12 +1313,11 @@ MonoBehaviour:
   _fullMaterial: {fileID: 2100000, guid: 04312fe54ad16f14eaf5ad0e843eabf9, type: 2}
   _overFedMaterial: {fileID: 2100000, guid: 06c5c447738fe9e48bc0f6f96a2d3fba, type: 2}
   _emoteRoutineWait: 10
-  _disableStatDecrease: 0
   _particles: {fileID: 19806976}
   _deadParticleSystem: {fileID: 19801526}
-  itemData: {fileID: 0}
   _bodyRenderer: {fileID: 13765756}
   _isAlive: 1
+  _disableStatDecrease: 0
 --- !u!114 &11457846
 MonoBehaviour:
   m_ObjectHideFlags: 1
