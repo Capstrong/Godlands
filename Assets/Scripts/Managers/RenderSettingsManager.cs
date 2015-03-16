@@ -60,13 +60,20 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	[ReadOnly]
 	[SerializeField] TimeRenderSettings _currentTimeRenderSettings = new TimeRenderSettings();
+	public static TimeRenderSettings currentTimeRenderSettings
+	{
+		get
+		{
+			return instance._currentTimeRenderSettings;
+		}
+	}
 
 	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
 	[SerializeField] float _daylightIntensity = 1.0f;
-	public float daylightIntensity
+	public static float daylightIntensity
 	{
-		get { return _daylightIntensity; }
-		private set { _daylightIntensity = value; }
+		get { return instance._daylightIntensity; }
+		private set { instance._daylightIntensity = value; }
 	}
 
 	void Awake()

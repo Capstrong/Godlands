@@ -170,6 +170,7 @@ public class PlayerInventory : ActorComponent
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.owner = GetComponent<GodTag>();
 		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
+		newBuddy.itemData = buddyItemData;
 
 		// this could be bad, should probably run it by Chris
 
@@ -246,11 +247,10 @@ public class PlayerInventory : ActorComponent
 		InventoryItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryItem>();
 		if ( inventoryItem && !inventoryItem.used )
 		{
-			inventoryItem.used = true;
+			inventoryItem.Use();
 
 			PickupItem( inventoryItem.resourceData );
 
-			Destroy( other.gameObject );
 			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
 		}
 	}
