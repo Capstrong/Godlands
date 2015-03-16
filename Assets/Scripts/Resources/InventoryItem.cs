@@ -20,10 +20,14 @@ public class InventoryItem : MonoBehaviour
 	{
 		_renderer = GetComponentInChildren<Renderer>();
 
-		if ( resourceData as BuddyItemData )
+		BuddyItemData buddyItemData =  resourceData as BuddyItemData;
+
+		if ( buddyItemData )
 		{
 			// All buddies are unique and should have unique data
-			resourceData = Instantiate<InventoryItemData>(resourceData);
+			// This code looks pretty jank but it pretty much has to be this way
+			resourceData = Instantiate<BuddyItemData>( buddyItemData );
+			( (BuddyItemData) resourceData ).respawnItem = this;
 		}
 
 		if ( beaconObj )

@@ -66,6 +66,18 @@ public class BuddyStats : ActorComponent
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
+	[Header( "Debug Settings" )]
+	[SerializeField] bool _disableStatDecrease = false;
+
+	[SerializeField] ParticleSystem _particles;
+	Renderer _particlesRenderer;
+	[SerializeField] ParticleSystem _deadParticleSystem;
+
+	[ReadOnly( "Item Data" )]
+	public BuddyItemData itemData = null;
+
+	uint ID = 0;
+
 	GodTag _owner = null;
 	public GodTag owner
 	{
@@ -94,15 +106,6 @@ public class BuddyStats : ActorComponent
 	{
 		get { return _isAlive; }
 	}
-
-	[Header( "Debug Settings" )]
-	[SerializeField] bool _disableStatDecrease = false;
-
-	[SerializeField] ParticleSystem _particles;
-	Renderer _particlesRenderer;
-	[SerializeField] ParticleSystem _deadParticleSystem;
-
-	uint ID = 0;
 
 	public override void Awake()
 	{
@@ -327,7 +330,13 @@ public class BuddyStats : ActorComponent
 		_happiness = 0;
 		RecalculateStat();
 		EmoteDeath();
-		actor.physics.ComeToStop();
+		actor.physics.ComeToStop(); // This doesn't quite work and I don't know why
+
+		// So this is my sloppy fix
+		Rigidbody rigidbody = GetComponent<Rigidbody>();
+		rigidbody.isKinematic = true;
+
+		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 
 		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
