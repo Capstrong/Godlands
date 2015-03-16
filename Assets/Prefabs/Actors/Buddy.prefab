@@ -1260,7 +1260,8 @@ MonoBehaviour:
   _minIdealResources: 17
   _maxIdealResources: 22
   _nightlyResourceDrain: 10
-  _nightlyHappinessIncrement: 2
+  _nightlyHappinessDecrement: 2
+  _happinessPerResource: .150000006
   _minNeutralHappiness: 12
   _minHappyHappiness: 20
   _startingHappiness: 10
@@ -1322,6 +1323,7 @@ MonoBehaviour:
   - {r: .676470578, g: .313536555, b: .218858138, a: 1}
   - {r: .95588237, g: .726315498, b: .435769916, a: 1}
   - {r: 1, g: .826470613, b: .786764741, a: 1}
+  debugRandomizer: 0
 --- !u!114 &11474254
 MonoBehaviour:
   m_ObjectHideFlags: 1

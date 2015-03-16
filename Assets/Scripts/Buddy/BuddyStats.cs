@@ -3,45 +3,22 @@ using System.Collections;
 
 public class BuddyStats : MonoBehaviour
 {
-	private Stat _statType = Stat.Invalid;
-	public Stat statType
-	{
-		get
-		{
-			return _statType;
-		}
-		set
-		{
-			_statType = value;
-			RecalculateStat();
-		}
-	}
-
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
-	[SerializeField] int _minIdealResources = 0;
-	[SerializeField] int _maxIdealResources = 0;
+	[SerializeField] MinMaxI _idealResourcesRange = new MinMaxI();
 	[SerializeField] int _nightlyResourceDrain = 0;
-	[SerializeField] float _nightlyHappinessIncrement = 0f;
+	[SerializeField] float _nightlyHappinessDecrement = 0f;
+	[Tooltip( "Amount of that happiness immediately increased by when given a resource" )]
+	[SerializeField] float _happinessIncrementPerResource = 0f;
 
-	[Tooltip("Threshold of happiness between sad and neutral")]
-	[SerializeField] float _minNeutralHappiness = 0f;
-	[Tooltip("Threshold of happiness between neutral and sad")]
-	[SerializeField] float _minHappyHappiness = 0f;
+	[Tooltip( "Below the min is sad, within the bounds is neutral and above the max is happy." )]
+	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly("Happiness")]
 	[SerializeField] float _happiness = 0f;
 	[SerializeField] float _statPerHappiness = 0f;
-
-	enum HappinessState
-	{
-		Invalid,
-		Sad,
-		Neutral,
-		Happy,
-	}
 
 	PlayerStats _ownerStats = null;
 
@@ -65,6 +42,28 @@ public class BuddyStats : MonoBehaviour
 	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
+
+	private Stat _statType = Stat.Invalid;
+	public Stat statType
+	{
+		get
+		{
+			return _statType;
+		}
+		set
+		{
+			_statType = value;
+			RecalculateStat();
+		}
+	}
+
+	enum HappinessState
+	{
+		Invalid,
+		Sad,
+		Neutral,
+		Happy,
+	}
 
 	GodTag _owner = null;
 	public GodTag owner
@@ -117,6 +116,12 @@ public class BuddyStats : MonoBehaviour
 		RestartEmoteRoutine();
 	}
 
+	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
+	{
+		statType = buddyItemData.stat;
+		owner = godTag;
+	}
+
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
 	                         "Crabknuckle", "Happy Hairy", "TootBaloot", "Rojina"};
 	static uint uniqueID = 1;
@@ -140,17 +145,22 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		if ( _resources < _minIdealResources )
+		if ( _resources < _idealResourcesRange.min )
 		{
+			// Hungry
 			Emote( _hungryMaterial );
 			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			AdjustHappiness( _happinessIncrementPerResource );
 		}
-		else if ( _resources > _maxIdealResources )
+		else if ( _resources > _idealResourcesRange.max )
 		{
+			// Overfed
 			Emote( _overFedMaterial );
 		}
 		else
 		{
+			// Full
+			AdjustHappiness( _happinessIncrementPerResource );
 			Emote( _fullMaterial );
 		}
 
@@ -161,7 +171,6 @@ public class BuddyStats : MonoBehaviour
 	{
 		DecrementResources();
 		AffectHappinessWithHunger();
-		RecalculateStat();
 	}
 
 	public void DecrementResources()
@@ -178,13 +187,9 @@ public class BuddyStats : MonoBehaviour
 	{
 		if ( !_disableStatDecrease )
 		{
-			if ( _resources < _minIdealResources || _resources > _maxIdealResources )
+			if ( _idealResourcesRange.IsOutside( _resources ) )
 			{
-				AdjustHappiness( -_nightlyHappinessIncrement );
-			}
-			else
-			{
-				AdjustHappiness( _nightlyHappinessIncrement );
+				AdjustHappiness( -_nightlyHappinessDecrement );
 			}
 		}
 	}
@@ -200,8 +205,9 @@ public class BuddyStats : MonoBehaviour
 	public void AdjustHappiness( float deltaHappiness )
 	{
 		_happiness += deltaHappiness;
+		RecalculateStat();
 
-		if ( _happiness < _minNeutralHappiness
+		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
 		{
 			// Sad
@@ -212,7 +218,7 @@ public class BuddyStats : MonoBehaviour
 			}
 			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _sadSound, transform );
 		}
-		else if ( _happiness > _minHappyHappiness
+		else if ( _happiness > _neutralHappinessRange.max
 				  && _currentHappinessState != HappinessState.Happy )
 		{
 			// Happy
@@ -256,11 +262,11 @@ public class BuddyStats : MonoBehaviour
 
 			if ( didHappinessEmoteLast )
 			{
-				if ( _resources < _minIdealResources )
+				if ( _resources < _idealResourcesRange.min )
 				{
 					Emote( _hungryMaterial );
 				}
-				else if ( _resources > _maxIdealResources )
+				else if ( _resources > _idealResourcesRange.max )
 				{
 					Emote( _overFedMaterial );
 				}
@@ -273,11 +279,11 @@ public class BuddyStats : MonoBehaviour
 			}
 			else
 			{
-				if ( _happiness < _minNeutralHappiness )
+				if ( _happiness < _neutralHappinessRange.min )
 				{
 					Emote( _sadMaterial );
 				}
-				else if ( _happiness > _minHappyHappiness )
+				else if ( _happiness > _neutralHappinessRange.max )
 				{
 					Emote( _happyMaterial );
 				}

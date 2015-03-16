@@ -168,8 +168,7 @@ public class PlayerInventory : ActorComponent
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * _buddySpawnDistance,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
-		newBuddy.owner = GetComponent<GodTag>();
-		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
+		newBuddy.Initialize( GetComponent<GodTag>(), buddyItemData );
 
 		// this could be bad, should probably run it by Chris
 
