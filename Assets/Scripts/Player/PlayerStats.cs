@@ -50,7 +50,7 @@ public class PlayerStats : ActorComponent
 
 	public void SetMaxStat( Stat stat, float maxValue )
 	{
-		DebugUtils.Assert( maxValue > 0.0f, "Max stat value must be greater than 0." );
+		DebugUtils.Assert( maxValue >= 0.0f, "Max stat value must be greater than or equal to 0." );
 
 		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = maxValue;

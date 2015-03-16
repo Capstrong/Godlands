@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyStats : MonoBehaviour
+public class BuddyStats : ActorComponent
 {
 	private Stat _statType = Stat.Invalid;
 	public Stat statType
@@ -66,6 +66,15 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
+	[SerializeField] ParticleSystem _particles;
+	Renderer _particlesRenderer;
+	[SerializeField] ParticleSystem _deadParticleSystem;
+
+	[ReadOnly( "Item Data" )]
+	public BuddyItemData itemData = null;
+
+	uint ID = 0;
+
 	GodTag _owner = null;
 	public GodTag owner
 	{
@@ -95,20 +104,16 @@ public class BuddyStats : MonoBehaviour
 		get { return _isAlive; }
 	}
 
-	[Header( "Debug Settings" )]
+	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
-	ParticleSystem _particles;
-	Renderer _particlesRenderer;
-
-	uint ID = 0;
-
-	void Awake()
+	public override void Awake()
 	{
+		base.Awake();
+
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
-		_particles = GetComponentInChildren<ParticleSystem>();
 		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
@@ -200,6 +205,11 @@ public class BuddyStats : MonoBehaviour
 	public void AdjustHappiness( float deltaHappiness )
 	{
 		_happiness += deltaHappiness;
+
+		if ( _happiness < 0 )
+		{
+			_happiness = 0;
+		}
 
 		if ( _happiness < _minNeutralHappiness
 			 && _currentHappinessState != HappinessState.Sad )
@@ -298,6 +308,12 @@ public class BuddyStats : MonoBehaviour
 		_particles.Emit( 1 );
 	}
 
+	public void EmoteDeath()
+	{
+		_deadParticleSystem.Clear();
+		_deadParticleSystem.Emit( 1 );
+	}
+
 	/**
 	 * @brief Kill the buddy.
 	 * 
@@ -311,6 +327,14 @@ public class BuddyStats : MonoBehaviour
 	{
 		_isAlive = false;
 		Destroy( GetComponent<AIController>() );
+		_happiness = 0;
+		RecalculateStat();
+		EmoteDeath();
+		actor.physics.ChangeState( PhysicsStateType.Dead );
+
+		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+
+		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 }
