@@ -330,11 +330,7 @@ public class BuddyStats : ActorComponent
 		_happiness = 0;
 		RecalculateStat();
 		EmoteDeath();
-		actor.physics.ComeToStop(); // This doesn't quite work and I don't know why
-
-		// So this is my sloppy fix
-		Rigidbody rigidbody = GetComponent<Rigidbody>();
-		rigidbody.isKinematic = true;
+		actor.physics.ChangeState( PhysicsStateType.Dead );
 
 		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 

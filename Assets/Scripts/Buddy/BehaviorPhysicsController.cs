@@ -13,6 +13,9 @@ public class BehaviorPhysicsController : MonoBehaviour
 		physics.RegisterState(
 			PhysicsStateType.Grounded,
 			new GroundMovement( GetComponent<Actor>() ) );
+		physics.RegisterState(
+			PhysicsStateType.Dead,
+			new Dead( GetComponent<Actor>() ) );
 	}
 
 	public class GroundMovement : PhysicsState
@@ -32,6 +35,27 @@ public class BehaviorPhysicsController : MonoBehaviour
 		{
 			actor.physics.GroundMovement( controller.moveDirection );
 			actor.animator.SetFloat( "moveSpeed", controller.moveDirection.magnitude );
+		}
+
+		public override void Exit() { }
+	}
+
+	public class Dead : PhysicsState
+	{
+		Actor actor;
+		BehaviorPhysicsController controller;
+
+		public Dead( Actor actor )
+		{
+			this.actor = actor;
+			controller = actor.GetComponent<BehaviorPhysicsController>();
+		}
+
+		public override void Enter() { }
+
+		public override void Update()
+		{
+			actor.physics.ComeToStop();
 		}
 
 		public override void Exit() { }
