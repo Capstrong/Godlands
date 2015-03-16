@@ -8,9 +8,9 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Planet_01_Diffuse
   m_Shader: {fileID: 4800000, guid: d1406aedb767e46c1b6714b174ae160e, type: 3}
-  m_ShaderKeywords: _ALPHATEST_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: d08ae0c11058c1b4aae66f3aded071d5, type: 3}
+          m_Texture: {fileID: 2800000, guid: 6c61568f27a342846a45914a2e5bdee7, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -77,6 +77,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _CloudTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 3f442f1b76abc6f448ef43b14f49b4d3, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -101,7 +108,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .699999988
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -125,7 +132,7 @@ Material:
       data:
         first:
           name: _Mode
-        second: 1
+        second: 0
       data:
         first:
           name: _Metallic
@@ -133,8 +140,24 @@ Material:
       data:
         first:
           name: _RimPower
-        second: 4.33928537
+        second: 4.19999981
+      data:
+        first:
+          name: _LightIntensity
+        second: 3.28999996
+      data:
+        first:
+          name: _MinAlpha
+        second: .5
+      data:
+        first:
+          name: _AlphaIntensity
+        second: 2
     m_Colors:
+      data:
+        first:
+          name: _LightDir
+        second: {r: 1, g: 0, b: 0, a: 1}
       data:
         first:
           name: _EmissionColor
@@ -150,4 +173,4 @@ Material:
       data:
         first:
           name: _RimColor
-        second: {r: .154411793, g: .370182455, b: 1, a: 1}
+        second: {r: .140570939, g: .202266991, b: .382352948, a: 1}

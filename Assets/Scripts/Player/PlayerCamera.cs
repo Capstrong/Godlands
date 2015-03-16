@@ -171,8 +171,8 @@ public class PlayerCamera : ActorComponent
 		else if( xEuler < 90f && yInput > 0f ) // Top rotation
 		{
 			xEuler -= _rotationBounds.min;
-			speedMod = 1f - Mathf.InverseLerp( _rotationBounds.Range - _rotationBoundsWidth,
-			                                   _rotationBounds.Range, 
+			speedMod = 1f - Mathf.InverseLerp( _rotationBounds.range - _rotationBoundsWidth,
+			                                   _rotationBounds.range, 
 			                                   xEuler );
 		}
 
