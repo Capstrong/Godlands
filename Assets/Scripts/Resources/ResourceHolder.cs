@@ -20,7 +20,7 @@ public class ResourceHolder : MonoBehaviour
 
 		if ( hitInfo.transform )
 		{
-			// The .5 is because of the offset of the child object
+			// The .5 is to correct for some scale thing
 			float normalizedHeight = ( hitInfo.transform.position.y - _transform.position.y ) / ( _maxHeight * 0.5f );
 			_transform.localScale = _transform.localScale.SetY( normalizedHeight );
 
