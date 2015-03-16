@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyStats : MonoBehaviour
+public class BuddyStats : ActorComponent
 {
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
@@ -43,19 +43,13 @@ public class BuddyStats : MonoBehaviour
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
-	private Stat _statType = Stat.Invalid;
-	public Stat statType
-	{
-		get
-		{
-			return _statType;
-		}
-		set
-		{
-			_statType = value;
-			RecalculateStat();
-		}
-	}
+	[SerializeField] ParticleSystem _particles = null;
+	[SerializeField] ParticleSystem _deadParticleSystem = null;
+	Renderer _particlesRenderer = null;
+
+	BuddyItemData _itemData = null;
+
+	uint ID = 0;
 
 	enum HappinessState
 	{
@@ -97,29 +91,30 @@ public class BuddyStats : MonoBehaviour
 	[Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
-	ParticleSystem _particles;
-	Renderer _particlesRenderer;
-
-	uint ID = 0;
-
-	void Awake()
+	public override void Awake()
 	{
+		base.Awake();
+
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
-		_particles = GetComponentInChildren<ParticleSystem>();
 		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		BuddyManager.RegisterBuddy( this );
 		_happiness = _startingHappiness;
-		AdjustHappiness( 0 ); // To initialize sound and stuff
 		RestartEmoteRoutine();
 	}
 
 	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
 	{
-		statType = buddyItemData.stat;
+		_itemData = buddyItemData;
 		owner = godTag;
+
+		// will need to write a shader with color mask for the buddies so we can change just the onesie color
+		// once that's in this will be changed to material.SetColor("_ColorPropertyName", buddyItemData.statColor) - Chris
+		bodyRenderer.material.color = buddyItemData.statColor;
+
+		AdjustHappiness( 0 ); // To initialize sound and stats and stuff
 	}
 
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
@@ -198,7 +193,7 @@ public class BuddyStats : MonoBehaviour
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( statType, _happiness * _statPerHappiness );
+			_ownerStats.SetMaxStat( _itemData.stat, _happiness * _statPerHappiness );
 		}
 	}
 
@@ -206,6 +201,11 @@ public class BuddyStats : MonoBehaviour
 	{
 		_happiness += deltaHappiness;
 		RecalculateStat();
+
+		if ( _happiness < 0 )
+		{
+			_happiness = 0;
+		}
 
 		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
@@ -304,6 +304,12 @@ public class BuddyStats : MonoBehaviour
 		_particles.Emit( 1 );
 	}
 
+	public void EmoteDeath()
+	{
+		_deadParticleSystem.Clear();
+		_deadParticleSystem.Emit( 1 );
+	}
+
 	/**
 	 * @brief Kill the buddy.
 	 * 
@@ -317,6 +323,18 @@ public class BuddyStats : MonoBehaviour
 	{
 		_isAlive = false;
 		Destroy( GetComponent<AIController>() );
+		_happiness = 0;
+		RecalculateStat();
+		EmoteDeath();
+		actor.physics.ComeToStop(); // This doesn't quite work and I don't know why
+
+		// So this is my sloppy fix
+		Rigidbody rigidbody = GetComponent<Rigidbody>();
+		rigidbody.isKinematic = true;
+
+		_itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+
+		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 }

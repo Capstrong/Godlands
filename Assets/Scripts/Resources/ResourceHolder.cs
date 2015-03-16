@@ -7,9 +7,10 @@ public class ResourceHolder : MonoBehaviour
 
 	float resourceHeightOffset = 0.17f;
 
-	void Start()
+	void Awake()
 	{
 		resource = WadeUtils.Instantiate( resource, Vector3.up * resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( transform, false );
+		resource.GetComponent<InventoryItem>().beaconObj = GetComponentInChildren<BeaconTag>().gameObject;
 	}
 }
