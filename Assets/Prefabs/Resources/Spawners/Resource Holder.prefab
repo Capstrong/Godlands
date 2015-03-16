@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193250}
   m_LocalRotation: {x: -.715739906, y: 0, z: 0, w: .69836694}
-  m_LocalPosition: {x: 0, y: 1.04999995, z: -.0299999993}
+  m_LocalPosition: {x: 0, y: 1.04999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 452316}
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource: {fileID: 100000, guid: 6d7b405ffef887c40b357ff50bf6b41c, type: 2}
+  resourceHeightOffset: .170000002
+  _maxHeight: 14
 --- !u!198 &19836820
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -194,7 +196,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 2.29999995
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -456,7 +458,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .520547986
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -662,13 +664,13 @@ ParticleSystem:
       maxCurve:
         serializedVersion: 2
         m_Curve:
-        - time: 0
-          value: 1
+        - time: .0106100785
+          value: .0958904028
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         - time: 1
-          value: 1
+          value: .0136986375
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -689,19 +691,19 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 1
     y:
       scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
+          value: .0410959274
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 1
-          value: 1
+        - time: .997347474
+          value: .0136985779
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -722,19 +724,19 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 1
     z:
       scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
-        - time: 0
+        - time: .00795756001
           value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         - time: 1
-          value: 1
+          value: -.0410959125
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -755,7 +757,7 @@ ParticleSystem:
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 1
     inWorldSpace: 0
   ForceModule:
     enabled: 0
