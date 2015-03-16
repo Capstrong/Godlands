@@ -22,9 +22,7 @@ public class PlanetLight : MonoBehaviour
 		// rotate light direction
 		Quaternion rotation = Quaternion.Euler( 0.0f, _rotationSpeed * Time.deltaTime, 0.0f );
 		_lightDirection = rotation * _lightDirection;
-		_renderer.material.SetVector(
-			"_LightDir",
-			new Vector4( _lightDirection.x, _lightDirection.y, _lightDirection.z ) );
+		_renderer.material.SetVector( "_LightDir", _lightDirection );
 
 		// set min alpha
 		float alphaIntensity =
