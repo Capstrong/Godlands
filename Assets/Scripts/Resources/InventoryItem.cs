@@ -4,51 +4,29 @@ using System.Collections;
 public class InventoryItem : MonoBehaviour
 {
 	public InventoryItemData resourceData;
-	[HideInInspector] public GameObject beaconObj = null;
 	public bool used = false;
 
-	[Header( "Respawning" )]
-	[Tooltip( "Whether this item will repawn after some time" )]
-	[SerializeField] bool _canRespawn = true;
-	[Tooltip( "In seconds" )]
-	[SerializeField] float _respawnTime = 600f;
-
 	Renderer _renderer = null;
-	Renderer _beaconRenderer = null;
+	ResourceHolder _resourceHolder = null;
 
-	void Start()
+	public virtual void Start()
 	{
 		_renderer = GetComponentInChildren<Renderer>();
-
-		BuddyItemData buddyItemData =  resourceData as BuddyItemData;
-
-		if ( buddyItemData )
-		{
-			// All buddies are unique and should have unique data
-			// This code looks pretty jank but it pretty much has to be this way
-			resourceData = Instantiate<BuddyItemData>( buddyItemData );
-			( (BuddyItemData) resourceData ).respawnItem = this;
-		}
-
-		if ( beaconObj )
-		{
-			_beaconRenderer = beaconObj.GetComponent<Renderer>();
-		}
 	}
 
-	public void Use()
+	public void Initialize( ResourceHolder resourceHolder )
+	{
+		_resourceHolder = resourceHolder;
+	}
+
+	public virtual void Use()
 	{
 		used = true;
 		_renderer.enabled = false;
 
-		if ( _canRespawn )
+		if ( _resourceHolder )
 		{
-			Invoke( "Enable", _respawnTime );
-		}
-
-		if ( _beaconRenderer )
-		{
-			_beaconRenderer.enabled = false;
+			_resourceHolder.Disable();
 		}
 	}
 
@@ -56,9 +34,10 @@ public class InventoryItem : MonoBehaviour
 	{
 		used = false;
 		_renderer.enabled = true;
-		if ( _beaconRenderer )
+
+		if ( _resourceHolder )
 		{
-			_beaconRenderer.enabled = true;
+			_resourceHolder.Enable();
 		}
 	}
 }

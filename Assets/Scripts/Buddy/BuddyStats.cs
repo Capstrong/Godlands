@@ -47,7 +47,8 @@ public class BuddyStats : ActorComponent
 	[SerializeField] ParticleSystem _deadParticleSystem = null;
 	Renderer _particlesRenderer = null;
 
-	BuddyItemData _itemData = null;
+	[ReadOnly( "Buddy Item Data" )]
+	public BuddyItemData itemData = null;
 
 	uint ID = 0;
 
@@ -88,7 +89,7 @@ public class BuddyStats : ActorComponent
 		get { return _isAlive; }
 	}
 
-	[Header( "Debug Settings" )]
+	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
 	public override void Awake()
@@ -107,7 +108,7 @@ public class BuddyStats : ActorComponent
 
 	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
 	{
-		_itemData = buddyItemData;
+		itemData = buddyItemData;
 		owner = godTag;
 
 		// will need to write a shader with color mask for the buddies so we can change just the onesie color
@@ -193,7 +194,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( _itemData.stat, _happiness * _statPerHappiness );
+			_ownerStats.SetMaxStat( itemData.stat, _happiness * _statPerHappiness );
 		}
 	}
 
@@ -332,13 +333,9 @@ public class BuddyStats : ActorComponent
 		_happiness = 0;
 		RecalculateStat();
 		EmoteDeath();
-		actor.physics.ComeToStop(); // This doesn't quite work and I don't know why
+		actor.physics.ChangeState( PhysicsStateType.Dead );
 
-		// So this is my sloppy fix
-		Rigidbody rigidbody = GetComponent<Rigidbody>();
-		rigidbody.isKinematic = true;
-
-		_itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 
 		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
