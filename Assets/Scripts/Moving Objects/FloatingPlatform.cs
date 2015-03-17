@@ -18,7 +18,7 @@ public class FloatingPlatform : MonoBehaviour
 		_initPos = transform.position;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		transform.SetPositionY( _initPos.y + Mathf.Sin( Time.timeSinceLevelLoad + _floatOffsetAmount ) * _floatHeight );
 	}
