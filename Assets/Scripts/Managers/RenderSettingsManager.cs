@@ -55,6 +55,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	[SerializeField] Light _dirLight = null;
 	int _curSkyboxTintPropertyID = 0;
 
+	[SerializeField, Range(0f, 5f)] float _skyboxRotSpeed = 1f;
+
 	[Tooltip( "The percent of the end of the day cycle that stays completely dark." )]
 	[SerializeField] float _nightFraction = 0.1f;
 
@@ -79,10 +81,13 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 	void Awake()
 	{
 		_curSkyboxTintPropertyID = Shader.PropertyToID( "_Tint" );
+		RenderSettings.skybox.SetFloat( "_Rotation", 0f );
 	}
 
 	void Update()
 	{
+		RenderSettings.skybox.SetFloat( "_Rotation", Time.realtimeSinceStartup * _skyboxRotSpeed );
+
 		float timeOfDay = DayCycleManager.currentTime / ( DayCycleManager.dayCycleLength * ( 1.0f - _nightFraction) );
 		timeOfDay = Mathf.Clamp01( timeOfDay );
 		daylightIntensity = Mathf.Cos( timeOfDay * 2.0f * Mathf.PI ) * -0.5f + 0.5f;
