@@ -6,6 +6,9 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 
 	List<BuddyStats> _buddyStats = new List<BuddyStats>();
 
+	[SerializeField] CheckpointLifter[] checkpointLifters = null; // Need these to activate checkpoints
+	[ReadOnly("Checkpoint Index")] int checkpointIndex = 0; // Index of next checkpoint to activate
+
 	void Start()
 	{
 		DayCycleManager.RegisterEndOfDayCallback( DecrementAllBuddyResources );
@@ -14,6 +17,17 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 	public static void RegisterBuddy( BuddyStats buddyStats )
 	{
 		instance._buddyStats.Add( buddyStats );
+
+		instance.ActivateCheckpoint();
+	}
+
+	void ActivateCheckpoint()
+	{
+		if( checkpointIndex < checkpointLifters.Length && checkpointLifters[checkpointIndex] )
+		{
+			checkpointLifters[checkpointIndex].Activate();
+			checkpointIndex++;
+		}
 	}
 
 	public static void DecrementAllBuddyResources()
