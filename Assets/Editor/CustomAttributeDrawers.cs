@@ -19,7 +19,7 @@ public class ReadOnlyDrawer : PropertyDrawer
 		ReadOnlyAttribute readOnlyAttribute = (ReadOnlyAttribute)attribute;
 
 		// Use a specified name if there is one
-		string displayName = ( readOnlyAttribute.displayName != "" ) ? readOnlyAttribute.displayName : property.name;
+		string displayName = ( readOnlyAttribute.displayName != "" ) ? readOnlyAttribute.displayName : property.displayName;
 
 		switch ( property.propertyType )
 		{
