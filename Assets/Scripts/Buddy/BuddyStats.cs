@@ -212,6 +212,8 @@ public class BuddyStats : ActorComponent
 			_happiness = 0;
 		}
 
+		actor.animator.SetFloat( "happiness", _happiness );
+
 		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
 		{
