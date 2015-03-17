@@ -202,14 +202,7 @@ public class BuddyStats : ActorComponent
 	{
 		_happiness += deltaHappiness;
 
-		if ( _happiness < 0 )
-		{
-			_happiness = 0;
-		}
-		else if ( _happiness > 1 )
-		{
-			_happiness = 1;
-		}
+		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
 
 		RecalculateStat();
 

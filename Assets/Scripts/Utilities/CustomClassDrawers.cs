@@ -10,7 +10,7 @@ public class BuddyResourceCurveDrawer : PropertyDrawer
 	public override float GetPropertyHeight( SerializedProperty property,
 	                                         GUIContent label )
 	{
-		return textHeight * 11;
+		return textHeight * 11; // Count up the number of lines
 	}
 
 	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
