@@ -6,7 +6,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 
 	List<BuddyStats> _buddyStats = new List<BuddyStats>();
 
-	[SerializeField] CheckpointLifter[] checkpointLifters = new CheckpointLifter[1]; // Need these to activate checkpoints
+	[SerializeField] CheckpointLifter[] checkpointLifters = null; // Need these to activate checkpoints
 	[ReadOnly("Checkpoint Index")] int checkpointIndex = 0; // Index of next checkpoint to activate
 
 	void Start()
