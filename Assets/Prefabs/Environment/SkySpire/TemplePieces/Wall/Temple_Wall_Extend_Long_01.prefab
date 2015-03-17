@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 486978}
   - 33: {fileID: 3311926}
   - 23: {fileID: 2355370}
-  - 95: {fileID: 9545672}
+  - 64: {fileID: 6442394}
   m_Layer: 0
   m_Name: Temple_Wall_Extend_Long_01
   m_TagString: Untagged
@@ -61,23 +61,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103268}
   m_Mesh: {fileID: 4300004, guid: ed52a2f88d4456c49a9b7b3c769512a4, type: 3}
---- !u!95 &9545672
-Animator:
-  serializedVersion: 3
+--- !u!64 &6442394
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ed52a2f88d4456c49a9b7b3c769512a4, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300004, guid: ed52a2f88d4456c49a9b7b3c769512a4, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
