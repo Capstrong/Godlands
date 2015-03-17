@@ -1,29 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Idle : LeafNode
-{
-	private float _time;
-
-	public override void Init( Hashtable data )
-	{
-		BuddyInfo info = ( (GameObject)data["gameObject"] ).GetComponent<BuddyInfo>();
-		_time = Random.Range( info.minIdleTime, info.maxIdleTime );
-	}
-
-	public override NodeStatus Tick()
-	{
-		_time -= Time.deltaTime;
-		if ( _time < 0.0f )
-		{
-			return NodeStatus.SUCCESS;
-		}
-		else
-		{
-			return NodeStatus.RUNNING;
-		}
-	}
-}
+using BehaviorTree;
 
 public class PickRandomDestinationInRadius : LeafNode
 {
@@ -32,7 +10,7 @@ public class PickRandomDestinationInRadius : LeafNode
 	private BehaviorTreeInfo baseInfo;
 	private BuddyInfo buddyInfo;
 
-	public override void Init( Hashtable data )
+	public override void InitSelf( Hashtable data )
 	{
 		gameObject = (GameObject)data["gameObject"];
 		transform = gameObject.GetComponent<Transform>();
@@ -40,7 +18,7 @@ public class PickRandomDestinationInRadius : LeafNode
 		buddyInfo = gameObject.GetComponent<BuddyInfo>();
 	}
 
-	public override NodeStatus Tick()
+	public override NodeStatus TickSelf()
 	{
 		Vector3 offset = Random.insideUnitCircle
 			* Random.Range( buddyInfo.minIdleWalkRadius, buddyInfo.maxIdleWalkRadius );
