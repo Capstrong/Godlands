@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 422368}
   - 33: {fileID: 3337576}
   - 23: {fileID: 2305842}
+  - 64: {fileID: 6405890}
   m_Layer: 0
   m_Name: Big_Rock_Wall_No_Grass_Half
   m_TagString: Untagged
@@ -59,6 +60,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144554}
+  m_Mesh: {fileID: 4300000, guid: 40a742930f0a240f6bcded4f2482d580, type: 3}
+--- !u!64 &6405890
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144554}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 40a742930f0a240f6bcded4f2482d580, type: 3}
 --- !u!1001 &100100000
 Prefab:
