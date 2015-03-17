@@ -7,7 +7,6 @@ public class BuddyStats : ActorComponent
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
 	[SerializeField] MinMaxI _idealResourcesRange = new MinMaxI();
-	[SerializeField] int _nightlyResourceDrain = 0;
 	[SerializeField] float _nightlyHappinessDecrement = 0f;
 	[Tooltip( "Amount of that happiness immediately increased by when given a resource" )]
 	[SerializeField] float _happinessIncrementPerResource = 0f;
@@ -16,9 +15,12 @@ public class BuddyStats : ActorComponent
 	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
 	[SerializeField] float _startingHappiness = 0f;
-	[ReadOnly("Happiness")]
+	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
-	[SerializeField] float _statPerHappiness = 0f;
+	public float happiness
+	{
+		get { return _happiness; }
+	}
 
 	PlayerStats _ownerStats = null;
 
@@ -101,7 +103,6 @@ public class BuddyStats : ActorComponent
 		_resources = _startingResourceCount;
 		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
-		BuddyManager.RegisterBuddy( this );
 		_happiness = _startingHappiness;
 		RestartEmoteRoutine();
 	}
@@ -113,6 +114,7 @@ public class BuddyStats : ActorComponent
 
 		bodyRenderer.material.color = buddyItemData.statColor;
 
+		BuddyManager.RegisterBuddy( this );
 		AdjustHappiness( 0 ); // To initialize sound and stats and stuff
 	}
 
@@ -161,15 +163,15 @@ public class BuddyStats : ActorComponent
 		RestartEmoteRoutine();
 	}
 
-	public void NightlyEvent()
+	public void NightlyEvent( int resourceDrain )
 	{
-		DecrementResources();
+		DecrementResources( resourceDrain );
 		AffectHappinessWithHunger();
 	}
 
-	public void DecrementResources()
+	public void DecrementResources( int resourceDrain )
 	{
-		_resources -= _nightlyResourceDrain;
+		_resources -= resourceDrain;
 
 		if ( _resources <= 0 )
 		{
@@ -192,7 +194,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( itemData.stat, _happiness * _statPerHappiness );
+			BuddyManager.RecalculateStat( itemData.stat, _ownerStats );
 		}
 	}
 
@@ -200,17 +202,9 @@ public class BuddyStats : ActorComponent
 	{
 		_happiness += deltaHappiness;
 
-		if ( _happiness < 0 )
-		{
-			_happiness = 0;
-		}
+		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
 
 		RecalculateStat();
-
-		if ( _happiness < 0 )
-		{
-			_happiness = 0;
-		}
 
 		actor.animator.SetFloat( "happiness", _happiness );
 
