@@ -3,21 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public struct BuddyResourceCurve
+public class BuddyResourceCurve
 {
+	public const string equationString = "A * X^B + C";
+
 	public float a;
 	public float b;
 	public float c;
 
 	public float Evaluate( float numBuddies )
 	{
-		return a * Mathf.Pow( numBuddies, b ) + c;
+		// return 0 for 0 input
+		return WadeUtils.IsNotZero( numBuddies ) ? a * Mathf.Pow( numBuddies, b ) + c : 0;
 	}
 }
 
-public class BuddyManager : SingletonBehaviour<BuddyManager> {
-
-	List<BuddyStats> _buddyStats = new List<BuddyStats>();
+public class BuddyManager : SingletonBehaviour<BuddyManager>
+{
+	public List<BuddyStats> _buddyStats = new List<BuddyStats>();
 
 	// total resources needed per buddy type = a * ( # buddies of that type) ^ b + c
 	[SerializeField] BuddyResourceCurve _resourceCurve;

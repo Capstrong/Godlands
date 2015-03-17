@@ -183,6 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d95017324708544ba5a4e9cd7e0ce12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buddyStats: []
+  _resourceCurve:
+    a: 3
+    b: 1.29999995
+    c: 7
 --- !u!114 &11407950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,9 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4005d5a4778c6e4aa3b484572054ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentTime: 0
+  _currentTime: 180
   _dayCycleLength: 360
-  _dayStartTime: .150000006
+  _dayStartTime: .400000006
   _blackoutDuration: 5
   _lightupDuration: 3
   _midnightOverlay: {fileID: 0}
@@ -228,7 +233,7 @@ MonoBehaviour:
     daySettings:
       skyColor: {r: .45588237, g: .797362924, b: 1, a: 1}
       lightColor: {r: 1, g: 1, b: 1, a: 1}
-      lightIntensity: .400000006
+      lightIntensity: 1
       fogColor: {r: .647058845, g: .823529422, b: 1, a: 1}
       fogDensity: .00300000003
     nightSettings:
@@ -241,12 +246,12 @@ MonoBehaviour:
   _dirLight: {fileID: 0}
   _nightFraction: .200000003
   _currentTimeRenderSettings:
-    skyColor: {r: .123150565, g: .054714527, b: .338235319, a: 1}
-    lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
-    lightIntensity: .0199999996
-    fogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
-    fogDensity: .0149999997
-  _daylightIntensity: 0
+    skyColor: {r: .407154888, g: .688604534, b: .903086722, a: 1}
+    lightColor: {r: .992462277, g: .992462277, b: .992462277, a: 1}
+    lightIntensity: .856482208
+    fogColor: {r: .578512549, g: .717566192, b: .899856269, a: 1}
+    fogDensity: .00475736056
+  _daylightIntensity: .853553295
 --- !u!114 &11484492
 MonoBehaviour:
   m_ObjectHideFlags: 1
