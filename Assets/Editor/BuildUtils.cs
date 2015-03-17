@@ -92,7 +92,7 @@ public class BuildUnityPlayer : ScriptableObject
 	 *     will overwrite an existing asset of the same name.
 	 */
 	[MenuItem( "Assets/Create/Build Settings" )]
-	public static void CreateBehaviorTreeAsset()
+	public static void CreateBuildAsset()
 	{
 		BuildUnityPlayer buildAsset = ScriptableObject.CreateInstance<BuildUnityPlayer>();
 		AssetDatabase.CreateAsset( buildAsset, "Assets/BuildSettings.asset" );
