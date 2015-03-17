@@ -7,7 +7,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 	List<BuddyStats> _buddyStats = new List<BuddyStats>();
 
 	[SerializeField] CheckpointLifter[] checkpointLifters = new CheckpointLifter[1]; // Need these to activate checkpoints
-	int checkpointIndex = 0; // Index of next checkpoint to activate
+	[ReadOnly("Checkpoint Index")] int checkpointIndex = 0; // Index of next checkpoint to activate
 
 	void Start()
 	{
@@ -23,7 +23,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager> {
 
 	void ActivateCheckpoint()
 	{
-		if( checkpointIndex < checkpointLifters.Length && checkpointLifters[checkpointIndex] != null )
+		if( checkpointIndex < checkpointLifters.Length && checkpointLifters[checkpointIndex] )
 		{
 			checkpointLifters[checkpointIndex].Activate();
 			checkpointIndex++;
