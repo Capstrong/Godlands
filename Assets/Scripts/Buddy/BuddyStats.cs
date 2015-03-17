@@ -15,7 +15,7 @@ public class BuddyStats : ActorComponent
 	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
 	[SerializeField] float _startingHappiness = 0f;
-	[ReadOnly("Happiness")]
+	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
 	public float happiness
 	{
@@ -205,6 +205,10 @@ public class BuddyStats : ActorComponent
 		if ( _happiness < 0 )
 		{
 			_happiness = 0;
+		}
+		else if ( _happiness > 1 )
+		{
+			_happiness = 1;
 		}
 
 		RecalculateStat();
