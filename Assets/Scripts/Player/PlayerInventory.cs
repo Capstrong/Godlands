@@ -168,14 +168,7 @@ public class PlayerInventory : ActorComponent
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     transform.position + transform.forward * _buddySpawnDistance,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
-		newBuddy.owner = GetComponent<GodTag>();
-		newBuddy.statType = buddyItemData.stat; // This also initializes the stat on the player
-
-		// this could be bad, should probably run it by Chris
-
-		// will need to write a shader with color mask for the buddies so we can change just the onesie color
-		// once that's in this will be changed to material.SetColor("_ColorPropertyName", buddyItemData.statColor) - Chris
-		newBuddy.bodyRenderer.material.color = buddyItemData.statColor;
+		newBuddy.Initialize( GetComponent<GodTag>(), buddyItemData );
 
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
@@ -246,11 +239,10 @@ public class PlayerInventory : ActorComponent
 		InventoryItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryItem>();
 		if ( inventoryItem && !inventoryItem.used )
 		{
-			inventoryItem.used = true;
+			inventoryItem.Use();
 
 			PickupItem( inventoryItem.resourceData );
 
-			Destroy( other.gameObject );
 			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
 		}
 	}

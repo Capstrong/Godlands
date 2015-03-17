@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Beacon
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 5
   m_CustomRenderQueue: 3000
@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 4d71c6322d4fe54428719b1c0a0d0038, type: 3}
+          m_Texture: {fileID: 2800000, guid: 9b55b3d4108203d40bee0c4e77b9a17e, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -96,6 +96,10 @@ Material:
         second: 10
       data:
         first:
+          name: _InvFade
+        second: .349999994
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -105,7 +109,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -149,9 +153,17 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 0}
       data:
         first:
-          name: _Emission
-        second: {r: .5, g: .176470578, b: .176470578, a: 0}
+          name: _TintColor
+        second: {r: .772549033, g: 1, b: .188235298, a: .13333334}
+      data:
+        first:
+          name: _EmisColor
+        second: {r: .200000003, g: .200000003, b: .200000003, a: 0}
       data:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Emission
+        second: {r: .5, g: .176470578, b: .176470578, a: 0}

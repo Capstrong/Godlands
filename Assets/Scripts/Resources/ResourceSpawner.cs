@@ -6,7 +6,7 @@ public class ResourceSpawner : MonoBehaviour
 	public ResourceHolder resourceHolderPrefab;
 	public Collider resourcePrefab;
 
-	float groundCheckDist = 3f;
+	float groundCheckDist = 7f;
 
 	public int total;
 	public float radius;
@@ -65,7 +65,14 @@ public class ResourceSpawner : MonoBehaviour
 	{
 		Transform trans = GetComponent<Transform>();
 		Gizmos.DrawIcon( trans.position + Vector3.up * 0.5f, "ResourceSpawner.png", true );
-		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireSphere( trans.position, radius );
+
+		Color gizmoColor = Color.yellow;
+
+		Gizmos.color = gizmoColor;
+		Gizmos.DrawWireCube( trans.position, Vector3.one * radius * 2f );
+
+		gizmoColor.a = 0.3f;
+		Gizmos.color = gizmoColor;
+		Gizmos.DrawCube( trans.position, Vector3.one * radius * 2f );
 	}
 }

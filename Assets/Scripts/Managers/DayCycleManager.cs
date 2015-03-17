@@ -8,7 +8,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	public static float dayCycleLength { get { return instance._dayCycleLength; } }
 
-	[ReadOnly( "Current Time" ), Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
+	[Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
 	float _currentTime = 0f;
 
 	[Tooltip( "The length (in seconds) of a day" )]
@@ -36,6 +36,11 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	EndOfDayCallback _endOfDayCallback = delegate() { };
 
+	float timeUntilBlackout
+	{
+		get { return ( _dayCycleLength - _blackoutDuration ) - _currentTime; }
+	}
+
 	[Space( 10 ), Header( "Debug" )]
 	[Tooltip( "Disable the midnight overlay and reseting the player's position." )]
 	[SerializeField] bool _disableMidnight = false;
@@ -48,6 +53,12 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		}
 	}
 
+	void OnValidate()
+	{
+		CancelInvoke( "StartMidnightOverlay" );
+		Invoke( "StartMidnightOverlay", timeUntilBlackout );
+	}
+
 	void Update ()
 	{
 		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
@@ -57,7 +68,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	{
 		_currentTime = morningTime;
 		StartCoroutine( FadeOutMidnightOverlay() );
-		Invoke( "StartMidnightOverlay", ( _dayCycleLength - _blackoutDuration ) - _currentTime );
+		Invoke( "StartMidnightOverlay", timeUntilBlackout );
 	}
 
 	public static void RegisterEndOfDayCallback( EndOfDayCallback callback )

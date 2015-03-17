@@ -10,12 +10,13 @@ public enum PhysicsStateType
 	Climbing,
 	Gliding,
 	Sprinting,
+	Dead,
 }
 
 public sealed class ActorPhysics : ActorComponent
 {
-	private new Transform transform;
-	private new Rigidbody rigidbody;
+	private Transform _transform;
+	private Rigidbody _rigidbody;
 
 	// States
 	#region States
@@ -71,7 +72,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	public float normalizedMoveSpeed
 	{
-		get { return rigidbody.velocity.magnitude / sprintMoveSpeed; }
+		get { return _rigidbody.velocity.magnitude / sprintMoveSpeed; }
 	}
 
 	/**
@@ -149,10 +150,10 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		base.Awake();
 
-		transform = GetComponent<Transform>();
-		rigidbody = GetComponent<Rigidbody>();
+		_transform = GetComponent<Transform>();
+		_rigidbody = GetComponent<Rigidbody>();
 
-		_lastPos = transform.position;
+		_lastPos = _transform.position;
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
@@ -179,7 +180,7 @@ public sealed class ActorPhysics : ActorComponent
 	void FixedUpdate()
 	{
 		// Pre-Update stuff
-		_desiredLook = transform.rotation;
+		_desiredLook = _transform.rotation;
 
 		// Update
 		_currentState.Update();
@@ -212,7 +213,7 @@ public sealed class ActorPhysics : ActorComponent
 		{
 			// spherecast down to detect when we're on the ground
 			RaycastHit hit;
-			Physics.SphereCast( transform.position + Vector3.up,
+			Physics.SphereCast( _transform.position + Vector3.up,
 			                    _jumpCheckRadius,
 			                    -Vector3.up,
 			                    out hit,
@@ -252,14 +253,14 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	public bool ClimbCheck()
 	{
-		Collider[] colliders = Physics.OverlapSphere( transform.position, _climbCheckRadius, _climbLayer );
+		Collider[] colliders = Physics.OverlapSphere( _transform.position, _climbCheckRadius, _climbLayer );
 		if ( colliders.Length > 0 )
 		{
 			Collider nearestCol = colliders[0];
-			float shortestDistance = ( nearestCol.transform.position - transform.position ).sqrMagnitude;
+			float shortestDistance = ( nearestCol.transform.position - _transform.position ).sqrMagnitude;
 			foreach ( Collider col in colliders )
 			{
-				float distance = ( col.transform.position - transform.position ).sqrMagnitude;
+				float distance = ( col.transform.position - _transform.position ).sqrMagnitude;
 				if ( distance < shortestDistance )
 				{
 					nearestCol = col;
@@ -276,8 +277,8 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void StartClimbing()
 	{
-		rigidbody.useGravity = false;
-		rigidbody.velocity = Vector3.zero;
+		_rigidbody.useGravity = false;
+		_rigidbody.velocity = Vector3.zero;
 		lifter.gameObject.SetActive( false );
 		bumper.gameObject.SetActive( false );
 		climbBumper.gameObject.SetActive( true );
@@ -287,7 +288,7 @@ public sealed class ActorPhysics : ActorComponent
 	{
 		_climbSurface = null;
 		_climbTag = null;
-		rigidbody.useGravity = true;
+		_rigidbody.useGravity = true;
 		lifter.gameObject.SetActive( true );
 		bumper.gameObject.SetActive( true );
 		climbBumper.gameObject.SetActive( false );
@@ -304,7 +305,7 @@ public sealed class ActorPhysics : ActorComponent
 			_climbSurface.up    * ( _climbTag.yMovement ? movement.z : 0.0f );
 
 		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
-		rigidbody.velocity = _moveVec;
+		_rigidbody.velocity = _moveVec;
 
 		// calculate desired look
 		Vector3 lookVector = _climbSurface.forward;
@@ -322,10 +323,12 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void DoJump()
 	{
-		Vector3 curVelocity = rigidbody.velocity.SetY( 0f );
+		Vector3 curVelocity = _rigidbody.velocity.SetY( 0f );
 		curVelocity.y = jumpForce;
-		rigidbody.velocity = curVelocity;
-		rigidbody.useGravity = true;
+		_rigidbody.velocity = curVelocity;
+		_rigidbody.useGravity = true;
+
+		actor.animator.Play("Jump");
 
 		StartJumpCheckDelayTimer();
 	}
@@ -357,10 +360,10 @@ public sealed class ActorPhysics : ActorComponent
 			}
 			else
 			{
-				_moveVec.y = rigidbody.velocity.y;
+				_moveVec.y = _rigidbody.velocity.y;
 			}
 
-			rigidbody.velocity = _moveVec;
+			_rigidbody.velocity = _moveVec;
 		}
 
 		CalculateDesiredLook();
@@ -368,12 +371,12 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void StartGliding()
 	{
-		rigidbody.useGravity = false;
+		_rigidbody.useGravity = false;
 	}
 
 	public void StopGliding()
 	{
-		rigidbody.useGravity = true;
+		_rigidbody.useGravity = true;
 	}
 
 	public void GlideMovement( Vector3 inputVec )
@@ -392,7 +395,7 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec = _moveVec.normalized * _glideHorizontalSpeed;
 		_moveVec.y = -_glideDescentRate;
 
-		rigidbody.velocity = _moveVec;
+		_rigidbody.velocity = _moveVec;
 
 		CalculateDesiredLook();
 	}
@@ -408,15 +411,15 @@ public sealed class ActorPhysics : ActorComponent
 
 	void ConstrainBumper()
 	{
-		_bumperTransform.position = transform.position;
-		_bumperRigidbody.velocity = rigidbody.velocity;
+		_bumperTransform.position = _transform.position;
+		_bumperRigidbody.velocity = _rigidbody.velocity;
 	}
 
 	void FollowBumper()
 	{
 		Vector3 constrainedPos = _bumperTransform.position;
-		constrainedPos.y = transform.position.y;
-		transform.position = constrainedPos;
+		constrainedPos.y = _transform.position.y;
+		_transform.position = constrainedPos;
 	}
 
 	void MoveAtSpeed( Vector3 moveDir, float moveSpeed )
@@ -424,17 +427,17 @@ public sealed class ActorPhysics : ActorComponent
 		_moveVec = moveDir;
 
 		_moveVec = moveDir * moveSpeed;
-		_moveVec.y = rigidbody.velocity.y;
+		_moveVec.y = _rigidbody.velocity.y;
 
-		rigidbody.velocity = _moveVec;
+		_rigidbody.velocity = _moveVec;
 	}
 
 	public void ComeToStop()
 	{
-		_moveVec = rigidbody.velocity * _stoppingSpeed;
+		_moveVec = _rigidbody.velocity * _stoppingSpeed;
 
-		_moveVec.y = rigidbody.velocity.y;
-		rigidbody.velocity = _moveVec;
+		_moveVec.y = _rigidbody.velocity.y;
+		_rigidbody.velocity = _moveVec;
 	}
 
 	/**
@@ -486,10 +489,10 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	void CalculateDesiredLook()
 	{
-		Vector3 actualVelocity = transform.position - _lastPos;
+		Vector3 actualVelocity = _transform.position - _lastPos;
 		actualVelocity.y = 0.0f;
 
-		Vector3 intendedVelocity = rigidbody.velocity;
+		Vector3 intendedVelocity = _rigidbody.velocity;
 		intendedVelocity.y = 0.0f;
 
 		Vector3 weightedVelocity = Vector3.Lerp( actualVelocity, intendedVelocity, _lookIntentionWeight );
@@ -500,7 +503,7 @@ public sealed class ActorPhysics : ActorComponent
 
 		if ( lookVec.sqrMagnitude > _minLookVecTurnStrength * _minLookVecTurnStrength )
 		{
-			_desiredLook = Quaternion.LookRotation( lookVec, transform.up );
+			_desiredLook = Quaternion.LookRotation( lookVec, _transform.up );
 		}
 	}
 
@@ -516,19 +519,19 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	void OrientSelf()
 	{
-		transform.rotation = Quaternion.Lerp(
-		    transform.rotation,
+		_transform.rotation = Quaternion.Lerp(
+		    _transform.rotation,
 		    _desiredLook,
 		    Time.deltaTime * _modelTurnSpeed );
 
-		_lastPos = transform.position;
+		_lastPos = _transform.position;
 	}
 
 	void SetFallSpeed( float fallSpeed )
 	{
-		Vector3 moveVec = rigidbody.velocity;
+		Vector3 moveVec = _rigidbody.velocity;
 		moveVec.y = fallSpeed;
-		rigidbody.velocity = moveVec;
+		_rigidbody.velocity = moveVec;
 	}
 
 	void EndLookOverride()

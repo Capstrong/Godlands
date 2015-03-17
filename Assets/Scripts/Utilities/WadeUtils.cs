@@ -545,37 +545,47 @@ public static class WadeUtils
 [System.Serializable]
 public struct MinMaxF
 {
+	public float min;
+	public float max;
+
 	public MinMaxF(float _min, float _max)
 	{
 		min = _min;
 		max = _max;
 	}
 
-	public float min;
-	public float max;
+	public void Clamp( ref float v )
+	{
+		v = Mathf.Clamp( v, min, max );
+	}
 
-	public float Range
+	public float range
 	{
 		get { return max - min; }
 	}
 
-	public void Clamp( ref float v )
+	public float random
 	{
-		v = Mathf.Clamp( v, min, max );
+		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public bool IsOutside( float v )
+	{
+		return ( v < min || max < v );
 	}
 }
 
 [System.Serializable]
 public struct MinMaxI
 {
+	public int min;
+	public int max;
+
 	public MinMaxI(int _min, int _max)
 	{
 		min = _min;
 		max = _max;
 	}
-	
-	public int min;
-	public int max;
 
 	public int Range
 	{
@@ -585,6 +595,16 @@ public struct MinMaxI
 	public void Clamp( ref int v )
 	{
 		v = Mathf.Clamp( v, min, max );
+	}
+
+	public int Random
+	{
+		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public bool IsOutside( int v )
+	{
+		return ( v < min || max < v );
 	}
 }
 
