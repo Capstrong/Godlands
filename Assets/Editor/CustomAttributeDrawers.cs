@@ -40,3 +40,19 @@ public class ReadOnlyDrawer : PropertyDrawer
 		}
 	}
 }
+
+[CustomEditor( typeof( BuildUnityPlayer ) )]
+public class BuildSettingsEditor : Editor
+{
+	public override void OnInspectorGUI()
+	{
+		BuildUnityPlayer buildSettings = (BuildUnityPlayer)target;
+
+		DrawDefaultInspector();
+
+		if ( GUILayout.Button( "Start Build" ) )
+		{
+			buildSettings.PerformBuild();
+		}
+	}
+}
