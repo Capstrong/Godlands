@@ -16,7 +16,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	[Range( 0.0f, 1.0f ), Tooltip( "The percent through the day that the morning starts." )]
 	[SerializeField] float _dayStartTime = .1f;
-	float morningTime
+	public float morningTime
 	{
 		get
 		{
@@ -36,7 +36,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	EndOfDayCallback _endOfDayCallback = delegate() { };
 
-	float timeUntilBlackout
+	public float timeUntilBlackout
 	{
 		get { return ( _dayCycleLength - _blackoutDuration ) - _currentTime; }
 	}
@@ -68,6 +68,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	{
 		_currentTime = morningTime;
 		StartCoroutine( FadeOutMidnightOverlay() );
+
+		CancelInvoke( "StartMidnightOverlay" );
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
 	}
 
