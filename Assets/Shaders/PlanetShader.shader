@@ -15,10 +15,12 @@
 	{
 		Lighting Off
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-		Fog { Mode Off }
 
 		CGPROGRAM
-		#pragma surface surf Lambert alpha
+		#pragma surface surf Standard alpha nofog
+
+		// Use shader model 3.0 target, to get nicer looking lighting
+		#pragma target 3.0
 
 		sampler2D _MainTex;
 		sampler2D _CloudTex;
@@ -27,6 +29,9 @@
 		float4 _LightDir;
 		float _LightIntensity;
 		float _AlphaIntensity;
+		
+		half _Glossiness;
+		half _Metallic;
 
 		struct Input
 		{
@@ -35,7 +40,7 @@
 			float3 viewDir;
 		};
 
-		void surf (Input IN, inout SurfaceOutput o)
+		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
 			o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb;
 			o.Albedo += tex2D (_CloudTex, IN.uv_CloudTex).rgb;
@@ -65,6 +70,10 @@
 			// but from the light's perspective.
 			// It's similar to using the diffuse calculation,
 			// but we get more control over how the alpha fades.
+			
+			o.Metallic = _Metallic;
+			o.Smoothness = _Glossiness;
+			
 			half alpha_rim = 1.0 - saturate (NdotL);
 			o.Alpha = 1.0 - (_AlphaIntensity * pow (alpha_rim, _RimPower));
 		}

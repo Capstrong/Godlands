@@ -164,9 +164,24 @@ public class PlayerInventory : ActorComponent
 			return;
 		}
 
+		Vector3 spawnLocation;
+
+		RaycastHit hitInfo;
+
+		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
+
+		if ( hitInfo.transform )
+		{
+			spawnLocation = hitInfo.point;
+		}
+		else
+		{
+			spawnLocation = transform.position + transform.forward * _buddySpawnDistance;
+		}
+
 		BuddyItemData buddyItemData = (BuddyItemData)heldResources[resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
-		                                     transform.position + transform.forward * _buddySpawnDistance,
+		                                     spawnLocation,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
 		newBuddy.Initialize( GetComponent<GodTag>(), buddyItemData );
 

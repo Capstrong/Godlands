@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 
 public class CheckpointLifter : MonoBehaviour 
@@ -9,7 +11,7 @@ public class CheckpointLifter : MonoBehaviour
 	[ReadOnly("Initial Position")] Vector3 _initPos = Vector3.zero;
 	[SerializeField] float _maxHeightOffset = 25f;
 
-	[ReadOnly("Is Active")] bool _isActive = true;
+	[SerializeField] bool _isActive = false;
 	[ReadOnly("Is Rising")] bool _isRising = false;
 
 	Renderer _renderer = null;

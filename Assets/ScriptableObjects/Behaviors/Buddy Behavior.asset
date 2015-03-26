@@ -12,63 +12,59 @@ MonoBehaviour:
   m_Name: Buddy Behavior
   m_EditorClassIdentifier: 
   _serializedNodes:
-  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 01000000
-  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 02000000
-  - typename: Selector, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0300000009000000
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0400000005000000
+    children: 0100000002000000
   - typename: ChooseTargetGod, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
+  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    children: 03000000
+  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 04000000
+  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 0500000009000000
+  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 06000000
   - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 060000000700000008000000
-  - typename: SetTargetAsDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    children: 0700000008000000
+  - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
-  - typename: IsDestinationWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+  - typename: FollowTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 
-  - typename: MoveToDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 0a000000
   - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 0b0000000f000000
+    children: 0b0000000d000000
   - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 0c000000
-  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0d0000000e000000
-  - typename: ChooseTargetGod, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
   - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
   - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 100000001100000016000000
-  - typename: Idle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 
+    children: 0e0000001200000015000000
   - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 12000000
-  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 13000000
+    children: 0f000000
   - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    children: 1400000015000000
+    children: 1000000011000000
   - typename: PickRandomDestinationInRadius, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
   - typename: IsDestinationWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     children: 
+  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    children: 13000000
+  - typename: Fail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    children: 14000000
   - typename: MoveToDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+    children: 
+  - typename: Idle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     children: 

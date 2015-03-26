@@ -1291,15 +1291,13 @@ MonoBehaviour:
   _idealResourcesRange:
     min: 17
     max: 22
-  _nightlyResourceDrain: 10
-  _nightlyHappinessDecrement: 2
-  _happinessIncrementPerResource: .150000006
+  _nightlyHappinessDecrement: .100000001
+  _happinessIncrementPerResource: .0299999993
   _neutralHappinessRange:
     min: 12
     max: 20
-  _startingHappiness: 10
+  _startingHappiness: .300000012
   _happiness: 0
-  _statPerHappiness: .0209999997
   _stomachRumbleSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
   _happySound: {fileID: 8247732, guid: 1d92b91482a572c4884d3f39383c41dd, type: 2}
   _neutralSound: {fileID: 8247732, guid: 52cb3e07c02e4a24d9514e22fe4e3a3e, type: 2}
@@ -1371,7 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aea8e1c437294544920e1c31a0f89f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behavior: {fileID: 11400000, guid: 6dcae8667890c724ba26ba9a0a3e0152, type: 2}
+  behavior: {fileID: 11400000, guid: 16716ecb522c54340a931d3aa99ed715, type: 2}
 --- !u!114 &11481498
 MonoBehaviour:
   m_ObjectHideFlags: 1
