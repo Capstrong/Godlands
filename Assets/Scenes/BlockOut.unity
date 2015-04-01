@@ -1716,6 +1716,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2a9c213d3db077d4a907f3faed85aec1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &404739609
+GameObject:
+  m_PrefabParentObject: {fileID: 142944, guid: 2a9c213d3db077d4a907f3faed85aec1, type: 2}
+  m_PrefabInternal: {fileID: 404739608}
+--- !u!114 &404739610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 404739609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885319678704c7e489c6a4e2c281b42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactText: This is the tree
 --- !u!1 &410360822
 GameObject:
   m_ObjectHideFlags: 0
@@ -12252,6 +12268,84 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 430960, guid: ed15df465794c1e419b39a4e48521e22, type: 2}
   m_PrefabInternal: {fileID: 2130989374}
+--- !u!1 &2139694209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 2139694210}
+  - 222: {fileID: 2139694213}
+  - 114: {fileID: 2139694212}
+  - 114: {fileID: 2139694211}
+  m_Layer: 5
+  m_Name: TextBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2139694210
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139694209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 27935301}
+  m_RootOrder: 6
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: -77.25}
+  m_SizeDelta: {x: 625.5, y: 100}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &2139694211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139694209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05d295ffc8179644a2a829fd2fdb8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2139694212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139694209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 6e53ce6e60e5310428ed9a6ab9a4cfb4, type: 3}
+    m_FontSize: 33
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: This is a game where you do stuff
+--- !u!222 &2139694213
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2139694209}
 --- !u!1 &2140706253
 GameObject:
   m_ObjectHideFlags: 0

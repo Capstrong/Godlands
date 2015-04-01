@@ -27,7 +27,19 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] AudioSource _respawnSound = null;
 	
 	Transform _cameraTransform = null;
+
+	TextBox _textBox = null;
+	public TextBox textBox
+	{
+		get { return _textBox; }
+	}
 	
+	[SerializeField] LayerMask _interactableLayer = 0;
+	public LayerMask interactableLayer
+	{
+		get { return _interactableLayer; }
+	}
+
 	Button _holdButton = new Button( "Hold" );
 	public Button holdButton
 	{
@@ -63,6 +75,7 @@ public class PlayerControls : MonoBehaviour
 		_respawnRotation = transform.rotation;
 
 		DayCycleManager.RegisterEndOfDayCallback( Respawn );
+		_textBox = FindObjectOfType<TextBox>();
 	}
 
 	void FixedUpdate()
@@ -280,14 +293,22 @@ public class PlayerControls : MonoBehaviour
 					}
 					else
 					{
-						// This allows us to do one raycast for both actions
+						// This allows us to do one raycast for all actions
 						// which is good since we do RaycastAll(), which is expensive.
 						RaycastHit hitInfo;
 						if ( player.controls.RaycastForward( out hitInfo ) )
 						{
-							if ( !player.cutting.CutCheck( hitInfo ) )
+							if ( player.cutting.CutCheck( hitInfo ) )
 							{
-								player.inventory.UseItemWithTarget( hitInfo );
+								// cutting was done
+							}
+							else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+							{
+								// item use / buddy spawning was done
+							}
+							else if ( player.controls.InteractCheck( hitInfo ) )
+							{
+								// Interaction was done
 							}
 						}
 					}
@@ -403,16 +424,30 @@ public class PlayerControls : MonoBehaviour
 
 	void SetupStateMethodMap()
 	{
-		_actor.physics.RegisterState( PhysicsStateType.Jumping,  new Jumping( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Falling,  new Falling( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Grounded, new Grounded( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Climbing, new Climbing( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Gliding,  new Gliding( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Sprinting, new Sprinting( _actor ) );	
+		_actor.physics.RegisterState( PhysicsStateType.Jumping,   new Jumping( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Falling,   new Falling( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Grounded,  new Grounded( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Climbing,  new Climbing( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Gliding,   new Gliding( _actor ) );
+		_actor.physics.RegisterState( PhysicsStateType.Sprinting, new Sprinting( _actor ) );
 	}
 	#endregion
 
-	/**
+	public bool InteractCheck( RaycastHit hitInfo )
+	{
+		Interactable interactable = hitInfo.collider.gameObject.GetComponent<Interactable>();
+		if ( interactable )
+		{
+			_textBox.SetTextForDuration( interactable.interactText, interactable.duration );
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+    /**
 	 * Raycast forward from the camera's position to detect
 	 * items to interact with.
 	 * 
@@ -429,7 +464,7 @@ public class PlayerControls : MonoBehaviour
 			new Ray( rayOrigin, camForward ),
 			_interactCheckRadius,
 			_interactCheckDistance,
-			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer );
+			_actor.cutting.cuttableLayer | _actor.inventory.buddyLayer | _interactableLayer );
 
 		if ( hits.Length == 0 )
 		{

@@ -111,22 +111,26 @@ public class PlayerInventory : ActorComponent
 		SpawnBuddy();
 	}
 
-	public void UseItemWithTarget( RaycastHit hitInfo )
+	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
 		if ( heldResources.Count > 0 )
 		{
 			if ( heldResources[resourceIndex] is ResourceData )
 			{
-				CheckGiveResources( hitInfo );
+				return CheckGiveResources( hitInfo );
 			}
 			else
 			{
-				SpawnBuddy();
+				return SpawnBuddy();
 			}
+		}
+		else
+		{
+			return false;
 		}
 	}
 
-	void CheckGiveResources( RaycastHit hitInfo )
+	bool CheckGiveResources( RaycastHit hitInfo )
 	{
 		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
 
@@ -135,8 +139,8 @@ public class PlayerInventory : ActorComponent
 		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
 
 		if ( buddyStats &&
-		     buddyStats.isAlive &&
-		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
+			 buddyStats.isAlive &&
+			 ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 		{
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
@@ -145,6 +149,11 @@ public class PlayerInventory : ActorComponent
 			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
 				_lookOverrideDuration );
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -156,12 +165,12 @@ public class PlayerInventory : ActorComponent
 		UpdateResourceList();
 	}
 
-	void SpawnBuddy()
+	bool SpawnBuddy()
 	{
 		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
 		{
 			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
-			return;
+			return false;
 		}
 
 		Vector3 spawnLocation;
@@ -189,6 +198,7 @@ public class PlayerInventory : ActorComponent
 
 		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
+		return true;
 	}
 
 	void PickupItem( InventoryItemData itemData )
