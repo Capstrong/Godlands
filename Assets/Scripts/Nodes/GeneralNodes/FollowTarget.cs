@@ -24,7 +24,6 @@ public class FollowTarget : LeafNode
 
 		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
 		{
-			info.followTarget = null;
 			controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}
