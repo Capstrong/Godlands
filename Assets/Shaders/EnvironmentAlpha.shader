@@ -27,6 +27,7 @@ Shader "Custom/EnvironmentAlpha"
 		CGPROGRAM
 		#pragma vertex vert
 		#pragma surface surf Lambert alphatest:_Cutoff addshadow fullforwardshadows
+		#pragma target 3.0
 
 		sampler2D _MainTex;
 		sampler2D _ColorMask;
