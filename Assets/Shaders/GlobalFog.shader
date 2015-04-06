@@ -144,11 +144,14 @@ CGINCLUDE
 			fogFac = 1.0;
 		//return fogFac; // for debugging
 		
-		float4 fogCol = lerp( tex2D( _FogColorTex, float2( fogFac, 0 )), sceneColor, fogFac );
+		float4 fogCol = tex2D( _FogColorTex, float2( 1 - saturate(fogFac), 0 ));	
+		float4 alphaFogCol = lerp( sceneColor, fogCol, fogCol.a );
 		
 		// Lerp between fog color & original scene color
 		// by fog amount
-		return lerp ( sceneColor, fogCol, tex2D( _FogColorTex, float2( fogFac, 0 )).a);
+		//return lerp ( sceneColor, fogCol, tex2D( _FogColorTex, float2( fogFac, 0 )).a);
+		//return float4(fogFac, fogFac, fogFac, 1);
+		return alphaFogCol;
 	}
 
 ENDCG

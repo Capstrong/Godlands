@@ -19,7 +19,7 @@ RenderSettings:
   m_FogMode: 2
   m_FogDensity: .00646446692
   m_LinearFogStart: 0
-  m_LinearFogEnd: 54.4000015
+  m_LinearFogEnd: 250
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: .725490212, g: .82745105, b: .368627459, a: 1}
   m_AmbientGroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -543,8 +543,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 58908141}
-  m_LocalRotation: {x: 0, y: .800290287, z: 0, w: -.599612832}
-  m_LocalPosition: {x: -54.8100014, y: 53.8499985, z: 48.2200012}
+  m_LocalRotation: {x: 0, y: -.563894629, z: 0, w: .825846732}
+  m_LocalPosition: {x: -3.30999994, y: 52.5499992, z: 13.6400003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1453699799}
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 58908141}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
   m_Name: 
@@ -600,10 +600,10 @@ MonoBehaviour:
   distanceFog: 1
   useRadialDistance: 1
   heightFog: 0
-  height: 1
+  height: 43.9000015
   heightDensity: .899999976
   startDistance: 0
-  fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
+  fogShader: {fileID: 4800000, guid: 9b11c4a942b4c41039461031e11fd7a1, type: 3}
   _fogColorTexture: {fileID: 2800000, guid: 02c957ffe681f46a69e76195f5fa9ee3, type: 3}
 --- !u!1 &60212126
 GameObject:
@@ -7469,6 +7469,10 @@ Prefab:
     - target: {fileID: 11486862, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
       propertyPath: m_Color.b
       value: .110294104
+      objectReference: {fileID: 0}
+    - target: {fileID: 186852, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
@@ -14656,7 +14660,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_Name
@@ -15426,7 +15430,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
@@ -20285,7 +20289,6 @@ GameObject:
   - 4: {fileID: 1655511151}
   - 33: {fileID: 1655511154}
   - 23: {fileID: 1655511153}
-  - 95: {fileID: 1655511152}
   m_Layer: 0
   m_Name: Tree_64
   m_TagString: Untagged
@@ -20305,24 +20308,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 404739609}
   m_RootOrder: 138
---- !u!95 &1655511152
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 9543016, guid: 2a9c213d3db077d4a907f3faed85aec1,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1655511150}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 02bfc3dfdfe4fa44f99b692245523449, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1655511153
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24757,6 +24742,10 @@ Prefab:
     - target: {fileID: 141266, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366758, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
+      propertyPath: m_UseLightProbes
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
