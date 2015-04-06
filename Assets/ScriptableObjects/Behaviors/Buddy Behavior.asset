@@ -30,8 +30,8 @@ MonoBehaviour:
     parentIndex: 0
     nodeRect:
       serializedVersion: 2
-      x: 11
-      y: 33
+      x: 12
+      y: 89
       width: 200
       height: 200
     foldout: 1
@@ -41,8 +41,8 @@ MonoBehaviour:
     parentIndex: 1
     nodeRect:
       serializedVersion: 2
-      x: 220
-      y: 105
+      x: 333
+      y: 106
       width: 200
       height: 20
     foldout: 1
@@ -52,7 +52,7 @@ MonoBehaviour:
     parentIndex: 0
     nodeRect:
       serializedVersion: 2
-      x: 223
+      x: 276
       y: 146
       width: 200
       height: 20
@@ -74,8 +74,8 @@ MonoBehaviour:
     parentIndex: 0
     nodeRect:
       serializedVersion: 2
-      x: 33
-      y: 289
+      x: 85
+      y: 307
       width: 200
       height: 20
     foldout: 1
@@ -85,8 +85,8 @@ MonoBehaviour:
     parentIndex: 0
     nodeRect:
       serializedVersion: 2
-      x: 43
-      y: 346
+      x: 25
+      y: 366
       width: 200
       height: 200
     foldout: 1
@@ -96,13 +96,13 @@ MonoBehaviour:
     parentIndex: 1
     nodeRect:
       serializedVersion: 2
-      x: 376
-      y: 300
+      x: 328
+      y: 288
       width: 200
       height: 20
     foldout: 1
-  - id: -58434
-    node: {fileID: 11453468}
+  - id: -122638
+    node: {fileID: 11446690}
     parent: {fileID: 11456338}
     parentIndex: 0
     nodeRect:
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -50926
-  behaviorTree: {fileID: 0}
+  behaviorTree: {fileID: 11400000, guid: 569f8431a83db9c4482a7d219f2fd6a9, type: 2}
 --- !u!114 &11436626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -11054
---- !u!114 &11453468
+--- !u!114 &11446690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -188,10 +188,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccec1f126bd0a034cac61ac8d2cfff1a, type: 3}
+  m_Script: {fileID: 11500000, guid: e861197ce357b9149afce0a9524bbc42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -58434
+  id: -122638
+  time: 2
 --- !u!114 &11456338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -50962
-  _child: {fileID: 11453468}
+  _child: {fileID: 11446690}
 --- !u!114 &11468432
 MonoBehaviour:
   m_ObjectHideFlags: 0

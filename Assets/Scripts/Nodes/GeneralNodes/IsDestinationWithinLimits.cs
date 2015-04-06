@@ -5,24 +5,20 @@ using BehaviorTree;
 
 public class IsDestinationWithinLimits : LeafNode
 {
-	private GameObject _gameObject;
-	private BehaviorTreeInfo _info;
+	Vector3 _destination;
 
 	public override void InitSelf( Hashtable data )
 	{
-		_gameObject = (GameObject)data["gameObject"];
-		_info = _gameObject.GetComponent<BehaviorTreeInfo>();
+		_destination = (Vector3)data["destination"];
 	}
 
 	public override NodeStatus TickSelf()
 	{
-		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _info.destination, LimitsManager.colliders ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _destination, LimitsManager.colliders ) )
 		{
 			return NodeStatus.SUCCESS;
 		}
-		else
-		{
-			return NodeStatus.FAILURE;
-		}
+
+		return NodeStatus.FAILURE;
 	}
 }

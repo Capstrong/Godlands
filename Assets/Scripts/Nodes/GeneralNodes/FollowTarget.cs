@@ -5,26 +5,27 @@ using BehaviorTree;
 
 public class FollowTarget : LeafNode
 {
-	private GameObject gameObject;
-	private Transform transform;
-	private BehaviorPhysicsController controller;
-	private BehaviorTreeInfo info;
+	public float minDistance;
+
+	private Transform _transform;
+	private BehaviorPhysicsController _controller;
+	private Transform _target;
 
 	public override void InitSelf( Hashtable data )
 	{
-		gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
-		controller = gameObject.GetComponent<BehaviorPhysicsController>();
+		GameObject gameObject = (GameObject)data["gameObject"];
+		_transform = gameObject.GetComponent<Transform>();
+		_controller = gameObject.GetComponent<BehaviorPhysicsController>();
+		_target = (Transform)data["target"];
 	}
 
 	public override NodeStatus TickSelf()
 	{
-		controller.moveDirection = ( info.followTarget.position - transform.position ).normalized;
+		_controller.moveDirection = ( _target.position - _transform.position ).normalized;
 
-		if ( Vector3.Distance( transform.position, info.followTarget.position ) < 0.5f )
+		if ( Vector3.Distance( _transform.position, _target.position ) < minDistance )
 		{
-			controller.moveDirection = Vector3.zero;
+			_controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}
 		else

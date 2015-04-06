@@ -5,12 +5,13 @@ using BehaviorTree;
 
 public class Idle : LeafNode
 {
+	public float time;
+
 	private float _time;
 
 	public override void InitSelf( Hashtable data )
 	{
-		BuddyInfo info = ( (GameObject)data["gameObject"] ).GetComponent<BuddyInfo>();
-		_time = Random.Range( info.minIdleTime, info.maxIdleTime );
+		_time = time;
 	}
 
 	public override NodeStatus TickSelf()

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using BehaviorTree;
 
 public class BuddyStats : MonoBehaviour
 {

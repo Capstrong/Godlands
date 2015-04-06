@@ -3,19 +3,22 @@ using System.Collections;
 
 using BehaviorTree;
 
-public class IsTargetWithinLimits : LeafNode
+public class FindGod : LeafNode
 {
-	Transform _target;
+	private Hashtable _data;
 
 	public override void InitSelf( Hashtable data )
 	{
-		_target = (Transform)data["target"];
+		_data = data;
 	}
 
 	public override NodeStatus TickSelf()
 	{
-		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _target.position, LimitsManager.colliders ) )
+		GodTag targetGod = GameObject.FindObjectOfType<GodTag>();
+
+		if ( targetGod )
 		{
+			_data[ "god" ] = targetGod.GetComponent<Transform>();
 			return NodeStatus.SUCCESS;
 		}
 
