@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Big_Rock_Wall_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: 0df65694f314348e694dcdbcbc78ae56, type: 3}
-  m_ShaderKeywords: _NORMALMAP
+  m_Name: BubbleFlowerDiffuse
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,14 +18,14 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 25e3e11a30dd04a98a404046f4efaec1, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: b92799aff00e942a7938e62dfc7541d2, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -53,7 +53,7 @@ Material:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 25e3e11a30dd04a98a404046f4efaec1, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -85,15 +85,15 @@ Material:
       data:
         first:
           name: _SrcBlend
-        second: 1
+        second: 5
       data:
         first:
           name: _DstBlend
-        second: 0
+        second: 10
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _Metallic
@@ -105,7 +105,7 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 1
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -129,15 +129,7 @@ Material:
       data:
         first:
           name: _Mode
-        second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
+        second: 2
     m_Colors:
       data:
         first:
