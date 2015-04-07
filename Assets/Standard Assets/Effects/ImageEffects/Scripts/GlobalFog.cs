@@ -17,9 +17,7 @@ namespace UnityStandardAssets.ImageEffects
 		
 		public Shader fogShader = null;
 		public Material fogMaterial = null;
-		
-		[SerializeField] Texture2D _fogColorTexture = null;
-		
+
 		public override bool CheckResources ()
 		{
 			CheckSupport (true);
