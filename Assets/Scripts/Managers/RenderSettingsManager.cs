@@ -126,19 +126,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	IEnumerator TransitionRenderSettingsRoutine( RenderSettingsData newRenderSettings, float settingShiftTime )
 	{
-		if( _currentRenderSettings.daySettings.fogGradientTex )
-		{
-			globalFog.fogMaterial.SetTexture("_FromDayTex", _currentRenderSettingsProperty.daySettings.fogGradientTex );
-			globalFog.fogMaterial.SetTexture("_FromNightTex", _currentRenderSettingsProperty.nightSettings.fogGradientTex );
-		}
-		else
-		{
-			globalFog.fogMaterial.SetTexture( "_ToDayTex", newRenderSettings.daySettings.fogGradientTex );
-			globalFog.fogMaterial.SetTexture( "_ToNightTex", newRenderSettings.daySettings.fogGradientTex );
-		}
-
 		globalFog.fogMaterial.SetTexture( "_ToDayTex", newRenderSettings.daySettings.fogGradientTex );
-		globalFog.fogMaterial.SetTexture( "_ToNightTex", newRenderSettings.daySettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture( "_ToNightTex", newRenderSettings.nightSettings.fogGradientTex );
 
 		RenderSettingsData oldRenderSettings = _currentRenderSettingsProperty;
 
@@ -162,9 +151,11 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void UpdateRenderSettings()
 	{
-		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
-
+		globalFog.fogMaterial.SetTexture("_FromDayTex", _currentRenderSettingsProperty.daySettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture("_FromNightTex", _currentRenderSettingsProperty.nightSettings.fogGradientTex );
 		globalFog.fogMaterial.SetFloat( "_DaylightIntensity", daylightIntensity );
+
+		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
 		RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
 
 		_dirLight.color = _currentTimeRenderSettings.lightColor;
