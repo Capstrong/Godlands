@@ -5,29 +5,30 @@ using BehaviorTree;
 
 public class MoveToDestination : LeafNode
 {
-	private GameObject gameObject;
-	private Transform transform;
-	private BehaviorPhysicsController controller;
-	private BehaviorTreeInfo info;
+	public float minDistance;
+
+	private Transform _transform;
+	private BehaviorPhysicsController _controller;
+	private Vector3 _destination;
 
 	public override void InitSelf( Hashtable data )
 	{
-		gameObject = (GameObject)data["gameObject"];
-		transform = gameObject.GetComponent<Transform>();
-		controller = gameObject.GetComponent<BehaviorPhysicsController>();
-		info = gameObject.GetComponent<BehaviorTreeInfo>();
+		GameObject gameObject = (GameObject)data["gameObject"];
+		_transform = gameObject.GetComponent<Transform>();
+		_controller = gameObject.GetComponent<BehaviorPhysicsController>();
+		_destination = (Vector3)data["destination"];
 	}
 
 	public override NodeStatus TickSelf()
 	{
-		controller.moveDirection = ( info.destination - transform.position ).normalized;
+		_controller.moveDirection = ( _destination - _transform.position ).normalized;
 
-		Debug.DrawLine( transform.position, info.destination );
+		Debug.DrawLine( _transform.position, _destination );
 
-		if ( Vector3.Distance( transform.position, info.destination ) < 1.0f )
+		if ( Vector3.Distance( _transform.position, _destination ) < 1.0f )
 		{
-			info.destination = Vector3.zero;
-			controller.moveDirection = Vector3.zero;
+			_destination = Vector3.zero;
+			_controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}
 		else
