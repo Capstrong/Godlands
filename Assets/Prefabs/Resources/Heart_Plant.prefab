@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 465000}
   - 198: {fileID: 19822770}
   - 199: {fileID: 19919932}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HeartWaveEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,9 @@ GameObject:
   - 4: {fileID: 417454}
   - 33: {fileID: 3304758}
   - 23: {fileID: 2352302}
-  m_Layer: 0
+  - 114: {fileID: 11413696}
+  - 135: {fileID: 13512700}
+  m_Layer: 2
   m_Name: Heart_Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,6 +92,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146824}
   m_Mesh: {fileID: 4300000, guid: 1cf596890a1352641b3fc09c40e24847, type: 3}
+--- !u!114 &11413696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76641f3cd5941bb47ae43ab53a8f2096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceData: {fileID: 11400000, guid: a3e4faf8cac533a4591710afc072631e, type: 2}
+  used: 0
+  _respawnTime: 180
+--- !u!135 &13512700
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .65084511
+  m_Center: {x: .0535579026, y: .653158247, z: -.132034868}
 --- !u!198 &19822770
 ParticleSystem:
   m_ObjectHideFlags: 1

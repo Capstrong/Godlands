@@ -2,7 +2,7 @@
 #define GODLANDS_SHADER_UTILS_INCLUDED
 
 ////////////////
-// NOISE UTIL //
+// NOISE UTIL ///
 ////////////////
 
 #ifndef __noise_hlsl_
@@ -54,13 +54,19 @@ inline float4 CalculateWorldBendOffset( appdata_full v )
     // Need to clamp somewhere here so there's a little offset before starting
     vv.xyz -= _WorldSpaceCameraPos.xyz;
 
-	vv.z -= _MinCurveDistance * sign(vv.z);
+	//vv.z -= _MinCurveDistance * sign(vv.z);
 
     // Reduce the y coordinate (i.e. lower the "height") of each vertex based
     // on the square of the distance from the camera in the z axis, multiplied
     // by the chosen curvature factor
+    float dist = sqrt( vv.z * vv.z + vv.x * vv.x );
+    dist *= 0.5;
     
-	vv = float4( 0.0f, (vv.z * vv.z) * - _Curvature * (sin(_Time.y/5) * 0.5 + 0.5), 0.0f, 0.0f );
+    dist = clamp(dist - 10, 0, 100000);
+    
+    //float timeOffset = (sin(_Time.y/5) * 0.5 + 0.5);
+    float timeOffset = 1;
+	vv = float4( 0.0f, (dist * dist) * - _Curvature * timeOffset, 0.0f, 0.0f );
 
     // Now apply the offset back to the vertices in model space
     return mul(_World2Object, vv);

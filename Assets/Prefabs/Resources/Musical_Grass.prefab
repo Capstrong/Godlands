@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 435750}
   - 198: {fileID: 19813592}
   - 199: {fileID: 19982126}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MusicEmitter 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 499126}
   - 198: {fileID: 19855378}
   - 199: {fileID: 19939288}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MusicEmitter 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,9 @@ GameObject:
   - 4: {fileID: 450536}
   - 33: {fileID: 3303836}
   - 23: {fileID: 2348380}
-  m_Layer: 0
+  - 114: {fileID: 11451246}
+  - 135: {fileID: 13579334}
+  m_Layer: 2
   m_Name: Musical_Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +63,7 @@ GameObject:
   - 4: {fileID: 436882}
   - 198: {fileID: 19884442}
   - 199: {fileID: 19971134}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MusicEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.9869995, y: 61.5940018, z: 93.401001}
+  m_LocalPosition: {x: -40.1029396, y: 59.8210068, z: 53.5834503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436882}
@@ -150,6 +152,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171410}
   m_Mesh: {fileID: 4300000, guid: 85199b37617b1fe41ba37ca3167dc77a, type: 3}
+--- !u!114 &11451246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76641f3cd5941bb47ae43ab53a8f2096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceData: {fileID: 11400000, guid: db3fc3251b4100e439adc06342ae6428, type: 2}
+  used: 0
+  _respawnTime: 180
+--- !u!135 &13579334
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .587802231
+  m_Center: {x: .0223775506, y: .588036954, z: .00736673176}
 --- !u!198 &19813592
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 405772}
   - 198: {fileID: 19811312}
   - 199: {fileID: 19953462}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BubbleEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,9 @@ GameObject:
   - 4: {fileID: 499780}
   - 33: {fileID: 3393422}
   - 23: {fileID: 2356852}
-  m_Layer: 0
+  - 114: {fileID: 11498870}
+  - 135: {fileID: 13594022}
+  m_Layer: 2
   m_Name: Bubble_Flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169196}
   m_LocalRotation: {x: 0, y: .208308876, z: 0, w: .978063107}
-  m_LocalPosition: {x: -31.2810001, y: 61.6199989, z: 89.9089966}
+  m_LocalPosition: {x: -38.9748535, y: 59.8196487, z: 53.1396408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 405772}
@@ -90,6 +92,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169196}
   m_Mesh: {fileID: 4300000, guid: 1c61d55d9257c084b818f682b1c410a9, type: 3}
+--- !u!114 &11498870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76641f3cd5941bb47ae43ab53a8f2096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceData: {fileID: 11400000, guid: 24c22c8c3fd33b4449aa1680917414b3, type: 2}
+  used: 0
+  _respawnTime: 180
+--- !u!135 &13594022
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169196}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .744761467
+  m_Center: {x: .0489555411, y: .740325689, z: -.0380584635}
 --- !u!198 &19811312
 ParticleSystem:
   m_ObjectHideFlags: 1
