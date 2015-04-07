@@ -12,9 +12,6 @@ Shader "FX/WaterBend"
 		_HorizonColor ("Simple water horizon color", COLOR)  = ( .172, .463, .435, 1)
 		[HideInInspector] _ReflectionTex ("Internal Reflection", 2D) = "" {}
 		[HideInInspector] _RefractionTex ("Internal Refraction", 2D) = "" {}
-		
-		_Curvature ("Curvature", float) = -0.0017
-		_MinCurveDistance ("Minimum Curve Distance", float) = 20
 	}
 
 
@@ -42,6 +39,7 @@ Shader "FX/WaterBend"
 
 
 			#include "UnityCG.cginc"
+			#include "GodlandsShaderUtils.cginc"
 
 			uniform float4 _WaveScale4;
 			uniform float4 _WaveOffset;
@@ -52,9 +50,6 @@ Shader "FX/WaterBend"
 			#if HAS_REFRACTION
 			uniform float _RefrDistort;
 			#endif
-			
-			uniform float _Curvature;
-			uniform float _MinCurveDistance;
 
 			struct appdata
 			{
@@ -78,26 +73,11 @@ Shader "FX/WaterBend"
 				UNITY_FOG_COORDS(4)
 			};
 
-			v2f vert(appdata v)
+			v2f vert(appdata_full v)
 			{
 				v2f o;
 				
-				// Transform the vertex coordinates from model space into world space
-			    float4 vv = mul( _Object2World, v.vertex );
-
-			    // Now adjust the coordinates to be relative to the camera position
-			    vv.xyz -= _WorldSpaceCameraPos.xyz;
-
-				vv.z -= _MinCurveDistance * sign(vv.z);
-
-			    // Reduce the y coordinate (i.e. lower the "height") of each vertex based
-			    // on the square of the distance from the camera in the z axis, multiplied
-			    // by the chosen curvature factor
-			    
-				vv = float4( 0.0f, (vv.z * vv.z) * - _Curvature * (sin(_Time.y/5) * 0.5 + 0.5), 0.0f, 0.0f );
-
-			    // Now apply the offset back to the vertices in model space
-			    v.vertex += mul(_World2Object, vv);
+				v.vertex += CalculateWorldBendOffset(v);
 				
 				o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
 
