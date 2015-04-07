@@ -459,8 +459,6 @@ GameObject:
   - 114: {fileID: 11481498}
   - 114: {fileID: 11423312}
   - 114: {fileID: 11474254}
-  - 114: {fileID: 11483758}
-  - 114: {fileID: 11414764}
   - 114: {fileID: 11457846}
   - 114: {fileID: 11409692}
   m_Layer: 2
@@ -1229,21 +1227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
---- !u!114 &11414764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6183acf6cd1c7e340afe4e757ff6c70a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minIdleTime: 2
-  maxIdleTime: 7
-  minIdleWalkRadius: 2
-  maxIdleWalkRadius: 5
 --- !u!114 &11423312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,21 +1359,6 @@ MonoBehaviour:
   _glideHorizontalSpeed: 5
   _glideDescentRate: 1
   _glideTurnRate: .5
---- !u!114 &11483758
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 176348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a439980ccf5d144581a119a3f05d39b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}
-  followTarget: {fileID: 0}
-  moveSpeed: 2
-  watchDistance: 10
 --- !u!135 &13570796
 SphereCollider:
   m_ObjectHideFlags: 1

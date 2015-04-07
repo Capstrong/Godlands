@@ -52,8 +52,8 @@ MonoBehaviour:
     parentIndex: 1
     rect:
       serializedVersion: 2
-      x: 496
-      y: 461
+      x: 371
+      y: 629
       width: 200
       height: 200
     foldout: 1
@@ -63,8 +63,8 @@ MonoBehaviour:
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 237
-      y: 492
+      x: 160
+      y: 628
       width: 200
       height: 200
     foldout: 1
@@ -74,8 +74,8 @@ MonoBehaviour:
     parentIndex: 2
     rect:
       serializedVersion: 2
-      x: 10
-      y: 456
+      x: 39
+      y: 413
       width: 200
       height: 200
     foldout: 1
@@ -111,6 +111,17 @@ MonoBehaviour:
       y: 256
       width: 200
       height: 20
+    foldout: 1
+  - id: -35146
+    node: {fileID: 11485222}
+    parent: {fileID: 11444952}
+    parentIndex: 3
+    rect:
+      serializedVersion: 2
+      x: 495
+      y: 417
+      width: 200
+      height: 200
     foldout: 1
 --- !u!114 &11416090
 MonoBehaviour:
@@ -205,6 +216,7 @@ MonoBehaviour:
   - {fileID: 11416090}
   - {fileID: 11430718}
   - {fileID: 11440280}
+  - {fileID: 11485222}
 --- !u!114 &11457318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,3 +245,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -200352
+--- !u!114 &11485222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1348f394bee69a946b291403f23a6a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -35146
+  comparison: 2
+  value: 1

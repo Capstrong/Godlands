@@ -314,4 +314,12 @@ public class BuddyStats : MonoBehaviour
 		Destroy( GetComponent<AIController>() );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
+
+	public float hunger
+	{
+		get
+		{
+			return (float)_resources / (float)_maxIdealResources;
+		}
+	}
 }

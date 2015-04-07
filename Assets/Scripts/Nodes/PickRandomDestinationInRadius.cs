@@ -8,14 +8,14 @@ public class PickRandomDestinationInRadius : LeafNode
 	public float minRadius = 5.0f;
 	public float maxRadius = 10.0f;
 
+	private Hashtable _data;
 	private Transform _transform;
-	private Vector3 _destination;
 
 	public override void InitSelf( Hashtable data )
 	{
 		GameObject gameObject = (GameObject)data["gameObject"];
 		_transform = gameObject.GetComponent<Transform>();
-		_destination = (Vector3)data["destination"];
+		_data = data;
 	}
 
 	public override NodeStatus TickSelf()
@@ -24,7 +24,7 @@ public class PickRandomDestinationInRadius : LeafNode
 			Random.insideUnitCircle * Random.Range( minRadius, maxRadius );
 		offset.z = offset.y;
 		offset.y = 0;
-		_destination = _transform.position + offset;
+		_data["destination"] = _transform.position + offset;
 
 		return NodeStatus.SUCCESS;
 	}
