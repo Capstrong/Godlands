@@ -2,46 +2,25 @@
 using System.Collections;
 using BehaviorTree;
 
-public class BuddyStats : MonoBehaviour
+public class BuddyStats : ActorComponent
 {
-	private Stat _statType = Stat.Invalid;
-	public Stat statType
-	{
-		get
-		{
-			return _statType;
-		}
-		set
-		{
-			_statType = value;
-			RecalculateStat();
-		}
-	}
-
 	[SerializeField] int _startingResourceCount = 10;
 	[ReadOnly("Current Resources")]
 	[SerializeField] int _resources = 0;
-	[SerializeField] int _minIdealResources = 0;
-	[SerializeField] int _maxIdealResources = 0;
-	[SerializeField] int _nightlyResourceDrain = 0;
-	[SerializeField] float _nightlyHappinessIncrement = 0f;
+	[SerializeField] MinMaxI _idealResourcesRange = new MinMaxI();
+	[SerializeField] float _nightlyHappinessDecrement = 0f;
+	[Tooltip( "Amount of that happiness immediately increased by when given a resource" )]
+	[SerializeField] float _happinessIncrementPerResource = 0f;
 
-	[Tooltip("Threshold of happiness between sad and neutral")]
-	[SerializeField] float _minNeutralHappiness = 0f;
-	[Tooltip("Threshold of happiness between neutral and sad")]
-	[SerializeField] float _minHappyHappiness = 0f;
+	[Tooltip( "Below the min is sad, within the bounds is neutral and above the max is happy." )]
+	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
 	[SerializeField] float _startingHappiness = 0f;
-	[ReadOnly("Happiness")]
+	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
-	[SerializeField] float _statPerHappiness = 0f;
-
-	enum HappinessState
+	public float happiness
 	{
-		Invalid,
-		Sad,
-		Neutral,
-		Happy,
+		get { return _happiness; }
 	}
 
 	PlayerStats _ownerStats = null;
@@ -66,6 +45,23 @@ public class BuddyStats : MonoBehaviour
 	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
+
+	[SerializeField] ParticleSystem _particles = null;
+	[SerializeField] ParticleSystem _deadParticleSystem = null;
+	Renderer _particlesRenderer = null;
+
+	[ReadOnly( "Buddy Item Data" )]
+	public BuddyItemData itemData = null;
+
+	uint ID = 0;
+
+	enum HappinessState
+	{
+		Invalid,
+		Sad,
+		Neutral,
+		Happy,
+	}
 
 	GodTag _owner = null;
 	public GodTag owner
@@ -96,26 +92,31 @@ public class BuddyStats : MonoBehaviour
 		get { return _isAlive; }
 	}
 
-	[Header( "Debug Settings" )]
+	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
-	ParticleSystem _particles;
-	Renderer _particlesRenderer;
-
-	uint ID = 0;
-
-	void Awake()
+	public override void Awake()
 	{
+		base.Awake();
+
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
-		_particles = GetComponentInChildren<ParticleSystem>();
 		_particlesRenderer = _particles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
-		BuddyManager.RegisterBuddy( this );
 		_happiness = _startingHappiness;
-		AdjustHappiness( 0 ); // To initialize sound and stuff
 		RestartEmoteRoutine();
+	}
+
+	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
+	{
+		itemData = buddyItemData;
+		owner = godTag;
+
+		bodyRenderer.material.color = buddyItemData.statColor;
+
+		BuddyManager.RegisterBuddy( this );
+		AdjustHappiness( 0 ); // To initialize sound and stats and stuff
 	}
 
 	static string[] names = {"Longnose", "Jojo", "JillyJane", "Sunshine", "Moosejaw",
@@ -141,33 +142,37 @@ public class BuddyStats : MonoBehaviour
 
 		_resources++;
 
-		if ( _resources < _minIdealResources )
+		if ( _resources < _idealResourcesRange.min )
 		{
+			// Hungry
 			Emote( _hungryMaterial );
 			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			AdjustHappiness( _happinessIncrementPerResource );
 		}
-		else if ( _resources > _maxIdealResources )
+		else if ( _resources > _idealResourcesRange.max )
 		{
+			// Overfed
 			Emote( _overFedMaterial );
 		}
 		else
 		{
+			// Full
+			AdjustHappiness( _happinessIncrementPerResource );
 			Emote( _fullMaterial );
 		}
 
 		RestartEmoteRoutine();
 	}
 
-	public void NightlyEvent()
+	public void NightlyEvent( int resourceDrain )
 	{
-		DecrementResources();
+		DecrementResources( resourceDrain );
 		AffectHappinessWithHunger();
-		RecalculateStat();
 	}
 
-	public void DecrementResources()
+	public void DecrementResources( int resourceDrain )
 	{
-		_resources -= _nightlyResourceDrain;
+		_resources -= resourceDrain;
 
 		if ( _resources <= 0 )
 		{
@@ -179,13 +184,9 @@ public class BuddyStats : MonoBehaviour
 	{
 		if ( !_disableStatDecrease )
 		{
-			if ( _resources < _minIdealResources || _resources > _maxIdealResources )
+			if ( _idealResourcesRange.IsOutside( _resources ) )
 			{
-				AdjustHappiness( -_nightlyHappinessIncrement );
-			}
-			else
-			{
-				AdjustHappiness( _nightlyHappinessIncrement );
+				AdjustHappiness( -_nightlyHappinessDecrement );
 			}
 		}
 	}
@@ -194,7 +195,7 @@ public class BuddyStats : MonoBehaviour
 	{
 		if ( !_disableStatDecrease )
 		{
-			_ownerStats.SetMaxStat( statType, _happiness * _statPerHappiness );
+			BuddyManager.RecalculateStat( itemData.stat, _ownerStats );
 		}
 	}
 
@@ -202,7 +203,13 @@ public class BuddyStats : MonoBehaviour
 	{
 		_happiness += deltaHappiness;
 
-		if ( _happiness < _minNeutralHappiness
+		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
+
+		RecalculateStat();
+
+		actor.animator.SetFloat( "happiness", _happiness );
+
+		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
 		{
 			// Sad
@@ -213,7 +220,7 @@ public class BuddyStats : MonoBehaviour
 			}
 			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _sadSound, transform );
 		}
-		else if ( _happiness > _minHappyHappiness
+		else if ( _happiness > _neutralHappinessRange.max
 				  && _currentHappinessState != HappinessState.Happy )
 		{
 			// Happy
@@ -257,11 +264,11 @@ public class BuddyStats : MonoBehaviour
 
 			if ( didHappinessEmoteLast )
 			{
-				if ( _resources < _minIdealResources )
+				if ( _resources < _idealResourcesRange.min )
 				{
 					Emote( _hungryMaterial );
 				}
-				else if ( _resources > _maxIdealResources )
+				else if ( _resources > _idealResourcesRange.max )
 				{
 					Emote( _overFedMaterial );
 				}
@@ -274,11 +281,11 @@ public class BuddyStats : MonoBehaviour
 			}
 			else
 			{
-				if ( _happiness < _minNeutralHappiness )
+				if ( _happiness < _neutralHappinessRange.min )
 				{
 					Emote( _sadMaterial );
 				}
-				else if ( _happiness > _minHappyHappiness )
+				else if ( _happiness > _neutralHappinessRange.max )
 				{
 					Emote( _happyMaterial );
 				}
@@ -299,6 +306,12 @@ public class BuddyStats : MonoBehaviour
 		_particles.Emit( 1 );
 	}
 
+	public void EmoteDeath()
+	{
+		_deadParticleSystem.Clear();
+		_deadParticleSystem.Emit( 1 );
+	}
+
 	/**
 	 * @brief Kill the buddy.
 	 * 
@@ -312,6 +325,14 @@ public class BuddyStats : MonoBehaviour
 	{
 		_isAlive = false;
 		Destroy( GetComponent<AIController>() );
+		_happiness = 0;
+		RecalculateStat();
+		EmoteDeath();
+		actor.physics.ChangeState( PhysicsStateType.Dead );
+
+		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+
+		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
 	}
 
@@ -319,7 +340,7 @@ public class BuddyStats : MonoBehaviour
 	{
 		get
 		{
-			return (float)_resources / (float)_maxIdealResources;
+			return (float)_resources / (float)_idealResourcesRange.max;
 		}
 	}
 }

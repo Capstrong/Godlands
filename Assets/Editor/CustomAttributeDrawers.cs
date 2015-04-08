@@ -19,7 +19,7 @@ public class ReadOnlyDrawer : PropertyDrawer
 		ReadOnlyAttribute readOnlyAttribute = (ReadOnlyAttribute)attribute;
 
 		// Use a specified name if there is one
-		string displayName = ( readOnlyAttribute.displayName != "" ) ? readOnlyAttribute.displayName : property.name;
+		string displayName = ( readOnlyAttribute.displayName != "" ) ? readOnlyAttribute.displayName : property.displayName;
 
 		switch ( property.propertyType )
 		{
@@ -37,6 +37,22 @@ public class ReadOnlyDrawer : PropertyDrawer
 			EditorGUI.PropertyField( position, property, label, true );
 			GUI.enabled = true;
 			break;
+		}
+	}
+}
+
+[CustomEditor( typeof( BuildUnityPlayer ) )]
+public class BuildSettingsEditor : Editor
+{
+	public override void OnInspectorGUI()
+	{
+		BuildUnityPlayer buildSettings = (BuildUnityPlayer)target;
+
+		DrawDefaultInspector();
+
+		if ( GUILayout.Button( "Start Build" ) )
+		{
+			buildSettings.PerformBuild();
 		}
 	}
 }

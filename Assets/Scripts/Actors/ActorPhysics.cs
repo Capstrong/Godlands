@@ -10,6 +10,7 @@ public enum PhysicsStateType
 	Climbing,
 	Gliding,
 	Sprinting,
+	Dead,
 }
 
 public sealed class ActorPhysics : ActorComponent

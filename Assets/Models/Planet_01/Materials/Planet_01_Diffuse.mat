@@ -139,6 +139,10 @@ Material:
         second: 0
       data:
         first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
           name: _RimPower
         second: 4.19999981
       data:
@@ -153,11 +157,15 @@ Material:
         first:
           name: _AlphaIntensity
         second: 2
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
     m_Colors:
       data:
         first:
           name: _LightDir
-        second: {r: 1, g: 0, b: 0, a: 1}
+        second: {r: -1, g: 0, b: -2, a: 1}
       data:
         first:
           name: _EmissionColor
