@@ -91,6 +91,13 @@ Material:
           m_Texture: {fileID: 2800000, guid: 91d92c18b88ba40d49b66e10d4986339, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _WindTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -156,6 +163,14 @@ Material:
         first:
           name: _EmissiveStrength
         second: 0
+      data:
+        first:
+          name: _WindSpeed
+        second: 1
+      data:
+        first:
+          name: _WindForce
+        second: .100000001
     m_Colors:
       data:
         first:
@@ -173,3 +188,7 @@ Material:
         first:
           name: _ColorOverlayA
         second: {r: .683823526, g: .688851655, b: .688851655, a: 1}
+      data:
+        first:
+          name: _WindDirection
+        second: {r: .5, g: 0, b: .5, a: 0}

@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Grass_Short_01
-  m_Shader: {fileID: 4800000, guid: f16e9e6729dfb4944bf0a6373b6bed22, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _NORMALMAP
+  m_Name: PlantWaveTest_01
+  m_Shader: {fileID: 4800000, guid: c06683d5e4fbe4eaabc7dec8c195b8b5, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -18,19 +18,12 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 62ffe24d8d22f4ff4887849c6d498c99, type: 3}
+          m_Texture: {fileID: 2800000, guid: dc51c9699e8684b8d9369a26f2fd5a74, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 2b31a332e89844a1da3364e93bf464f2, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _NormalMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -86,23 +79,16 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ColorMask
+          name: _WindTex
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Illum
-        second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 8241e1dd2195d4d9692f6ad3af1e1634, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Cutoff
-        second: .200000003
+        second: .5
       data:
         first:
           name: _SrcBlend
@@ -110,7 +96,7 @@ Material:
       data:
         first:
           name: _DstBlend
-        second: 10
+        second: 0
       data:
         first:
           name: _Parallax
@@ -118,11 +104,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 0
+        second: 1
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -146,28 +132,24 @@ Material:
       data:
         first:
           name: _Mode
-        second: 3
+        second: 0
       data:
         first:
           name: _Metallic
         second: 0
       data:
         first:
-          name: _Curvature
-        second: -.00170000002
+          name: _WindSpeed
+        second: 2
       data:
         first:
-          name: _MinCurveDistance
-        second: 20
-      data:
-        first:
-          name: _EmissiveStrength
-        second: 2.29999995
+          name: _WindForce
+        second: .200000003
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
@@ -178,5 +160,5 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _ColorOverlayA
-        second: {r: .976176441, g: 1, b: .404411793, a: 1}
+          name: _WindDirection
+        second: {r: 1, g: 0, b: 1, a: 0}
