@@ -11,134 +11,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b9ce0ef9643f645bf78eb46c329b63, type: 3}
   m_Name: NewBehaviorTree
   m_EditorClassIdentifier: 
-  root: {fileID: 11441432}
+  root: {fileID: 11405118}
   _editorData:
-  - id: -9974
-    node: {fileID: 11441432}
+  - id: -208720
+    node: {fileID: 11405118}
     parent: {fileID: 0}
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 90
-      y: 34
+      x: 267
+      y: 31
       width: 200
       height: 50
     foldout: 1
-  - id: -11054
-    node: {fileID: 11444758}
-    parent: {fileID: 11441432}
+  - id: -209142
+    node: {fileID: 11402496}
+    parent: {fileID: 11405118}
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 54
-      y: 153
+      x: 5
+      y: 134
       width: 200
       height: 200
     foldout: 1
-  - id: -23608
-    node: {fileID: 11418274}
-    parent: {fileID: 11441432}
+  - id: -210246
+    node: {fileID: 11488834}
+    parent: {fileID: 11405118}
+    parentIndex: 2
+    rect:
+      serializedVersion: 2
+      x: 524
+      y: 151
+      width: 200
+      height: 200
+    foldout: 1
+  - id: -211090
+    node: {fileID: 11409328}
+    parent: {fileID: 11405118}
     parentIndex: 1
     rect:
       serializedVersion: 2
-      x: 363
-      y: 88
+      x: 271
+      y: 151
       width: 200
       height: 20
     foldout: 1
-  - id: -44926
-    node: {fileID: 11477122}
-    parent: {fileID: 11418274}
+  - id: -212800
+    node: {fileID: 11486066}
+    parent: {fileID: 11409328}
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 289
-      y: 141
+      x: 274
+      y: 206
       width: 200
       height: 20
     foldout: 1
-  - id: -47446
-    node: {fileID: 11436626}
-    parent: {fileID: 11477122}
+  - id: -214672
+    node: {fileID: 11400636}
+    parent: {fileID: 11486066}
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 374
-      y: 203
+      x: 268
+      y: 262
       width: 200
       height: 50
     foldout: 1
-  - id: -50052
-    node: {fileID: 11468432}
-    parent: {fileID: 11436626}
+  - id: -217350
+    node: {fileID: 11413538}
+    parent: {fileID: 11400636}
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 148
-      y: 406
-      width: 200
-      height: 20
-    foldout: 1
-  - id: -50926
-    node: {fileID: 11433106}
-    parent: {fileID: 11468432}
-    parentIndex: 0
-    rect:
-      serializedVersion: 2
-      x: 115
-      y: 501
+      x: 107
+      y: 434
       width: 200
       height: 200
     foldout: 1
-  - id: -50962
-    node: {fileID: 11456338}
-    parent: {fileID: 11436626}
+  - id: -227268
+    node: {fileID: 11464110}
+    parent: {fileID: 11400636}
     parentIndex: 1
     rect:
       serializedVersion: 2
-      x: 454
-      y: 331
-      width: 200
-      height: 20
-    foldout: 1
-  - id: -122638
-    node: {fileID: 11446690}
-    parent: {fileID: 11456338}
-    parentIndex: 0
-    rect:
-      serializedVersion: 2
-      x: 507
-      y: 479
+      x: 435
+      y: 432
       width: 200
       height: 200
     foldout: 1
---- !u!114 &11418274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9411b34900ece47b5fd6ef1023f2d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -23608
-  _child: {fileID: 11477122}
---- !u!114 &11433106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 242a99e92e6752649a4f33c219a21639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -50926
-  behaviorTree: {fileID: 11400000, guid: 569f8431a83db9c4482a7d219f2fd6a9, type: 2}
---- !u!114 &11436626
+--- !u!114 &11400636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -149,26 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26939a200edaad41abbcb9f56021558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -47446
+  id: -214672
   _children:
-  - {fileID: 11468432}
-  - {fileID: 11456338}
---- !u!114 &11441432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26939a200edaad41abbcb9f56021558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -9974
-  _children:
-  - {fileID: 11444758}
-  - {fileID: 11418274}
---- !u!114 &11444758
+  - {fileID: 11413538}
+  - {fileID: 11464110}
+--- !u!114 &11402496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -179,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b05cfc5c88f7441beca994f618dcf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -11054
---- !u!114 &11446690
+  id: -209142
+--- !u!114 &11405118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -188,12 +136,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e861197ce357b9149afce0a9524bbc42, type: 3}
+  m_Script: {fileID: 11500000, guid: a26939a200edaad41abbcb9f56021558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -122638
-  time: 1
---- !u!114 &11456338
+  id: -208720
+  _children:
+  - {fileID: 11402496}
+  - {fileID: 11409328}
+  - {fileID: 11488834}
+--- !u!114 &11409328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9411b34900ece47b5fd6ef1023f2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -211090
+  _child: {fileID: 11486066}
+--- !u!114 &11413538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242a99e92e6752649a4f33c219a21639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -217350
+  behaviorTree: {fileID: 11400000, guid: 569f8431a83db9c4482a7d219f2fd6a9, type: 2}
+--- !u!114 &11464110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242a99e92e6752649a4f33c219a21639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -227268
+  behaviorTree: {fileID: 11400000, guid: 804f0ddd32146da47b1e2b8cbed7cbd3, type: 2}
+--- !u!114 &11486066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -204,9 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df25b684db31e4b439c71ebb14e727b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -50962
-  _child: {fileID: 11446690}
---- !u!114 &11468432
+  id: -212800
+  _child: {fileID: 11400636}
+--- !u!114 &11488834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -214,21 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df25b684db31e4b439c71ebb14e727b8, type: 3}
+  m_Script: {fileID: 11500000, guid: ccec1f126bd0a034cac61ac8d2cfff1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -50052
-  _child: {fileID: 11433106}
---- !u!114 &11477122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df25b684db31e4b439c71ebb14e727b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -44926
-  _child: {fileID: 11436626}
+  id: -210246
