@@ -56,7 +56,7 @@ Shader "Nature/Terrain/Standard"
 		half _Metallic1;
 		half _Metallic2;
 		half _Metallic3;
-
+		
 		void SplatmapVertBent(inout appdata_full v, out Input data)
 		{
 			UNITY_INITIALIZE_OUTPUT(Input, data);
@@ -79,6 +79,7 @@ Shader "Nature/Terrain/Standard"
 			half weight;
 			fixed4 mixedDiffuse;
 			SplatmapMix(IN, splat_control, weight, mixedDiffuse, o.Normal);
+			//o.Albedo = tex2D(_Control, IN.tc_Control);
 			o.Albedo = mixedDiffuse.rgb;
 			o.Alpha = weight;
 			#ifdef _TERRAIN_OVERRIDE_SMOOTHNESS
