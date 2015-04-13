@@ -16,6 +16,9 @@ class ExportTerrain : EditorWindow
 	SaveFormat saveFormat = SaveFormat.Triangles;
 	SaveResolution saveResolution = SaveResolution.Half;
 	
+	Terrain sourceTerrain = null;
+	Texture2D sourceSplat = null;
+	
 	static TerrainData terrain;
 	static Vector3 terrainPos;
 	
@@ -24,23 +27,7 @@ class ExportTerrain : EditorWindow
 	int totalCount;
 	int progressUpdateInterval = 10000;
 
-	[MenuItem("Export/Texture")]
-	static void ExportTexture () 
-	{
-		Texture2D texture = Selection.activeObject as Texture2D;
-		if (texture == null)
-		{
-			EditorUtility.DisplayDialog("Select Texture", "You Must Select a Texture first!", "Ok");
-			return;
-		}
-		
-		var bytes = texture.EncodeToPNG();
-		File.WriteAllBytes(Application.dataPath + "/TerrainSplat.png", bytes);
-
-		AssetDatabase.Refresh();
-	}
-
-	[MenuItem("Export/OBJ/Terrain")]
+	[MenuItem("Export/Terrain")]
 	static void Init()
 	{
 		terrain = null;
@@ -69,17 +56,40 @@ class ExportTerrain : EditorWindow
 			}
 			return;
 		}
+
 		saveFormat = (SaveFormat) EditorGUILayout.EnumPopup("Export Format", saveFormat);
-		
 		saveResolution = (SaveResolution) EditorGUILayout.EnumPopup("Resolution", saveResolution);
-		
-		if (GUILayout.Button("Export"))
+
+		sourceTerrain = (Terrain)EditorGUILayout.ObjectField( "Source Terrain", sourceTerrain, typeof(Terrain), true );
+		if( sourceTerrain && GUILayout.Button( "Export Terrain" ) )
 		{
-			Export();
+			ExportTerrainAsMesh();
+		}
+
+		sourceSplat = (Texture2D)EditorGUILayout.ObjectField( "Source Splat", sourceSplat, typeof(Texture2D), false );
+		if( sourceSplat && GUILayout.Button( "Export Splat" ) )
+		{
+			ExportSplatMap();
 		}
 	}
 	
-	void Export()
+	void ExportSplatMap( )
+	{
+		Texture2D texture = Selection.activeObject as Texture2D;
+		if (texture == null)
+		{
+			EditorUtility.DisplayDialog("Select Texture", "You Must Select a Texture first!", "Ok");
+			return;
+		}
+		
+		var bytes = texture.EncodeToPNG();
+
+		string fileName = EditorUtility.SaveFilePanel("Export .obj file", "", "Terrain", "obj");
+		File.WriteAllBytes(fileName, bytes);
+		AssetDatabase.Refresh();
+	}
+	
+	void ExportTerrainAsMesh()
 	{
 		string fileName = EditorUtility.SaveFilePanel("Export .obj file", "", "Terrain", "obj");
 		int w = terrain.heightmapWidth;
@@ -150,12 +160,15 @@ class ExportTerrain : EditorWindow
 				}
 			}
 		}
-		
+
+	
+
 		// Export to .obj
 		StreamWriter sw = new StreamWriter(fileName);
+		//StreamWriter sw = new StreamWriter( Application.dataPath + "/Resources/Terrain.obj");
 		try
 		{
-			
+
 			sw.WriteLine("# Unity terrain OBJ File");
 			
 			// Write vertices
@@ -220,6 +233,8 @@ class ExportTerrain : EditorWindow
 		EditorUtility.DisplayProgressBar("Saving file to disc.", "This might take a while...", 1f);
 		EditorWindow.GetWindow<ExportTerrain>().Close();      
 		EditorUtility.ClearProgressBar();
+
+		AssetDatabase.Refresh();
 	}
 	
 	void UpdateProgress()
