@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GodSkin
-  m_Shader: {fileID: 4800000, guid: 84a0b45a74f297045b65f1f68508e4a4, type: 3}
-  m_ShaderKeywords: []
+  m_Shader: {fileID: 4800000, guid: 0df65694f314348e694dcdbcbc78ae56, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -29,14 +30,14 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Ramp
+          name: _Illum
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _NoiseTex
+          name: _Ramp
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -50,7 +51,7 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Illum
+          name: _NoiseTex
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -62,24 +63,40 @@ Material:
         second: .699999988
       data:
         first:
-          name: _Outline
-        second: .00200000009
+          name: _Glossiness
+        second: .5
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _EmissionLM
+        second: 0
       data:
         first:
           name: _RimPower
         second: 1.30357134
       data:
         first:
-          name: _Brightness
-        second: .321428537
-      data:
-        first:
           name: _RimBrightness
         second: .178571433
       data:
         first:
-          name: _EmissionLM
-        second: 0
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
+          name: _Outline
+        second: .00200000009
+      data:
+        first:
+          name: _Brightness
+        second: .321428537
     m_Colors:
       data:
         first:
@@ -91,9 +108,9 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
           name: _RimColor
         second: {r: .308823526, g: .308823526, b: .308823526, a: 0}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 0}

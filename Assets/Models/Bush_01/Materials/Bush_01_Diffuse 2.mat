@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Bush_01_Diffuse 2
   m_Shader: {fileID: 4800000, guid: b926aa154c85b465ab23e7c13cdde0be, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -22,14 +23,14 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ColorMask
+          name: _NormalMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _NormalMap
+          name: _ColorMask
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -41,8 +42,24 @@ Material:
         second: .5
       data:
         first:
+          name: _Glossiness
+        second: .5
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
           name: _EmissiveStrength
         second: .287499994
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
     m_Colors:
       data:
         first:
