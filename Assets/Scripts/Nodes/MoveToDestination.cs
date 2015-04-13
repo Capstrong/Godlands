@@ -25,9 +25,8 @@ public class MoveToDestination : LeafNode
 
 		Debug.DrawLine( _transform.position, _destination );
 
-		if ( Vector3.Distance( _transform.position, _destination ) < 1.0f )
+		if ( Vector3.Distance( _transform.position, _destination ) < minDistance )
 		{
-			_destination = Vector3.zero;
 			_controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;
 		}

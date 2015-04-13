@@ -22,13 +22,13 @@ public class CheckHappiness : LeafNode
 		switch ( comparison )
 		{
 		case Comparison.EqualTo:
-			if ( value == _buddyStats.happiness ) return NodeStatus.SUCCESS;
+			if ( _buddyStats.happiness == value ) return NodeStatus.SUCCESS;
 			break;
 		case Comparison.GreaterThan:
-			if ( value > _buddyStats.happiness ) return NodeStatus.SUCCESS;
+			if ( _buddyStats.happiness > value ) return NodeStatus.SUCCESS;
 			break;
 		case Comparison.LessThan:
-			if ( value < _buddyStats.happiness ) return NodeStatus.SUCCESS;
+			if ( _buddyStats.happiness < value ) return NodeStatus.SUCCESS;
 			break;
 		}
 
