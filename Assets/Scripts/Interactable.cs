@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
 		get { return _interactText; }
 	}
 
-	[ToolTip( "In seconds" )]
+	[Tooltip( "In seconds" )]
 	[SerializeField] float _duration = 5.0f;
 	public float duration
 	{
