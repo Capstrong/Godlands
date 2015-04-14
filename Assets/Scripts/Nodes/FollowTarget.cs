@@ -23,7 +23,7 @@ public class FollowTarget : LeafNode
 	{
 		_controller.moveDirection = ( _target.position - _transform.position ).normalized;
 
-		if ( Vector3.Distance( _transform.position, _target.position ) < minDistance )
+		if ( ( _transform.position - _target.position ).sqrMagnitude < minDistance * minDistance )
 		{
 			_controller.moveDirection = Vector3.zero;
 			return NodeStatus.SUCCESS;

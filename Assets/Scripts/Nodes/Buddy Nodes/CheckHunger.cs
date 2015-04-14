@@ -2,13 +2,6 @@
 using System.Collections;
 using BehaviorTree;
 
-public enum Comparison
-{
-	GreaterThan,
-	EqualTo,
-	LessThan
-}
-
 public class CheckHunger : LeafNode
 {
 	public Comparison comparison;
