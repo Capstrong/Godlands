@@ -550,7 +550,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_HDR: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
 --- !u!4 &58908146
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 58908141}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
   m_Name: 
@@ -5892,7 +5892,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 191638, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 116482, guid: 430bb384d018f438083cae6e1236532d, type: 2}
       propertyPath: m_IsActive
@@ -21362,24 +21362,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c26d1cf27d8e4ece912e6ef663744dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlapBlendIndices: 04000000050000000600000008000000
-  exclusiveBlendIndices: 07000000090000000a0000000b0000000c000000
-  legIndex: 4
-  exclusiveBlendRange:
-    min: 80
+  _buddyStats: {fileID: 0}
+  _overlapBlendIndices: 
+  _exclusiveBlendIndices: 
+  _legIndex: 0
+  _exclusiveBlendRange:
+    min: 50
     max: 100
-  heightScaleRange:
+  _heightScaleRange:
     min: .800000012
     max: 1.20000005
-  topBodyColors: []
-  bottomBodyColors: []
-  skinColors:
-  - {fileID: 2800000, guid: 7b190c0e650a74c059af0460ddc44aba, type: 3}
-  - {fileID: 2800000, guid: ed6dd4cf951bf41d1952d52720dbc910, type: 3}
-  - {fileID: 2800000, guid: da76b382faf654c36887766930d4e7cc, type: 3}
-  - {fileID: 2800000, guid: 7ed945ec2bf274acab9b524c188f25cc, type: 3}
-  - {fileID: 2800000, guid: 32be39323c82e4de8998495a082d6744, type: 3}
-  debugRandomizer: 0
+  _buddyTypeFashions: []
+  _skinColors: []
+  _debugRandomizer: 0
 --- !u!1 &1778710172
 GameObject:
   m_ObjectHideFlags: 0
@@ -24157,6 +24152,10 @@ Prefab:
       propertyPath: _renderSettings.nightSettings.fogGradientTex
       value: 
       objectReference: {fileID: 2800000, guid: 2433b2442534941c39932d7d7efe1114, type: 3}
+    - target: {fileID: 2366764, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb85f28d20b70449aa193a02fe70fe57, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
   m_IsPrefabParent: 0
