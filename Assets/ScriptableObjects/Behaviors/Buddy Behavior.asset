@@ -9,62 +9,202 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8b9ce0ef9643f645bf78eb46c329b63, type: 3}
-  m_Name: Buddy Behavior
+  m_Name: NewBehaviorTree
   m_EditorClassIdentifier: 
-  _serializedNodes:
-  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0100000002000000
-  - typename: ChooseTargetGod, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 03000000
-  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 04000000
-  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0500000009000000
-  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 06000000
-  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 0700000008000000
-  - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: FollowTarget, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 
-  - typename: Succeed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0a000000
-  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 0b0000000d000000
-  - typename: Invert, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0c000000
-  - typename: IsTargetWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: Sequence, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 0e0000001200000015000000
-  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 0f000000
-  - typename: SequenceParallel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 1000000011000000
-  - typename: PickRandomDestinationInRadius, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: IsDestinationWithinLimits, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: RepeatUntilFail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 13000000
-  - typename: Fail, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 14000000
-  - typename: MoveToDestination, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    children: 
-  - typename: Idle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    children: 
+  root: {fileID: 11405118}
+  _editorData:
+  - id: -208720
+    node: {fileID: 11405118}
+    parent: {fileID: 0}
+    parentIndex: 0
+    rect:
+      serializedVersion: 2
+      x: 267
+      y: 31
+      width: 200
+      height: 50
+    foldout: 1
+  - id: -209142
+    node: {fileID: 11402496}
+    parent: {fileID: 11405118}
+    parentIndex: 0
+    rect:
+      serializedVersion: 2
+      x: 5
+      y: 134
+      width: 200
+      height: 200
+    foldout: 1
+  - id: -210246
+    node: {fileID: 11488834}
+    parent: {fileID: 11405118}
+    parentIndex: 2
+    rect:
+      serializedVersion: 2
+      x: 524
+      y: 151
+      width: 200
+      height: 200
+    foldout: 1
+  - id: -211090
+    node: {fileID: 11409328}
+    parent: {fileID: 11405118}
+    parentIndex: 1
+    rect:
+      serializedVersion: 2
+      x: 271
+      y: 151
+      width: 200
+      height: 20
+    foldout: 1
+  - id: -212800
+    node: {fileID: 11486066}
+    parent: {fileID: 11409328}
+    parentIndex: 0
+    rect:
+      serializedVersion: 2
+      x: 274
+      y: 206
+      width: 200
+      height: 20
+    foldout: 1
+  - id: -214672
+    node: {fileID: 11400636}
+    parent: {fileID: 11486066}
+    parentIndex: 0
+    rect:
+      serializedVersion: 2
+      x: 268
+      y: 262
+      width: 200
+      height: 50
+    foldout: 1
+  - id: -217350
+    node: {fileID: 11413538}
+    parent: {fileID: 11400636}
+    parentIndex: 0
+    rect:
+      serializedVersion: 2
+      x: 107
+      y: 434
+      width: 200
+      height: 200
+    foldout: 1
+  - id: -227268
+    node: {fileID: 11464110}
+    parent: {fileID: 11400636}
+    parentIndex: 1
+    rect:
+      serializedVersion: 2
+      x: 435
+      y: 432
+      width: 200
+      height: 200
+    foldout: 1
+--- !u!114 &11400636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26939a200edaad41abbcb9f56021558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -214672
+  _children:
+  - {fileID: 11413538}
+  - {fileID: 11464110}
+--- !u!114 &11402496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b05cfc5c88f7441beca994f618dcf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -209142
+--- !u!114 &11405118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26939a200edaad41abbcb9f56021558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -208720
+  _children:
+  - {fileID: 11402496}
+  - {fileID: 11409328}
+  - {fileID: 11488834}
+--- !u!114 &11409328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9411b34900ece47b5fd6ef1023f2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -211090
+  _child: {fileID: 11486066}
+--- !u!114 &11413538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242a99e92e6752649a4f33c219a21639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -217350
+  behaviorTree: {fileID: 11400000, guid: 569f8431a83db9c4482a7d219f2fd6a9, type: 2}
+--- !u!114 &11464110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242a99e92e6752649a4f33c219a21639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -227268
+  behaviorTree: {fileID: 11400000, guid: 804f0ddd32146da47b1e2b8cbed7cbd3, type: 2}
+--- !u!114 &11486066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df25b684db31e4b439c71ebb14e727b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -212800
+  _child: {fileID: 11400636}
+--- !u!114 &11488834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccec1f126bd0a034cac61ac8d2cfff1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -210246

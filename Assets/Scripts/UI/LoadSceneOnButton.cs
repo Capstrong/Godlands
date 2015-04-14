@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LoadSceneOnButton : MonoBehaviour
 {
-	[SerializeField] Level _level;
+	[SerializeField] Level _level = Level.MainGame;
 
 	// To be called from the UI event system
 	public void LoadLevel()

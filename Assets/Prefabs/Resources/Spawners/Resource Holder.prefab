@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 431548}
   - 33: {fileID: 3353600}
   - 23: {fileID: 2380076}
-  - 95: {fileID: 9517116}
   - 114: {fileID: 11413152}
   m_Layer: 0
   m_Name: Beacon
@@ -134,23 +133,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &9517116
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 128822}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2e04324c50b249547b8f2f33ebad4c8e, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11413152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,10 +157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: {fileID: 100000, guid: 167fccbb38486bc45a367040b83f63f2, type: 2}
   resourceHeightOffset: .170000002
-  _maxHeight: 14
+  _maxHeight: 12
   _collisionLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   _beacon: {fileID: 431548}
 --- !u!198 &19836820
 ParticleSystem:
