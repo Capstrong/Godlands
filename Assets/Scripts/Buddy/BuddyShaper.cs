@@ -29,34 +29,42 @@ public class BuddyShaper : MonoBehaviour
 	[SerializeField] BuddyTypeFashion[] _buddyTypeFashions = null;
 	[SerializeField] Texture2D[] _skinColors = null;
 
+	[SerializeField] int _numBlendShapes = 0;
+
 	Vector3 _initPos = Vector3.zero;
 	Vector3 _initScale = Vector3.one;
-	Color _initColor = Color.white;
 
 	[SerializeField] bool _debugRandomizer = false;
 
-	void Awake()
+	void Start()
 	{
 		_skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
 
 		_initPos = transform.position;
 		_initScale = transform.localScale;
-		_initColor = _skinnedMeshRend.material.color;
 
 		if( _debugRandomizer )
 		{
 			InvokeRepeating( "RandomizeBuddy", 0.3f, 0.3f );
 		}
+		else
+		{
+			RandomizeBuddy();
+		}
 	}
 
 	void RandomizeBuddy()
 	{
-		for( int i = 0; i < 13; i++ )
+		for( int i = 0; i < _numBlendShapes; i++ )
 		{
 			_skinnedMeshRend.SetBlendShapeWeight( i, 0f );
 		}
 
-		AdjustBlendShapes();
+		if( _numBlendShapes > 0 )
+		{
+			AdjustBlendShapes();
+		}
+
 		AdjustSize();
 		AdjustColor();
 	}
@@ -89,13 +97,6 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustColor()
 	{
-//		Color colorOffset = new Color( -Mathf.Clamp01( colorOffsetRange.random ),
-//		                               Mathf.Clamp01( colorOffsetRange.random ),
-//		                               Mathf.Clamp01( colorOffsetRange.random ),
-//		                               0f );
-
-		//skinnedMeshRend.material.color = initColor + colorOffset;
-
 		int statNum = (int)_buddyStats.itemData.stat;
 		int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
 		int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
