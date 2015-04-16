@@ -40,4 +40,14 @@ public class InventoryScrollBar : MonoBehaviour
 		image.sprite = icon;
 		image.color = Color.white;
 	}
+
+	public void Disable()
+	{
+		gameObject.SetActive( false );
+	}
+
+	public void Enable()
+	{
+		gameObject.SetActive( true );
+	}
 }
