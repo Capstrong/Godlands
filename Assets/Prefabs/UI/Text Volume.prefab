@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 436280}
   - 65: {fileID: 6544346}
   - 114: {fileID: 11426998}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Text Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: 
+  _fadeOut: 1
+  _timeUntilFadeout: 7
+  _fadeoutDuration: 2
+  _triggerOnce: 1
+  _hasBeenTriggered: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

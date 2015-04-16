@@ -25,7 +25,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 
 	[SerializeField] float _statPerHappiness = 0f;
 
-	[SerializeField] BuddyResourceCurve _resourceCurve;
+	[SerializeField] BuddyResourceCurve _resourceCurve = null;
 
 	[SerializeField] CheckpointLifter[] checkpointLifters = null; // Need these to activate checkpoints
 	[ReadOnly] int checkpointIndex = 0; // Index of next checkpoint to activate

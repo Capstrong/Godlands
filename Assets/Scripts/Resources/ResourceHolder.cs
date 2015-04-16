@@ -7,9 +7,9 @@ public class ResourceHolder : MonoBehaviour
 
 	[SerializeField] float resourceHeightOffset = 0.17f;
 	[SerializeField] float _maxHeight = 12f;
-	[SerializeField] LayerMask _collisionLayer;
+	[SerializeField] LayerMask _collisionLayer = -1;
 
-	[SerializeField] Transform _beacon;
+	[SerializeField] Transform _beacon = null;
 
 	Transform _transform;
 

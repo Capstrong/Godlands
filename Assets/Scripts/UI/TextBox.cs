@@ -8,6 +8,8 @@ public class TextBox : MonoBehaviour {
 
 	[SerializeField] KeyCode _clearKey = 0;
 
+	Coroutine _textFade;
+
 	void Start ()
 	{
 		_UIText = GetComponent<Text>();
@@ -24,27 +26,45 @@ public class TextBox : MonoBehaviour {
 
 	public void SetText( string textString )
 	{
+		ClearText();
+
 		_UIText.text = textString;
-		CancelInvoke( "ClearText" );
 	}
 	
-	public void SetTextForDuration( string textString, float duration = 5.0f )
+	public void SetTextForDuration( string textString, float duration = 5.0f, float fadeoutDuration = 2.0f )
 	{
+		ClearText();
+
 		_UIText.text = textString;
-		CancelInvoke( "ClearText" );
-		Invoke( "ClearText", duration );
+		_textFade = StartCoroutine( Fadeout( duration, fadeoutDuration ) );
 	}
 
 	public void ClearText()
 	{
 		_UIText.text = "";
+
+		if ( _textFade != null )
+		{
+			StopCoroutine( _textFade );
+		}
 	}
 
-	public void ClearIfEqual( string textString )
+	IEnumerator Fadeout( float delay, float duration )
 	{
-		if ( _UIText.text == textString )
+		// Initially wait for the amount of time needed until text should fade.
+		yield return new WaitForSeconds( delay );
+
+		// Perform text fade.
+		do
 		{
-			ClearText();
+			yield return null;
+
+			duration -= Time.deltaTime;
 		}
+		while ( duration > 0.0f );
+
+		// Clear the text.
+		_UIText.text = "";
+		_textFade = null;
 	}
 }

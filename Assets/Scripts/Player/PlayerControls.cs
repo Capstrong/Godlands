@@ -27,12 +27,8 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] AudioSource _respawnSound = null;
 	
 	Transform _cameraTransform = null;
-
+	
 	TextBox _textBox = null;
-	public TextBox textBox
-	{
-		get { return _textBox; }
-	}
 	
 	[SerializeField] LayerMask _interactableLayer = 0;
 	public LayerMask interactableLayer
@@ -536,26 +532,6 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
-	}
-
-	void OnTriggerEnter( Collider other )
-	{
-		TextVolume textVolume = other.gameObject.GetComponent<TextVolume>();
-
-		if ( textVolume )
-		{
-			_textBox.SetText( textVolume.text );
-		}
-	}
-
-	void OnTriggerExit( Collider other )
-	{
-		TextVolume textVolume = other.gameObject.GetComponent<TextVolume>();
-
-		if ( textVolume )
-		{
-			_textBox.ClearIfEqual( textVolume.text );
-		}
 	}
 
 	void OnDrawGizmos()
