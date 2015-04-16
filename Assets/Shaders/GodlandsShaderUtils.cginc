@@ -55,7 +55,7 @@ inline float4 CalculateWorldBendOffset( appdata_full v )
     vv.xyz -= _WorldSpaceCameraPos.xyz;
 
 	//vv.z -= _MinCurveDistance * sign(vv.z);
-
+ 
     // Reduce the y coordinate (i.e. lower the "height") of each vertex based
     // on the square of the distance from the camera in the z axis, multiplied
     // by the chosen curvature factor
