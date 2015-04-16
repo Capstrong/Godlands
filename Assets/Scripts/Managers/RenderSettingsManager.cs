@@ -8,7 +8,7 @@ public struct TimeRenderSettings
 	public Color skyColor;
 	public Color lightColor;
 	public float lightIntensity;
-	public Color fogColor;
+	public Texture2D fogGradientTex;
 	public float fogDensity;
 
 	public static void Lerp(TimeRenderSettings fromSettings, TimeRenderSettings toSettings, float t, out TimeRenderSettings outSettings)
@@ -16,8 +16,12 @@ public struct TimeRenderSettings
 		outSettings.skyColor =       Color.Lerp( fromSettings.skyColor,       toSettings.skyColor,       t );
 		outSettings.lightColor =     Color.Lerp( fromSettings.lightColor,     toSettings.lightColor,     t );
 		outSettings.lightIntensity = Mathf.Lerp( fromSettings.lightIntensity, toSettings.lightIntensity, t );
-		outSettings.fogColor =       Color.Lerp( fromSettings.fogColor,       toSettings.fogColor,       t );
 		outSettings.fogDensity =     Mathf.Lerp( fromSettings.fogDensity,     toSettings.fogDensity,     t );
+
+		outSettings.fogGradientTex = fromSettings.fogGradientTex;
+
+		// cannot lerp because this is a texture
+		// outSettings.fogGradientTex = outSettings.fogGradientTex;
 	}
 }
 
@@ -71,6 +75,20 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		}
 	}
 
+	UnityStandardAssets.ImageEffects.GlobalFog _globalFog = null;
+	public UnityStandardAssets.ImageEffects.GlobalFog globalFog
+	{
+		get
+		{
+			if( !_globalFog )
+			{
+				_globalFog = GameObject.FindObjectOfType<UnityStandardAssets.ImageEffects.GlobalFog>();
+			}
+
+			return _globalFog;
+		}
+	}
+
 	[ReadOnly("Daylight Intensity"), Tooltip( "0 is midnight. 1 is noon." )]
 	[SerializeField] float _daylightIntensity = 1.0f;
 	public static float daylightIntensity
@@ -108,13 +126,21 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	IEnumerator TransitionRenderSettingsRoutine( RenderSettingsData newRenderSettings, float settingShiftTime )
 	{
+		globalFog.fogMaterial.SetTexture( "_ToDayTex", newRenderSettings.daySettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture( "_ToNightTex", newRenderSettings.nightSettings.fogGradientTex );
+
 		RenderSettingsData oldRenderSettings = _currentRenderSettingsProperty;
 
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
 		{
-			RenderSettingsData.Lerp( oldRenderSettings, newRenderSettings, settingShiftTimer / settingShiftTime, out _currentRenderSettings );
+			RenderSettingsData.Lerp( oldRenderSettings, 
+			                         newRenderSettings, 
+			                         settingShiftTimer / settingShiftTime, 
+			                         out _currentRenderSettings );
 			UpdateRenderSettings();
+
+			globalFog.fogMaterial.SetFloat( "_TransitionTime", settingShiftTimer/settingShiftTime );
 
 			settingShiftTimer += Time.deltaTime;
 			yield return 0;
@@ -125,9 +151,13 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void UpdateRenderSettings()
 	{
+		globalFog.fogMaterial.SetTexture("_FromDayTex", _currentRenderSettingsProperty.daySettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture("_FromNightTex", _currentRenderSettingsProperty.nightSettings.fogGradientTex );
+		globalFog.fogMaterial.SetFloat( "_DaylightIntensity", daylightIntensity );
+
 		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
-		RenderSettings.fogColor = _currentTimeRenderSettings.fogColor;
 		RenderSettings.fogDensity = _currentTimeRenderSettings.fogDensity;
+
 		_dirLight.color = _currentTimeRenderSettings.lightColor;
 		_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
 	}

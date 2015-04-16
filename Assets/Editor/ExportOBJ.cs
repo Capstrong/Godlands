@@ -67,8 +67,8 @@ public class ObjExporterScript
 
 public class ObjExporter : ScriptableObject
 {
-	[MenuItem( "Export/Wavefront OBJ" )]
-	[MenuItem( "CONTEXT/Transform/Wavefront OBJ" )]
+	[MenuItem( "Export/OBJ/Mesh" )]
+	[MenuItem( "CONTEXT/Transform/Export as OBJ" )]
 	static void DoExportWSubmeshes()
 	{
 		DoExport( true );

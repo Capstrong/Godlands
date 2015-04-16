@@ -21,10 +21,6 @@ Shader "Nature/Terrain/Standard"
 		// used in fallback on old cards & base map
 		[HideInInspector] _MainTex ("BaseMap (RGB)", 2D) = "white" {}
 		[HideInInspector] _Color ("Main Color", Color) = (1,1,1,1)
-		
-		// Degree of curvature
-        _Curvature ("Curvature", Float) = -0.0017
-        _MinCurveDistance ("Curve Distance", float) = 20
 	}
 
 	SubShader 
@@ -50,6 +46,7 @@ Shader "Nature/Terrain/Standard"
 		#pragma multi_compile __ _TERRAIN_OVERRIDE_SMOOTHNESS
 
 		#include "TerrainSplatmapCommon.cginc"
+		#include "GodlandsShaderUtils.cginc"
 
 		#ifdef _TERRAIN_OVERRIDE_SMOOTHNESS
 			half _Smoothness;
@@ -59,31 +56,13 @@ Shader "Nature/Terrain/Standard"
 		half _Metallic1;
 		half _Metallic2;
 		half _Metallic3;
-		 
-		float _Curvature;
-		float _MinCurveDistance;
-
+		
 		void SplatmapVertBent(inout appdata_full v, out Input data)
 		{
 			UNITY_INITIALIZE_OUTPUT(Input, data);
 			data.tc_Control = TRANSFORM_TEX(v.texcoord, _Control);	// Need to manually transform uv here, as we choose not to use 'uv' prefix for this texcoord.
 			
-			// Transform the vertex coordinates from model space into world space
-		    float4 vv = mul( _Object2World, v.vertex );
-
-		    // Now adjust the coordinates to be relative to the camera position
-		    vv.xyz -= _WorldSpaceCameraPos.xyz;
-		    
-		    vv.z -= _MinCurveDistance * sign(vv.z);
-
-		    // Reduce the y coordinate (i.e. lower the "height") of each vertex based
-		    // on the square of the distance from the camera in the z axis, multiplied
-		    // by the chosen curvature factor
-		   
-			vv = float4( 0.0f, (vv.z * vv.z) * - _Curvature * (sin(_Time.y/5) * 0.5 + 0.5), 0.0f, 0.0f );
-
-   		    // Now apply the offset back to the vertices in model space
-		    v.vertex += mul(_World2Object, vv);
+			v.vertex += CalculateWorldBendOffset(v);
 			
 			float4 pos = mul (UNITY_MATRIX_MVP, v.vertex);
 			//UNITY_TRANSFER_FOG(data, pos);
@@ -100,6 +79,7 @@ Shader "Nature/Terrain/Standard"
 			half weight;
 			fixed4 mixedDiffuse;
 			SplatmapMix(IN, splat_control, weight, mixedDiffuse, o.Normal);
+			//o.Albedo = tex2D(_Control, IN.tc_Control);
 			o.Albedo = mixedDiffuse.rgb;
 			o.Alpha = weight;
 			#ifdef _TERRAIN_OVERRIDE_SMOOTHNESS

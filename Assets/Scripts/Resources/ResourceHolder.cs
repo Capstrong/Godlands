@@ -9,6 +9,7 @@ public class ResourceHolder : MonoBehaviour
 	[SerializeField] float _maxHeight = 12f;
 	[SerializeField] LayerMask _collisionLayer = -1;
 
+	[SerializeField] bool _showBeacon = false;
 	[SerializeField] Transform _beacon = null;
 
 	Transform _transform;
@@ -36,6 +37,12 @@ public class ResourceHolder : MonoBehaviour
 		_beacon.localScale = _beacon.localScale.SetY( actualHeight );
 		_particleSystem.startLifetime = actualHeight / _particleSystem.startSpeed * 0.5f; // TODO find out why particles seem to be moving at 2x speed
 
+		if( !_showBeacon )
+		{
+			_beaconRenderer.enabled = false;
+			_particleSystem.enableEmission = false;
+		}
+
 		resource = WadeUtils.Instantiate( resource, Vector3.up * resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( _transform, false );
 
@@ -50,7 +57,10 @@ public class ResourceHolder : MonoBehaviour
 
 	public void Enable()
 	{
-		_beaconRenderer.enabled = true;
-		_particleSystem.Play();
+		if( _showBeacon )
+		{
+			_beaconRenderer.enabled = true;
+			_particleSystem.Play();
+		}
 	}
 }
