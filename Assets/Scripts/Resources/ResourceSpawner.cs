@@ -6,12 +6,12 @@ public class ResourceSpawner : MonoBehaviour
 	public ResourceHolder resourceHolderPrefab;
 	public Collider resourcePrefab;
 
-	float groundCheckDist = 7f;
+	float _groundCheckDist = 7f;
 
 	public int total;
 	public float radius;
 
-	private static int maxResourceSpawnTries = 100;
+	private static int _maxResourceSpawnTries = 100;
 
 	private new Transform transform = null;
 
@@ -29,12 +29,12 @@ public class ResourceSpawner : MonoBehaviour
 			Vector3 offset = new Vector3();
 			RaycastHit hit = new RaycastHit();
 
-			for ( int resourceSpawnTries = 0; resourceSpawnTries < maxResourceSpawnTries; resourceSpawnTries++ )
+			for ( int resourceSpawnTries = 0; resourceSpawnTries < _maxResourceSpawnTries; resourceSpawnTries++ )
 			{
 				offset = Quaternion.Euler( -90.0f, 0.0f, 0.0f ) * (Vector3) Random.insideUnitCircle;
 				spawnPosition = transform.position + offset * radius;
 
-				hit = WadeUtils.RaycastAndGetInfo( new Ray( spawnPosition + Vector3.up, Vector3.down ), groundCheckDist );
+				hit = WadeUtils.RaycastAndGetInfo( new Ray( spawnPosition + Vector3.up, Vector3.down ), _groundCheckDist );
 				if ( !hit.transform )
 				{
 					// The ray did not hit anything and the position was floating out somewhere
@@ -50,7 +50,8 @@ public class ResourceSpawner : MonoBehaviour
 
 			if ( spawnPosition != Vector3.zero )
 			{
-				ResourceHolder resourceHolderInstance = (ResourceHolder) Instantiate( resourceHolderPrefab, spawnPosition, Quaternion.identity );
+				Quaternion spawnRotation = Quaternion.Euler( 0f, Random.Range( -180f, 180f ) , 0f );
+				ResourceHolder resourceHolderInstance = (ResourceHolder) Instantiate( resourceHolderPrefab, spawnPosition, spawnRotation );
 				resourceHolderInstance.gameObject.transform.parent = transform;
 			}
 			else
