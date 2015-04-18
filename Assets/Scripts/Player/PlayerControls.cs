@@ -443,7 +443,7 @@ public class PlayerControls : MonoBehaviour
 		}
 	}
 
-    /**
+	/**
 	 * Raycast forward from the camera's position to detect
 	 * items to interact with.
 	 * 

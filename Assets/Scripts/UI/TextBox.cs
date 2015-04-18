@@ -20,7 +20,6 @@ public class TextBox : MonoBehaviour {
 		if ( Input.GetKeyDown( _clearKey ) )
 		{
 			ClearText();
-			CancelInvoke( "ClearText" );
 		}
 	}
 
@@ -65,6 +64,5 @@ public class TextBox : MonoBehaviour {
 
 		// Clear the text.
 		_UIText.text = "";
-		_textFade = null;
 	}
 }
