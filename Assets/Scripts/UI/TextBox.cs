@@ -29,6 +29,7 @@ public class TextBox : MonoBehaviour {
 	public void SetText( string textString )
 	{
 		ClearText();
+		_UIText.color = _UIText.color.SetAlpha( 1.0f );
 		_backgroundImage.color = _backgroundImage.color.SetAlpha( _maxBackgroundOpacity );
 		_UIText.text = textString;
 	}
@@ -54,14 +55,18 @@ public class TextBox : MonoBehaviour {
 		// Initially wait for the amount of time needed until text should fade.
 		yield return new WaitForSeconds( delay );
 
+		float elapsedTime = 0.0f;
+
 		// Perform text fade.
 		do
 		{
 			yield return null;
+			elapsedTime += Time.deltaTime;
 
-			duration -= Time.deltaTime;
+			_UIText.color = _UIText.color.SetAlpha( Mathf.Lerp( 1.0f, 0.0f, elapsedTime / duration ) );
+			_backgroundImage.color = _backgroundImage.color.SetAlpha( Mathf.Lerp( _maxBackgroundOpacity, 0.0f, elapsedTime / duration ) );
 		}
-		while ( duration > 0.0f );
+		while ( elapsedTime < duration );
 
 		// Clear the text.
 		_textFade = null;
