@@ -25,6 +25,16 @@ public class TextVolume : MonoBehaviour
 		_textBox = FindObjectOfType<TextBox>();
 	}
 
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.blue;
+		Transform transform = GetComponent<Transform>();
+		Gizmos.matrix = Matrix4x4.TRS( transform.position, transform.rotation, transform.lossyScale );
+
+		BoxCollider collider = GetComponent<BoxCollider>();
+		Gizmos.DrawWireCube( collider.center, collider.size );
+	}
+
 	public void OnTriggerEnter( Collider other )
 	{
 		Debug.Log( "Text volume triggered by: " + other );
