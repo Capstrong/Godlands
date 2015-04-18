@@ -8,9 +8,6 @@
 		_ReflectColor ("Reflection Color", Color) = (1,1,1,0.5)
 		_MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
 		_Cube ("Reflection Cubemap", Cube) = "_Skybox" {}
-		
-		_Curvature ("Curvature", float) = -0.0017
-		_MinCurveDistance ("Minimum Curve Distance", float) = 20
 	}
 	
 	SubShader 
@@ -22,15 +19,14 @@
 		#pragma vertex vert
 		#pragma surface surf BlinnPhong vertex:vert addshadow fullforwardshadows
 
+		#include "GodlandsShaderUtils.cginc"
+
 		sampler2D _MainTex;
 		samplerCUBE _Cube;
 
 		fixed4 _Color;
 		fixed4 _ReflectColor;
 		half _Shininess;
-		
-		float _Curvature;
-		float _MinCurveDistance;
 
 		struct Input 
 		{
@@ -40,22 +36,7 @@
 
 		void vert ( inout appdata_full v )
 		{
-			// Transform the vertex coordinates from model space into world space
-		    float4 vv = mul( _Object2World, v.vertex );
-
-		    // Now adjust the coordinates to be relative to the camera position
-		    vv.xyz -= _WorldSpaceCameraPos.xyz;
-
-			vv.z -= _MinCurveDistance * sign(vv.z);
-
-		    // Reduce the y coordinate (i.e. lower the "height") of each vertex based
-		    // on the square of the distance from the camera in the z axis, multiplied
-		    // by the chosen curvature factor
-		    
-			vv = float4( 0.0f, (vv.z * vv.z) * - _Curvature * (sin(_Time.y/5) * 0.5 + 0.5), 0.0f, 0.0f );
-
-		    // Now apply the offset back to the vertices in model space
-		    v.vertex += mul(_World2Object, vv);
+			v.vertex += CalculateWorldBendOffset(v);
 		}
 
 		void surf (Input IN, inout SurfaceOutput o)

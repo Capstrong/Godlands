@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using BehaviorTree;
 
 public class BuddyStats : ActorComponent
 {
@@ -333,5 +334,13 @@ public class BuddyStats : ActorComponent
 
 		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
+	}
+
+	public float hunger
+	{
+		get
+		{
+			return (float)_resources / (float)_idealResourcesRange.max;
+		}
 	}
 }

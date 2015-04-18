@@ -1,91 +1,109 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public struct BuddyTypeFashion
+{
+	public Color[] topBodyColors;
+	public Color[] bottomBodyColors;
+}
+
 public class BuddyShaper : MonoBehaviour
 {
+	[SerializeField] BuddyStats _buddyStats = null;
+
 	// Blend Shapes
-	[SerializeField] int[] overlapBlendIndices = null;
-	[SerializeField] int[] exclusiveBlendIndices = null;
+	[SerializeField] int[] _overlapBlendIndices = null;
+	[SerializeField] int[] _exclusiveBlendIndices = null;
 
-	[SerializeField] int legIndex = 0; // Which index of the skinned mesh renderer's blendshapes is associated with leg length
-	float legHeightOffsetMod = 0.0006f;
+	[SerializeField] int _legIndex = 0; // Which index of the skinned mesh renderer's blendshapes is associated with leg length
+	float _legHeightOffsetMod = 0.0006f;
 
-	[SerializeField] MinMaxF exclusiveBlendRange = new MinMaxF( 50f, 100f );
-	SkinnedMeshRenderer skinnedMeshRend = null;
+	[SerializeField] MinMaxF _exclusiveBlendRange = new MinMaxF( 50f, 100f );
+	SkinnedMeshRenderer _skinnedMeshRend = null;
 
 	// Scaling
-	[SerializeField] MinMaxF heightScaleRange = new MinMaxF( 0.8f, 1.2f );
+	[SerializeField] MinMaxF _heightScaleRange = new MinMaxF( 0.8f, 1.2f );
 
 	// Coloring
-	[SerializeField] MinMaxF colorOffsetRange = new MinMaxF( 0f, 0.15f );
-	[SerializeField] Color[] skinColors = null;
+	[SerializeField] BuddyTypeFashion[] _buddyTypeFashions = null;
+	[SerializeField] Texture2D[] _skinColors = null;
 
-	Vector3 initPos = Vector3.zero;
-	Vector3 initScale = Vector3.one;
-	Color initColor = Color.white;
+	[SerializeField] int _numBlendShapes = 0;
 
-	[SerializeField] bool debugRandomizer = false;
+	Vector3 _initPos = Vector3.zero;
+	Vector3 _initScale = Vector3.one;
 
-	void Awake()
+	[SerializeField] bool _debugRandomizer = false;
+
+	void Start()
 	{
-		skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
+		_skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
 
-		initPos = transform.position;
-		initScale = transform.localScale;
-		initColor = skinnedMeshRend.material.color;
+		_initPos = transform.position;
+		_initScale = transform.localScale;
 
-		if( debugRandomizer )
+		if( _debugRandomizer )
 		{
 			InvokeRepeating( "RandomizeBuddy", 0.3f, 0.3f );
+		}
+		else
+		{
+			RandomizeBuddy();
 		}
 	}
 
 	void RandomizeBuddy()
 	{
-		for( int i = 0; i < 13; i++ )
+		for( int i = 0; i < _numBlendShapes; i++ )
 		{
-			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
+			_skinnedMeshRend.SetBlendShapeWeight( i, 0f );
 		}
 
-		AdjustBlendShapes();
+		if( _numBlendShapes > 0 )
+		{
+			AdjustBlendShapes();
+		}
+
 		AdjustSize();
 		AdjustColor();
 	}
 
 	void AdjustBlendShapes()
 	{
-		foreach( int i in overlapBlendIndices )
+		foreach( int i in _overlapBlendIndices )
 		{
 			float setWeight = Random.Range( 0f, 100f );
-			skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
+			_skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
 
-			if( i == legIndex )
+			if( i == _legIndex )
 			{
-				transform.position = initPos + Vector3.up * setWeight * legHeightOffsetMod;
+				transform.position = _initPos + Vector3.up * setWeight * _legHeightOffsetMod;
 			}
 		}
 
-		int exclusiveBlendIndex = Random.Range( 0, exclusiveBlendIndices.Length );
-		skinnedMeshRend.SetBlendShapeWeight( exclusiveBlendIndices[exclusiveBlendIndex],
-		                                    Random.Range( exclusiveBlendRange.min, exclusiveBlendRange.max ) );
+		int exclusiveBlendIndex = Random.Range( 0, _exclusiveBlendIndices.Length );
+		_skinnedMeshRend.SetBlendShapeWeight( _exclusiveBlendIndices[exclusiveBlendIndex],
+		                                    Random.Range( _exclusiveBlendRange.min, _exclusiveBlendRange.max ) );
 	}
 
 	void AdjustSize()
 	{
-		Vector3 adjustedScale = initScale;
-		adjustedScale.y *= heightScaleRange.random;
+		Vector3 adjustedScale = _initScale;
+		adjustedScale.y *= _heightScaleRange.random;
 
 		transform.localScale = adjustedScale;
 	}
 
 	void AdjustColor()
 	{
-		Color colorOffset = new Color( -Mathf.Clamp01( colorOffsetRange.random ),
-		                               Mathf.Clamp01( colorOffsetRange.random ),
-		                               Mathf.Clamp01( colorOffsetRange.random ),
-		                               0f );
+		int statNum = (int)_buddyStats.itemData.stat;
+		int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
+		int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
 
-		skinnedMeshRend.material.color = initColor + colorOffset;
-		skinnedMeshRend.material.SetColor( "_SkinColor", skinColors[Random.Range( 0, skinColors.Length )] );
+		_skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
+		_skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[topBodyColorIndex] );
+
+		_skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum Stat
 {
-	Invalid,
+	Invalid = -1,
 	Stamina,
 	Gliding,
 	Cutting,
