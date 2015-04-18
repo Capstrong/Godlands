@@ -5,12 +5,12 @@ public class ResourceHolder : MonoBehaviour
 {
 	public GameObject resource;
 
-	[SerializeField] float resourceHeightOffset = 0.17f;
+	[SerializeField] float _resourceHeightOffset = 0.17f;
 	[SerializeField] float _maxHeight = 12f;
-	[SerializeField] LayerMask _collisionLayer;
+	[SerializeField] LayerMask _collisionLayer = -1;
 
 	[SerializeField] bool _showBeacon = false;
-	[SerializeField] Transform _beacon;
+	[SerializeField] Transform _beacon = null;
 
 	Transform _transform;
 
@@ -43,7 +43,7 @@ public class ResourceHolder : MonoBehaviour
 			_particleSystem.enableEmission = false;
 		}
 
-		resource = WadeUtils.Instantiate( resource, Vector3.up * resourceHeightOffset, Quaternion.identity );
+		resource = WadeUtils.Instantiate( resource, Vector3.up * _resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( _transform, false );
 
 		resource.GetComponent<InventoryItem>().Initialize( this );
