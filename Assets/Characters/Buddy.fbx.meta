@@ -69,6 +69,17 @@ ModelImporter:
     100126: R_Finger_1
     100128: nurbsCircle27
     100130: nurbsCircle28
+    100132: Chest
+    100134: Hips
+    100136: L_Ankle
+    100138: L_Arm
+    100140: L_Toes_0
+    100142: L_Toes_1
+    100144: R_Ankle
+    100146: R_Arm
+    100148: R_Toes_0
+    100150: R_Toes_1
+    100152: Waist
     400000: //RootNode
     400002: PM3D_ZSphere_4
     400004: PM3D_ZSphere_5
@@ -135,6 +146,17 @@ ModelImporter:
     400126: R_Finger_1
     400128: nurbsCircle27
     400130: nurbsCircle28
+    400132: Chest
+    400134: Hips
+    400136: L_Ankle
+    400138: L_Arm
+    400140: L_Toes_0
+    400142: L_Toes_1
+    400144: R_Ankle
+    400146: R_Arm
+    400148: R_Toes_0
+    400150: R_Toes_1
+    400152: Waist
     2300000: PM3D_ZSphere_4
     2300002: PM3D_ZSphere_5
     2300004: polySurface12
@@ -180,7 +202,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -215,67 +237,77 @@ ModelImporter:
         weight: 1
       - path: Buddy
         weight: 1
-      - path: nurbsCircle27
+      - path: Root
         weight: 1
-      - path: nurbsCircle27/nurbsCircle28
+      - path: Root/Hips
         weight: 1
-      - path: nurbsCircle27/Root
+      - path: Root/Hips/L_Leg
         weight: 1
-      - path: nurbsCircle27/Root/L_Leg
+      - path: Root/Hips/L_Leg/L_Knee
         weight: 1
-      - path: nurbsCircle27/Root/L_Leg/L_Knee
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
         weight: 1
-      - path: nurbsCircle27/Root/L_Leg/L_Knee/L_Foot
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
         weight: 1
-      - path: nurbsCircle27/Root/R_Leg
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
         weight: 1
-      - path: nurbsCircle27/Root/R_Leg/R_Knee
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
         weight: 1
-      - path: nurbsCircle27/Root/R_Leg/R_Knee/R_Foot
+      - path: Root/Hips/R_Leg
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0
+      - path: Root/Hips/R_Leg/R_Knee
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand
+      - path: Root/Hips/Waist
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Finger_0
+      - path: Root/Hips/Waist/Chest
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Finger_0/L_Finger_1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Thumb_0
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/L_Clavicle/L_Shoulder/L_Elbow/L_Hand/L_Thumb_0/L_Thumb_1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head/Eye2
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/Neck/Head/Eye3
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow
+      - path: Root/Hips/Waist/Chest/Neck
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand
+      - path: Root/Hips/Waist/Chest/Neck/Head
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Finger_0
+      - path: Root/Hips/Waist/Chest/R_Clavicle
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Finger_0/R_Finger_1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Thumb_0
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
         weight: 1
-      - path: nurbsCircle27/Root/Spine_0/Spine_1/R_Clavicle/R_Shoulder/R_Elbow/R_Hand/R_Thumb_0/R_Thumb_1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
