@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TextVolume : MonoBehaviour
 {
+	[TextArea(3, 10)]
 	[SerializeField] string _text = "";
 	public string text
 	{
@@ -37,8 +38,6 @@ public class TextVolume : MonoBehaviour
 
 	public void OnTriggerEnter( Collider other )
 	{
-		Debug.Log( "Text volume triggered by: " + other );
-
 		if ( !_hasBeenTriggered )
 		{
 			if ( _fadeOut )

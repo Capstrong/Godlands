@@ -5,12 +5,15 @@ using UnityEngine.UI;
 public class TextBox : MonoBehaviour {
 
 	Text _UIText = null;
+	[SerializeField] Image _backgroundImage = null;
 
 	[SerializeField] KeyCode _clearKey = 0;
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float _maxBackgroundOpacity = 0.75f;
 
 	Coroutine _textFade;
 
-	void Start ()
+	void Awake()
 	{
 		_UIText = GetComponent<Text>();
 	}
@@ -26,22 +29,21 @@ public class TextBox : MonoBehaviour {
 	public void SetText( string textString )
 	{
 		ClearText();
-
+		_UIText.color = _UIText.color.SetAlpha( 1.0f );
+		_backgroundImage.color = _backgroundImage.color.SetAlpha( _maxBackgroundOpacity );
 		_UIText.text = textString;
 	}
 	
 	public void SetTextForDuration( string textString, float duration = 5.0f, float fadeoutDuration = 2.0f )
 	{
-		ClearText();
-
-		_UIText.text = textString;
+		SetText( textString );
 		_textFade = StartCoroutine( Fadeout( duration, fadeoutDuration ) );
 	}
 
 	public void ClearText()
 	{
 		_UIText.text = "";
-
+		_backgroundImage.color = _backgroundImage.color.SetAlpha( 0.0f );
 		if ( _textFade != null )
 		{
 			StopCoroutine( _textFade );
@@ -53,16 +55,21 @@ public class TextBox : MonoBehaviour {
 		// Initially wait for the amount of time needed until text should fade.
 		yield return new WaitForSeconds( delay );
 
+		float elapsedTime = 0.0f;
+
 		// Perform text fade.
 		do
 		{
 			yield return null;
+			elapsedTime += Time.deltaTime;
 
-			duration -= Time.deltaTime;
+			_UIText.color = _UIText.color.SetAlpha( Mathf.Lerp( 1.0f, 0.0f, elapsedTime / duration ) );
+			_backgroundImage.color = _backgroundImage.color.SetAlpha( Mathf.Lerp( _maxBackgroundOpacity, 0.0f, elapsedTime / duration ) );
 		}
-		while ( duration > 0.0f );
+		while ( elapsedTime < duration );
 
 		// Clear the text.
-		_UIText.text = "";
+		_textFade = null;
+		ClearText();
 	}
 }
