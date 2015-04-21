@@ -85,6 +85,6 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 			aggregateHappiness += buddyStat.happiness;
 		}
 
-			playerStats.SetMaxStat( stat, aggregateHappiness * instance._statPerHappiness );
+		playerStats.SetMaxStat( stat, aggregateHappiness * instance._statPerHappiness );
 	}
 }
