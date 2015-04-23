@@ -74,17 +74,10 @@ class ExportTerrain : EditorWindow
 	}
 	
 	void ExportSplatMap( )
-	{
-		Texture2D texture = Selection.activeObject as Texture2D;
-		if (texture == null)
-		{
-			EditorUtility.DisplayDialog("Select Texture", "You Must Select a Texture first!", "Ok");
-			return;
-		}
-		
-		var bytes = texture.EncodeToPNG();
+	{	
+		var bytes = sourceSplat.EncodeToPNG();
 
-		string fileName = EditorUtility.SaveFilePanel("Export .obj file", "", "Terrain", "obj");
+		string fileName = EditorUtility.SaveFilePanel("Export .png file", "", "TerrainSplat", "png");
 		File.WriteAllBytes(fileName, bytes);
 		AssetDatabase.Refresh();
 	}

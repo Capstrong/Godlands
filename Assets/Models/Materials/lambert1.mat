@@ -65,13 +65,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Cube
-        second:
-          m_Texture: {fileID: 8900000, guid: 9d7134fec8a8046b9a084e62367d2f11, type: 2}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -114,6 +107,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: 9d7134fec8a8046b9a084e62367d2f11, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _Splat4
         second:
           m_Texture: {fileID: 2800000, guid: 33b34e832d9344b12a846c55f31c9181, type: 3}
@@ -123,7 +123,7 @@ Material:
         first:
           name: _SplatMap
         second:
-          m_Texture: {fileID: 2800000, guid: 0eee2e9f6eeb5479e8ecb6969be37e24, type: 3}
+          m_Texture: {fileID: 2800000, guid: 6aca33ee2541d4d6b9a526954f5138e4, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -143,14 +143,6 @@ Material:
         first:
           name: _DstBlend
         second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
       data:
         first:
           name: _Glossiness
@@ -191,6 +183,14 @@ Material:
         first:
           name: _Mode
         second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
     m_Colors:
       data:
         first:
@@ -206,9 +206,9 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _ReflectColor
-        second: {r: .772058845, g: .772058845, b: .772058845, a: .501960814}
-      data:
-        first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _ReflectColor
+        second: {r: .772058845, g: .772058845, b: .772058845, a: .501960814}

@@ -85,4 +85,10 @@ public static class MathUtils
 	}
 
 	#endregion
+
+	public static Color SetAlpha( this Color color, float alpha )
+	{
+		color.a = alpha;
+		return color;
+	}
 }
