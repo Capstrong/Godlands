@@ -198,6 +198,7 @@ public class PlayerInventory : ActorComponent
 
 		inventory[heldResources[resourceIndex]]--;
 		UpdateResourceList();
+		newBuddy.RecalculateStat();
 		return true;
 	}
 
