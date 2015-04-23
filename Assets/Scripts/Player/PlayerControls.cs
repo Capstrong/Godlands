@@ -456,6 +456,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			// TODO: How do we start the process of actually making the buddy an adult?
 			buddyStats.gameObject.SetActive( false );
+			AdultManager.SpawnAdult();
 		}
 
 		return false;
