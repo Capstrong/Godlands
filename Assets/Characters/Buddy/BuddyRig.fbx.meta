@@ -1,0 +1,1858 @@
+fileFormatVersion: 2
+guid: 92e73dc3892fa4a908487c1e9e181be8
+timeCreated: 1430238518
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Chest
+    100004: Head
+    100006: Hips
+    100008: L_Ankle
+    100010: L_Arm
+    100012: L_Clavicle
+    100014: L_Elbow
+    100016: L_Fingers_0
+    100018: L_Fingers_1
+    100020: L_Foot
+    100022: L_Hand
+    100024: L_Knee
+    100026: L_Leg
+    100028: L_Thumb_0
+    100030: L_Thumb_1
+    100032: L_Toes_0
+    100034: L_Toes_1
+    100036: L_Wrist
+    100038: Neck
+    100040: R_Ankle
+    100042: R_Arm
+    100044: R_Clavicle
+    100046: R_Elbow
+    100048: R_Fingers_0
+    100050: R_Fingers_1
+    100052: R_Foot
+    100054: R_Hand
+    100056: R_Knee
+    100058: R_Leg
+    100060: R_Thumb_0
+    100062: R_Thumb_1
+    100064: R_Toes_0
+    100066: R_Toes_1
+    100068: R_Wrist
+    100070: Root
+    100072: Waist
+    400000: //RootNode
+    400002: Chest
+    400004: Head
+    400006: Hips
+    400008: L_Ankle
+    400010: L_Arm
+    400012: L_Clavicle
+    400014: L_Elbow
+    400016: L_Fingers_0
+    400018: L_Fingers_1
+    400020: L_Foot
+    400022: L_Hand
+    400024: L_Knee
+    400026: L_Leg
+    400028: L_Thumb_0
+    400030: L_Thumb_1
+    400032: L_Toes_0
+    400034: L_Toes_1
+    400036: L_Wrist
+    400038: Neck
+    400040: R_Ankle
+    400042: R_Arm
+    400044: R_Clavicle
+    400046: R_Elbow
+    400048: R_Fingers_0
+    400050: R_Fingers_1
+    400052: R_Foot
+    400054: R_Hand
+    400056: R_Knee
+    400058: R_Leg
+    400060: R_Thumb_0
+    400062: R_Thumb_1
+    400064: R_Toes_0
+    400066: R_Toes_1
+    400068: R_Wrist
+    400070: Root
+    400072: Waist
+    7400000: NeutralWalk
+    7400002: HappyWalk
+    7400004: SadWalk
+    7400006: Hug
+    7400008: ToSleep
+    7400010: Sleep
+    7400012: Dance
+    7400014: Idle
+    7400016: ToCry
+    7400018: Cry
+    7400020: ToTantrum
+    7400022: Tantrum
+    7400024: Cheer
+    7400026: CleanWall
+    7400028: CleanFloor
+    7400030: SitIdle
+    7400032: Hatch
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: NeutralWalk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: HappyWalk
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: SadWalk
+      takeName: Take 001
+      firstFrame: 121
+      lastFrame: 210
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Hug
+      takeName: Take 001
+      firstFrame: 211
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ToSleep
+      takeName: Take 001
+      firstFrame: 331
+      lastFrame: 420
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Sleep
+      takeName: Take 001
+      firstFrame: 421
+      lastFrame: 520
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Dance
+      takeName: Take 001
+      firstFrame: 570
+      lastFrame: 660
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 661
+      lastFrame: 750
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ToCry
+      takeName: Take 001
+      firstFrame: 751
+      lastFrame: 810
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Cry
+      takeName: Take 001
+      firstFrame: 811
+      lastFrame: 900
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ToTantrum
+      takeName: Take 001
+      firstFrame: 901
+      lastFrame: 960
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Tantrum
+      takeName: Take 001
+      firstFrame: 961
+      lastFrame: 1050
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Cheer
+      takeName: Take 001
+      firstFrame: 1051
+      lastFrame: 1140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: CleanWall
+      takeName: Take 001
+      firstFrame: 1141
+      lastFrame: 1200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: CleanFloor
+      takeName: Take 001
+      firstFrame: 1201
+      lastFrame: 1260
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: SitIdle
+      takeName: Take 001
+      firstFrame: 1261
+      lastFrame: 1351
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Hatch
+      takeName: Take 001
+      firstFrame: 1351
+      lastFrame: 1470.00012
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: Root
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: a42ecf2870ebf4f4399bac720bd72b49,
+    type: 3}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
