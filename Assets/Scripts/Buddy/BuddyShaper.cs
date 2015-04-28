@@ -104,7 +104,7 @@ public class BuddyShaper : MonoBehaviour
 			int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
 
 			_skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
-			_skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[topBodyColorIndex] );
+			_skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
 
 			_skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
 		}
