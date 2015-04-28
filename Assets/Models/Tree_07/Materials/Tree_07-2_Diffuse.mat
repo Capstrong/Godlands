@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: d82f33d38f5292d458ea64425e1e15d8, type: 3}
+          m_Texture: {fileID: 2800000, guid: a27163c891af2204393f8add5ad3ed6e, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -88,7 +88,7 @@ Material:
         first:
           name: _ColorMask
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 86eac586592d28b4ea1c7c877b67420e, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -106,16 +106,20 @@ Material:
         second: 0
       data:
         first:
+          name: _Glossiness
+        second: .5
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
         first:
           name: _ZWrite
         second: 1
-      data:
-        first:
-          name: _Glossiness
-        second: .5
       data:
         first:
           name: _BumpScale
@@ -142,20 +146,16 @@ Material:
         second: 0
       data:
         first:
-          name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _EmissiveStrength
-        second: .0199999996
-      data:
-        first:
           name: _Curvature
         second: -.00170000002
       data:
         first:
           name: _MinCurveDistance
         second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: .0199999996
     m_Colors:
       data:
         first:
@@ -164,7 +164,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .486684233, g: .823529422, b: .163494825, a: 1}
+        second: {r: .683823526, g: .591583669, b: .206152678, a: 1}
       data:
         first:
           name: _EmissionColorUI
@@ -172,4 +172,4 @@ Material:
       data:
         first:
           name: _ColorOverlayA
-        second: {r: .403651088, g: 1, b: .382352948, a: 1}
+        second: {r: .416865468, g: .735294104, b: .405493051, a: 1}
