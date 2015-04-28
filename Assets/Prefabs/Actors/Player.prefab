@@ -2509,6 +2509,9 @@ MonoBehaviour:
   _interactCheckRadius: .200000003
   _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
   _maxJumpForceTime: .200000003
+  _defaultCameraZoom: 7
+  _glidingCameraZoom: 15
+  _sprintingCameraZoom: 12
   _respawnOffset: {x: 0, y: 2, z: 0}
   _respawnPosition: {x: 0, y: 0, z: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
@@ -2580,16 +2583,8 @@ MonoBehaviour:
   _focusShiftSpeed: 4
   _focusFollowSpeed: 12
   _focusOffset: {x: 0, y: 0, z: .400000006}
+  _currentZoomDistance: 0
   _targetZoomDistance: 10
-  _zoomDistanceStateMap:
-    keys: 050000000400000003000000020000000100000000000000
-    values:
-    - 6
-    - 7
-    - 10
-    - 10
-    - 10
-    - 10
   _zoomDistanceBounds:
     min: 1
     max: 25

@@ -9,7 +9,6 @@ public enum PhysicsStateType
 	Falling,
 	Climbing,
 	Gliding,
-	Sprinting,
 	Dead,
 }
 
@@ -72,7 +71,11 @@ public sealed class ActorPhysics : ActorComponent
 
 	public float normalizedMoveSpeed
 	{
-		get { return _rigidbody.velocity.magnitude / sprintMoveSpeed; }
+		get
+		{
+			Vector3 horizontalVelocity = _rigidbody.velocity.SetY( 0.0f );
+			return horizontalVelocity.magnitude / sprintMoveSpeed;
+		}
 	}
 
 	/**
@@ -327,8 +330,6 @@ public sealed class ActorPhysics : ActorComponent
 		curVelocity.y = jumpForce;
 		_rigidbody.velocity = curVelocity;
 		_rigidbody.useGravity = true;
-
-		actor.animator.Play("Jump");
 
 		StartJumpCheckDelayTimer();
 	}
