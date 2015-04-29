@@ -3,8 +3,11 @@ using System.Collections;
 
 public class BackBuddy : MonoBehaviour 
 {
-	SkinnedMeshRenderer mySkinnedMesh = null;
+	[Tooltip( "Which blendshapes should be copied from the fed buddy." )]
 	MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
+
+	Animator animator = null;
+	SkinnedMeshRenderer mySkinnedMesh = null;
 
 	void Awake()
 	{
@@ -24,8 +27,6 @@ public class BackBuddy : MonoBehaviour
 		mySkinnedMesh.material.SetTexture( "_SkinTex", sourceBuddyMesh.material.GetTexture( "_SkinTex" ) );
 	}
 
-	Animator animator = null;
-	
 	public void PlayEvent( string eventName )
 	{
 		Debug.Log( eventName );
