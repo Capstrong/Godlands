@@ -1119,13 +1119,14 @@ GameObject:
   - 4: {fileID: 466744}
   - 95: {fileID: 9536300}
   - 114: {fileID: 11424938}
+  - 114: {fileID: 11478332}
   m_Layer: 0
   m_Name: SkinnedBuddy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &134360
 GameObject:
   m_ObjectHideFlags: 1
@@ -6072,6 +6073,17 @@ MonoBehaviour:
   _triggerKey: 51
   _statToIncrease: 3
   _changeAmount: .100000001
+--- !u!114 &11478332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb49f8aa8a13a4d36993304eeb9c4cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11480132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6090,7 +6102,7 @@ MonoBehaviour:
   inventory:
     keys: []
     values: 
-  _backBuddy: {fileID: 0}
+  _backBuddy: {fileID: 11478332}
   _buddyLayer:
     serializedVersion: 2
     m_Bits: 256
