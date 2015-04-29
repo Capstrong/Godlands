@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0b095b6c2428f4501b2f81db25404a15
-timeCreated: 1430288958
+guid: ecb22663aa9714308a95720c9b67077c
+timeCreated: 1430339404
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -49,38 +49,39 @@ ModelImporter:
     100082: Left_Wrist
     100084: Neck_lower
     100086: Neck_Top
-    100088: R_Index_01
-    100090: R_Index_02
-    100092: R_Index_03
-    100094: R_Index_04
-    100096: R_Middle_01
-    100098: R_Middle_02
-    100100: R_Middle_03
-    100102: R_Middle_04
-    100104: R_Pinky_01
-    100106: R_Pinky_02
-    100108: R_Pinky_03
-    100110: R_Pinky_04
-    100112: R_Ring_01
-    100114: R_Ring_02
-    100116: R_Ring_03
-    100118: R_Ring_04
-    100120: R_Thumb_01
-    100122: R_Thumb_02
-    100124: R_Thumb_03
-    100126: R_Thumb_04
-    100128: Right_Ear_Bottom
-    100130: Right_Ear_Mid
-    100132: Right_Ear_Top
-    100134: Right_Elbow
-    100136: Right_Wrist
-    100138: Shoulder_Left
-    100140: Shoulder_Right
-    100142: Tail_01
-    100144: Tail_02
-    100146: Tail_03
-    100148: Toe_Left
-    100150: Toe_Right
+    100088: polySurface89
+    100090: R_Index_01
+    100092: R_Index_02
+    100094: R_Index_03
+    100096: R_Index_04
+    100098: R_Middle_01
+    100100: R_Middle_02
+    100102: R_Middle_03
+    100104: R_Middle_04
+    100106: R_Pinky_01
+    100108: R_Pinky_02
+    100110: R_Pinky_03
+    100112: R_Pinky_04
+    100114: R_Ring_01
+    100116: R_Ring_02
+    100118: R_Ring_03
+    100120: R_Ring_04
+    100122: R_Thumb_01
+    100124: R_Thumb_02
+    100126: R_Thumb_03
+    100128: R_Thumb_04
+    100130: Right_Ear_Bottom
+    100132: Right_Ear_Mid
+    100134: Right_Ear_Top
+    100136: Right_Elbow
+    100138: Right_Wrist
+    100140: Shoulder_Left
+    100142: Shoulder_Right
+    100144: Tail_01
+    100146: Tail_02
+    100148: Tail_03
+    100150: Toe_Left
+    100152: Toe_Right
     400000: Ankle_Left
     400002: Ankle_Right
     400004: Back_Lower
@@ -125,40 +126,43 @@ ModelImporter:
     400082: Left_Wrist
     400084: Neck_lower
     400086: Neck_Top
-    400088: R_Index_01
-    400090: R_Index_02
-    400092: R_Index_03
-    400094: R_Index_04
-    400096: R_Middle_01
-    400098: R_Middle_02
-    400100: R_Middle_03
-    400102: R_Middle_04
-    400104: R_Pinky_01
-    400106: R_Pinky_02
-    400108: R_Pinky_03
-    400110: R_Pinky_04
-    400112: R_Ring_01
-    400114: R_Ring_02
-    400116: R_Ring_03
-    400118: R_Ring_04
-    400120: R_Thumb_01
-    400122: R_Thumb_02
-    400124: R_Thumb_03
-    400126: R_Thumb_04
-    400128: Right_Ear_Bottom
-    400130: Right_Ear_Mid
-    400132: Right_Ear_Top
-    400134: Right_Elbow
-    400136: Right_Wrist
-    400138: Shoulder_Left
-    400140: Shoulder_Right
-    400142: Tail_01
-    400144: Tail_02
-    400146: Tail_03
-    400148: Toe_Left
-    400150: Toe_Right
+    400088: polySurface89
+    400090: R_Index_01
+    400092: R_Index_02
+    400094: R_Index_03
+    400096: R_Index_04
+    400098: R_Middle_01
+    400100: R_Middle_02
+    400102: R_Middle_03
+    400104: R_Middle_04
+    400106: R_Pinky_01
+    400108: R_Pinky_02
+    400110: R_Pinky_03
+    400112: R_Pinky_04
+    400114: R_Ring_01
+    400116: R_Ring_02
+    400118: R_Ring_03
+    400120: R_Ring_04
+    400122: R_Thumb_01
+    400124: R_Thumb_02
+    400126: R_Thumb_03
+    400128: R_Thumb_04
+    400130: Right_Ear_Bottom
+    400132: Right_Ear_Mid
+    400134: Right_Ear_Top
+    400136: Right_Elbow
+    400138: Right_Wrist
+    400140: Shoulder_Left
+    400142: Shoulder_Right
+    400144: Tail_01
+    400146: Tail_02
+    400148: Tail_03
+    400150: Toe_Left
+    400152: Toe_Right
+    4300000: polySurface89
     7400000: Take 001
     9500000: //RootNode
+    13700000: polySurface89
   materials:
     importMaterials: 1
     materialName: 0
@@ -167,7 +171,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    motionNodeName: Base/Hip_Mid
+    motionNodeName: 
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -199,7 +203,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 1
-  copyAvatar: 1
+  copyAvatar: 0
   humanDescription:
     human: []
     skeleton: []
@@ -210,9 +214,8 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: Base
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 831c5069d1db84d9bb0291316085981b,
-    type: 3}
+    rootMotionBoneName: Hip_Mid
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
   additionalBone: 0
   userData: 
