@@ -28,9 +28,11 @@ public class BackBuddy : MonoBehaviour
 	
 	public void PlayEvent( string eventName )
 	{
+		Debug.Log( eventName );
+
 		if( !animator )
 		{
-			animator = GetComponent<Animator>();
+			animator = GetComponentInParent<Animator>();
 		}
 		
 		animator.Play( eventName, 0 );

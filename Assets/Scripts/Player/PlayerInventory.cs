@@ -232,7 +232,7 @@ public class PlayerInventory : ActorComponent
 
 	public void HideBackBuddy()
 	{
-		_backBuddy.gameObject.SetActive( true );
+		_backBuddy.gameObject.SetActive( false );
 		_isCarryingBuddy = false;
 	}
 

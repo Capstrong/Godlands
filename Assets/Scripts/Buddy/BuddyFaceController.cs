@@ -4,7 +4,7 @@ using System.Collections;
 public class BuddyFaceController : MonoBehaviour 
 {
 	Animator animator = null;
-	
+
 	public void PlayEvent( string eventName )
 	{
 		if( !animator )
