@@ -1268,7 +1268,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.4299316, y: 50.9242783, z: -7.98712158}
+  m_LocalPosition: {x: 14.5926819, y: 49.6410294, z: -2.39141846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 470796}
@@ -1635,13 +1635,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buddyStats: {fileID: 11423312}
+  skinnedMeshRend: {fileID: 13700772}
+  _blendShapeCount: 12
+  _legIndex: 11
   _overlapBlendIndices: 090000000a0000000c000000
   _exclusiveBlendIndices: 030000000400000005000000060000000700000008000000
-  _legIndex: 11
   _exclusiveBlendRange:
     min: 50
     max: 100
-  skinnedMeshRend: {fileID: 0}
   _heightScaleRange:
     min: .800000012
     max: 1.20000005
@@ -1682,7 +1683,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ed6dd4cf951bf41d1952d52720dbc910, type: 3}
   - {fileID: 2800000, guid: 7b190c0e650a74c059af0460ddc44aba, type: 3}
   - {fileID: 2800000, guid: 32be39323c82e4de8998495a082d6744, type: 3}
-  _numBlendShapes: 12
   _debugRandomizer: 0
 --- !u!114 &11474254
 MonoBehaviour:
@@ -1749,13 +1749,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buddyStats: {fileID: 11423312}
+  skinnedMeshRend: {fileID: 0}
+  _blendShapeCount: 0
+  _legIndex: 0
   _overlapBlendIndices: 
   _exclusiveBlendIndices: 
-  _legIndex: 0
   _exclusiveBlendRange:
     min: 50
     max: 100
-  skinnedMeshRend: {fileID: 0}
   _heightScaleRange:
     min: .800000012
     max: 1.20000005
@@ -1796,7 +1797,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: ed6dd4cf951bf41d1952d52720dbc910, type: 3}
   - {fileID: 2800000, guid: 7b190c0e650a74c059af0460ddc44aba, type: 3}
   - {fileID: 2800000, guid: 32be39323c82e4de8998495a082d6744, type: 3}
-  _numBlendShapes: 0
   _debugRandomizer: 0
 --- !u!135 &13570796
 SphereCollider:

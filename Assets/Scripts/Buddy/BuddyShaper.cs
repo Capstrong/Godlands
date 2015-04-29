@@ -29,17 +29,18 @@ public class BuddyShaper : MonoBehaviour
 	[SerializeField] MinMaxF _exclusiveBlendRange = new MinMaxF( 50f, 100f );
 
 	// Scaling
-	[Tooltip("Min and max scale amount.")]
+	[Tooltip( "Min and max scale amount." )]
 	[SerializeField] MinMaxF _heightScaleRange = new MinMaxF( 0.8f, 1.2f );
 
 	// Coloring
-	[Tooltip("Buddy clothing color sets.")]
+	[Tooltip( "Buddy clothing color sets." )]
 	[SerializeField] BuddyTypeFashion[] _buddyTypeFashions = null;
 	[SerializeField] Texture2D[] _skinColors = null;
 
 	Vector3 _initPos = Vector3.zero;
 	Vector3 _initScale = Vector3.one;
 
+	bool _prevDebugRandomizer = false;
 	[SerializeField] bool _debugRandomizer = false;
 
 	void Start()
@@ -59,13 +60,29 @@ public class BuddyShaper : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		if( _debugRandomizer != _prevDebugRandomizer )
+		{
+			if( _debugRandomizer )
+			{
+				InvokeRepeating( "RandomizeBuddy", 0.3f, 0.3f );
+			}
+			else
+			{
+				CancelInvoke( "RandomizeBuddy");
+			}
+
+			_prevDebugRandomizer = _debugRandomizer;
+		}
+	}
+
 	void RandomizeBuddy()
 	{
 		for( int i = 0; i < _blendShapeCount; i++ )
 		{
 			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
 		}
-
 
 		AdjustBlendShapes();
 		AdjustSize();
