@@ -28,9 +28,14 @@ public class PlayerInventory : ActorComponent
 	List<InventoryItemData> heldResources = new List<InventoryItemData>();
 
 	int resourceIndex = 0;
-	GameObject heldResource;
+	GameObject heldResource = null;
 
-	PlayerActor _playerActor;
+	PlayerActor _playerActor = null;
+
+	[SerializeField] BackBuddy _backBuddy = null;
+	GameObject _hiddenBuddy = null;
+	bool _isCarryingBuddy = false;
+
 
 	[SerializeField] LayerMask _buddyLayer = 0;
 	public LayerMask buddyLayer
@@ -54,6 +59,8 @@ public class PlayerInventory : ActorComponent
 	{
 		inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
 		DebugUtils.Assert( inventoryBar, "There must be an InventoryScrollBar object in the scene." );
+
+		DayCycleManager.RegisterEndOfDayCallback( HideBackBuddy );
 
 		if ( heldResources.Count > 0 )
 		{
@@ -145,6 +152,22 @@ public class PlayerInventory : ActorComponent
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
 
+			if( !_isCarryingBuddy )
+			{
+				BuddyShaper buddyShaper = hitInfo.transform.GetComponentInChildren<BuddyShaper>();
+				if( buddyShaper )
+				{
+					_backBuddy.gameObject.SetActive( true );
+					_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend );
+
+					_hiddenBuddy = buddyStats.gameObject;
+					_hiddenBuddy.SetActive( false ); 
+					DayCycleManager.RegisterEndOfDayCallback( ReenableHiddenBudy );
+
+					_isCarryingBuddy = true;
+				}
+			}
+
 			// look at the buddy
 			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
@@ -200,6 +223,17 @@ public class PlayerInventory : ActorComponent
 		UpdateResourceList();
 		newBuddy.RecalculateStat();
 		return true;
+	}
+
+	public void ReenableHiddenBudy()
+	{
+		_hiddenBuddy.SetActive( true );
+	}
+
+	public void HideBackBuddy()
+	{
+		_backBuddy.gameObject.SetActive( true );
+		_isCarryingBuddy = false;
 	}
 
 	void PickupItem( InventoryItemData itemData )

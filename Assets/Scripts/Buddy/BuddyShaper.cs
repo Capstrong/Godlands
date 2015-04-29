@@ -20,7 +20,7 @@ public class BuddyShaper : MonoBehaviour
 	float _legHeightOffsetMod = 0.0006f;
 
 	[SerializeField] MinMaxF _exclusiveBlendRange = new MinMaxF( 50f, 100f );
-	SkinnedMeshRenderer _skinnedMeshRend = null;
+	public SkinnedMeshRenderer skinnedMeshRend = null;
 
 	// Scaling
 	[SerializeField] MinMaxF _heightScaleRange = new MinMaxF( 0.8f, 1.2f );
@@ -38,7 +38,7 @@ public class BuddyShaper : MonoBehaviour
 
 	void Start()
 	{
-		_skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
+		skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
 
 		_initPos = transform.position;
 		_initScale = transform.localScale;
@@ -57,7 +57,7 @@ public class BuddyShaper : MonoBehaviour
 	{
 		for( int i = 0; i < _numBlendShapes; i++ )
 		{
-			_skinnedMeshRend.SetBlendShapeWeight( i, 0f );
+			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
 		}
 
 		if( _numBlendShapes > 0 )
@@ -74,7 +74,7 @@ public class BuddyShaper : MonoBehaviour
 		foreach( int i in _overlapBlendIndices )
 		{
 			float setWeight = Random.Range( 0f, 100f );
-			_skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
+			skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
 
 			if( i == _legIndex )
 			{
@@ -83,7 +83,7 @@ public class BuddyShaper : MonoBehaviour
 		}
 
 		int exclusiveBlendIndex = Random.Range( 0, _exclusiveBlendIndices.Length );
-		_skinnedMeshRend.SetBlendShapeWeight( 	_exclusiveBlendIndices[exclusiveBlendIndex],
+		skinnedMeshRend.SetBlendShapeWeight( 	_exclusiveBlendIndices[exclusiveBlendIndex],
 		                                    	Random.Range( _exclusiveBlendRange.min, _exclusiveBlendRange.max ) );
 	}
 
@@ -97,16 +97,16 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustColor()
 	{
-		if( _buddyStats )
+		if( _buddyStats.itemData )
 		{
 			int statNum = (int)_buddyStats.itemData.stat;
 			int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
 			int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
 
-			_skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
-			_skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
+			skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
+			skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
 
-			_skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
+			skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
 		}
 	}
 }
