@@ -10,26 +10,32 @@ public struct BuddyTypeFashion
 
 public class BuddyShaper : MonoBehaviour
 {
+	[Tooltip( "Need reference to buddy stats to choose clothing colors." )]
 	[SerializeField] BuddyStats _buddyStats = null;
 
 	// Blend Shapes
+	public SkinnedMeshRenderer skinnedMeshRend = null;
+	[SerializeField] int _blendShapeCount = 0;
+
+	[Tooltip( "Index of leg length Blendshape" )]
+	[SerializeField] int _legIndex = 0;
+	float _legHeightOffsetMod = 0.0006f; // Offset used to reposition mesh so feet are always touching the floor
+
+	[Tooltip( "Indices of Blendshapes which can overlap (think nose and head shapes)." )]
 	[SerializeField] int[] _overlapBlendIndices = null;
+
+	[Tooltip( "Indices of Blendshapes which cannot overlap (think different hat/hood types)." )]
 	[SerializeField] int[] _exclusiveBlendIndices = null;
-
-	[SerializeField] int _legIndex = 0; // Which index of the skinned mesh renderer's blendshapes is associated with leg length
-	float _legHeightOffsetMod = 0.0006f;
-
 	[SerializeField] MinMaxF _exclusiveBlendRange = new MinMaxF( 50f, 100f );
-	SkinnedMeshRenderer _skinnedMeshRend = null;
 
 	// Scaling
+	[Tooltip("Min and max scale amount.")]
 	[SerializeField] MinMaxF _heightScaleRange = new MinMaxF( 0.8f, 1.2f );
 
 	// Coloring
+	[Tooltip("Buddy clothing color sets.")]
 	[SerializeField] BuddyTypeFashion[] _buddyTypeFashions = null;
 	[SerializeField] Texture2D[] _skinColors = null;
-
-	[SerializeField] int _numBlendShapes = 0;
 
 	Vector3 _initPos = Vector3.zero;
 	Vector3 _initScale = Vector3.one;
@@ -38,7 +44,7 @@ public class BuddyShaper : MonoBehaviour
 
 	void Start()
 	{
-		_skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
+		skinnedMeshRend = GetComponentInChildren<SkinnedMeshRenderer>();
 
 		_initPos = transform.position;
 		_initScale = transform.localScale;
@@ -55,26 +61,28 @@ public class BuddyShaper : MonoBehaviour
 
 	void RandomizeBuddy()
 	{
-		for( int i = 0; i < _numBlendShapes; i++ )
+		for( int i = 0; i < _blendShapeCount; i++ )
 		{
-			_skinnedMeshRend.SetBlendShapeWeight( i, 0f );
+			skinnedMeshRend.SetBlendShapeWeight( i, 0f );
 		}
 
-		if( _numBlendShapes > 0 )
-		{
-			AdjustBlendShapes();
-		}
 
+		AdjustBlendShapes();
 		AdjustSize();
 		AdjustColor();
 	}
 
 	void AdjustBlendShapes()
 	{
+		if( _blendShapeCount < 1 )
+		{
+			Debug.LogError( "No blendshapes found. Check model." );
+		}
+
 		foreach( int i in _overlapBlendIndices )
 		{
 			float setWeight = Random.Range( 0f, 100f );
-			_skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
+			skinnedMeshRend.SetBlendShapeWeight( i, setWeight );
 
 			if( i == _legIndex )
 			{
@@ -83,7 +91,7 @@ public class BuddyShaper : MonoBehaviour
 		}
 
 		int exclusiveBlendIndex = Random.Range( 0, _exclusiveBlendIndices.Length );
-		_skinnedMeshRend.SetBlendShapeWeight( 	_exclusiveBlendIndices[exclusiveBlendIndex],
+		skinnedMeshRend.SetBlendShapeWeight( 	_exclusiveBlendIndices[exclusiveBlendIndex],
 		                                    	Random.Range( _exclusiveBlendRange.min, _exclusiveBlendRange.max ) );
 	}
 
@@ -97,16 +105,16 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustColor()
 	{
-		if( _buddyStats )
+		if( _buddyStats.itemData )
 		{
 			int statNum = (int)_buddyStats.itemData.stat;
 			int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
 			int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
 
-			_skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
-			_skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[topBodyColorIndex] );
-
-			_skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
+			skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
+			skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
 		}
+
+		skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
 	}
 }

@@ -96,6 +96,9 @@ ModelImporter:
     7400028: CleanFloor
     7400030: SitIdle
     7400032: Hatch
+    7400034: BackCheer
+    7400036: BackCry
+    7400038: BackIdle
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -235,7 +238,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -335,7 +346,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: SadFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -435,7 +454,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -735,7 +762,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0341463424
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -935,7 +970,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: SadFace
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1035,7 +1078,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0390243903
+        functionName: PlayEvent
+        data: SadFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1135,7 +1186,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: SadFace
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1235,7 +1294,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: SadFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1335,7 +1402,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1724,6 +1799,330 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BackCheer
+      takeName: Take 001
+      firstFrame: 1471
+      lastFrame: 1590
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: HappyFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BackCry
+      takeName: Take 001
+      firstFrame: 1591
+      lastFrame: 1710
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .0439024381
+        functionName: PlayEvent
+        data: SadFace
+        objectReferenceParameter: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Hips
+        weight: 1
+      - path: Root/Hips/L_Leg
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0
+        weight: 1
+      - path: Root/Hips/L_Leg/L_Knee/L_Ankle/L_Foot/L_Toes_0/L_Toes_1
+        weight: 1
+      - path: Root/Hips/R_Leg
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0
+        weight: 1
+      - path: Root/Hips/R_Leg/R_Knee/R_Ankle/R_Foot/R_Toes_0/R_Toes_1
+        weight: 1
+      - path: Root/Hips/Waist
+        weight: 1
+      - path: Root/Hips/Waist/Chest
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Hand/L_Fingers_0/L_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/L_Clavicle/L_Arm/L_Elbow/L_Wrist/L_Thumb_0/L_Thumb_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck
+        weight: 1
+      - path: Root/Hips/Waist/Chest/Neck/Head
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Hand/R_Fingers_0/R_Fingers_1
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0
+        weight: 1
+      - path: Root/Hips/Waist/Chest/R_Clavicle/R_Arm/R_Elbow/R_Wrist/R_Thumb_0/R_Thumb_1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: BackIdle
+      takeName: Take 001
+      firstFrame: 1711
+      lastFrame: 1770
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
