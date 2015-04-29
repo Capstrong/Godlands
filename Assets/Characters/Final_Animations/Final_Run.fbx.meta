@@ -157,7 +157,7 @@ ModelImporter:
     400146: Target 1:Tail_03
     400148: Target 1:Toe_Left
     400150: Target 1:Toe_Right
-    7400000: Take 001
+    7400000: Run
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -167,18 +167,319 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: Base/Hip_Mid
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Target 1:Base
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Index_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Index_01/Target 1:L_Index_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Index_01/Target 1:L_Index_02/Target 1:L_Index_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Index_01/Target 1:L_Index_02/Target 1:L_Index_03/Target
+          1:L_Index_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Middle_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Middle_01/Target 1:L_Middle_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Middle_01/Target 1:L_Middle_02/Target 1:L_Middle_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Middle_01/Target 1:L_Middle_02/Target 1:L_Middle_03/Target
+          1:L_Middle_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Pinky_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Pinky_01/Target 1:L_Pinky_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Pinky_01/Target 1:L_Pinky_02/Target 1:L_Pinky_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Pinky_01/Target 1:L_Pinky_02/Target 1:L_Pinky_03/Target
+          1:L_Pinky_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Ring_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Ring_01/Target 1:L_Ring_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Ring_01/Target 1:L_Ring_02/Target 1:L_Ring_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Ring_01/Target 1:L_Ring_02/Target 1:L_Ring_03/Target
+          1:L_Ring_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Thumb_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Thumb_01/Target 1:L_Thumb_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Thumb_01/Target 1:L_Thumb_02/Target 1:L_Thumb_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Left/Target 1:Shoulder_Left/Target 1:Left_Elbow/Target
+          1:Left_Wrist/Target 1:L_Thumb_01/Target 1:L_Thumb_02/Target 1:L_Thumb_03/Target
+          1:L_Thumb_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Index_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Index_01/Target 1:R_Index_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Index_01/Target 1:R_Index_02/Target 1:R_Index_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Index_01/Target 1:R_Index_02/Target 1:R_Index_03/Target
+          1:R_Index_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Middle_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Middle_01/Target 1:R_Middle_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Middle_01/Target 1:R_Middle_02/Target 1:R_Middle_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Middle_01/Target 1:R_Middle_02/Target 1:R_Middle_03/Target
+          1:R_Middle_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Pinky_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Pinky_01/Target 1:R_Pinky_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Pinky_01/Target 1:R_Pinky_02/Target 1:R_Pinky_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Pinky_01/Target 1:R_Pinky_02/Target 1:R_Pinky_03/Target
+          1:R_Pinky_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Ring_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Ring_01/Target 1:R_Ring_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Ring_01/Target 1:R_Ring_02/Target 1:R_Ring_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Ring_01/Target 1:R_Ring_02/Target 1:R_Ring_03/Target
+          1:R_Ring_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Thumb_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Thumb_01/Target 1:R_Thumb_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Thumb_01/Target 1:R_Thumb_02/Target 1:R_Thumb_03
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Clavical_Right/Target 1:Shoulder_Right/Target 1:Right_Elbow/Target
+          1:Right_Wrist/Target 1:R_Thumb_01/Target 1:R_Thumb_02/Target 1:R_Thumb_03/Target
+          1:R_Thumb_04
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Left_Ear_Bottom
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Left_Ear_Bottom/Target 1:Left_Ear_Mid
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Left_Ear_Bottom/Target 1:Left_Ear_Mid/Target 1:Left_Ear_Top
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Right_Ear_Bottom
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Right_Ear_Bottom/Target 1:Right_Ear_Mid
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Back_Lower/Target 1:Back_Mid/Target
+          1:Back_Top/Target 1:Neck_lower/Target 1:Neck_Top/Target 1:Head_Top/Target
+          1:Right_Ear_Bottom/Target 1:Right_Ear_Mid/Target 1:Right_Ear_Top
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Left/Target 1:Knee_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Left/Target 1:Knee_Left/Target
+          1:Ankle_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Left/Target 1:Knee_Left/Target
+          1:Ankle_Left/Target 1:Ball_of_Foot_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Left/Target 1:Knee_Left/Target
+          1:Ankle_Left/Target 1:Ball_of_Foot_Left/Target 1:Toe_Left
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Right/Target 1:Knee_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Right/Target 1:Knee_Right/Target
+          1:Ankle_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Right/Target 1:Knee_Right/Target
+          1:Ankle_Right/Target 1:Ball_of_Foot_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Hip_Right/Target 1:Knee_Right/Target
+          1:Ankle_Right/Target 1:Ball_of_Foot_Right/Target 1:Toe_Right
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Tail_01
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Tail_01/Target 1:Tail_02
+        weight: 1
+      - path: Target 1:Base/Target 1:Hip_Mid/Target 1:Tail_01/Target 1:Tail_02/Target
+          1:Tail_03
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -210,8 +511,8 @@ ModelImporter:
     armStretch: .0500000007
     legStretch: .0500000007
     feetSpacing: 0
-    rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: a7cd90cfa6575174d8286278a8773f72,
+    rootMotionBoneName: Base
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 831c5069d1db84d9bb0291316085981b,
     type: 3}
   animationType: 2
   additionalBone: 0
