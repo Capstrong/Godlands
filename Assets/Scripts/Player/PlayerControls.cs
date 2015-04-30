@@ -112,6 +112,7 @@ public class PlayerControls : MonoBehaviour
 		public override void Enter()
 		{
 			player.animator.SetTrigger( "jump" );
+			player.physics.lifter.gameObject.SetActive( false );
 			player.physics.DoJump();
 			_jumpTimer = 0f;
 			_forceUp = true;
@@ -165,6 +166,7 @@ public class PlayerControls : MonoBehaviour
 		public override void Exit()
 		{
 			player.animator.SetBool( "isInAir", false );
+			player.physics.lifter.gameObject.SetActive( true );
 		}
 	}
 
