@@ -24,7 +24,7 @@
 	}
 	SubShader 
 	{
-		Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
+		Tags {"Queue"="Geometry" "IgnoreProjector"="True" "RenderType"="Transparent"}
 		LOD 200
 		
 		Cull Off

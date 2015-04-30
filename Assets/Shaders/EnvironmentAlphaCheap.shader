@@ -11,7 +11,7 @@ Shader "Custom/EnvironmentAlphaCheap"
 
 	SubShader 
 	{
-		Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
+		Tags {"Queue"="Geometry" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
 		LOD 200
 		
 		Cull Off
