@@ -9,13 +9,13 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _goodBadCutoff = 0.5f;
 
-	private List<AdultSpawnTag> _spawnPoints = new List<AdultSpawnTag>();
+	private List<AdultSpawnTag> _goodBuddySpawnPoints = new List<AdultSpawnTag>();
 	private List<ResourceSpawner> _resourceSpawners = new List<ResourceSpawner>();
 
 	void Start()
 	{
 		// Populate list of spawn points.
-		_spawnPoints.AddRange( GameObject.FindObjectsOfType<AdultSpawnTag>() );
+		_goodBuddySpawnPoints.AddRange( GameObject.FindObjectsOfType<AdultSpawnTag>() );
 		_resourceSpawners.AddRange( GameObject.FindObjectsOfType<ResourceSpawner>() );
 	}
 
@@ -29,8 +29,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 		if ( buddyStats.happiness > _goodBadCutoff )
 		{
 			// Spawn good buddy.
-			AdultSpawnTag spawnTag = _spawnPoints[Random.Range( 0, _spawnPoints.Count )];
-			_spawnPoints.Remove( spawnTag );
+			AdultSpawnTag spawnTag = _goodBuddySpawnPoints[Random.Range( 0, _goodBuddySpawnPoints.Count )];
+			_goodBuddySpawnPoints.Remove( spawnTag );
 			Transform spawnTransform = spawnTag.GetComponent<Transform>();
 			Instantiate( _adultPrefab, spawnTransform.position, spawnTransform.rotation );
 		}

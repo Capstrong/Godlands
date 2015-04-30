@@ -289,8 +289,6 @@ public class PlayerControls : MonoBehaviour
 					}
 					else
 					{
-						Debug.Log( "Checking raycast forward." );
-
 						// This allows us to do one raycast for all actions
 						// which is good since we do RaycastAll(), which is expensive.
 						RaycastHit hitInfo;
@@ -306,7 +304,6 @@ public class PlayerControls : MonoBehaviour
 							}
 							else if ( player.controls.AdultBuddyCheck( hitInfo ) )
 							{
-								Debug.Log( "Made buddy an adult" );
 								// Interaction was done.
 							}
 							else if ( player.controls.InteractCheck( hitInfo ) )
@@ -450,13 +447,14 @@ public class PlayerControls : MonoBehaviour
 
 	public bool AdultBuddyCheck( RaycastHit hitInfo )
 	{
-		Debug.Log( "Checking if we can make buddy an adult." );
 		BuddyStats buddyStats = hitInfo.collider.GetComponentInParent<BuddyStats>();
 		if ( buddyStats && buddyStats.isAdult )
 		{
 			// TODO: How do we start the process of actually making the buddy an adult?
 			buddyStats.gameObject.SetActive( false );
 			AdultManager.SpawnAdult( buddyStats );
+
+			return true;
 		}
 
 		return false;
