@@ -6,7 +6,20 @@ public class BackBuddy : MonoBehaviour
 	[Tooltip( "Which blendshapes should be copied from the fed buddy." )]
 	MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
 
-	Animator animator = null;
+	Animator _animator = null;
+	Animator animator
+	{
+		get 
+		{
+			if( !_animator )
+			{
+				_animator = GetComponentInParent<Animator>();
+			}
+
+			return _animator;
+		}
+	}
+
 	SkinnedMeshRenderer mySkinnedMesh = null;
 
 	void Awake()
@@ -29,13 +42,8 @@ public class BackBuddy : MonoBehaviour
 
 	public void PlayEvent( string eventName )
 	{
-		Debug.Log( eventName );
-
-		if( !animator )
-		{
-			animator = GetComponentInParent<Animator>();
-		}
-		
+		// Second param here is the animationLayer to play an event on
+		// 0 is the default layer, 1 is the face layer
 		animator.Play( eventName, 0 );
 	}
 }

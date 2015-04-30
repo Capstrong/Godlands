@@ -154,18 +154,7 @@ public class PlayerInventory : ActorComponent
 
 			if( !_isCarryingBuddy )
 			{
-				BuddyShaper buddyShaper = hitInfo.transform.GetComponentInChildren<BuddyShaper>();
-				if( buddyShaper )
-				{
-					_backBuddy.gameObject.SetActive( true );
-					_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend );
-
-					_hiddenBuddy = buddyStats.gameObject;
-					_hiddenBuddy.SetActive( false ); 
-					DayCycleManager.RegisterEndOfDayCallback( ReenableHiddenBudy );
-
-					_isCarryingBuddy = true;
-				}
+				PickUpBuddy( hitInfo, buddyStats );
 			}
 
 			// look at the buddy
@@ -177,6 +166,23 @@ public class PlayerInventory : ActorComponent
 		else
 		{
 			return false;
+		}
+	}
+
+	void PickUpBuddy( RaycastHit hitInfo, BuddyStats buddyStats )
+	{
+		BuddyShaper buddyShaper = hitInfo.transform.GetComponentInChildren<BuddyShaper>();
+		if( buddyShaper )
+		{
+			_backBuddy.gameObject.SetActive( true ); // Buddy is always on back, we just hide it
+			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
+			
+			_hiddenBuddy = buddyStats.gameObject;
+			_hiddenBuddy.SetActive( false );
+			
+			DayCycleManager.RegisterEndOfDayCallback( ReenableHiddenBuddy );
+			
+			_isCarryingBuddy = true;
 		}
 	}
 
@@ -225,7 +231,7 @@ public class PlayerInventory : ActorComponent
 		return true;
 	}
 
-	public void ReenableHiddenBudy()
+	public void ReenableHiddenBuddy()
 	{
 		_hiddenBuddy.SetActive( true );
 	}
