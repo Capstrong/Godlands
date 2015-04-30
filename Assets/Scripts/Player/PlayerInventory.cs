@@ -33,8 +33,22 @@ public class PlayerInventory : ActorComponent
 	PlayerActor _playerActor = null;
 
 	[SerializeField] BackBuddy _backBuddy = null;
+	public BackBuddy backBuddy
+	{
+		get
+		{
+			return _backBuddy;
+		}
+	}
 	GameObject _hiddenBuddy = null;
 	bool _isCarryingBuddy = false;
+	public bool isCarryingBuddy
+	{
+		get
+		{
+			return _isCarryingBuddy;
+		}
+	}
 
 
 	[SerializeField] LayerMask _buddyLayer = 0;
@@ -176,6 +190,7 @@ public class PlayerInventory : ActorComponent
 		{
 			_backBuddy.gameObject.SetActive( true ); // Buddy is always on back, we just hide it
 			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
+			_backBuddy._hiddenBuddy = buddyStats;
 			
 			_hiddenBuddy = buddyStats.gameObject;
 			_hiddenBuddy.SetActive( false );

@@ -4,7 +4,9 @@ using System.Collections;
 public class BackBuddy : MonoBehaviour 
 {
 	[Tooltip( "Which blendshapes should be copied from the fed buddy." )]
-	MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
+	[SerializeField] MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
+
+	public BuddyStats _hiddenBuddy; // The buddy that is currently on the back.
 
 	Animator _animator = null;
 	Animator animator
@@ -44,6 +46,6 @@ public class BackBuddy : MonoBehaviour
 	{
 		// Second param here is the animationLayer to play an event on
 		// 0 is the default layer, 1 is the face layer
-		animator.Play( eventName, 0 );
+		//animator.Play( eventName, 0 );
 	}
 }

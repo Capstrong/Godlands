@@ -302,10 +302,6 @@ public class PlayerControls : MonoBehaviour
 							{
 								// item use / buddy spawning was done
 							}
-							else if ( player.controls.AdultBuddyCheck( hitInfo ) )
-							{
-								// Interaction was done.
-							}
 							else if ( player.controls.InteractCheck( hitInfo ) )
 							{
 								// Interaction was done
@@ -439,21 +435,6 @@ public class PlayerControls : MonoBehaviour
 		if ( interactable )
 		{
 			_textBox.SetTextForDuration( interactable.interactText, interactable.duration );
-			return true;
-		}
-
-		return false;
-	}
-
-	public bool AdultBuddyCheck( RaycastHit hitInfo )
-	{
-		BuddyStats buddyStats = hitInfo.collider.GetComponentInParent<BuddyStats>();
-		if ( buddyStats && buddyStats.isAdult )
-		{
-			// TODO: How do we start the process of actually making the buddy an adult?
-			buddyStats.gameObject.SetActive( false );
-			AdultManager.SpawnAdult( buddyStats );
-
 			return true;
 		}
 
