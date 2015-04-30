@@ -24,7 +24,7 @@
 	}
 	SubShader 
 	{
-		Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
+		Tags {"Queue"="Geometry" "IgnoreProjector"="True" "RenderType"="Transparent"}
 		LOD 200
 		
 		Cull Off
@@ -35,6 +35,7 @@
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
+		#include "GodlandsShaderUtils.cginc"
 
 	
 		sampler2D _SkinTex;
@@ -66,6 +67,7 @@
 		void vert (inout appdata_full v, out Input o) 
 		{
 			UNITY_INITIALIZE_OUTPUT(Input,o);
+			v.vertex += CalculateWorldBendOffset(v);
 			o.localPos = v.vertex.xyz;
 		}
 
