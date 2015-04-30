@@ -15,6 +15,16 @@ public class BuddyStats : ActorComponent
 	[Tooltip( "Below the min is sad, within the bounds is neutral and above the max is happy." )]
 	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
+	[SerializeField] int _age = 0;
+	[SerializeField] int _adultAge = 5;
+	public bool isAdult
+	{
+		get
+		{
+			return _age >= _adultAge;
+		}
+	}
+
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
@@ -166,6 +176,7 @@ public class BuddyStats : ActorComponent
 
 	public void NightlyEvent( int resourceDrain )
 	{
+		++_age;
 		DecrementResources( resourceDrain );
 		AffectHappinessWithHunger();
 	}

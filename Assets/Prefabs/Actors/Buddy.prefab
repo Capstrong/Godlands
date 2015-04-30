@@ -1580,6 +1580,8 @@ MonoBehaviour:
   _neutralHappinessRange:
     min: 12
     max: 20
+  _age: 0
+  _adultAge: 5
   _startingHappiness: .300000012
   _happiness: 0
   _stomachRumbleSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
@@ -1750,10 +1752,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buddyStats: {fileID: 11423312}
   skinnedMeshRend: {fileID: 0}
-  _blendShapeCount: 0
-  _legIndex: 0
-  _overlapBlendIndices: 
-  _exclusiveBlendIndices: 
+  _blendShapeCount: 12
+  _legIndex: 11
+  _overlapBlendIndices: 090000000a0000000c000000
+  _exclusiveBlendIndices: 030000000400000005000000060000000700000008000000
   _exclusiveBlendRange:
     min: 50
     max: 100
