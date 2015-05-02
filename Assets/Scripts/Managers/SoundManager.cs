@@ -90,11 +90,13 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
 	AudioSource GetSource()
 	{
+		audioObjs.RemoveAll(item => item == null);
+
 		AudioSource returnSource = null;
 
 		foreach ( AudioSource audioSource in audioObjs )
 		{
-			if ( audioSource && !audioSource.isPlaying )
+			if ( !audioSource.isPlaying )
 			{
 				returnSource = audioSource;
 			}
