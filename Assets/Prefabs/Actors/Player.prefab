@@ -3850,6 +3850,11 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 131072
+  _stepSoundSource: {fileID: 8247732, guid: d4a7e1fba3d1c5d459b36e08e4831bd1, type: 2}
+  _groundStepSounds: {fileID: 11400000, guid: 7f2dac2b5f313bd4a8d495737112d48d, type: 2}
+  _waterStepSounds: {fileID: 11400000, guid: a6fdfad4585b37d45b8b1ea929eb8968, type: 2}
+  _brushStepSounds: {fileID: 11400000, guid: d5071f8fc891d1549a8820157f9283b9, type: 2}
+  stepTime: 1
 --- !u!114 &11476420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3875,6 +3880,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb49f8aa8a13a4d36993304eeb9c4cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  copyBlendShapeIndicesRange:
+    min: 3
+    max: 12
+  _hiddenBuddy: {fileID: 0}
 --- !u!114 &11480132
 MonoBehaviour:
   m_ObjectHideFlags: 1
