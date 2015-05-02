@@ -21,4 +21,10 @@ public class MenuItems
 	{
 		ScriptableObjectUtility.CreateAsset<BuddyItemData>();
 	}
+
+	[MenuItem( "Assets/Create/Travel Sound Player" )]
+	public static void CreateTravelSoundPlayerAsset()
+	{
+		ScriptableObjectUtility.CreateAsset<TravelSoundPlayer>();
+	}
 }
