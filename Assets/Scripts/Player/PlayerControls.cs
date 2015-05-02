@@ -439,6 +439,26 @@ public class PlayerControls : MonoBehaviour
 	}
 	#endregion
 
+	void OnTriggerEnter( Collider collider )
+	{
+		if ( collider.GetComponent<WaterVolume>() )
+		{
+			_currentTravelSoundPlayer = _waterStepSounds;
+		}
+		else if ( collider.GetComponent<BrushVolume>() )
+		{
+			_currentTravelSoundPlayer = _brushStepSounds;
+		}
+	}
+
+	void OnTriggerExit( Collider collider )
+	{
+		if ( collider.GetComponent<WaterVolume>() || collider.GetComponent<BrushVolume>())
+		{
+			_currentTravelSoundPlayer = _groundStepSounds;
+		}
+	}
+
 	public bool InteractCheck( RaycastHit hitInfo )
 	{
 		Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
