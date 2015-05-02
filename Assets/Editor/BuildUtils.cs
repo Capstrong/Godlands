@@ -6,6 +6,31 @@ using UnityEditor;
 
 public class BuildUnityPlayer : ScriptableObject
 {
+	[Serializable]
+	public struct BuildSettings
+	{
+		public BuildTarget target;
+		public BuildOptions options;
+	}
+
+	[Serializable]
+	public struct Version
+	{
+		public int major;
+		public int minor;
+		[HideInInspector]
+		public int patch;
+		public string extra;
+
+		public static implicit operator string ( Version version )
+		{
+			return version.major + "." +
+			       version.minor + "." +
+			       version.patch +
+			       ( version.extra != "" ? "-" + version.extra : "" );
+		}
+	}
+
 	public string gameName; // TODO get this automatically from project name or something?
 	public Version version;
 	public BuildSettings[] buildSettings;
@@ -100,30 +125,5 @@ public class BuildUnityPlayer : ScriptableObject
 
 		EditorUtility.FocusProjectWindow();
 		Selection.activeObject = buildAsset;
-	}
-}
-
-[Serializable]
-public struct BuildSettings
-{
-	public BuildTarget target;
-	public BuildOptions options;
-}
-
-[Serializable]
-public struct Version
-{
-	public int major;
-	public int minor;
-	[HideInInspector]
-	public int patch;
-	public string extra;
-
-	public static implicit operator string ( Version version )
-	{
-		return version.major + "." +
-		       version.minor + "." +
-		       version.patch +
-		       ( version.extra != "" ? "-" + version.extra : "" );
 	}
 }

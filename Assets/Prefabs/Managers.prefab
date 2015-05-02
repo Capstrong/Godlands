@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &107950
 GameObject:
@@ -64,6 +64,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &177500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 493796}
+  - 114: {fileID: 11489526}
+  m_Layer: 0
+  m_Name: ShaderGlobalsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &184490
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +106,22 @@ GameObject:
   - 114: {fileID: 11484492}
   m_Layer: 0
   m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &194634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 421574}
+  - 114: {fileID: 11489724}
+  m_Layer: 0
+  m_Name: AdultManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,6 +163,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 484490}
   m_RootOrder: 4
+--- !u!4 &421574
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194634}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 6
 --- !u!4 &421584
 Transform:
   m_ObjectHideFlags: 1
@@ -158,6 +202,8 @@ Transform:
   - {fileID: 421584}
   - {fileID: 407948}
   - {fileID: 414190}
+  - {fileID: 493796}
+  - {fileID: 421574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &484492
@@ -172,6 +218,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 484490}
   m_RootOrder: 1
+--- !u!4 &493796
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 5
 --- !u!114 &11407948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,6 +246,12 @@ MonoBehaviour:
     a: 3
     b: 1.29999995
     c: 7
+  checkpointLifters:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11407950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,26 +295,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRenderSettings:
     daySettings:
-      skyColor: {r: .45588237, g: .797362924, b: 1, a: 1}
+      skyColor: {r: .43921572, g: .792156935, b: 1, a: 1}
       lightColor: {r: 1, g: 1, b: 1, a: 1}
       lightIntensity: 1
-      fogColor: {r: .647058845, g: .823529422, b: 1, a: 1}
-      fogDensity: .00300000003
+      fogGradientTex: {fileID: 2800000, guid: 02c957ffe681f46a69e76195f5fa9ee3, type: 3}
+      fogDensity: .00499999989
     nightSettings:
-      skyColor: {r: .123150565, g: .054714527, b: .338235319, a: 1}
+      skyColor: {r: .121568635, g: .0313725509, b: .345098048, a: 1}
       lightColor: {r: .948529422, g: .948529422, b: .948529422, a: 1}
-      lightIntensity: .0199999996
-      fogColor: {r: .178995624, g: .0999675617, b: .316176474, a: 1}
+      lightIntensity: .100000001
+      fogGradientTex: {fileID: 2800000, guid: 0d5f6e51041bb41a69e1e84e875c4b09, type: 3}
       fogDensity: .0149999997
-    skyMaterial: {fileID: 2100000, guid: 36bf445c0a1c5bb459d73249136e978e, type: 2}
+    skyMaterial: {fileID: 2100000, guid: 12ccb828343c3405fb94289774b51aad, type: 2}
   _dirLight: {fileID: 0}
+  _skyboxRotSpeed: 1
   _nightFraction: .200000003
   _currentTimeRenderSettings:
-    skyColor: {r: .407154888, g: .688604534, b: .903086722, a: 1}
+    skyColor: {r: .392697364, g: .680742562, b: .904091775, a: 1}
     lightColor: {r: .992462277, g: .992462277, b: .992462277, a: 1}
-    lightIntensity: .856482208
-    fogColor: {r: .578512549, g: .717566192, b: .899856269, a: 1}
-    fogDensity: .00475736056
+    lightIntensity: .868197978
+    fogGradientTex: {fileID: 2800000, guid: 0d5f6e51041bb41a69e1e84e875c4b09, type: 3}
+    fogDensity: .00646446692
   _daylightIntensity: .853553295
 --- !u!114 &11484492
 MonoBehaviour:
@@ -266,6 +331,46 @@ MonoBehaviour:
   audioObjHolder: {fileID: 0}
   loopObjHolder: {fileID: 0}
   audioObjs: []
+--- !u!114 &11489526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b266aa5bf9e4de68ed53efb528854a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _globalFloatProperties:
+  - name: WindStrength
+    value: .100000001
+    defaultValue: 0
+  - name: WindVariance
+    value: 2
+    defaultValue: 0
+  - name: Curvature
+    value: -.0199999996
+    defaultValue: 0
+  _globalTextureProperties: []
+  _globalColorProperties: []
+  _globalVectorProperties:
+  - name: WindDirection
+    value: {x: 1, y: 0, z: .300000012, w: 0}
+    defaultValue: {x: 1, y: 0, z: 0, w: 0}
+--- !u!114 &11489724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ab2cc4a4dc5ae41990830a76eb3bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adultPrefab: {fileID: 176348, guid: 32f1c199875e4ac4b84e07b63776d86b, type: 2}
+  _goodBadCutoff: .5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

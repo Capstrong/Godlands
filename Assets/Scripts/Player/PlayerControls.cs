@@ -431,16 +431,14 @@ public class PlayerControls : MonoBehaviour
 
 	public bool InteractCheck( RaycastHit hitInfo )
 	{
-		Interactable interactable = hitInfo.collider.gameObject.GetComponent<Interactable>();
+		Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
 		if ( interactable )
 		{
 			_textBox.SetTextForDuration( interactable.interactText, interactable.duration );
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
 	/**

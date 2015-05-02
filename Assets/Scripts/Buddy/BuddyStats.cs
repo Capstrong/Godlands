@@ -15,6 +15,16 @@ public class BuddyStats : ActorComponent
 	[Tooltip( "Below the min is sad, within the bounds is neutral and above the max is happy." )]
 	[SerializeField] MinMaxF _neutralHappinessRange = new MinMaxF();
 
+	[SerializeField] int _age = 0;
+	[SerializeField] int _adultAge = 5;
+	public bool isAdult
+	{
+		get
+		{
+			return _age >= _adultAge;
+		}
+	}
+
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
@@ -46,8 +56,9 @@ public class BuddyStats : ActorComponent
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
 
-	[SerializeField] ParticleSystem _particles = null;
-	[SerializeField] ParticleSystem _deadParticleSystem = null;
+	[SerializeField] ParticleSystem _emoteParticles = null;
+	[SerializeField] ParticleSystem _deadParticles = null;
+	[SerializeField] ParticleSystem _adultParticles = null;
 	Renderer _particlesRenderer = null;
 
 	[ReadOnly( "Buddy Item Data" )]
@@ -102,7 +113,7 @@ public class BuddyStats : ActorComponent
 		ID = GetID(); // Grab the current unique ID
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
-		_particlesRenderer = _particles.GetComponent<Renderer>();
+		_particlesRenderer = _emoteParticles.GetComponent<Renderer>();
 		owner = GameObject.FindObjectOfType<GodTag>();
 		_happiness = _startingHappiness;
 		RestartEmoteRoutine();
@@ -166,8 +177,14 @@ public class BuddyStats : ActorComponent
 
 	public void NightlyEvent( int resourceDrain )
 	{
+		++_age;
 		DecrementResources( resourceDrain );
 		AffectHappinessWithHunger();
+
+		if ( _age >= _adultAge )
+		{
+			_adultParticles.enableEmission = true;
+		}
 	}
 
 	public void DecrementResources( int resourceDrain )
@@ -301,15 +318,15 @@ public class BuddyStats : ActorComponent
 
 	public void Emote( Material emoteMaterial )
 	{
-		_particles.Clear();
+		_emoteParticles.Clear();
 		_particlesRenderer.material = emoteMaterial;
-		_particles.Emit( 1 );
+		_emoteParticles.Emit( 1 );
 	}
 
 	public void EmoteDeath()
 	{
-		_deadParticleSystem.Clear();
-		_deadParticleSystem.Emit( 1 );
+		_deadParticles.Clear();
+		_deadParticles.Emit( 1 );
 	}
 
 	/**
