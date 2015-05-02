@@ -357,8 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aaa234c4986704284cebc48a4103b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSourceData: {fileID: 8280000, guid: a3067ebfbff947a46ab60fa6e6065886, type: 2}
-  _currentAudioClip: {fileID: 0}
+  fadeOutTime: 5
+  fadeInTime: 4
   _currentAudioSource: {fileID: 0}
 --- !u!114 &11484492
 MonoBehaviour:
@@ -393,7 +393,7 @@ MonoBehaviour:
     value: 2
     defaultValue: 0
   - name: Curvature
-    value: 0
+    value: -.0199999996
     defaultValue: 0
   _globalTextureProperties: []
   _globalColorProperties: []

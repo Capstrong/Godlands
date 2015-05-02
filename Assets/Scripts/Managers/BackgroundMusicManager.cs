@@ -3,32 +3,79 @@ using System.Collections;
 
 public class BackgroundMusicManager : SingletonBehaviour<BackgroundMusicManager>
 {
-	[Tooltip( "Audio Source with settings for playing any background music" )]
-	[SerializeField] AudioSource _audioSourceData = null;
+	[Tooltip( "Seconds it takes to fade out a song" )]
+	[SerializeField] float fadeOutTime = 0f;
+	[SerializeField] float fadeInTime = 0f;
 
 	[ReadOnly]
-	[SerializeField] AudioClip _currentAudioClip = null;
-	[ReadOnly]
 	[SerializeField] AudioSource _currentAudioSource = null;
+
+	Coroutine _fadeOutCoroutine = null;
+	Coroutine _fadeInCoroutine = null;
 
 	// Use this for initialization
 	void Start () {
 	
 	}
 
-	public static void PlayMusic( AudioClip newMusic )
+	public static void PlayMusic( AudioSource newMusic )
 	{
 		instance._PlayMusic( newMusic );
 	}
 
-	void _PlayMusic( AudioClip newMusic )
+	void _PlayMusic( AudioSource newMusic )
 	{
+		if ( _currentAudioSource && newMusic.clip == _currentAudioSource.clip )
+		{
+			// Already playing that music
+			return;
+		}
+
 		if ( _currentAudioSource )
 		{
-			_currentAudioSource.Stop();
+			if ( _fadeOutCoroutine != null )
+			{
+				StopCoroutine( _fadeOutCoroutine );
+			}
+			_fadeOutCoroutine = StartCoroutine( FadeOutSongRoutine( _currentAudioSource ) );
 		}
 		
-		_audioSourceData.clip = newMusic;
-		_currentAudioSource = SoundManager.Play2DSound( _audioSourceData );
+		_currentAudioSource = SoundManager.Play2DSound( newMusic );
+
+		if ( _fadeInCoroutine != null )
+		{
+			StopCoroutine( _fadeInCoroutine );
+		}
+		_fadeInCoroutine = StartCoroutine( FadeInSongRoutine( _currentAudioSource ) );
+	}
+
+	IEnumerator FadeOutSongRoutine( AudioSource audioSource )
+	{
+		float startTime = Time.time;
+		float startVolume = audioSource.volume;
+
+		while ( Time.time - startTime < fadeOutTime )
+		{
+			audioSource.volume = startVolume * ( fadeOutTime - ( Time.time - startTime ) ) / fadeOutTime;
+
+			yield return null;
+		}
+
+		audioSource.Stop();
+	}
+
+	IEnumerator FadeInSongRoutine( AudioSource audioSource )
+	{
+		float startTime = Time.time;
+		float startVolume = audioSource.volume;
+
+		while ( Time.time - startTime < fadeInTime )
+		{
+			audioSource.volume = startVolume * ( Time.time - startTime ) / fadeInTime;
+
+			yield return null;
+		}
+
+		audioSource.volume = startVolume;
 	}
 }

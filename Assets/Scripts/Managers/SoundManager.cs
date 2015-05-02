@@ -59,6 +59,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 	{
 		AudioSource source = GetSource();
 
+		source.transform.parent = audioObjHolder.transform;
 		source.transform.position = position;
 		PlayAudioObj( sourceData, source );
 		audioObjs.Add( source );
@@ -82,6 +83,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 	{
 		AudioSource source = GetSource();
 
+		source.transform.parent = audioObjHolder.transform;
 		PlayAudioObj( sourceData, source );
 		audioObjs.Add( source );
 
