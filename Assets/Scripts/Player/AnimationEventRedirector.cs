@@ -3,15 +3,15 @@ using System.Collections;
 
 public class AnimationEventRedirector: MonoBehaviour
 {
-	PlayerControls _playerControls = null;
+	TravelSounds _travelSounds = null;
 
 	void Start()
 	{
-		_playerControls = GetComponentInParent<PlayerControls>();
+		_travelSounds = GetComponentInParent<TravelSounds>();
 	}
 
 	public void PlayStepSound()
 	{
-		_playerControls.PlayStepSound();
+		_travelSounds.PlayStepSound();
 	}
 }

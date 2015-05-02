@@ -60,14 +60,6 @@ public class PlayerControls : MonoBehaviour
 		get { return _sprintButton; }
 	}
 
-	[Space( 10 ), Header( "Step Sounds" )]
-	[Tooltip( "Audio source with settings for playing any step sound" )]
-	[SerializeField] AudioSource _stepSoundSource = null;
-	[SerializeField] TravelSoundPlayer _groundStepSounds = null;
-	[SerializeField] TravelSoundPlayer _waterStepSounds = null;
-	[SerializeField] TravelSoundPlayer _brushStepSounds = null;
-	TravelSoundPlayer _currentTravelSoundPlayer = null;
-
 	void Awake()
 	{
 		_actor = GetComponent<PlayerActor>();
@@ -80,8 +72,6 @@ public class PlayerControls : MonoBehaviour
 
 		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 		_textBox = FindObjectOfType<TextBox>();
-
-		_currentTravelSoundPlayer = _groundStepSounds;
 	}
 
 	void FixedUpdate()
@@ -439,26 +429,6 @@ public class PlayerControls : MonoBehaviour
 	}
 	#endregion
 
-	void OnTriggerEnter( Collider collider )
-	{
-		if ( collider.GetComponent<WaterVolume>() )
-		{
-			_currentTravelSoundPlayer = _waterStepSounds;
-		}
-		else if ( collider.GetComponent<BrushVolume>() )
-		{
-			_currentTravelSoundPlayer = _brushStepSounds;
-		}
-	}
-
-	void OnTriggerExit( Collider collider )
-	{
-		if ( collider.GetComponent<WaterVolume>() || collider.GetComponent<BrushVolume>())
-		{
-			_currentTravelSoundPlayer = _groundStepSounds;
-		}
-	}
-
 	public bool InteractCheck( RaycastHit hitInfo )
 	{
 		Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
@@ -560,12 +530,6 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		_actor.physics.ChangeState( PhysicsStateType.Falling );
-	}
-
-	public void PlayStepSound()
-	{
-		_stepSoundSource.clip = _currentTravelSoundPlayer.GetRandomClip();
-		SoundManager.Play3DSoundAtPosition( _stepSoundSource, _actor.transform.position );
 	}
 
 	void OnDrawGizmos()
