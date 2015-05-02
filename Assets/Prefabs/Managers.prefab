@@ -64,6 +64,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &161686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 428538}
+  - 114: {fileID: 11481206}
+  m_Layer: 0
+  m_Name: BackgroundMusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &177500
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +203,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 484490}
   m_RootOrder: 2
+--- !u!4 &428538
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161686}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 484490}
+  m_RootOrder: 7
 --- !u!4 &484490
 Transform:
   m_ObjectHideFlags: 1
@@ -204,6 +232,7 @@ Transform:
   - {fileID: 414190}
   - {fileID: 493796}
   - {fileID: 421574}
+  - {fileID: 428538}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &484492
@@ -317,6 +346,20 @@ MonoBehaviour:
     fogGradientTex: {fileID: 2800000, guid: 0d5f6e51041bb41a69e1e84e875c4b09, type: 3}
     fogDensity: .00646446692
   _daylightIntensity: .853553295
+--- !u!114 &11481206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6aaa234c4986704284cebc48a4103b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSourceData: {fileID: 8280000, guid: a3067ebfbff947a46ab60fa6e6065886, type: 2}
+  _currentAudioClip: {fileID: 0}
+  _currentAudioSource: {fileID: 0}
 --- !u!114 &11484492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,7 +393,7 @@ MonoBehaviour:
     value: 2
     defaultValue: 0
   - name: Curvature
-    value: -.0199999996
+    value: 0
     defaultValue: 0
   _globalTextureProperties: []
   _globalColorProperties: []

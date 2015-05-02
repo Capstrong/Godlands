@@ -3,23 +3,13 @@ using System.Collections;
 
 public class AudioZone : MonoBehaviour 
 {
-	[SerializeField] AudioSource sourceData = null;
-	AudioSource playingClip = null;
+	[SerializeField] AudioClip _musicClip = null;
 
 	void OnTriggerEnter( Collider otherCol )
 	{
-		if ( otherCol.GetComponent<PlayerActor>() )
+		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
-			playingClip = SoundManager.Play3DSoundAndFollow( sourceData, transform );
-		}
-	}
-
-	void OnTriggerExit( Collider otherCol )
-	{
-		if ( otherCol.GetComponent<PlayerActor>() && playingClip )
-		{
-			playingClip.Stop();
-			playingClip = null;
+			BackgroundMusicManager.PlayMusic( _musicClip );
 		}
 	}
 
