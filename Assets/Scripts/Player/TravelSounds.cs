@@ -8,7 +8,8 @@ public class TravelSounds : MonoBehaviour
 	[SerializeField] TravelSoundPlayer _groundStepSounds = null;
 	[SerializeField] TravelSoundPlayer _waterStepSounds = null;
 	[SerializeField] TravelSoundPlayer _brushStepSounds = null;
-	TravelSoundPlayer _currentTravelSoundPlayer = null;
+	[ReadOnly]
+	[SerializeField] TravelSoundPlayer _currentTravelSoundPlayer = null;
 
 	Transform _transform = null;
 
@@ -38,7 +39,7 @@ public class TravelSounds : MonoBehaviour
 		}
 	}
 
-	// Called via animation event
+	// Called via the AnimationEventRedirector
 	public void PlayStepSound()
 	{
 		_stepSoundSource.clip = _currentTravelSoundPlayer.GetRandomClip();

@@ -20,9 +20,9 @@ public class TravelSoundPlayer : ScriptableObject
 
 #if UNITY_EDITOR
 	[MenuItem( "Assets/Create/Travel Sound Player" )]
-	public static void CreateBehaviorTreeAsset()
+	public static void CreateTravelSoundPlayerAsset()
 	{
-		// Create behavior tree asset.
+		// Create asset.
 		TravelSoundPlayer travelSoundPlayer = ScriptableObject.CreateInstance<TravelSoundPlayer>();
 		AssetDatabase.CreateAsset( travelSoundPlayer, "Assets/NewTravelSoundPlayer.asset" );
 
