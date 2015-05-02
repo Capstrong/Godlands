@@ -69,7 +69,10 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 
 			foreach ( BuddyStats buddyStat in _buddyStatsDictionary[statKey] )
 			{
-				buddyStat.NightlyEvent( drainPerBuddy );
+				if ( buddyStat.isAlive )
+				{
+					buddyStat.NightlyEvent( drainPerBuddy );
+				}
 			}
 
 			_buddyStatsDictionary[statKey].RemoveAll( buddyStat => buddyStat.isAlive == false );

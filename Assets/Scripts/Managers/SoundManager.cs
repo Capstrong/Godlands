@@ -94,7 +94,7 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
 		foreach ( AudioSource audioSource in audioObjs )
 		{
-			if ( !audioSource.isPlaying )
+			if ( audioSource && !audioSource.isPlaying )
 			{
 				returnSource = audioSource;
 			}
