@@ -34,7 +34,7 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			Transform spawnTransform = spawnTag.GetComponent<Transform>();
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, spawnTransform.rotation );
 
-			//CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.GetComponentInChildren<SkinnedMeshRenderer>() );
+			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
 		}
 		else
 		{
@@ -50,23 +50,7 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			Transform spawnTransform = resourceSpawner.GetComponent<Transform>();
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, Quaternion.identity );
 
-			//CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.GetComponentInChildren<SkinnedMeshRenderer>() );
+			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
 		}
-	}
-
-	// TODO: This is a duplicate of the method in BackBuddy. Find some way to not have to duplicate this code.
-	void CopyBuddy( SkinnedMeshRenderer destBuddyMesh, SkinnedMeshRenderer sourceBuddyMesh )
-	{
-		MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
-
-		for( int i = copyBlendShapeIndicesRange.min; i <= copyBlendShapeIndicesRange.max; i++ )
-		{
-			destBuddyMesh.SetBlendShapeWeight( i, sourceBuddyMesh.GetBlendShapeWeight( i ) );
-		}
-
-		destBuddyMesh.material.SetColor( "_TintColor1", sourceBuddyMesh.material.GetColor( "_TintColor1" ) );
-		destBuddyMesh.material.SetColor( "_TintColor2", sourceBuddyMesh.material.GetColor( "_TintColor2" ) );
-		
-		destBuddyMesh.material.SetTexture( "_SkinTex", sourceBuddyMesh.material.GetTexture( "_SkinTex" ) );
 	}
 }

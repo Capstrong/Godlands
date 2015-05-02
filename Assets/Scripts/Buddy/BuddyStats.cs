@@ -181,7 +181,7 @@ public class BuddyStats : ActorComponent
 		DecrementResources( resourceDrain );
 		AffectHappinessWithHunger();
 
-		if (_age >= _adultAge)
+		if ( _age >= _adultAge )
 		{
 			_adultParticles.enableEmission = true;
 		}
