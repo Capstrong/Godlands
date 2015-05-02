@@ -82,6 +82,7 @@ GameObject:
   - 23: {fileID: 2354938}
   - 95: {fileID: 9577098}
   - 64: {fileID: 6423034}
+  - 82: {fileID: 8221046}
   m_Layer: 0
   m_Name: Fountain_Trays_04
   m_TagString: Untagged
@@ -152,6 +153,7 @@ GameObject:
   - 4: {fileID: 465798}
   - 198: {fileID: 19878150}
   - 199: {fileID: 19919424}
+  - 82: {fileID: 8200338}
   m_Layer: 0
   m_Name: Water Spout
   m_TagString: Untagged
@@ -925,6 +927,184 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.02999997, y: 9.51513386, z: 3.24000001}
   m_Center: {x: .430000007, y: 4.64885473, z: -.0299999993}
+--- !u!82 &8200338
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149630}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ae8ff7358dcc70e43ab436bd8d45ca5c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .75
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 4
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: .0136871524
+      value: .991760314
+      inSlope: -20.007967
+      outSlope: -20.007967
+      tangentMode: 0
+    - time: .100000001
+      value: .5
+      inSlope: -5.00199175
+      outSlope: -5.00199175
+      tangentMode: 0
+    - time: .200000003
+      value: .25
+      inSlope: -1.25049794
+      outSlope: -1.25049794
+      tangentMode: 0
+    - time: .400000006
+      value: .125
+      inSlope: -.312624484
+      outSlope: -.312624484
+      tangentMode: 0
+    - time: .800000012
+      value: .0625
+      inSlope: -.0781561211
+      outSlope: -.0781561211
+      tangentMode: 0
+    - time: 1
+      value: .0500000007
+      inSlope: -.0500199385
+      outSlope: -.0500199385
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .194444448
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8221046
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124270}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ae8ff7358dcc70e43ab436bd8d45ca5c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: .75
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 4
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: .0136871524
+      value: .991760314
+      inSlope: -20.007967
+      outSlope: -20.007967
+      tangentMode: 0
+    - time: .100000001
+      value: .5
+      inSlope: -5.00199175
+      outSlope: -5.00199175
+      tangentMode: 0
+    - time: .200000003
+      value: .25
+      inSlope: -1.25049794
+      outSlope: -1.25049794
+      tangentMode: 0
+    - time: .400000006
+      value: .125
+      inSlope: -.312624484
+      outSlope: -.312624484
+      tangentMode: 0
+    - time: .800000012
+      value: .0625
+      inSlope: -.0781561211
+      outSlope: -.0781561211
+      tangentMode: 0
+    - time: 1
+      value: .0500000007
+      inSlope: -.0500199385
+      outSlope: -.0500199385
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .194444448
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9513420
 Animator:
   serializedVersion: 3
