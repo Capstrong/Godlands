@@ -3,10 +3,7 @@ using System.Collections;
 
 public class BackBuddy : MonoBehaviour 
 {
-	[Tooltip( "Which blendshapes should be copied from the fed buddy." )]
-	[SerializeField] MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
-
-	public BuddyStats _hiddenBuddy; // The buddy that is currently on the back.
+	public BuddyStats hiddenBuddy; // The buddy that is currently on the back.
 
 	Animator _animator = null;
 	Animator animator
@@ -29,23 +26,15 @@ public class BackBuddy : MonoBehaviour
 		mySkinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
 	}
 
-	public void CopyBuddy( SkinnedMeshRenderer sourceBuddyMesh )
-	{
-		for( int i = copyBlendShapeIndicesRange.min; i <= copyBlendShapeIndicesRange.max; i++ )
-		{
-			mySkinnedMesh.SetBlendShapeWeight( i, sourceBuddyMesh.GetBlendShapeWeight( i ) );
-		}
-
-		mySkinnedMesh.material.SetColor( "_TintColor1", sourceBuddyMesh.material.GetColor( "_TintColor1" ) );
-		mySkinnedMesh.material.SetColor( "_TintColor2", sourceBuddyMesh.material.GetColor( "_TintColor2" ) );
-		
-		mySkinnedMesh.material.SetTexture( "_SkinTex", sourceBuddyMesh.material.GetTexture( "_SkinTex" ) );
-	}
-
 	public void PlayEvent( string eventName )
 	{
 		// Second param here is the animationLayer to play an event on
 		// 0 is the default layer, 1 is the face layer
-		//animator.Play( eventName, 0 );
+		animator.Play( eventName, 1 );
+	}
+
+	public void CopyBuddy( SkinnedMeshRenderer sourceMesh )
+	{
+		BuddyShaper.CopyBuddy( mySkinnedMesh, sourceMesh );
 	}
 }

@@ -10,6 +10,9 @@ public struct BuddyTypeFashion
 
 public class BuddyShaper : MonoBehaviour
 {
+	// Which blendshapes should be copied from the fed buddy.
+	static MinMaxI copyBlendShapeIndicesRange = new MinMaxI( 3, 12 );
+
 	[Tooltip( "Need reference to buddy stats to choose clothing colors." )]
 	[SerializeField] BuddyStats _buddyStats = null;
 
@@ -133,5 +136,18 @@ public class BuddyShaper : MonoBehaviour
 		}
 
 		skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
+	}
+
+	public static void CopyBuddy( SkinnedMeshRenderer destBuddyMesh, SkinnedMeshRenderer sourceBuddyMesh )
+	{
+		for( int i = copyBlendShapeIndicesRange.min; i <= copyBlendShapeIndicesRange.max; i++ )
+		{
+			destBuddyMesh.SetBlendShapeWeight( i, sourceBuddyMesh.GetBlendShapeWeight( i ) );
+		}
+
+		destBuddyMesh.material.SetColor( "_TintColor1", sourceBuddyMesh.material.GetColor( "_TintColor1" ) );
+		destBuddyMesh.material.SetColor( "_TintColor2", sourceBuddyMesh.material.GetColor( "_TintColor2" ) );
+		
+		destBuddyMesh.material.SetTexture( "_SkinTex", sourceBuddyMesh.material.GetTexture( "_SkinTex" ) );
 	}
 }
