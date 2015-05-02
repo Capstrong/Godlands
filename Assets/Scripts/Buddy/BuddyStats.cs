@@ -17,7 +17,7 @@ public class BuddyStats : ActorComponent
 
 	[SerializeField] int _age = 0;
 	[SerializeField] int _adultAge = 5;
-	public bool isAdult
+	public bool isOfAge
 	{
 		get
 		{
@@ -74,6 +74,13 @@ public class BuddyStats : ActorComponent
 		Happy,
 	}
 
+	enum BuddyState
+	{
+		Normal,
+		Dead,
+		Adult,
+	}
+
 	GodTag _owner = null;
 	public GodTag owner
 	{
@@ -96,11 +103,11 @@ public class BuddyStats : ActorComponent
 		get { return _bodyRenderer; }
 	}
 
-	[ReadOnly( "Is Alive" )]
-	[SerializeField] bool _isAlive = true;
+	[SerializeField] BuddyState _state = BuddyState.Normal;
+
 	public bool isAlive
 	{
-		get { return _isAlive; }
+		get { return _state == BuddyState.Normal; }
 	}
 
 	[Space( 10 ), Header( "Debug Settings" )]
@@ -148,7 +155,7 @@ public class BuddyStats : ActorComponent
 
 	public void GiveResource( PlayerStats actorStats, ResourceData resourceData)
 	{
-		DebugUtils.Assert( _isAlive, "Cannot give a dead buddy resources." );
+		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
 		DebugUtils.Assert( resourceData, "Trying to give null resource" );
 
 		_resources++;
@@ -175,6 +182,14 @@ public class BuddyStats : ActorComponent
 		RestartEmoteRoutine();
 	}
 
+	/// <summary>
+	/// Perform any updates for the buddy that need to happen once every morning.
+	/// </summary>
+	/// <remarks>
+	/// This is only called when the buddy is alive (i.e. not dead and not an adult).
+	/// </remarks>
+	/// <param name="resourceDrain">The number of resources drained each night.
+	/// This changes depending on the number of buddies so it needs to be passed in from BuddyManager.</param>
 	public void NightlyEvent( int resourceDrain )
 	{
 		++_age;
@@ -340,7 +355,7 @@ public class BuddyStats : ActorComponent
 	 */
 	public void Kill()
 	{
-		_isAlive = false;
+		_state = BuddyState.Dead;
 		Destroy( GetComponent<AIController>() );
 		_happiness = 0;
 		RecalculateStat();
@@ -351,6 +366,13 @@ public class BuddyStats : ActorComponent
 
 		StopCoroutine( _currentEmoteRoutine );
 		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
+	}
+
+	public void BecomeAdult()
+	{
+		_state = BuddyState.Adult;
+		gameObject.SetActive( false );
+		Destroy( GetComponent<AIController>() );
 	}
 
 	public float hunger

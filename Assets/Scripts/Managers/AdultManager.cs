@@ -52,5 +52,7 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
 		}
+
+		buddyStats.BecomeAdult();
 	}
 }

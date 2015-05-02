@@ -47,6 +47,11 @@ public class ShaderGlobalsManager : MonoBehaviour
 		UpdateProperties();
 	}
 
+	void OnApplicationQuit()
+	{
+		SetDefaultProperties();
+	}
+
 	public void UpdateProperties()
 	{
 		foreach( GlobalFloat globalFloat in _globalFloatProperties )
