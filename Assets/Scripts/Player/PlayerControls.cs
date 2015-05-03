@@ -22,11 +22,8 @@ public class PlayerControls : MonoBehaviour
 
 	PlayerActor _actor;
 
-	[Tooltip( "Probably straight up" )]
-	[SerializeField] Vector3 _respawnOffset = Vector3.zero;
 	[ReadOnly( "Respawn Position" )]
-	[SerializeField] Vector3 _respawnPosition = Vector3.zero;
-	Quaternion _respawnRotation = Quaternion.identity;
+	[SerializeField] Transform _respawnTransform = null;
 
 	[SerializeField] AudioSource _respawnSound = null;
 
@@ -71,8 +68,7 @@ public class PlayerControls : MonoBehaviour
 
 		SetupStateMethodMap();
 
-		_respawnPosition = transform.position + _respawnOffset;
-		_respawnRotation = transform.rotation;
+		_respawnTransform = FindObjectOfType<PlayerSpawnTag>().GetComponent<Transform>();
 
 		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 		_textBox = FindObjectOfType<TextBox>();
@@ -296,8 +292,6 @@ public class PlayerControls : MonoBehaviour
 					}
 					else
 					{
-						Debug.Log( "Checking raycast forward." );
-
 						// This allows us to do one raycast for all actions
 						// which is good since we do RaycastAll(), which is expensive.
 						RaycastHit hitInfo;
@@ -310,11 +304,6 @@ public class PlayerControls : MonoBehaviour
 							else if ( player.inventory.UseItemWithTarget( hitInfo ) )
 							{
 								// item use / buddy spawning was done
-							}
-							else if ( player.controls.AdultBuddyCheck( hitInfo ) )
-							{
-								Debug.Log( "Made buddy an adult" );
-								// Interaction was done.
 							}
 							else if ( player.controls.InteractCheck( hitInfo ) )
 							{
@@ -428,20 +417,6 @@ public class PlayerControls : MonoBehaviour
 		return false;
 	}
 
-	public bool AdultBuddyCheck( RaycastHit hitInfo )
-	{
-		Debug.Log( "Checking if we can make buddy an adult." );
-		BuddyStats buddyStats = hitInfo.collider.GetComponentInParent<BuddyStats>();
-		if ( buddyStats && buddyStats.isAdult )
-		{
-			// TODO: How do we start the process of actually making the buddy an adult?
-			buddyStats.gameObject.SetActive( false );
-			AdultManager.SpawnAdult( buddyStats );
-		}
-
-		return false;
-	}
-
 	/**
 	 * Raycast forward from the camera's position to detect
 	 * items to interact with.
@@ -516,7 +491,7 @@ public class PlayerControls : MonoBehaviour
 
 	public void Respawn()
 	{
-		Teleport( _respawnPosition, _respawnRotation );
+		Teleport( _respawnTransform.position, _respawnTransform.rotation );
 		SoundManager.Play2DSound( _respawnSound );
 	}
 

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 [RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )]
 public class PlayerInventory : ActorComponent
 {
-	InventoryScrollBar inventoryBar;
+	InventoryScrollBar _inventoryBar;
 
-	[SerializeField] GameObject resourcePopPrefab = null;
+	[SerializeField] GameObject _resourcePopPrefab = null;
 
 	[SerializeField] List<BuddyTag> _buddies = new List<BuddyTag>();
 	public List<BuddyTag> buddies
@@ -22,15 +22,30 @@ public class PlayerInventory : ActorComponent
 	public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
 
 	[ReadOnly("Inventory")]
-	[SerializeField] InventoryDictionary inventory = new InventoryDictionary();
+	[SerializeField] InventoryDictionary _inventory = new InventoryDictionary();
 
 	// currently held types to show on UI bar
-	List<InventoryItemData> heldResources = new List<InventoryItemData>();
+	List<InventoryItemData> _heldResources = new List<InventoryItemData>();
 
-	int resourceIndex = 0;
-	GameObject heldResource;
+	int _resourceIndex = 0; // Currently selected resource on UI bar
+	GameObject _heldResource = null; 
 
-	PlayerActor _playerActor;
+	PlayerActor _playerActor = null;
+
+	[SerializeField] BackBuddy _backBuddy = null;
+	public BackBuddy backBuddy
+	{
+		get { return _backBuddy; }
+	}
+
+	BuddyStats _hiddenBuddy = null;
+	
+	bool _isCarryingBuddy = false;
+	public bool isCarryingBuddy
+	{
+		get { return _isCarryingBuddy; }
+	}
+
 
 	[SerializeField] LayerMask _buddyLayer = 0;
 	public LayerMask buddyLayer
@@ -52,10 +67,12 @@ public class PlayerInventory : ActorComponent
 	// Use this for initialization
 	void Start()
 	{
-		inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
-		DebugUtils.Assert( inventoryBar, "There must be an InventoryScrollBar object in the scene." );
+		_inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
+		DebugUtils.Assert( _inventoryBar, "There must be an InventoryScrollBar object in the scene." );
 
-		if ( heldResources.Count > 0 )
+		DayCycleManager.RegisterEndOfDayCallback( HideBackBuddy );
+
+		if ( _heldResources.Count > 0 )
 		{
 			SpawnResourceObject();
 		}
@@ -70,7 +87,7 @@ public class PlayerInventory : ActorComponent
 
 	void CheckScroll()
 	{
-		if ( heldResources.Count <= 1 )
+		if ( _heldResources.Count <= 1 )
 		{
 			// Nothing to scroll
 			return;
@@ -92,30 +109,30 @@ public class PlayerInventory : ActorComponent
 
 		if ( !WadeUtils.IsZero( scrollAmount ) )
 		{
-			int nextIndex = resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
-			resourceIndex = MathUtils.Mod( nextIndex, heldResources.Count );
+			int nextIndex = _resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
+			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
 			SpawnResourceObject();
 		}
 	}
 
 	public bool CanUseItemWithoutTarget()
 	{
-		return heldResources.Count > 0 &&
-		       !heldResources[resourceIndex].needsTarget;
+		return _heldResources.Count > 0 &&
+		       !_heldResources[_resourceIndex].needsTarget;
 	}
 
 	public void UseItem()
 	{
-		DebugUtils.Assert( heldResources[resourceIndex] is BuddyItemData, "Cannot use item without target." );
+		DebugUtils.Assert( _heldResources[_resourceIndex] is BuddyItemData, "Cannot use item without target." );
 
 		SpawnBuddy();
 	}
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
-		if ( heldResources.Count > 0 )
+		if ( _heldResources.Count > 0 )
 		{
-			if ( heldResources[resourceIndex] is ResourceData )
+			if ( _heldResources[_resourceIndex] is ResourceData )
 			{
 				return CheckGiveResources( hitInfo );
 			}
@@ -139,11 +156,16 @@ public class PlayerInventory : ActorComponent
 		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
 
 		if ( buddyStats &&
-			 buddyStats.isAlive &&
-			 ( buddyStats.owner == null || buddyStats.owner == godTag ) )
+		     buddyStats.isAlive &&
+		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 		{
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
+
+			if( !_isCarryingBuddy )
+			{
+				PickUpBuddy( hitInfo, buddyStats );
+			}
 
 			// look at the buddy
 			_playerActor.physics.OverrideLook(
@@ -157,10 +179,28 @@ public class PlayerInventory : ActorComponent
 		}
 	}
 
+	void PickUpBuddy( RaycastHit hitInfo, BuddyStats buddyStats )
+	{
+		BuddyShaper buddyShaper = hitInfo.transform.GetComponentInChildren<BuddyShaper>();
+		if( buddyShaper )
+		{
+			_backBuddy.gameObject.SetActive( true ); // Buddy is always on back, we just hide it
+			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
+			_backBuddy.hiddenBuddy = buddyStats;
+			
+			_hiddenBuddy = buddyStats;
+			_hiddenBuddy.gameObject.SetActive( false );
+			
+			DayCycleManager.RegisterEndOfDayCallback( ReenableHiddenBuddy );
+			
+			_isCarryingBuddy = true;
+		}
+	}
+
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (actor as PlayerActor).stats, (ResourceData)heldResources[resourceIndex] );
-		inventory[heldResources[resourceIndex]]--;
+		buddyStats.GiveResource( (actor as PlayerActor).stats, (ResourceData)_heldResources[_resourceIndex] );
+		_inventory[_heldResources[_resourceIndex]]--;
 
 		UpdateResourceList();
 	}
@@ -188,7 +228,7 @@ public class PlayerInventory : ActorComponent
 			spawnLocation = transform.position + transform.forward * _buddySpawnDistance;
 		}
 
-		BuddyItemData buddyItemData = (BuddyItemData)heldResources[resourceIndex];
+		BuddyItemData buddyItemData = (BuddyItemData)_heldResources[_resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     spawnLocation,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
@@ -196,67 +236,81 @@ public class PlayerInventory : ActorComponent
 
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
-		inventory[heldResources[resourceIndex]]--;
+		_inventory[_heldResources[_resourceIndex]]--;
 		UpdateResourceList();
 		newBuddy.RecalculateStat();
 		return true;
 	}
 
+	public void ReenableHiddenBuddy()
+	{
+		if ( _hiddenBuddy.isAlive )
+		{
+			_hiddenBuddy.gameObject.SetActive( true );
+		}
+	}
+
+	public void HideBackBuddy()
+	{
+		_backBuddy.gameObject.SetActive( false );
+		_isCarryingBuddy = false;
+	}
+
 	void PickupItem( InventoryItemData itemData )
 	{
-		if ( !inventory.ContainsKey( itemData ) )
+		if ( !_inventory.ContainsKey( itemData ) )
 		{
-			inventory[itemData] = 0;
+			_inventory[itemData] = 0;
 		}
 
-		inventory[itemData]++;
+		_inventory[itemData]++;
 		UpdateResourceList();
 	}
 
 	void UpdateResourceList()
 	{
-		heldResources.Clear();
+		_heldResources.Clear();
 
-		foreach ( InventoryItemData itemData in inventory.Keys )
+		foreach ( InventoryItemData itemData in _inventory.Keys )
 		{
-			if ( inventory[itemData] > 0 )
+			if ( _inventory[itemData] > 0 )
 			{
-				heldResources.Add( itemData );
+				_heldResources.Add( itemData );
 			}
 		}
 
-		resourceIndex = ( heldResources.Count > 0 ? resourceIndex % heldResources.Count : 0 );
+		_resourceIndex = ( _heldResources.Count > 0 ? _resourceIndex % _heldResources.Count : 0 );
 
-		if ( heldResources.Count == 0 )
+		if ( _heldResources.Count == 0 )
 		{
-			if ( heldResource )
+			if ( _heldResource )
 			{
-				Destroy( heldResource );
+				Destroy( _heldResource );
 			}
 
-			inventoryBar.NullInventoryBar();
+			_inventoryBar.NullInventoryBar();
 		}
-		else if ( heldResources.Count > 0 )
+		else if ( _heldResources.Count > 0 )
 		{
 			SpawnResourceObject();
-			inventoryBar.UpdateInventoryBar( resourceIndex, heldResources.ToArray() );
+			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
 		}
 	}
 
 	void SpawnResourceObject()
 	{
-		inventoryBar.UpdateInventoryBar( resourceIndex, heldResources.ToArray() );
+		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
 
-		if ( heldResource )
+		if ( _heldResource )
 		{
-			Destroy( heldResource );
+			Destroy( _heldResource );
 		}
 
-		if ( heldResources[resourceIndex].prefab )
+		if ( _heldResources[_resourceIndex].prefab )
 		{
-			heldResource = WadeUtils.Instantiate( heldResources[resourceIndex].prefab );
-			heldResource.transform.parent = actor.GetBoneAtLocation( BoneLocation.RHand );
-			WadeUtils.ResetTransform( heldResource.transform, true );
+			_heldResource = WadeUtils.Instantiate( _heldResources[_resourceIndex].prefab );
+			_heldResource.transform.parent = actor.GetBoneAtLocation( BoneLocation.RHand );
+			WadeUtils.ResetTransform( _heldResource.transform, true );
 		}
 	}
 
@@ -269,7 +323,7 @@ public class PlayerInventory : ActorComponent
 
 			PickupItem( inventoryItem.resourceData );
 
-			WadeUtils.TempInstantiate( resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
+			WadeUtils.TempInstantiate( _resourcePopPrefab, other.transform.position, Quaternion.identity, 1f );
 		}
 	}
 }

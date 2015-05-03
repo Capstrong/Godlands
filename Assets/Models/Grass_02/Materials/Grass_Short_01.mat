@@ -44,6 +44,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -86,13 +93,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _Illum
         second:
           m_Texture: {fileID: 0}
@@ -113,16 +113,32 @@ Material:
         second: 10
       data:
         first:
+          name: _Glossiness
+        second: .5
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: 2.29999995
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
         first:
           name: _ZWrite
         second: 0
-      data:
-        first:
-          name: _Glossiness
-        second: .5
       data:
         first:
           name: _BumpScale
@@ -147,22 +163,6 @@ Material:
         first:
           name: _Mode
         second: 3
-      data:
-        first:
-          name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
-      data:
-        first:
-          name: _EmissiveStrength
-        second: 2.29999995
     m_Colors:
       data:
         first:
@@ -171,12 +171,12 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .595588207, g: .595588148, b: .039413929, a: 1}
       data:
         first:
           name: _ColorOverlayA
         second: {r: .976176441, g: 1, b: .404411793, a: 1}
+      data:
+        first:
+          name: _EmissionColorUI
+        second: {r: 1, g: 1, b: 1, a: 1}
