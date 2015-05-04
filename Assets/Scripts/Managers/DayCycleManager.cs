@@ -10,6 +10,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	[Tooltip( "0 is midnight. 1/2 of Day Cycle Length is noon." ), SerializeField]
 	float _currentTime = 0f;
+	
+	public static float currentTime { get { return instance._currentTime; } }
 
 	[Tooltip( "The length (in seconds) of a day" )]
 	[SerializeField] float _dayCycleLength = 300.0f;
@@ -29,8 +31,6 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	[Tooltip( "The duration, in seconds, of the morning fade in effect." )]
 	[SerializeField] float _lightupDuration = 5.0f;
-
-	public static float currentTime { get { return instance._currentTime; } }
 
 	[SerializeField] Image _midnightOverlay = null;
 
@@ -82,6 +82,12 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 		CancelInvoke( "StartMidnightOverlay" );
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
+	}
+
+	public float GetNormalizeCurrentTime()
+	{
+		float startTime = _dayStartTime * _dayCycleLength;
+		return (_currentTime - startTime)/(_dayCycleLength - startTime );
 	}
 
 	public static void RegisterEndOfDayCallback( EndOfDayCallback callback )
