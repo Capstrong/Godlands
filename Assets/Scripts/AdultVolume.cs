@@ -11,7 +11,7 @@ public class AdultVolume : MonoBehaviour
 		{
 			BuddyStats buddy = player.backBuddy.hiddenBuddy;
 
-			if ( buddy.isAdult )
+			if ( buddy.isOfAge )
 			{
 				// TODO: Do any vfx for indicating the buddy is an adult.
 

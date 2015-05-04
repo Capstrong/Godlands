@@ -1552,6 +1552,7 @@ GameObject:
   - 114: {fileID: 11495812}
   - 114: {fileID: 11476420}
   - 114: {fileID: 11488222}
+  - 114: {fileID: 11429192}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -3112,7 +3113,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .440437436, z: 0, w: -.897783399}
-  m_LocalPosition: {x: 147.080002, y: 52.3100014, z: 24.2000008}
+  m_LocalPosition: {x: 8.69999981, y: 52.2999992, z: -15.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404084}
@@ -3811,6 +3812,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11429192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99670a7f24d87ed4096195a9c82d8014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stepSoundSource: {fileID: 8247732, guid: d4a7e1fba3d1c5d459b36e08e4831bd1, type: 2}
+  _groundStepSounds: {fileID: 11400000, guid: 7f2dac2b5f313bd4a8d495737112d48d, type: 2}
+  _waterStepSounds: {fileID: 11400000, guid: a6fdfad4585b37d45b8b1ea929eb8968, type: 2}
+  _brushStepSounds: {fileID: 11400000, guid: d5071f8fc891d1549a8820157f9283b9, type: 2}
+  _currentTravelSoundPlayer: {fileID: 0}
 --- !u!114 &11435354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3844,8 +3861,7 @@ MonoBehaviour:
   _interactCheckRadius: .200000003
   _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
   _maxJumpForceTime: .200000003
-  _respawnOffset: {x: 0, y: 2, z: 0}
-  _respawnPosition: {x: 0, y: 0, z: 0}
+  _respawnTransform: {fileID: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
   _interactableLayer:
     serializedVersion: 2
