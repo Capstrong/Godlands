@@ -43,7 +43,6 @@ public class PlayerCamera : ActorComponent
 		set
 		{
 			_zoomDistance = value;
-			_targetZoomDistance = _zoomDistance;
 		}
 	}
 
