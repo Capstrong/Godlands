@@ -5,6 +5,7 @@ public class BackgroundMusicManager : SingletonBehaviour<BackgroundMusicManager>
 {
 	[Tooltip( "Seconds it takes to fade out a song" )]
 	[SerializeField] float fadeOutTime = 0f;
+	[Tooltip( "Seconds it takes to fade in a song" )]
 	[SerializeField] float fadeInTime = 0f;
 
 	[ReadOnly]
@@ -12,11 +13,6 @@ public class BackgroundMusicManager : SingletonBehaviour<BackgroundMusicManager>
 
 	Coroutine _fadeOutCoroutine = null;
 	Coroutine _fadeInCoroutine = null;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 
 	public static void PlayMusic( AudioSource newMusic )
 	{
