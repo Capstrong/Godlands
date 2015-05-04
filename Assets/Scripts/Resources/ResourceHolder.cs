@@ -4,24 +4,18 @@ using System.Collections;
 public class ResourceHolder : MonoBehaviour
 {
 	public GameObject resource;
+	private ParticleSystem[] _resourceParticles = null;
+	private MeshRenderer _resourceMesh = null;
 
 	[SerializeField] float _resourceHeightOffset = 0.17f;
 	[SerializeField] float _maxHeight = 12f;
 	[SerializeField] LayerMask _collisionLayer = -1;
 
-	[SerializeField] bool _showBeacon = false;
-	[SerializeField] Transform _beacon = null;
-
 	Transform _transform;
-
-	Renderer _beaconRenderer = null;
-	ParticleSystem _particleSystem = null;
 
 	void Awake()
 	{
 		_transform = GetComponent<Transform>();
-		_beaconRenderer = _beacon.GetComponent<Renderer>();
-		_particleSystem = GetComponentInChildren<ParticleSystem>();
 
 		RaycastHit hitInfo;
 
@@ -34,33 +28,30 @@ public class ResourceHolder : MonoBehaviour
 			actualHeight = hitInfo.transform.position.y - _transform.position.y;
 		}
 
-		_beacon.localScale = _beacon.localScale.SetY( actualHeight );
-		_particleSystem.startLifetime = actualHeight / _particleSystem.startSpeed * 0.5f; // TODO find out why particles seem to be moving at 2x speed
-
-		if( !_showBeacon )
-		{
-			_beaconRenderer.enabled = false;
-			_particleSystem.enableEmission = false;
-		}
-
 		resource = WadeUtils.Instantiate( resource, Vector3.up * _resourceHeightOffset, Quaternion.identity );
 		resource.GetComponent<Transform>().SetParent( _transform, false );
+
+		_resourceParticles = resource.GetComponentsInChildren<ParticleSystem>( true );
+		_resourceMesh = resource.GetComponent<MeshRenderer>();
 
 		resource.GetComponent<InventoryItem>().Initialize( this );
 	}
 
 	public void Disable()
 	{
-		_beaconRenderer.enabled = false;
-		_particleSystem.Stop();
+		_resourceMesh.enabled = false;
+		foreach ( ParticleSystem particles in _resourceParticles )
+		{
+			particles.Stop();
+		}
 	}
 
 	public void Enable()
 	{
-		if( _showBeacon )
+		_resourceMesh.enabled = true;
+		foreach ( ParticleSystem particles in _resourceParticles )
 		{
-			_beaconRenderer.enabled = true;
-			_particleSystem.Play();
+			particles.Play();
 		}
 	}
 }
