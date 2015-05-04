@@ -18,11 +18,8 @@ public class PlayerControls : MonoBehaviour
 
 	PlayerActor _actor;
 
-	[Tooltip( "Probably straight up" )]
-	[SerializeField] Vector3 _respawnOffset = Vector3.zero;
 	[ReadOnly( "Respawn Position" )]
-	[SerializeField] Vector3 _respawnPosition = Vector3.zero;
-	Quaternion _respawnRotation = Quaternion.identity;
+	[SerializeField] Transform _respawnTransform = null;
 
 	[SerializeField] AudioSource _respawnSound = null;
 	
@@ -67,8 +64,7 @@ public class PlayerControls : MonoBehaviour
 
 		SetupStateMethodMap();
 
-		_respawnPosition = transform.position + _respawnOffset;
-		_respawnRotation = transform.rotation;
+		_respawnTransform = FindObjectOfType<PlayerSpawnTag>().GetComponent<Transform>();
 
 		DayCycleManager.RegisterEndOfDayCallback( Respawn );
 		_textBox = FindObjectOfType<TextBox>();
@@ -515,7 +511,7 @@ public class PlayerControls : MonoBehaviour
 
 	public void Respawn()
 	{
-		Teleport( _respawnPosition, _respawnRotation );
+		Teleport( _respawnTransform.position, _respawnTransform.rotation );
 		SoundManager.Play2DSound( _respawnSound );
 	}
 

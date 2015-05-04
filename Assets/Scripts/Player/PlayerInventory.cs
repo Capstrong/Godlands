@@ -38,7 +38,7 @@ public class PlayerInventory : ActorComponent
 		get { return _backBuddy; }
 	}
 
-	GameObject _hiddenBuddy = null;
+	BuddyStats _hiddenBuddy = null;
 	
 	bool _isCarryingBuddy = false;
 	public bool isCarryingBuddy
@@ -156,8 +156,8 @@ public class PlayerInventory : ActorComponent
 		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
 
 		if ( buddyStats &&
-			 buddyStats.isAlive &&
-			 ( buddyStats.owner == null || buddyStats.owner == godTag ) )
+		     buddyStats.isAlive &&
+		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
 		{
 			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
@@ -188,8 +188,8 @@ public class PlayerInventory : ActorComponent
 			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
 			_backBuddy.hiddenBuddy = buddyStats;
 			
-			_hiddenBuddy = buddyStats.gameObject;
-			_hiddenBuddy.SetActive( false );
+			_hiddenBuddy = buddyStats;
+			_hiddenBuddy.gameObject.SetActive( false );
 			
 			DayCycleManager.RegisterEndOfDayCallback( ReenableHiddenBuddy );
 			
@@ -244,7 +244,10 @@ public class PlayerInventory : ActorComponent
 
 	public void ReenableHiddenBuddy()
 	{
-		_hiddenBuddy.SetActive( true );
+		if ( _hiddenBuddy.isAlive )
+		{
+			_hiddenBuddy.gameObject.SetActive( true );
+		}
 	}
 
 	public void HideBackBuddy()

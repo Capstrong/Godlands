@@ -44,6 +44,9 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	[Space( 10 ), Header( "Debug" )]
 	[Tooltip( "Disable the midnight overlay and reseting the player's position." )]
 	[SerializeField] bool _disableMidnight = false;
+	[SerializeField] KeyCode _midnightTrigget = KeyCode.M;
+
+	private Coroutine _midnightCoroutine = null;
 
 	void Start()
 	{
@@ -62,6 +65,14 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	void Update ()
 	{
 		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
+
+#if UNITY_EDITOR
+		if ( Input.GetKey( _midnightTrigget ) && _midnightCoroutine == null )
+		{
+			CancelInvoke( "StartMidnightOverlay" );
+			StartMidnightOverlay();
+		}
+#endif
 	}
 
 	void MorningReset()
@@ -85,7 +96,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay()
 	{
-		StartCoroutine( FadeInMidnightOverlay() );
+		_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay() );
 	}
 
 	/**
@@ -111,6 +122,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 				break;
 			}
 		}
+
+		_midnightCoroutine = null;
 	}
 
 	/**
