@@ -15,7 +15,7 @@ public class SkillBar : MonoBehaviour
 	void Awake()
 	{
 		_uiBarRectBack = GetComponent<RectTransform>();
-		_uiBarRectFront = transform.GetChild(0).GetComponent<RectTransform>();
+		_uiBarRectFront = GetComponent<Transform>().GetChild(0).GetComponent<RectTransform>();
 
 		_playerStats = GameObject.FindObjectOfType<PlayerStats>();
 	}

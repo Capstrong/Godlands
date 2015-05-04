@@ -41,7 +41,7 @@ public class InventoryScrollBar : MonoBehaviour
 
 		if( !icon )
 		{
-			image.color = Color.white - (Color)new Vector4( 0f, 0f, 0f, 1f );
+			image.color = image.color.SetAlpha( 0f );
 		}
 		else
 		{

@@ -84,7 +84,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
 	}
 
-	public float GetNormalizeCurrentTime()
+	// This returns percentage [0 to 1] along day, with start offset removed
+	public float GetNormalizedCurrentTime()
 	{
 		float startTime = _dayStartTime * _dayCycleLength;
 		return (_currentTime - startTime)/(_dayCycleLength - startTime );

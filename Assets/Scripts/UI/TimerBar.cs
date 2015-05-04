@@ -12,6 +12,6 @@ public class TimerBar : MonoBehaviour
 	{
 		_timeMarkerTransform.anchoredPosition = Vector3.Lerp( _markerStart.anchoredPosition, 
 		                                                      _markerEnd.anchoredPosition, 
-		                                                      DayCycleManager.instance.GetNormalizeCurrentTime() );
+		                                                      DayCycleManager.instance.GetNormalizedCurrentTime() );
 	}
 }
