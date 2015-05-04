@@ -10,7 +10,7 @@ public class PlayerActor : Actor
 	PlayerControls _controls = null;
 	Cutting _cutting = null;
 
-	public PlayerCamera actorCamera
+	public new PlayerCamera camera
 	{
 		get { return _actorCamera; }
 	}
