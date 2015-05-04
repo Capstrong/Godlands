@@ -350,7 +350,6 @@ public sealed class ActorPhysics : ActorComponent
 		_rigidbody.useGravity = true;
 
 		FollowBumper();
-		//FollowLifter();
 
 		if ( inputVec.IsZero() && !forceUp )
 		{
