@@ -23,7 +23,7 @@ public class CheckpointLifter : MonoBehaviour
 
 		_initPos = _transform.position;
 
-		_renderer = GetComponent<Renderer>();
+		_renderer = GetComponentInChildren<Renderer>();
 		_renderer.material.SetColor( "_EmissionColor", Color.black);
 	}
 

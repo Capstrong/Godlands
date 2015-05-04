@@ -533,6 +533,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 470798}
+  - 54: {fileID: 5419988}
   - 135: {fileID: 13570798}
   m_Layer: 2
   m_Name: Lifter
@@ -1178,7 +1179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476348}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &470798
 Transform:
   m_ObjectHideFlags: 1
@@ -1190,7 +1191,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 476348}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &475672
 Transform:
   m_ObjectHideFlags: 1
@@ -1214,8 +1215,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 470796}
   - {fileID: 470798}
+  - {fileID: 470796}
   - {fileID: 418180}
   - {fileID: 407076}
   - {fileID: 426138}
@@ -1402,6 +1403,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163630}
   m_Mesh: {fileID: 4300006, guid: 4fccf64cd90004cbeaf53878714505a1, type: 3}
+--- !u!54 &5419988
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170798}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!54 &5470796
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1412,7 +1428,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -1427,7 +1443,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -1528,7 +1544,7 @@ MonoBehaviour:
   _adultParticles: {fileID: 19806316}
   itemData: {fileID: 0}
   _bodyRenderer: {fileID: 13700772}
-  _isAlive: 1
+  _state: 0
   _disableStatDecrease: 0
 --- !u!114 &11457846
 MonoBehaviour:
@@ -1676,7 +1692,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .300000012
+  m_Radius: .5
   m_Center: {x: 0, y: .699999988, z: 0}
 --- !u!135 &13570798
 SphereCollider:

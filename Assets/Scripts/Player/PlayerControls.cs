@@ -16,17 +16,23 @@ public class PlayerControls : MonoBehaviour
 		get { return _maxJumpForceTime; }
 	}
 
+	public float _defaultCameraZoom = 10.0f;
+	public float _glidingCameraZoom = 15.0f;
+	public float _sprintingCameraZoom = 15.0f;
+
+	[SerializeField] float _fallAnimationDelay = 0.5f;
+
 	PlayerActor _actor;
 
 	[ReadOnly( "Respawn Position" )]
 	[SerializeField] Transform _respawnTransform = null;
 
 	[SerializeField] AudioSource _respawnSound = null;
-	
+
 	Transform _cameraTransform = null;
-	
+
 	TextBox _textBox = null;
-	
+
 	[SerializeField] LayerMask _interactableLayer = 0;
 	public LayerMask interactableLayer
 	{
@@ -103,7 +109,8 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Enter()
 		{
-			player.animator.SetBool( "isJumping", true );
+			player.controls.SetFallAnimation( true );
+			player.physics.lifter.gameObject.SetActive( false );
 			player.physics.DoJump();
 			_jumpTimer = 0f;
 			_forceUp = true;
@@ -149,11 +156,15 @@ public class PlayerControls : MonoBehaviour
 					player.physics.AirMovement( player.controls.GetMoveDirection(), _forceUp );
 				}
 			}
+
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
 		}
 
 		public override void Exit()
 		{
-			player.animator.SetBool( "isJumping", false );
+			player.animator.ResetTrigger( "jump" );
+			player.controls.SetFallAnimation( false );
+			player.physics.lifter.gameObject.SetActive( true );
 		}
 	}
 
@@ -168,7 +179,7 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Enter()
 		{
-			player.animator.SetBool( "isJumping", true );
+			player.animator.SetBool( "isInAir", true );
 		}
 
 		public override void Update()
@@ -200,11 +211,13 @@ public class PlayerControls : MonoBehaviour
 					player.physics.AirMovement( player.controls.GetMoveDirection() );
 				}
 			}
+
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
 		}
 
 		public override void Exit()
 		{
-			player.animator.SetBool( "isJumping", false );
+			player.animator.SetBool( "isInAir", false );
 		}
 	}
 
@@ -265,6 +278,7 @@ public class PlayerControls : MonoBehaviour
 				if ( player.controls.jumpButton.down &&
 				     player.physics.JumpCheck() )
 				{
+					player.animator.SetTrigger( "jump" );
 					player.physics.ChangeState( PhysicsStateType.Jumping );
 				}
 				else if ( player.controls.holdButton &&
@@ -272,10 +286,6 @@ public class PlayerControls : MonoBehaviour
 				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
-				}
-				else if ( player.controls.sprintButton )
-				{
-					player.physics.ChangeState( PhysicsStateType.Sprinting );
 				}
 				else if ( player.controls.useButton.down )
 				{
@@ -306,7 +316,16 @@ public class PlayerControls : MonoBehaviour
 					}
 				}
 
-				player.physics.GroundMovement( player.controls.GetMoveDirection() );
+				if ( player.controls.sprintButton )
+				{
+					player.camera.zoomDistance = player.controls._sprintingCameraZoom;
+				}
+				else
+				{
+					player.camera.zoomDistance = player.controls._defaultCameraZoom;
+				}
+
+				player.physics.GroundMovement( player.controls.GetMoveDirection(), player.controls.sprintButton );
 
 				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
 			}
@@ -317,47 +336,10 @@ public class PlayerControls : MonoBehaviour
 			}
 		}
 
-		public override void Exit() { }
-	}
-
-	public class Sprinting : PhysicsState
-	{
-		PlayerActor player;
-
-		public Sprinting( PlayerActor player )
+		public override void Exit()
 		{
-			this.player = player;
+			player.camera.zoomDistance = player.controls._defaultCameraZoom;
 		}
-
-		public override void Enter() { }
-
-		public override void Update()
-		{
-			if ( player.physics.GroundedCheck() )
-			{
-				if ( player.controls.jumpButton.down &&
-				     player.physics.JumpCheck() )
-				{
-					player.physics.ChangeState( PhysicsStateType.Jumping );
-				}
-
-				if ( !player.controls.sprintButton )
-				{
-					player.physics.ChangeState( PhysicsStateType.Grounded );
-				}
-
-				player.physics.GroundMovement( player.controls.GetMoveDirection(), true );
-
-				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
-			}
-			else
-			{
-				player.physics.ChangeState( PhysicsStateType.Falling );
-			}
-		}
-
-		public override void Exit() { }
-
 	}
 
 	public class Gliding : PhysicsState
@@ -374,6 +356,7 @@ public class PlayerControls : MonoBehaviour
 			player.physics.StartGliding();
 			player.stats.StartUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", true );
+			player.camera.zoomDistance = player.controls._glidingCameraZoom;
 		}
 
 		public override void Update()
@@ -411,6 +394,7 @@ public class PlayerControls : MonoBehaviour
 			player.stats.StopUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isGliding", false );
 			player.physics.StopGliding();
+			player.camera.zoomDistance = player.controls._defaultCameraZoom;
 		}
 	}
 
@@ -421,7 +405,6 @@ public class PlayerControls : MonoBehaviour
 		_actor.physics.RegisterState( PhysicsStateType.Grounded,  new Grounded( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Climbing,  new Climbing( _actor ) );
 		_actor.physics.RegisterState( PhysicsStateType.Gliding,   new Gliding( _actor ) );
-		_actor.physics.RegisterState( PhysicsStateType.Sprinting, new Sprinting( _actor ) );
 	}
 	#endregion
 
@@ -435,6 +418,24 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public void SetFallAnimation( bool state )
+	{
+		if ( state )
+		{
+			Invoke( "_SetFallAnimation", _fallAnimationDelay );
+		}
+		else
+		{
+			CancelInvoke( "_SetFallAnimation" );
+			_actor.animator.SetBool( "isInAir", false );
+		}
+	}
+
+	void _SetFallAnimation()
+	{
+		_actor.animator.SetBool( "isInAir", true );
 	}
 
 	/**
@@ -500,9 +501,9 @@ public class PlayerControls : MonoBehaviour
 			inputVec *= WadeUtils.DUALINPUTMOD; // this reduces speed of diagonal movement
 		}
 
-		if ( _actor.actorCamera.cam )
+		if ( _actor.camera.cam )
 		{
-			inputVec = _actor.actorCamera.cam.transform.TransformDirection( inputVec );
+			inputVec = _actor.camera.cam.transform.TransformDirection( inputVec );
 			inputVec.y = 0f;
 		}
 

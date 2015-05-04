@@ -313,8 +313,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 418824}
-  - 135: {fileID: 13518824}
-  - 135: {fileID: 13516604}
+  - 54: {fileID: 5459452}
+  - 136: {fileID: 13678400}
   m_Layer: 10
   m_Name: Lifter
   m_TagString: Untagged
@@ -331,6 +331,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 404084}
   - 95: {fileID: 9511250}
+  - 114: {fileID: 11495062}
   m_Layer: 0
   m_Name: Final_Idle
   m_TagString: Untagged
@@ -1553,6 +1554,7 @@ GameObject:
   - 114: {fileID: 11476420}
   - 114: {fileID: 11488222}
   - 114: {fileID: 11429192}
+  - 135: {fileID: 13503016}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -3113,7 +3115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
   m_LocalRotation: {x: 0, y: .440437436, z: 0, w: -.897783399}
-  m_LocalPosition: {x: 8.69999981, y: 52.2999992, z: -15.5}
+  m_LocalPosition: {x: 147.080002, y: 52.3100014, z: 24.2000008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404084}
@@ -3657,6 +3659,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131580}
   m_Mesh: {fileID: 4300004, guid: 4fccf64cd90004cbeaf53878714505a1, type: 3}
+--- !u!54 &5459452
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118824}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!54 &5464494
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3667,7 +3684,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -3682,8 +3699,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -3861,6 +3878,9 @@ MonoBehaviour:
   _interactCheckRadius: .200000003
   _interactRaycastOrigin: {x: 0, y: 1.5, z: 0}
   _maxJumpForceTime: .200000003
+  _defaultCameraZoom: 10
+  _glidingCameraZoom: 15
+  _sprintingCameraZoom: 15
   _respawnTransform: {fileID: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
   _interactableLayer:
@@ -3944,16 +3964,8 @@ MonoBehaviour:
   _focusShiftSpeed: 4
   _focusFollowSpeed: 12
   _focusOffset: {x: 0, y: 0, z: .400000006}
+  _currentZoomDistance: 0
   _targetZoomDistance: 10
-  _zoomDistanceStateMap:
-    keys: 050000000400000003000000020000000100000000000000
-    values:
-    - 6
-    - 7
-    - 10
-    - 10
-    - 10
-    - 10
   _zoomDistanceBounds:
     min: 1
     max: 25
@@ -3998,7 +4010,7 @@ MonoBehaviour:
   _climbMoveSpeed: 4
   _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
-  lifter: {fileID: 13518824}
+  lifter: {fileID: 13678400}
   climbBumper: {fileID: 13610286}
   _modelTurnSpeed: 7
   jumpForce: 6.5
@@ -4054,6 +4066,17 @@ MonoBehaviour:
   _triggerKey: 50
   _statToIncrease: 2
   _changeAmount: .100000001
+--- !u!114 &11495062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c7efc44a47ee445ae908d8282d51d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11495812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4068,30 +4091,18 @@ MonoBehaviour:
   _triggerKey: 49
   _statToIncrease: 1
   _changeAmount: .100000001
---- !u!135 &13516604
+--- !u!135 &13503016
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
+  m_GameObject: {fileID: 180122}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .300000012
-  m_Center: {x: 0, y: .400000006, z: 0}
---- !u!135 &13518824
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118824}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .200000003
-  m_Center: {x: 0, y: .200000003, z: 0}
+  m_Radius: .870000005
+  m_Center: {x: 0, y: 1.29999995, z: 0}
 --- !u!136 &13610286
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -4118,6 +4129,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1.29999995, z: 0}
+--- !u!136 &13678400
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .400000006
+  m_Height: 1.95000005
+  m_Direction: 1
+  m_Center: {x: 0, y: .949999988, z: 0}
 --- !u!137 &13730972
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
