@@ -33264,6 +33264,10 @@ Prefab:
       propertyPath: m_Name
       value: Stamina Egg 1
       objectReference: {fileID: 0}
+    - target: {fileID: 159318, guid: d1eb12c5bbf591a4ba3765a82879b573, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1eb12c5bbf591a4ba3765a82879b573, type: 2}
   m_IsPrefabParent: 0
@@ -58635,7 +58639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_Name
@@ -62834,7 +62838,7 @@ Prefab:
       objectReference: {fileID: 561230764}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
@@ -81347,9 +81351,9 @@ Transform:
   m_Children:
   - {fileID: 58908146}
   - {fileID: 298744667}
+  - {fileID: 1913209112}
   - {fileID: 666979566}
   - {fileID: 2015092237}
-  - {fileID: 1913209112}
   - {fileID: 1017545635}
   - {fileID: 1836481088}
   - {fileID: 923415569}
@@ -94193,7 +94197,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433790, guid: eba70a9919b60f64389256f7dcff8267, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eba70a9919b60f64389256f7dcff8267, type: 2}
@@ -110462,23 +110466,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 474112, guid: fbc89feea32e49d4c820537b83220c86, type: 2}
   m_PrefabInternal: {fileID: 2006919971}
---- !u!1 &2007004235
-GameObject:
-  m_PrefabParentObject: {fileID: 119804, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
-  m_PrefabInternal: {fileID: 1112287558}
---- !u!114 &2007004238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2007004235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbceff93f91070543a5c5e5f6c13ecd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  footstepSounds:
-  - {fileID: 8247732, guid: d4a7e1fba3d1c5d459b36e08e4831bd1, type: 2}
 --- !u!4 &2007477754
 Transform:
   m_PrefabParentObject: {fileID: 478012, guid: f54a459497b7a4c4ea0974169849e449, type: 2}
@@ -110678,7 +110665,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 480122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_Name
@@ -110686,7 +110673,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: _statDictionary.values.Array.data[0].currentImage

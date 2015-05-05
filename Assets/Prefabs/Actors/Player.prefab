@@ -332,6 +332,7 @@ GameObject:
   - 4: {fileID: 404084}
   - 95: {fileID: 9511250}
   - 114: {fileID: 11495062}
+  - 114: {fileID: 11427246}
   m_Layer: 0
   m_Name: Final_Idle
   m_TagString: Untagged
@@ -3114,8 +3115,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .440437436, z: 0, w: -.897783399}
-  m_LocalPosition: {x: 147.080002, y: 52.3100014, z: 24.2000008}
+  m_LocalRotation: {x: 0, y: .800290287, z: 0, w: -.599612832}
+  m_LocalPosition: {x: -14.3599997, y: 49.7099991, z: 8.09000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404084}
@@ -3829,6 +3830,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9b06cb1a06f4d21a14fe0b81762348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11427246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbceff93f91070543a5c5e5f6c13ecd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepSounds:
+  - {fileID: 8247732, guid: d4a7e1fba3d1c5d459b36e08e4831bd1, type: 2}
 --- !u!114 &11429192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3881,6 +3895,7 @@ MonoBehaviour:
   _defaultCameraZoom: 10
   _glidingCameraZoom: 15
   _sprintingCameraZoom: 15
+  _fallAnimationDelay: .5
   _respawnTransform: {fileID: 0}
   _respawnSound: {fileID: 8247732, guid: fee3a86c974574741b80fee9f377b710, type: 2}
   _interactableLayer:
