@@ -38,8 +38,6 @@ public class PlayerInventory : ActorComponent
 		get { return _backBuddy; }
 	}
 
-	BuddyStats _hiddenBuddy = null;
-	
 	bool _isCarryingBuddy = false;
 	public bool isCarryingBuddy
 	{
@@ -185,8 +183,7 @@ public class PlayerInventory : ActorComponent
 
 		if ( buddyStats
 		  && buddyStats.isAlive
-		  && !_isCarryingBuddy
-		  && _playerActor.controls.holdButton.down )
+		  && !_isCarryingBuddy )
 		{
 			PickUpBuddy( buddyStats );
 			return true;
@@ -203,9 +200,7 @@ public class PlayerInventory : ActorComponent
 			_backBuddy.gameObject.SetActive( true );             // Buddy is always on back, we just hide it
 			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
 			_backBuddy.hiddenBuddy = buddyStats;
-
-			_hiddenBuddy = buddyStats;
-			_hiddenBuddy.gameObject.SetActive( false );
+			_backBuddy.hiddenBuddy.gameObject.SetActive( false );
 
 			_isCarryingBuddy = true;
 		}
@@ -258,9 +253,9 @@ public class PlayerInventory : ActorComponent
 
 	public void ResetBackBuddy()
 	{
-		if ( _isCarryingBuddy && _hiddenBuddy.isAlive )
+		if ( _isCarryingBuddy && _backBuddy.hiddenBuddy.isAlive )
 		{
-			_hiddenBuddy.gameObject.SetActive( true );
+			_backBuddy.hiddenBuddy.gameObject.SetActive( true );
 		}
 
 		_backBuddy.gameObject.SetActive( false );

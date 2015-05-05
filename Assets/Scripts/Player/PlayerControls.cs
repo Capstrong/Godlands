@@ -287,7 +287,7 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
-				else if ( player.controls.useButton.down || player.controls.holdButton.down )
+				else if ( player.controls.useButton.down )
 				{
 					if ( player.inventory.CanUseItemWithoutTarget() )
 					{
