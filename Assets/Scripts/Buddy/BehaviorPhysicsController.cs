@@ -34,7 +34,7 @@ public class BehaviorPhysicsController : MonoBehaviour
 		public override void Update()
 		{
 			actor.physics.GroundMovement( controller.moveDirection );
-			actor.animator.SetFloat( "moveSpeed", controller.moveDirection.magnitude );
+			actor.animator.SetFloat( "moveSpeed", actor.physics.normalizedMoveSpeed );
 		}
 
 		public override void Exit() { }
