@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Tree_main_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: 0df65694f314348e694dcdbcbc78ae56, type: 3}
+  m_Shader: {fileID: 4800000, guid: b926aa154c85b465ab23e7c13cdde0be, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -38,6 +38,13 @@ Material:
       data:
         first:
           name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ColorMask
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -86,13 +93,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _SpecGlossMap
         second:
           m_Texture: {fileID: 0}
@@ -113,16 +113,32 @@ Material:
         second: 0
       data:
         first:
+          name: _Glossiness
+        second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: .0500000007
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
         first:
           name: _ZWrite
         second: 1
-      data:
-        first:
-          name: _Glossiness
-        second: 0
       data:
         first:
           name: _BumpScale
@@ -147,22 +163,6 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
-      data:
-        first:
-          name: _EmissiveStrength
-        second: .0500000007
     m_Colors:
       data:
         first:
@@ -178,11 +178,11 @@ Material:
         second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
       data:
         first:
-          name: _EmissionColorUI
+          name: _ColorOverlayA
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _ColorOverlayA
+          name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:

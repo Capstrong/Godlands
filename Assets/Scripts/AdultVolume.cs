@@ -16,7 +16,7 @@ public class AdultVolume : MonoBehaviour
 				// TODO: Do any vfx for indicating the buddy is an adult.
 
 				AdultManager.SpawnAdult( buddy );
-				player.HideBackBuddy();
+				player.ResetBackBuddy();
 			}
 		}
 	}
