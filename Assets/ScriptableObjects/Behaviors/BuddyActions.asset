@@ -41,8 +41,8 @@ MonoBehaviour:
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: -444
-      y: 46
+      x: -508
+      y: -151
       width: 200
       height: 200
     foldout: 1
@@ -52,19 +52,19 @@ MonoBehaviour:
     parentIndex: 1
     rect:
       serializedVersion: 2
-      x: -382
-      y: 71
+      x: -551
+      y: 72
       width: 200
       height: 200
     foldout: 1
   - id: -92924
-    node: {fileID: 11423264}
+    node: {fileID: 11490662}
     parent: {fileID: 11475860}
     parentIndex: 2
     rect:
       serializedVersion: 2
-      x: -334
-      y: 95
+      x: -382
+      y: 94
       width: 200
       height: 200
     foldout: 1
@@ -80,13 +80,13 @@ MonoBehaviour:
       height: 50
     foldout: 1
   - id: -100518
-    node: {fileID: 11451712}
+    node: {fileID: 11430640}
     parent: {fileID: 11410560}
     parentIndex: 2
     rect:
       serializedVersion: 2
-      x: 348
-      y: 162
+      x: 451
+      y: 260
       width: 200
       height: 200
     foldout: 1
@@ -124,13 +124,13 @@ MonoBehaviour:
       height: 50
     foldout: 1
   - id: -120120
-    node: {fileID: 11485672}
+    node: {fileID: 11467842}
     parent: {fileID: 11489502}
     parentIndex: 2
     rect:
       serializedVersion: 2
-      x: 1050
-      y: 164
+      x: 982
+      y: 177
       width: 200
       height: 200
     foldout: 1
@@ -140,8 +140,8 @@ MonoBehaviour:
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 960
-      y: 123
+      x: 837
+      y: 107
       width: 200
       height: 200
     foldout: 1
@@ -151,8 +151,8 @@ MonoBehaviour:
     parentIndex: 1
     rect:
       serializedVersion: 2
-      x: 1003
-      y: 142
+      x: 898
+      y: 146
       width: 200
       height: 200
     foldout: 1
@@ -190,13 +190,13 @@ MonoBehaviour:
       height: 200
     foldout: 1
   - id: -389786
-    node: {fileID: 11499842}
+    node: {fileID: 11491574}
     parent: {fileID: 11421944}
     parentIndex: 3
     rect:
       serializedVersion: 2
-      x: 1533
-      y: 193
+      x: 1491
+      y: 182
       width: 200
       height: 200
     foldout: 1
@@ -217,8 +217,8 @@ MonoBehaviour:
     parentIndex: 3
     rect:
       serializedVersion: 2
-      x: -298
-      y: 117
+      x: -295
+      y: 120
       width: 200
       height: 200
     foldout: 1
@@ -261,8 +261,8 @@ MonoBehaviour:
     parentIndex: 3
     rect:
       serializedVersion: 2
-      x: 1102
-      y: 186
+      x: 1143
+      y: 182
       width: 200
       height: 200
     foldout: 1
@@ -305,8 +305,8 @@ MonoBehaviour:
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 1839
-      y: 90
+      x: 1791
+      y: 74
       width: 200
       height: 200
     foldout: 1
@@ -322,7 +322,7 @@ MonoBehaviour:
       height: 200
     foldout: 1
   - id: -1300744
-    node: {fileID: 11405008}
+    node: {fileID: 11477250}
     parent: {fileID: 11464360}
     parentIndex: 2
     rect:
@@ -360,7 +360,7 @@ MonoBehaviour:
     parentIndex: 0
     rect:
       serializedVersion: 2
-      x: 2224
+      x: 2220
       y: 62
       width: 200
       height: 200
@@ -377,7 +377,7 @@ MonoBehaviour:
       height: 200
     foldout: 1
   - id: -1393508
-    node: {fileID: 11478914}
+    node: {fileID: 11437114}
     parent: {fileID: 11441316}
     parentIndex: 2
     rect:
@@ -409,7 +409,7 @@ MonoBehaviour:
       width: 200
       height: 200
     foldout: 1
-  _editorOffset: {x: -2045, y: 89}
+  _editorOffset: {x: -914, y: 469}
 --- !u!114 &11402166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,19 +436,6 @@ MonoBehaviour:
   id: -384754
   value: .300000012
   comparison: 0
---- !u!114 &11405008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -1300744
-  animation: Hug
 --- !u!114 &11405282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +490,7 @@ MonoBehaviour:
   _children:
   - {fileID: 11485516}
   - {fileID: 11405960}
-  - {fileID: 11451712}
+  - {fileID: 11430640}
   - {fileID: 11405282}
 --- !u!114 &11415480
 MonoBehaviour:
@@ -534,9 +521,9 @@ MonoBehaviour:
   - {fileID: 11403602}
   - {fileID: 11455962}
   - {fileID: 11410116}
-  - {fileID: 11499842}
+  - {fileID: 11491574}
   - {fileID: 11466612}
---- !u!114 &11423264
+--- !u!114 &11430640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -544,11 +531,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -92924
-  animation: ToTantrum
+  id: -100518
+  triggerName: cry
+--- !u!114 &11437114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -1393508
+  triggerName: dance
 --- !u!114 &11441316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   _children:
   - {fileID: 11474702}
   - {fileID: 11490566}
-  - {fileID: 11478914}
+  - {fileID: 11437114}
   - {fileID: 11447308}
 --- !u!114 &11442320
 MonoBehaviour:
@@ -618,19 +618,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: -1444112
---- !u!114 &11451712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -100518
-  animation: ToCry
 --- !u!114 &11453318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,7 +712,7 @@ MonoBehaviour:
   _children:
   - {fileID: 11442802}
   - {fileID: 11454234}
-  - {fileID: 11405008}
+  - {fileID: 11477250}
   - {fileID: 11442320}
   - {fileID: 11448812}
 --- !u!114 &11466130
@@ -754,6 +741,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: -1187152
   time: 5
+--- !u!114 &11467842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -120120
+  triggerName: sitIdle
 --- !u!114 &11472960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,11 +816,11 @@ MonoBehaviour:
   _children:
   - {fileID: 11457786}
   - {fileID: 11474878}
-  - {fileID: 11423264}
+  - {fileID: 11490662}
   - {fileID: 11457664}
   - {fileID: 11402166}
   - {fileID: 11458690}
---- !u!114 &11478914
+--- !u!114 &11477250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -828,11 +828,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: -1393508
-  animation: Dance
+  id: -1300744
+  triggerName: hug
 --- !u!114 &11485516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,19 +847,6 @@ MonoBehaviour:
   id: -103756
   value: .200000003
   comparison: 2
---- !u!114 &11485672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -120120
-  animation: SitIdle
 --- !u!114 &11489502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,7 +862,7 @@ MonoBehaviour:
   _children:
   - {fileID: 11498916}
   - {fileID: 11466130}
-  - {fileID: 11485672}
+  - {fileID: 11467842}
   - {fileID: 11453318}
 --- !u!114 &11490566
 MonoBehaviour:
@@ -890,6 +877,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: -1389116
   probability: .100000001
+--- !u!114 &11490662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -92924
+  triggerName: tantrum
+--- !u!114 &11491574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd606b634dfa4eef8891643daffb76d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -389786
+  triggerName: sleep
 --- !u!114 &11498916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -904,16 +917,3 @@ MonoBehaviour:
   id: -121218
   value: .400000006
   comparison: 2
---- !u!114 &11499842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db0ce9af7406bb849a306c9df28a16e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: -389786
-  animation: ToSleep
