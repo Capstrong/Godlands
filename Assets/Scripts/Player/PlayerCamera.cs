@@ -27,10 +27,24 @@ public class PlayerCamera : ActorComponent
 	[SerializeField] Vector3 _focusOffset = new Vector3( 0f, 0f, 0.4f ); // How far offset is the camera it's intended position
 
 	// Zoom
-	[ReadOnly("ZoomDistance")] float _currentZoomDistance = 0f; // Current camera zoom
+	[ReadOnly("ZoomDistance")]
+	[SerializeField] float _currentZoomDistance = 0f; // Current camera zoom
+	[ReadOnly("Target Zoom Distance")]
 	[SerializeField] float _targetZoomDistance = 10f;
 
-	public DictionaryOfPhysicsStateTypeAndFloat _zoomDistanceStateMap = null;	// 10, 7
+	private float _zoomDistance = 10.0f;
+	public float zoomDistance
+	{
+		get
+		{
+			return _zoomDistance;
+		}
+
+		set
+		{
+			_zoomDistance = value;
+		}
+	}
 
 	[SerializeField] MinMaxF _zoomDistanceBounds = new MinMaxF( 1f, 25f );
 
@@ -191,34 +205,32 @@ public class PlayerCamera : ActorComponent
 		cam.transform.RotateAround( transform.position,
 		                            cam.transform.up,
 		                            turnSpeedMod * _turnAssistTurnSpeed * xMoveInput );
-
-		_targetZoomDistance = _zoomDistanceStateMap[actor.physics.currentStateType];
 	}
 	
 	void KeepLineOfSight( Vector3 actorHead, Vector3 actorToCam )
 	{
 		float nearestDist = Mathf.Infinity;
 		RaycastHit[] hits = Physics.RaycastAll( actorHead,
-                                                actorToCam,
-                                                _zoomDistanceBounds.max,
-                                                _collisionLayer );
+		                                        actorToCam,
+		                                        _zoomDistanceBounds.max,
+		                                        _collisionLayer );
 
-		if(hits.Length > 0)
+		if ( hits.Length > 0 )
 		{
-			foreach( RaycastHit hit in hits )
+			foreach ( RaycastHit hit in hits )
 			{
-				float hitDist = (actorHead - hit.point).sqrMagnitude;
-				if(hitDist < nearestDist && hit.transform)
+				float hitDist = ( actorHead - hit.point ).sqrMagnitude;
+				if ( hitDist < nearestDist && hit.transform )
 				{
 					nearestDist = hitDist;
 				}
 			}
 
-			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), _zoomDistanceStateMap[actor.physics.currentStateType] );
+			_targetZoomDistance = Mathf.Min( Mathf.Sqrt( nearestDist ), zoomDistance );
 		}
 		else
 		{
-			_targetZoomDistance = _zoomDistanceStateMap[actor.physics.currentStateType];
+			_targetZoomDistance = zoomDistance;
 		}
 	}
 }

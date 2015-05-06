@@ -15,6 +15,8 @@ public class TravelSounds : MonoBehaviour
 
 	void Start()
 	{
+		// Create an instance of the prefab so the prefab values aren't changed at runtime
+		_stepSoundSource = Instantiate<AudioSource>( _stepSoundSource );
 		_currentTravelSoundPlayer = _groundStepSounds;
 		_transform = GetComponent<Transform>();
 	}

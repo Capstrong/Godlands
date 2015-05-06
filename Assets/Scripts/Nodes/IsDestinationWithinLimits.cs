@@ -5,16 +5,16 @@ using BehaviorTree;
 
 public class IsDestinationWithinLimits : LeafNode
 {
-	Vector3 _destination;
+	private Hashtable _data;
 
 	public override void InitSelf( Hashtable data )
 	{
-		_destination = (Vector3)data["destination"];
+		_data = data;
 	}
 
 	public override NodeStatus TickSelf()
 	{
-		if ( MathUtils.IsWithinInfiniteVerticalCylinders( _destination, LimitsManager.colliders ) )
+		if ( MathUtils.IsWithinInfiniteVerticalCylinders( (Vector3) _data["destination"], LimitsManager.colliders ) )
 		{
 			return NodeStatus.SUCCESS;
 		}

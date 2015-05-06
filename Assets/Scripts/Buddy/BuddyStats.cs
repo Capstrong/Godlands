@@ -103,6 +103,7 @@ public class BuddyStats : ActorComponent
 		get { return _bodyRenderer; }
 	}
 
+	[ReadOnly]
 	[SerializeField] BuddyState _state = BuddyState.Normal;
 
 	public bool isAlive
@@ -365,7 +366,14 @@ public class BuddyStats : ActorComponent
 		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 
 		StopCoroutine( _currentEmoteRoutine );
-		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
+
+		// The check is needed because this is sometimes called when the game object is disabled,
+		// and GetComponentInChildren() returns null when the object in disabled.
+		Animator animator = GetComponentInChildren<Animator>();
+		if ( animator )
+		{
+			animator.SetTrigger( "isDead" );
+		}
 	}
 
 	public void BecomeAdult()

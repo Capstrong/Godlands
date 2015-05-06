@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TravelSoundPlayer : ScriptableObject
 {
-	[SerializeField] AudioClip[] _travelSounds;
+	[SerializeField] AudioClip[] _travelSounds = null;
 	public AudioClip[] travelSounds
 	{
 		get { return _travelSounds; }

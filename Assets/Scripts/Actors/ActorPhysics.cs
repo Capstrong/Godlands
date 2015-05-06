@@ -9,7 +9,6 @@ public enum PhysicsStateType
 	Falling,
 	Climbing,
 	Gliding,
-	Sprinting,
 	Dead,
 }
 
@@ -72,7 +71,11 @@ public sealed class ActorPhysics : ActorComponent
 
 	public float normalizedMoveSpeed
 	{
-		get { return _rigidbody.velocity.magnitude / sprintMoveSpeed; }
+		get
+		{
+			Vector3 horizontalVelocity = _rigidbody.velocity.SetY( 0.0f );
+			return horizontalVelocity.magnitude / sprintMoveSpeed;
+		}
 	}
 
 	/**
@@ -92,6 +95,8 @@ public sealed class ActorPhysics : ActorComponent
 	public Collider climbBumper;
 	private Transform _bumperTransform;
 	private Rigidbody _bumperRigidbody;
+	private Transform _lifterTransform;
+	private Rigidbody _lifterRigidbody;
 	#endregion
 
 	#region Model Info
@@ -157,6 +162,8 @@ public sealed class ActorPhysics : ActorComponent
 
 		_bumperTransform = bumper.GetComponent<Transform>();
 		_bumperRigidbody = bumper.GetComponent<Rigidbody>();
+		_lifterTransform = lifter.GetComponent<Transform>();
+		_lifterRigidbody = lifter.GetComponent<Rigidbody>();
 
 #if UNITY_EDITOR
 		if ( bumper as CapsuleCollider )
@@ -187,6 +194,7 @@ public sealed class ActorPhysics : ActorComponent
 
 		// Post-Update stuff
 		ConstrainBumper();
+		ConstrainLifter();
 		OrientSelf();
 	}
 
@@ -228,6 +236,9 @@ public sealed class ActorPhysics : ActorComponent
 
 	public void GroundMovement( Vector3 moveVec, bool isSprinting = false )
 	{
+		FollowBumper();
+		FollowLifter();
+
 		if ( moveVec.IsZero() )
 		{
 			ComeToStop();
@@ -328,8 +339,6 @@ public sealed class ActorPhysics : ActorComponent
 		_rigidbody.velocity = curVelocity;
 		_rigidbody.useGravity = true;
 
-		actor.animator.Play("Jump");
-
 		StartJumpCheckDelayTimer();
 	}
 
@@ -338,6 +347,8 @@ public sealed class ActorPhysics : ActorComponent
 	 */
 	public void AirMovement( Vector3 inputVec, bool forceUp = false )
 	{
+		_rigidbody.useGravity = true;
+
 		FollowBumper();
 
 		if ( inputVec.IsZero() && !forceUp )
@@ -415,11 +426,26 @@ public sealed class ActorPhysics : ActorComponent
 		_bumperRigidbody.velocity = _rigidbody.velocity;
 	}
 
+	void ConstrainLifter()
+	{
+		_lifterTransform.position = _transform.position;
+		_lifterRigidbody.velocity = _rigidbody.velocity;
+	}
+
 	void FollowBumper()
 	{
 		Vector3 constrainedPos = _bumperTransform.position;
 		constrainedPos.y = _transform.position.y;
 		_transform.position = constrainedPos;
+	}
+
+	void FollowLifter()
+	{
+		float constrainedY = _lifterTransform.position.y;
+		_transform.position = _transform.position.SetY( constrainedY );
+
+		float velocityY = _lifterRigidbody.velocity.y;
+		_rigidbody.velocity = _rigidbody.velocity.SetY( ( velocityY + _rigidbody.velocity.y ) * 0.5f );
 	}
 
 	void MoveAtSpeed( Vector3 moveDir, float moveSpeed )
