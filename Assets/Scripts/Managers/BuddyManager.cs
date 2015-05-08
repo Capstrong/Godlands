@@ -25,17 +25,27 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 
 	[SerializeField] float _statPerHappiness = 0f;
 
+	[System.Serializable]
+	class StatFloatDict : SerializableDictionary<Stat, float> { }
+
+	[Tooltip( "Minimum stat amount for a stat where any buddies are alive" )]
+	[SerializeField] StatFloatDict _minStatDictionary = new StatFloatDict();
+
 	[SerializeField] BuddyResourceCurve _resourceCurve = null;
 
 	[SerializeField] CheckpointLifter[] checkpointLifters = null; // Need these to activate checkpoints
 	[ReadOnly] int checkpointIndex = 0; // Index of next checkpoint to activate
 
+	[ReadOnly]
+	[SerializeField] PlayerStats _playerStats = null;
+
 	void Start()
 	{
-		DayCycleManager.RegisterEndOfDayCallback( NightlyResourceDrain );
+		DayCycleManager.RegisterEndOfDayCallback( NightlyEvent );
 		_buddyStatsDictionary.Add( Stat.Cutting, new List<BuddyStats>() );
 		_buddyStatsDictionary.Add( Stat.Gliding, new List<BuddyStats>() );
 		_buddyStatsDictionary.Add( Stat.Stamina, new List<BuddyStats>() );
+		_playerStats = FindObjectOfType<PlayerStats>();
 	}
 
 	public static void RegisterBuddy( BuddyStats buddyStats )
@@ -54,33 +64,42 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 		}
 	}
 
-	public static void NightlyResourceDrain()
-	{
-		instance._NightlyResourceDrain();
-	}
-
-	private void _NightlyResourceDrain()
+	private void NightlyEvent()
 	{
 		foreach ( Stat statKey in _buddyStatsDictionary.Keys )
 		{
 			int numBuddiesOfType = _buddyStatsDictionary[statKey].Count;
-			float totalResourceDrain = _resourceCurve.Evaluate( numBuddiesOfType );
-			int drainPerBuddy = (int) Mathf.Round( totalResourceDrain / numBuddiesOfType );
 
-			foreach ( BuddyStats buddyStat in _buddyStatsDictionary[statKey] )
+			if ( numBuddiesOfType != 0 )
 			{
-				if ( buddyStat.isAlive )
-				{
-					buddyStat.NightlyEvent( drainPerBuddy );
-				}
-			}
+				float totalResourceDrain = _resourceCurve.Evaluate( numBuddiesOfType );
+				int drainPerBuddy = (int) Mathf.Round( totalResourceDrain / numBuddiesOfType );
 
-			_buddyStatsDictionary[statKey].RemoveAll( buddyStat => buddyStat.isAlive == false );
+				foreach ( BuddyStats buddyStat in _buddyStatsDictionary[statKey] )
+				{
+					if ( buddyStat.isAlive )
+					{
+						buddyStat.DecrementResources( drainPerBuddy );
+						buddyStat.AffectHappinessWithHunger();
+						buddyStat.AgeUp();
+					}
+				}
+
+				_buddyStatsDictionary[statKey].RemoveAll( buddyStat => buddyStat.isAlive == false );
+
+				RecalculateStat( statKey );
+			}
 		}
 	}
 
-	public static void RecalculateStat( Stat stat, PlayerStats playerStats )
+	public static void RecalculateStat( Stat stat )
 	{
+		if ( instance._buddyStatsDictionary[stat].Count == 0 )
+		{
+			instance._playerStats.SetMaxStat( stat, 0f );
+			return;
+		}
+
 		float aggregateHappiness = 0f;
 
 		foreach ( BuddyStats buddyStat in instance._buddyStatsDictionary[stat] )
@@ -88,6 +107,6 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 			aggregateHappiness += buddyStat.happiness;
 		}
 
-		playerStats.SetMaxStat( stat, aggregateHappiness * instance._statPerHappiness );
+		instance._playerStats.SetMaxStat( stat, Mathf.Max( aggregateHappiness * instance._statPerHappiness, instance._minStatDictionary[stat] ) );
 	}
 }
