@@ -44,6 +44,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 2800000, guid: 86eac586592d28b4ea1c7c877b67420e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -84,13 +91,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 2800000, guid: 86eac586592d28b4ea1c7c877b67420e, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -112,6 +112,18 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: .0199999996
       data:
         first:
           name: _Parallax
@@ -144,18 +156,6 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
-      data:
-        first:
-          name: _EmissiveStrength
-        second: .0199999996
     m_Colors:
       data:
         first:
@@ -167,9 +167,9 @@ Material:
         second: {r: .683823526, g: .591583669, b: .206152678, a: 1}
       data:
         first:
-          name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
+          name: _ColorOverlayA
+        second: {r: .669800699, g: .705882311, b: .0519031174, a: 1}
       data:
         first:
-          name: _ColorOverlayA
-        second: {r: .416865468, g: .735294104, b: .405493051, a: 1}
+          name: _EmissionColorUI
+        second: {r: 1, g: 1, b: 1, a: 1}
