@@ -44,6 +44,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -84,13 +91,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -120,6 +120,10 @@ Material:
         first:
           name: _MinCurveDistance
         second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: 1
       data:
         first:
           name: _Parallax
@@ -152,10 +156,6 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _EmissiveStrength
-        second: 1
     m_Colors:
       data:
         first:
@@ -164,12 +164,12 @@ Material:
       data:
         first:
           name: _Color
+        second: {r: .801470578, g: .725387752, b: .589316607, a: 1}
+      data:
+        first:
+          name: _ColorOverlayA
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _ColorOverlayA
         second: {r: 1, g: 1, b: 1, a: 1}
