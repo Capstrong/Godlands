@@ -50,6 +50,8 @@ public class BuddyStats : ActorComponent
 	[SerializeField] Material _fullMaterial    = null;
 	[SerializeField] Material _overFedMaterial = null;
 
+	[SerializeField] Texture[] _hungerEmoteTextures = null;
+
 	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
@@ -92,6 +94,7 @@ public class BuddyStats : ActorComponent
 		get { return _bodyRenderer; }
 	}
 
+	[ReadOnly]
 	[SerializeField] BuddyState _state = BuddyState.Normal;
 
 	public bool isAlive
@@ -142,7 +145,7 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
-	public void GiveResource( PlayerStats actorStats, ResourceData resourceData)
+	public void GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
 		DebugUtils.Assert( resourceData, "Trying to give null resource" );
@@ -265,15 +268,15 @@ public class BuddyStats : ActorComponent
 
 	IEnumerator EmoteHappinessRoutine()
 	{
-		// Whether happiness or hunger was emoted last
-		bool didHappinessEmoteLast = MathUtils.RandBool();
-
 		while ( true )
 		{
 			yield return new WaitForSeconds( _emoteRoutineWait );
 
-			if ( didHappinessEmoteLast )
-			{
+			_hungryMaterial.mainTexture = _hungerEmoteTextures[0];
+
+			Emote( _hungryMaterial );
+
+			/*
 				if ( _resources < _idealResourcesRange.min )
 				{
 					Emote( _hungryMaterial );
@@ -286,26 +289,7 @@ public class BuddyStats : ActorComponent
 				{
 					Emote( _fullMaterial );
 				}
-
-				didHappinessEmoteLast = false;
-			}
-			else
-			{
-				if ( _happiness < _neutralHappinessRange.min )
-				{
-					Emote( _sadMaterial );
-				}
-				else if ( _happiness > _neutralHappinessRange.max )
-				{
-					Emote( _happyMaterial );
-				}
-				else
-				{
-					Emote( _neutralMaterial );
-				}
-
-				didHappinessEmoteLast = true;
-			}
+			 * */
 		}
 	}
 
@@ -343,7 +327,14 @@ public class BuddyStats : ActorComponent
 		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
 
 		StopCoroutine( _currentEmoteRoutine );
-		GetComponentInChildren<Animator>().SetTrigger( "isDead" );
+
+		// The check is needed because this is sometimes called when the game object is disabled,
+		// and GetComponentInChildren() returns null when the object in disabled.
+		Animator animator = GetComponentInChildren<Animator>();
+		if ( animator )
+		{
+			animator.SetTrigger( "isDead" );
+		}
 	}
 
 	public void BecomeAdult()

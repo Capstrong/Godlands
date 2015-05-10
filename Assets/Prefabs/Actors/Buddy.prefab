@@ -1523,7 +1523,7 @@ MonoBehaviour:
     min: 12
     max: 20
   _age: 1
-  _adultAge: 0
+  _adultAge: 5
   _startingHappiness: .300000012
   _happiness: 0
   _stomachRumbleSound: {fileID: 8247732, guid: fa0c1ec00694aea42a8c120250a0084d, type: 2}
@@ -1538,6 +1538,10 @@ MonoBehaviour:
   _hungryMaterial: {fileID: 2100000, guid: dfd057d768e482d4c97c111e374bba0a, type: 2}
   _fullMaterial: {fileID: 2100000, guid: 04312fe54ad16f14eaf5ad0e843eabf9, type: 2}
   _overFedMaterial: {fileID: 2100000, guid: 06c5c447738fe9e48bc0f6f96a2d3fba, type: 2}
+  _hungerEmoteTextures:
+  - {fileID: 2800000, guid: b254972057bf0f74cbb5edb0c897dd8d, type: 3}
+  - {fileID: 2800000, guid: 6d6d7e1306f38244792648af9b2311c1, type: 3}
+  - {fileID: 2800000, guid: 3bb4c6629d0b42b4a96e1011ba6b340f, type: 3}
   _emoteRoutineWait: 10
   _emoteParticles: {fileID: 19806976}
   _deadParticles: {fileID: 19801526}
@@ -1656,7 +1660,7 @@ MonoBehaviour:
   _currentStateType: 1
   _stoppingSpeed: .00100000005
   _groundedMoveSpeed: 2
-  _sprintMoveSpeed: 12
+  _sprintMoveSpeed: 2
   _jumpMoveSpeedChangeRate: .100000001
   _rollMoveSpeed: 2
   _climbMoveSpeed: 2

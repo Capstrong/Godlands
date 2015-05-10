@@ -38,7 +38,15 @@ public class InventoryScrollBar : MonoBehaviour
 	void SetIcon( Image image, Sprite icon = null )
 	{
 		image.sprite = icon;
-		image.color = Color.white;
+
+		if( !icon )
+		{
+			image.color = image.color.SetAlpha( 0f );
+		}
+		else
+		{
+			image.color = Color.white;
+		}
 	}
 
 	public void Disable()
