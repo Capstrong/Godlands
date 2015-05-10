@@ -1532,12 +1532,20 @@ MonoBehaviour:
   _sadSound: {fileID: 8247732, guid: b5162e2e6ea97b548bc0245741021440, type: 2}
   _currentHappinessSound: {fileID: 0}
   _currentHappinessState: 0
-  _sadMaterial: {fileID: 2100000, guid: f823e3a590971da45975c2c5307d8060, type: 2}
-  _happyMaterial: {fileID: 2100000, guid: 5b5adc301676fe74c83e5e78cccb1d83, type: 2}
-  _neutralMaterial: {fileID: 2100000, guid: 495d896fbdf17ae4cb7c371fd0688648, type: 2}
-  _hungryMaterial: {fileID: 2100000, guid: dfd057d768e482d4c97c111e374bba0a, type: 2}
-  _fullMaterial: {fileID: 2100000, guid: 04312fe54ad16f14eaf5ad0e843eabf9, type: 2}
-  _overFedMaterial: {fileID: 2100000, guid: 06c5c447738fe9e48bc0f6f96a2d3fba, type: 2}
+  _hungerEmoteMaterial: {fileID: 2100000, guid: dfd057d768e482d4c97c111e374bba0a,
+    type: 2}
+  _hungerEmoteTextures:
+  - {fileID: 2800000, guid: b254972057bf0f74cbb5edb0c897dd8d, type: 3}
+  - {fileID: 2800000, guid: 2cdc630df4c0cc7418d6f4d3a9eaa514, type: 3}
+  - {fileID: 2800000, guid: af727216c53b5a84daba98d0948fef3d, type: 3}
+  - {fileID: 2800000, guid: 418ca20d0dc817b48b0c95a640ea53ef, type: 3}
+  - {fileID: 2800000, guid: 6d6d7e1306f38244792648af9b2311c1, type: 3}
+  - {fileID: 2800000, guid: 8cb34701d519d364baec6f4a2f0e8870, type: 3}
+  - {fileID: 2800000, guid: d2e8647d39231d94d844894897d129bd, type: 3}
+  - {fileID: 2800000, guid: 2be8fe200196947408376c65c892842a, type: 3}
+  - {fileID: 2800000, guid: 3bb4c6629d0b42b4a96e1011ba6b340f, type: 3}
+  _badHungerColor: {r: 1, g: .507352948, b: .507352948, a: 1}
+  _goodHungerColor: {r: .507352948, g: 1, b: .507352948, a: 1}
   _emoteRoutineWait: 10
   _emoteParticles: {fileID: 19806976}
   _deadParticles: {fileID: 19801526}

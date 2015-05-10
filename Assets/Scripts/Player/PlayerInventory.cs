@@ -154,13 +154,8 @@ public class PlayerInventory : ActorComponent
 
 		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
-		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
-
-		if ( buddyStats &&
-		     buddyStats.isAlive &&
-		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
+		if ( buddyStats && buddyStats.isAlive )
 		{
-			buddyStats.owner = godTag;
 			GiveResource( buddyStats );
 
 			// look at the buddy
@@ -208,7 +203,7 @@ public class PlayerInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (actor as PlayerActor).stats, (ResourceData)_heldResources[_resourceIndex] );
+		buddyStats.GiveResource( (ResourceData) _heldResources[_resourceIndex] );
 		_inventory[_heldResources[_resourceIndex]]--;
 
 		UpdateResourceList();
@@ -263,7 +258,7 @@ public class PlayerInventory : ActorComponent
 		_isCarryingBuddy = false;
 	}
 
-	void PickupItem( InventoryItemData itemData )
+	public void PickupItem( InventoryItemData itemData )
 	{
 		if ( !_inventory.ContainsKey( itemData ) )
 		{
