@@ -43,12 +43,7 @@ public class BuddyStats : ActorComponent
 	[ReadOnly("Current Happiness Sound")]
 	[SerializeField] HappinessState _currentHappinessState = HappinessState.Invalid;
 
-	[SerializeField] Material _sadMaterial     = null;
-	[SerializeField] Material _happyMaterial   = null;
-	[SerializeField] Material _neutralMaterial = null;
-	[SerializeField] Material _hungryMaterial  = null;
-	[SerializeField] Material _fullMaterial    = null;
-	[SerializeField] Material _overFedMaterial = null;
+	[SerializeField] Material _hungerEmoteMaterial = null;
 
 	[SerializeField] Texture[] _hungerEmoteTextures = null;
 
@@ -116,6 +111,8 @@ public class BuddyStats : ActorComponent
 		_owner = GameObject.FindObjectOfType<GodTag>();
 		_happiness = _startingHappiness;
 		RestartEmoteRoutine();
+
+		_hungerEmoteMaterial = Instantiate<Material>( _hungerEmoteMaterial );
 	}
 
 	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
@@ -155,7 +152,6 @@ public class BuddyStats : ActorComponent
 		if ( _resources < _idealResourcesRange.min )
 		{
 			// Hungry
-			Emote( _hungryMaterial );
 			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
@@ -163,15 +159,16 @@ public class BuddyStats : ActorComponent
 		else if ( _resources > _idealResourcesRange.max )
 		{
 			// Overfed
-			Emote( _overFedMaterial );
 		}
 		else
 		{
 			// Full
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
-			Emote( _fullMaterial );
 		}
+
+		UpdateEmoteTexture();
+		Emote( _hungerEmoteMaterial );
 
 		RestartEmoteRoutine();
 	}
@@ -272,24 +269,25 @@ public class BuddyStats : ActorComponent
 		{
 			yield return new WaitForSeconds( _emoteRoutineWait );
 
-			_hungryMaterial.mainTexture = _hungerEmoteTextures[0];
+			UpdateEmoteTexture();
 
-			Emote( _hungryMaterial );
+			Emote( _hungerEmoteMaterial );
+		}
+	}
 
-			/*
-				if ( _resources < _idealResourcesRange.min )
-				{
-					Emote( _hungryMaterial );
-				}
-				else if ( _resources > _idealResourcesRange.max )
-				{
-					Emote( _overFedMaterial );
-				}
-				else
-				{
-					Emote( _fullMaterial );
-				}
-			 * */
+	private void UpdateEmoteTexture()
+	{
+		if ( _resources < _idealResourcesRange.min )
+		{
+			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[0];
+		}
+		else if ( _resources > _idealResourcesRange.max )
+		{
+			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[1];
+		}
+		else
+		{
+			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[2];
 		}
 	}
 
