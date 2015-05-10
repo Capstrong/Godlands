@@ -258,7 +258,7 @@ public class PlayerInventory : ActorComponent
 		_isCarryingBuddy = false;
 	}
 
-	void PickupItem( InventoryItemData itemData )
+	public void PickupItem( InventoryItemData itemData )
 	{
 		if ( !_inventory.ContainsKey( itemData ) )
 		{

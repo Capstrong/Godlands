@@ -47,6 +47,9 @@ public class BuddyStats : ActorComponent
 
 	[SerializeField] Texture[] _hungerEmoteTextures = null;
 
+	[SerializeField] Color _badHungerColor = Color.white;
+	[SerializeField] Color _goodHungerColor = Color.white;
+
 	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
 	Coroutine _currentEmoteRoutine = null;
@@ -277,18 +280,26 @@ public class BuddyStats : ActorComponent
 
 	private void UpdateEmoteTexture()
 	{
-		if ( _resources < _idealResourcesRange.min )
+		float t;
+
+		if ( _resources < _idealResourcesRange.max )
 		{
-			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[0];
-		}
-		else if ( _resources > _idealResourcesRange.max )
-		{
-			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[1];
+			t = (float) _resources / _idealResourcesRange.max;
 		}
 		else
 		{
-			_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[2];
+			t = 1f - (float) ( _resources - _idealResourcesRange.max ) / ( _idealResourcesRange.max - _idealResourcesRange.min );
 		}
+
+		int textureIndex =  Mathf.RoundToInt( t * ( _hungerEmoteTextures.Length - 1 ) );
+
+		Debug.Log( textureIndex );
+
+		textureIndex = Mathf.Clamp( textureIndex, 0, _hungerEmoteTextures.Length - 1 );
+
+		_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[ textureIndex ];
+
+		_hungerEmoteMaterial.color = Color.Lerp( _goodHungerColor, _badHungerColor, t );
 	}
 
 	public void Emote( Material emoteMaterial )
