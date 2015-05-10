@@ -170,8 +170,8 @@ public class BuddyStats : ActorComponent
 			RecalculateStat();
 		}
 
-		UpdateEmoteTexture();
-		Emote( _hungerEmoteMaterial );
+		UpdateHungerEmoteTexture();
+		EmoteHunger( _hungerEmoteMaterial );
 
 		RestartEmoteRoutine();
 	}
@@ -263,22 +263,22 @@ public class BuddyStats : ActorComponent
 			StopCoroutine( _currentEmoteRoutine );
 		}
 
-		_currentEmoteRoutine = StartCoroutine( EmoteHappinessRoutine() );
+		_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
 	}
 
-	IEnumerator EmoteHappinessRoutine()
+	IEnumerator EmoteHungerRoutine()
 	{
 		while ( true )
 		{
 			yield return new WaitForSeconds( _emoteRoutineWait );
 
-			UpdateEmoteTexture();
+			UpdateHungerEmoteTexture();
 
-			Emote( _hungerEmoteMaterial );
+			EmoteHunger( _hungerEmoteMaterial );
 		}
 	}
 
-	private void UpdateEmoteTexture()
+	private void UpdateHungerEmoteTexture()
 	{
 		float t;
 
@@ -293,16 +293,14 @@ public class BuddyStats : ActorComponent
 
 		int textureIndex =  Mathf.RoundToInt( t * ( _hungerEmoteTextures.Length - 1 ) );
 
-		Debug.Log( textureIndex );
-
 		textureIndex = Mathf.Clamp( textureIndex, 0, _hungerEmoteTextures.Length - 1 );
 
 		_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[ textureIndex ];
 
-		_hungerEmoteMaterial.color = Color.Lerp( _goodHungerColor, _badHungerColor, t );
+		_hungerEmoteMaterial.color = Color.Lerp( _badHungerColor, _goodHungerColor, t );
 	}
 
-	public void Emote( Material emoteMaterial )
+	public void EmoteHunger( Material emoteMaterial )
 	{
 		_emoteParticles.Clear();
 		_particlesRenderer.material = emoteMaterial;
