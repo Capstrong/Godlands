@@ -4,13 +4,13 @@ using System.Collections;
 
 public class MenuItems
 {
-	[MenuItem("Assets/Create/Inventory Item")]
+	[MenuItem( "Assets/Create/Inventory Item" )]
 	public static void CreateInventoryItem()
 	{
 		ScriptableObjectUtility.CreateAsset<InventoryItemData>();
 	}
 
-	[MenuItem("Assets/Create/Resource Data")]
+	[MenuItem( "Assets/Create/Resource Data" )]
 	public static void CreateResourceData()
 	{
 		ScriptableObjectUtility.CreateAsset<ResourceData>();
@@ -26,5 +26,11 @@ public class MenuItems
 	public static void CreateTravelSoundPlayerAsset()
 	{
 		ScriptableObjectUtility.CreateAsset<TravelSoundPlayer>();
+	}
+
+	[MenuItem( "Assets/Create/Text Multi Volume Contents" )]
+	public static void CreateTextMultiVolumeContents()
+	{
+		ScriptableObjectUtility.CreateAsset<TextMultiVolumeContents>();
 	}
 }
