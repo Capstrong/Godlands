@@ -315,6 +315,13 @@ public class PlayerControls : MonoBehaviour
 						}
 					}
 				}
+				else if ( player.controls.holdButton.down )
+				{
+					if ( player.inventory.CheckPutDownBuddy() )
+					{
+						// Buddy was put down
+					}
+				}
 
 				if ( player.controls.sprintButton )
 				{

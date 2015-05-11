@@ -44,7 +44,6 @@ public class PlayerInventory : ActorComponent
 		get { return _isCarryingBuddy; }
 	}
 
-
 	[SerializeField] LayerMask _buddyLayer = 0;
 	public LayerMask buddyLayer
 	{
@@ -130,6 +129,10 @@ public class PlayerInventory : ActorComponent
 	{
 		if ( CheckPickUpBuddy( hitInfo ) )
 		{
+			if ( _heldResources.Count > 0 )
+			{
+				CheckGiveResources( _backBuddy.hiddenBuddy );
+			}
 			return true;
 		}
 
@@ -154,14 +157,25 @@ public class PlayerInventory : ActorComponent
 
 		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
-		if ( buddyStats && buddyStats.isAlive )
+		if ( CheckGiveResources( buddyStats ) )
 		{
-			GiveResource( buddyStats );
-
 			// look at the buddy
 			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
 				_lookOverrideDuration );
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool CheckGiveResources( BuddyStats buddyStats )
+	{
+		if ( buddyStats && buddyStats.isAlive )
+		{
+			GiveResource( buddyStats );
 			return true;
 		}
 		else
@@ -217,20 +231,11 @@ public class PlayerInventory : ActorComponent
 			return false;
 		}
 
-		Vector3 spawnLocation;
-
 		RaycastHit hitInfo;
 
 		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
 
-		if ( hitInfo.transform )
-		{
-			spawnLocation = hitInfo.point;
-		}
-		else
-		{
-			spawnLocation = transform.position + transform.forward * _buddySpawnDistance;
-		}
+		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
 		BuddyItemData buddyItemData = (BuddyItemData)_heldResources[_resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
@@ -256,6 +261,34 @@ public class PlayerInventory : ActorComponent
 		_backBuddy.gameObject.SetActive( false );
 		_backBuddy.hiddenBuddy = null;
 		_isCarryingBuddy = false;
+	}
+
+	public bool CheckPutDownBuddy()
+	{
+		if ( !_isCarryingBuddy || !_backBuddy.hiddenBuddy.isAlive )
+		{
+			return false;
+		}
+
+		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
+		{
+			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+			return false;
+		}
+
+		RaycastHit hitInfo;
+
+		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
+
+		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
+
+		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
+		_backBuddy.gameObject.SetActive( false );
+		_backBuddy.hiddenBuddy = null;
+		_isCarryingBuddy = false;
+
+		return true;
 	}
 
 	public void PickupItem( InventoryItemData itemData )

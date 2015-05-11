@@ -155,7 +155,10 @@ public class BuddyStats : ActorComponent
 		if ( _resources < _idealResourcesRange.min )
 		{
 			// Hungry
-			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			if ( gameObject.activeSelf )
+			{
+				SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			}
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
 		}
@@ -227,32 +230,36 @@ public class BuddyStats : ActorComponent
 		{
 			// Sad
 			_currentHappinessState = HappinessState.Sad;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _sadSound, transform );
+			PlayHappinessSound( _sadSound );
 		}
 		else if ( _happiness > _neutralHappinessRange.max
 				  && _currentHappinessState != HappinessState.Happy )
 		{
 			// Happy
 			_currentHappinessState = HappinessState.Happy;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _happySound, transform );
+			PlayHappinessSound( _happySound );
 		}
 		else if ( _currentHappinessState != HappinessState.Neutral )
 		{
 			// Neutral
 			_currentHappinessState = HappinessState.Neutral;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _neutralSound, transform );
+			PlayHappinessSound( _neutralSound );
+		}
+	}
+
+	void PlayHappinessSound( AudioSource happinessSound )
+	{
+		if ( _currentHappinessSound )
+		{
+			_currentHappinessSound.Stop();
+		}
+		if ( gameObject.activeSelf )
+		{
+			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
+		}
+		else
+		{
+			_currentHappinessSound = null;
 		}
 	}
 
@@ -263,7 +270,14 @@ public class BuddyStats : ActorComponent
 			StopCoroutine( _currentEmoteRoutine );
 		}
 
-		_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
+		if ( gameObject.activeSelf )
+		{
+			_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
+		}
+		else
+		{
+			_currentEmoteRoutine = null;
+		}
 	}
 
 	IEnumerator EmoteHungerRoutine()
