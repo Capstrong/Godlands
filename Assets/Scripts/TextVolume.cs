@@ -31,7 +31,7 @@ public abstract class TextVolume : MonoBehaviour
 
 	public abstract void TriggerText();
 
-	public void OnTriggerEnter( Collider other )
+	public void OnTriggerStay( Collider other )
 	{
 		TriggerText();
 	}

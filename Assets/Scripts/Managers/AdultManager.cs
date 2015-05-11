@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class AdultManager : SingletonBehaviour<AdultManager>
 {
 	[SerializeField] GameObject _adultPrefab = null;
+	[SerializeField] TextVolume _adultTextVolume = null;
 
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _goodBadCutoff = 0.5f;
@@ -26,6 +27,9 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 
 	private void _SpawnAdult( BuddyStats buddyStats )
 	{
+		// Make sure the text volume is active.
+		_adultTextVolume.gameObject.SetActive( true );
+
 		if ( buddyStats.happiness > _goodBadCutoff )
 		{
 			// Spawn good buddy.

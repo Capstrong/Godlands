@@ -103,6 +103,8 @@ public class BuddyStats : ActorComponent
 		get { return _bodyRenderer; }
 	}
 
+	[SerializeField] TextMultiVolume _adultText = null;
+
 	[ReadOnly]
 	[SerializeField] BuddyState _state = BuddyState.Normal;
 
@@ -200,6 +202,8 @@ public class BuddyStats : ActorComponent
 		if ( _age >= _adultAge )
 		{
 			_adultParticles.enableEmission = true;
+			_adultParticles.Play();
+			_adultText.gameObject.SetActive( true );
 		}
 	}
 
