@@ -1,15 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TextVolume : MonoBehaviour
+public abstract class TextVolume : MonoBehaviour
 {
-	[TextArea(3, 10)]
-	[SerializeField] string _text = "";
-	public string text
-	{
-		get { return _text; }
-	}
-
 	[SerializeField] bool _fadeOut = true;
 	[SerializeField] float _timeUntilFadeout = 7.0f;
 	[SerializeField] float _fadeoutDuration = 2.0f;
@@ -36,17 +29,24 @@ public class TextVolume : MonoBehaviour
 		Gizmos.DrawWireCube( collider.center, collider.size );
 	}
 
-	public void OnTriggerEnter( Collider other )
+	public abstract void TriggerText();
+
+	public void OnTriggerStay( Collider other )
+	{
+		TriggerText();
+	}
+
+	public void DisplayText( string text )
 	{
 		if ( !_hasBeenTriggered )
 		{
 			if ( _fadeOut )
 			{
-				_textBox.SetTextForDuration( _text, _timeUntilFadeout, _fadeoutDuration );
+				_textBox.SetTextForDuration( text, _timeUntilFadeout, _fadeoutDuration );
 			}
 			else
 			{
-				_textBox.SetText( _text );
+				_textBox.SetText( text );
 			}
 
 			_hasBeenTriggered = _triggerOnce;
