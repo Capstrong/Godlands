@@ -127,15 +127,6 @@ public class PlayerInventory : ActorComponent
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
-		if ( CheckPickUpBuddy( hitInfo ) )
-		{
-			if ( _heldResources.Count > 0 )
-			{
-				CheckGiveResources( _backBuddy.hiddenBuddy );
-			}
-			return true;
-		}
-
 		if ( _heldResources.Count > 0 )
 		{
 			if ( _heldResources[_resourceIndex] is ResourceData )
@@ -184,7 +175,7 @@ public class PlayerInventory : ActorComponent
 		}
 	}
 
-	bool CheckPickUpBuddy( RaycastHit hitInfo )
+	public bool CheckPickUpBuddy( RaycastHit hitInfo )
 	{
 		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
 

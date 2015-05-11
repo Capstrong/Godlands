@@ -155,10 +155,7 @@ public class BuddyStats : ActorComponent
 		if ( _resources < _idealResourcesRange.min )
 		{
 			// Hungry
-			if ( gameObject.activeSelf )
-			{
-				SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
-			}
+			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
 		}
@@ -253,14 +250,7 @@ public class BuddyStats : ActorComponent
 		{
 			_currentHappinessSound.Stop();
 		}
-		if ( gameObject.activeSelf )
-		{
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
-		}
-		else
-		{
-			_currentHappinessSound = null;
-		}
+		_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 	}
 
 	void RestartEmoteRoutine()
@@ -270,14 +260,7 @@ public class BuddyStats : ActorComponent
 			StopCoroutine( _currentEmoteRoutine );
 		}
 
-		if ( gameObject.activeSelf )
-		{
-			_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
-		}
-		else
-		{
-			_currentEmoteRoutine = null;
-		}
+		_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
 	}
 
 	IEnumerator EmoteHungerRoutine()

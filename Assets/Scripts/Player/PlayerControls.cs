@@ -321,6 +321,15 @@ public class PlayerControls : MonoBehaviour
 					{
 						// Buddy was put down
 					}
+					else
+					{
+						RaycastHit hitInfo;
+						if ( player.controls.RaycastForward( out hitInfo )
+						  && player.inventory.CheckPickUpBuddy( hitInfo ) )
+						{
+							// Buddy was picked up
+						}
+					}
 				}
 
 				if ( player.controls.sprintButton )
