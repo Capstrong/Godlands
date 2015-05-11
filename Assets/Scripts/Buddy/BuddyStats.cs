@@ -280,24 +280,26 @@ public class BuddyStats : ActorComponent
 
 	private void UpdateHungerEmoteTexture()
 	{
-		float t;
+		// A value from 0 - 1 that is based off how good the buddy feels about its hunger level
+		// Goes up until the midpoint of the ideal range then comes back down.
+		float satisfaction;
 
 		if ( _resources < _idealResourcesRange.max )
 		{
-			t = (float) _resources / _idealResourcesRange.max;
+			satisfaction = (float) _resources / _idealResourcesRange.Midpoint;
 		}
 		else
 		{
-			t = 1f - (float) ( _resources - _idealResourcesRange.max ) / ( _idealResourcesRange.max - _idealResourcesRange.min );
+			satisfaction = 1f - (float) ( _resources - _idealResourcesRange.Midpoint ) / _idealResourcesRange.Range;
 		}
 
-		int textureIndex =  Mathf.RoundToInt( t * ( _hungerEmoteTextures.Length - 1 ) );
+		satisfaction = Mathf.Clamp( satisfaction, 0f, 1f );
 
-		textureIndex = Mathf.Clamp( textureIndex, 0, _hungerEmoteTextures.Length - 1 );
+		int textureIndex =  Mathf.RoundToInt( satisfaction * ( _hungerEmoteTextures.Length - 1 ) );
 
 		_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[ textureIndex ];
 
-		_hungerEmoteMaterial.color = Color.Lerp( _badHungerColor, _goodHungerColor, t );
+		_hungerEmoteMaterial.color = Color.Lerp( _badHungerColor, _goodHungerColor, satisfaction );
 	}
 
 	public void EmoteHunger( Material emoteMaterial )
