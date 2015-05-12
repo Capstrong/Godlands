@@ -429,7 +429,7 @@ public class PlayerControls : MonoBehaviour
 		Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
 		if ( interactable )
 		{
-			_textBox.SetTextForDuration( interactable.interactText, interactable.duration );
+			_textBox.SetText( interactable.interactText );
 			return true;
 		}
 
