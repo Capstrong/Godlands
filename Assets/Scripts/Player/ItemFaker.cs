@@ -5,7 +5,7 @@ using System.Collections;
 public class ItemFaker : MonoBehaviour
 {
 	[SerializeField] KeyCode _triggerKey = KeyCode.K;
-	[SerializeField] InventoryItemData _itemData;
+	[SerializeField] InventoryItemData _itemData = null;
 
 	PlayerInventory _inventory = null;
 
