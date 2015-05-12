@@ -20,9 +20,6 @@ public class StatObject
 	public float currentMax = 0.0f;
 	public float currentValue = 0.0f;
 	public bool  isUsing = false;
-	public Image currentImage = null;
-	public Image maxImage = null;
-	public float statToScaleRatio = 0.0f;
 	public float rechargeDelayTime = 0.0f; // Seconds
 
 	[ReadOnly]
@@ -54,7 +51,6 @@ public class PlayerStats : ActorComponent
 
 		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = maxValue;
-		ScaleMaxImage( statObject );
 	}
 
 	public bool CanUseStat( Stat stat )
@@ -115,28 +111,6 @@ public class PlayerStats : ActorComponent
 					}
 				}
 			}
-
-			ScaleCurrImage( statObject );
-		}
-	}
-
-	void ScaleMaxImage( StatObject statObject )
-	{
-		if( statObject.maxImage )
-		{
-			float scale = statObject.currentMax * statObject.statToScaleRatio;
-			// TODO: cache off transform to save on getComponent() calls
-			statObject.maxImage.transform.SetScale( scale, scale, scale );
-		}
-	}
-
-	void ScaleCurrImage( StatObject statObject )
-	{
-		if( statObject.currentImage )
-		{
-			float scale = statObject.currentValue * statObject.statToScaleRatio;
-			// TODO: cache off transform to save on getComponent() calls
-			statObject.currentImage.transform.SetScale( scale, scale, scale );
 		}
 	}
 }

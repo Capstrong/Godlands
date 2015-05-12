@@ -566,6 +566,13 @@ public sealed class ActorPhysics : ActorComponent
 		_lookOverride = Vector3.zero;
 	}
 
+	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion() )
+	{
+		_transform.position = toPosition;
+		_transform.rotation = toRotation;
+		_rigidbody.velocity = Vector3.zero;
+	}
+
 	#region Late Jump Timer
 	public void StartLateJumpTimer()
 	{
