@@ -534,8 +534,7 @@ public class PlayerControls : MonoBehaviour
 
 	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion(), bool snapCamera = true )
 	{
-		transform.position = toPosition;
-		transform.rotation = toRotation;
+		_actor.physics.Teleport( toPosition, toRotation );
 
 		if ( snapCamera )
 		{
