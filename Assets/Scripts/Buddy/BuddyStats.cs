@@ -330,7 +330,11 @@ public class BuddyStats : ActorComponent
 		EmoteDeath();
 		actor.physics.ChangeState( PhysicsStateType.Dead );
 
-		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		// Debug spawned buddies don't have eggs to respawn
+		if ( itemData && itemData.respawnItem )
+		{
+			itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		}
 
 		StopCoroutine( _currentEmoteRoutine );
 
