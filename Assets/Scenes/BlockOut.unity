@@ -38215,8 +38215,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: .725490212, b: .0235294122, a: 1}
-  m_Intensity: .829999983
-  m_Range: 70
+  m_Intensity: 4.0999999
+  m_Range: 25
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -38244,7 +38244,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 797908173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 124.9347, y: 22.9656982, z: -25.8067284}
+  m_LocalPosition: {x: 126.040001, y: 22.1700001, z: -33.5600014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1377723598}
@@ -41797,66 +41797,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 457440, guid: 03cf16db9a57c9f4aa6923811f51f21e, type: 2}
   m_PrefabInternal: {fileID: 888811381}
---- !u!1 &889446326
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 889446327}
-  - 108: {fileID: 889446328}
-  m_Layer: 0
-  m_Name: Point light 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &889446327
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 889446326}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 176.600006, y: 40.4000015, z: -27.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1377723598}
-  m_RootOrder: 20
---- !u!108 &889446328
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 889446326}
-  m_Enabled: 1
-  serializedVersion: 6
-  m_Type: 2
-  m_Color: {r: 1, g: 1, b: .627451003, a: 1}
-  m_Intensity: 1.89999998
-  m_Range: 251.479996
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_NormalBias: .400000006
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_BounceIntensity: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!1001 &892025232
 Prefab:
   m_ObjectHideFlags: 0
@@ -62448,7 +62388,6 @@ Transform:
   - {fileID: 983582322}
   - {fileID: 797908175}
   - {fileID: 1897187954}
-  - {fileID: 889446327}
   m_Father: {fileID: 1453699799}
   m_RootOrder: 14
 --- !u!1 &1380542428
@@ -77238,6 +77177,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1453699799}
     m_Modifications:
+    - target: {fileID: 11489526, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _globalFloatProperties.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 484490, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 86.5299988
@@ -77302,6 +77245,18 @@ Prefab:
       propertyPath: _adultTextVolume
       value: 
       objectReference: {fileID: 557916867}
+    - target: {fileID: 11489526, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _globalFloatProperties.Array.data[3].name
+      value: _MinCurveDistance
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489526, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _globalFloatProperties.Array.data[3].value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489526, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _globalFloatProperties.Array.data[2].value
+      value: -.00179999997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
   m_IsPrefabParent: 0
@@ -86062,8 +86017,8 @@ Light:
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 1, g: 1, b: .627451003, a: 1}
-  m_Intensity: 1.89999998
-  m_Range: 251.479996
+  m_Intensity: 4.19999981
+  m_Range: 24.3654366
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -86091,7 +86046,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1897187952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 282.5, y: 40.4000015, z: 5.69999981}
+  m_LocalPosition: {x: 247.369995, y: 26.7299995, z: 4.57000017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1377723598}
