@@ -11,6 +11,9 @@ public class TextBox : MonoBehaviour {
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _maxBackgroundOpacity = 0.75f;
 
+	[SerializeField] float _textDisplayDuration = 7.0f;
+	[SerializeField] float _textFadeOutDuration = 1.0f;
+
 	Coroutine _textFade;
 
 	void Awake()
@@ -32,12 +35,8 @@ public class TextBox : MonoBehaviour {
 		_UIText.color = _UIText.color.SetAlpha( 1.0f );
 		_backgroundImage.color = _backgroundImage.color.SetAlpha( _maxBackgroundOpacity );
 		_UIText.text = textString;
-	}
-	
-	public void SetTextForDuration( string textString, float duration = 5.0f, float fadeoutDuration = 2.0f )
-	{
-		SetText( textString );
-		_textFade = StartCoroutine( Fadeout( duration, fadeoutDuration ) );
+
+		_textFade = StartCoroutine( Fadeout( _textDisplayDuration, _textFadeOutDuration ) );
 	}
 
 	public void ClearText()
