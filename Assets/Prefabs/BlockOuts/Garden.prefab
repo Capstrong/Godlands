@@ -1843,6 +1843,7 @@ GameObject:
   - 23: {fileID: 2343054}
   - 95: {fileID: 9543054}
   - 64: {fileID: 6443076}
+  - 205: {fileID: 20575328}
   m_Layer: 0
   m_Name: Tree_05
   m_TagString: Untagged
@@ -12506,6 +12507,28 @@ CapsuleCollider:
   m_Height: 33.5
   m_Direction: 1
   m_Center: {x: 0, y: 14.1000004, z: 0}
+--- !u!205 &20575328
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143052}
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_LODs:
+  - screenRelativeHeight: .600000024
+    fadeMode: 0
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: .300000012
+    fadeMode: 0
+    fadeTransitionWidth: 0
+    renderers: []
+  - screenRelativeHeight: .100000001
+    fadeMode: 0
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
