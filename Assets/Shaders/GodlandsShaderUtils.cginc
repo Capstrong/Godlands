@@ -42,13 +42,13 @@ float pnoise( float3 x )
 // WORLD BENDING //
 ///////////////////
 
-float _Curvature;			// How fierce is the curve (default is 0.001)
-float _MinCurveDistance;	// How far from the camera does the curve start
+fixed _Curvature;			// How fierce is the curve (default is 0.001)
+fixed _MinCurveDistance;	// How far from the camera does the curve start
 
 inline float4 CalculateWorldBendOffset( appdata_full v )
 {
 	// Transform the vertex coordinates from model space into world space
-    float4 vv = mul( _Object2World, v.vertex );
+    fixed4 vv = mul( _Object2World, v.vertex );
 
     // Now adjust the coordinates to be relative to the camera position
     // Need to clamp somewhere here so there's a little offset before starting
@@ -59,14 +59,9 @@ inline float4 CalculateWorldBendOffset( appdata_full v )
     // Reduce the y coordinate (i.e. lower the "height") of each vertex based
     // on the square of the distance from the camera in the z axis, multiplied
     // by the chosen curvature factor
-    float dist = sqrt( vv.z * vv.z + vv.x * vv.x );
-    dist *= 0.5;
-    
-    dist = clamp(dist - 10, 0, 100000);
-    
-    //float timeOffset = (sin(_Time.y/5) * 0.5 + 0.5);
-    float timeOffset = 1;
-	vv = float4( 0.0f, (dist * dist) * - _Curvature * timeOffset, 0.0f, 0.0f );
+    fixed dist = sqrt( vv.z * vv.z + vv.x * vv.x );
+    dist = clamp(dist - _MinCurveDistance, 0, 100000);
+	vv = fixed4( 0.0f, (dist * dist) * -_Curvature, 0.0f, 0.0f );
 
     // Now apply the offset back to the vertices in model space
     return mul(_World2Object, vv);
@@ -76,16 +71,16 @@ inline float4 CalculateWorldBendOffset( appdata_full v )
 // WIND BENDING //
 //////////////////
 
-float4 _WindDirection; // What direction is the wind blowing (remember that w should be zero)
-float _WindStrength;   // How far do plants bend
-float _WindVariance;   // How fast do plants wax/wane
+fixed4 _WindDirection; // What direction is the wind blowing (remember that w should be zero)
+fixed _WindStrength;   // How far do plants bend
+fixed _WindVariance;   // How fast do plants wax/wane
 
 inline float4 CalculateWindBendOffset( appdata_full v )
 {
-	float4 moveVec = (sin( _Time.y * _WindVariance + pnoise(length( v.vertex ))) * 0.5 + 0.4);
+	fixed4 moveVec = (sin( _Time.y * _WindVariance + pnoise(length( v.vertex ))) * 0.5 + 0.4);
 	moveVec *= mul(_World2Object, normalize(_WindDirection)); // Transform wind direction from world to object space
 	
-	float moveAmount = v.color.r * _WindStrength;
+	fixed moveAmount = v.color.r * _WindStrength;
 	
 	return moveVec * moveAmount;
 }

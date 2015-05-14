@@ -33,8 +33,6 @@ public class BuddyStats : ActorComponent
 		get { return _happiness; }
 	}
 
-	PlayerStats _ownerStats = null;
-
 	[SerializeField] AudioSource _stomachRumbleSound = null;
 	[SerializeField] AudioSource _happySound   = null;
 	[SerializeField] AudioSource _neutralSound = null;
@@ -45,12 +43,12 @@ public class BuddyStats : ActorComponent
 	[ReadOnly("Current Happiness Sound")]
 	[SerializeField] HappinessState _currentHappinessState = HappinessState.Invalid;
 
-	[SerializeField] Material _sadMaterial     = null;
-	[SerializeField] Material _happyMaterial   = null;
-	[SerializeField] Material _neutralMaterial = null;
-	[SerializeField] Material _hungryMaterial  = null;
-	[SerializeField] Material _fullMaterial    = null;
-	[SerializeField] Material _overFedMaterial = null;
+	[SerializeField] Material _hungerEmoteMaterial = null;
+
+	[SerializeField] Texture[] _hungerEmoteTextures = null;
+
+	[SerializeField] Color _badHungerColor = Color.white;
+	[SerializeField] Color _goodHungerColor = Color.white;
 
 	[Tooltip("Time in seconds between happiness/hunger emotes")]
 	[SerializeField] float _emoteRoutineWait = 0f;
@@ -85,15 +83,6 @@ public class BuddyStats : ActorComponent
 	public GodTag owner
 	{
 		get { return _owner; }
-
-		set
-		{
-			_owner = value;
-			if ( _owner )
-			{
-				_ownerStats = _owner.gameObject.GetComponent<PlayerStats>();
-			}
-		}
 	}
 
 	[Tooltip( "Used for setting the color of the buddy when it is created." )]
@@ -102,6 +91,8 @@ public class BuddyStats : ActorComponent
 	{
 		get { return _bodyRenderer; }
 	}
+
+	[SerializeField] TextMultiVolume _adultText = null;
 
 	[ReadOnly]
 	[SerializeField] BuddyState _state = BuddyState.Normal;
@@ -122,15 +113,17 @@ public class BuddyStats : ActorComponent
 		name = "Buddy " + GetRandomName( ID );
 		_resources = _startingResourceCount;
 		_particlesRenderer = _emoteParticles.GetComponent<Renderer>();
-		owner = GameObject.FindObjectOfType<GodTag>();
+		_owner = GameObject.FindObjectOfType<GodTag>();
 		_happiness = _startingHappiness;
 		RestartEmoteRoutine();
+
+		_hungerEmoteMaterial = Instantiate<Material>( _hungerEmoteMaterial );
 	}
 
 	public void Initialize( GodTag godTag, BuddyItemData buddyItemData )
 	{
 		itemData = buddyItemData;
-		owner = godTag;
+		_owner = godTag;
 
 		bodyRenderer.material.color = buddyItemData.statColor;
 
@@ -154,7 +147,7 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
-	public void GiveResource( PlayerStats actorStats, ResourceData resourceData)
+	public void GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
 		DebugUtils.Assert( resourceData, "Trying to give null resource" );
@@ -164,42 +157,35 @@ public class BuddyStats : ActorComponent
 		if ( _resources < _idealResourcesRange.min )
 		{
 			// Hungry
-			Emote( _hungryMaterial );
 			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
 			AdjustHappiness( _happinessIncrementPerResource );
+			RecalculateStat();
 		}
 		else if ( _resources > _idealResourcesRange.max )
 		{
 			// Overfed
-			Emote( _overFedMaterial );
 		}
 		else
 		{
 			// Full
 			AdjustHappiness( _happinessIncrementPerResource );
-			Emote( _fullMaterial );
+			RecalculateStat();
 		}
+
+		UpdateHungerEmoteTexture();
+		EmoteHunger( _hungerEmoteMaterial );
 
 		RestartEmoteRoutine();
 	}
 
-	/// <summary>
-	/// Perform any updates for the buddy that need to happen once every morning.
-	/// </summary>
-	/// <remarks>
-	/// This is only called when the buddy is alive (i.e. not dead and not an adult).
-	/// </remarks>
-	/// <param name="resourceDrain">The number of resources drained each night.
-	/// This changes depending on the number of buddies so it needs to be passed in from BuddyManager.</param>
-	public void NightlyEvent( int resourceDrain )
+	public void AgeUp()
 	{
 		++_age;
-		DecrementResources( resourceDrain );
-		AffectHappinessWithHunger();
-
 		if ( _age >= _adultAge )
 		{
 			_adultParticles.enableEmission = true;
+			_adultParticles.Play();
+			_adultText.gameObject.SetActive( true );
 		}
 	}
 
@@ -207,7 +193,7 @@ public class BuddyStats : ActorComponent
 	{
 		_resources -= resourceDrain;
 
-		if ( _resources <= 0 )
+		if ( _resources <= 0 && isAlive )
 		{
 			Kill();
 		}
@@ -228,7 +214,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			BuddyManager.RecalculateStat( itemData.stat, _ownerStats );
+			BuddyManager.RecalculateStat( itemData.stat );
 		}
 	}
 
@@ -238,8 +224,6 @@ public class BuddyStats : ActorComponent
 
 		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
 
-		RecalculateStat();
-
 		actor.animator.SetFloat( "happiness", _happiness );
 
 		if ( _happiness < _neutralHappinessRange.min
@@ -247,33 +231,30 @@ public class BuddyStats : ActorComponent
 		{
 			// Sad
 			_currentHappinessState = HappinessState.Sad;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _sadSound, transform );
+			PlayHappinessSound( _sadSound );
 		}
 		else if ( _happiness > _neutralHappinessRange.max
 				  && _currentHappinessState != HappinessState.Happy )
 		{
 			// Happy
 			_currentHappinessState = HappinessState.Happy;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _happySound, transform );
+			PlayHappinessSound( _happySound );
 		}
 		else if ( _currentHappinessState != HappinessState.Neutral )
 		{
 			// Neutral
 			_currentHappinessState = HappinessState.Neutral;
-			if ( _currentHappinessSound )
-			{
-				_currentHappinessSound.Stop();
-			}
-			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( _neutralSound, transform );
+			PlayHappinessSound( _neutralSound );
 		}
+	}
+
+	void PlayHappinessSound( AudioSource happinessSound )
+	{
+		if ( _currentHappinessSound )
+		{
+			_currentHappinessSound.Stop();
+		}
+		_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 	}
 
 	void RestartEmoteRoutine()
@@ -283,56 +264,46 @@ public class BuddyStats : ActorComponent
 			StopCoroutine( _currentEmoteRoutine );
 		}
 
-		_currentEmoteRoutine = StartCoroutine( EmoteHappinessRoutine() );
+		_currentEmoteRoutine = StartCoroutine( EmoteHungerRoutine() );
 	}
 
-	IEnumerator EmoteHappinessRoutine()
+	IEnumerator EmoteHungerRoutine()
 	{
-		// Whether happiness or hunger was emoted last
-		bool didHappinessEmoteLast = MathUtils.RandBool();
-
 		while ( true )
 		{
 			yield return new WaitForSeconds( _emoteRoutineWait );
 
-			if ( didHappinessEmoteLast )
-			{
-				if ( _resources < _idealResourcesRange.min )
-				{
-					Emote( _hungryMaterial );
-				}
-				else if ( _resources > _idealResourcesRange.max )
-				{
-					Emote( _overFedMaterial );
-				}
-				else
-				{
-					Emote( _fullMaterial );
-				}
+			UpdateHungerEmoteTexture();
 
-				didHappinessEmoteLast = false;
-			}
-			else
-			{
-				if ( _happiness < _neutralHappinessRange.min )
-				{
-					Emote( _sadMaterial );
-				}
-				else if ( _happiness > _neutralHappinessRange.max )
-				{
-					Emote( _happyMaterial );
-				}
-				else
-				{
-					Emote( _neutralMaterial );
-				}
-
-				didHappinessEmoteLast = true;
-			}
+			EmoteHunger( _hungerEmoteMaterial );
 		}
 	}
 
-	public void Emote( Material emoteMaterial )
+	private void UpdateHungerEmoteTexture()
+	{
+		// A value from 0 - 1 that is based off how good the buddy feels about its hunger level
+		// Goes up until the midpoint of the ideal range then comes back down.
+		float satisfaction;
+
+		if ( _resources < _idealResourcesRange.max )
+		{
+			satisfaction = (float) _resources / _idealResourcesRange.Midpoint;
+		}
+		else
+		{
+			satisfaction = 1f - (float) ( _resources - _idealResourcesRange.Midpoint ) / _idealResourcesRange.Range;
+		}
+
+		satisfaction = Mathf.Clamp( satisfaction, 0f, 1f );
+
+		int textureIndex =  Mathf.RoundToInt( satisfaction * ( _hungerEmoteTextures.Length - 1 ) );
+
+		_hungerEmoteMaterial.mainTexture = _hungerEmoteTextures[ textureIndex ];
+
+		_hungerEmoteMaterial.color = Color.Lerp( _badHungerColor, _goodHungerColor, satisfaction );
+	}
+
+	public void EmoteHunger( Material emoteMaterial )
 	{
 		_emoteParticles.Clear();
 		_particlesRenderer.material = emoteMaterial;
@@ -363,7 +334,11 @@ public class BuddyStats : ActorComponent
 		EmoteDeath();
 		actor.physics.ChangeState( PhysicsStateType.Dead );
 
-		itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		// Debug spawned buddies don't have eggs to respawn
+		if ( itemData && itemData.respawnItem )
+		{
+			itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
+		}
 
 		StopCoroutine( _currentEmoteRoutine );
 

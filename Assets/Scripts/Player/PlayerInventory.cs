@@ -44,7 +44,6 @@ public class PlayerInventory : ActorComponent
 		get { return _isCarryingBuddy; }
 	}
 
-
 	[SerializeField] LayerMask _buddyLayer = 0;
 	public LayerMask buddyLayer
 	{
@@ -128,11 +127,6 @@ public class PlayerInventory : ActorComponent
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
-		if ( CheckPickUpBuddy( hitInfo ) )
-		{
-			return true;
-		}
-
 		if ( _heldResources.Count > 0 )
 		{
 			if ( _heldResources[_resourceIndex] is ResourceData )
@@ -154,15 +148,8 @@ public class PlayerInventory : ActorComponent
 
 		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
-		GodTag godTag = GetComponent<GodTag>(); // For checking if this actor owns the buddy
-
-		if ( buddyStats &&
-		     buddyStats.isAlive &&
-		     ( buddyStats.owner == null || buddyStats.owner == godTag ) )
+		if ( CheckGiveResources( buddyStats ) )
 		{
-			buddyStats.owner = godTag;
-			GiveResource( buddyStats );
-
 			// look at the buddy
 			_playerActor.physics.OverrideLook(
 				buddyStats.GetComponent<Transform>().position - GetComponent<Transform>().position,
@@ -175,7 +162,20 @@ public class PlayerInventory : ActorComponent
 		}
 	}
 
-	bool CheckPickUpBuddy( RaycastHit hitInfo )
+	bool CheckGiveResources( BuddyStats buddyStats )
+	{
+		if ( buddyStats && buddyStats.isAlive )
+		{
+			GiveResource( buddyStats );
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public bool CheckPickUpBuddy( RaycastHit hitInfo )
 	{
 		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
 
@@ -208,7 +208,7 @@ public class PlayerInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (actor as PlayerActor).stats, (ResourceData)_heldResources[_resourceIndex] );
+		buddyStats.GiveResource( (ResourceData) _heldResources[_resourceIndex] );
 		_inventory[_heldResources[_resourceIndex]]--;
 
 		UpdateResourceList();
@@ -222,20 +222,11 @@ public class PlayerInventory : ActorComponent
 			return false;
 		}
 
-		Vector3 spawnLocation;
-
 		RaycastHit hitInfo;
 
 		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
 
-		if ( hitInfo.transform )
-		{
-			spawnLocation = hitInfo.point;
-		}
-		else
-		{
-			spawnLocation = transform.position + transform.forward * _buddySpawnDistance;
-		}
+		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
 		BuddyItemData buddyItemData = (BuddyItemData)_heldResources[_resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
@@ -263,7 +254,35 @@ public class PlayerInventory : ActorComponent
 		_isCarryingBuddy = false;
 	}
 
-	void PickupItem( InventoryItemData itemData )
+	public bool CheckPutDownBuddy()
+	{
+		if ( !_isCarryingBuddy || !_backBuddy.hiddenBuddy.isAlive )
+		{
+			return false;
+		}
+
+		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
+		{
+			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+			return false;
+		}
+
+		RaycastHit hitInfo;
+
+		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
+
+		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
+
+		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
+		_backBuddy.gameObject.SetActive( false );
+		_backBuddy.hiddenBuddy = null;
+		_isCarryingBuddy = false;
+
+		return true;
+	}
+
+	public void PickupItem( InventoryItemData itemData )
 	{
 		if ( !_inventory.ContainsKey( itemData ) )
 		{

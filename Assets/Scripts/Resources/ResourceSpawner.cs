@@ -64,16 +64,19 @@ public class ResourceSpawner : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		Transform trans = GetComponent<Transform>();
-		Gizmos.DrawIcon( trans.position + Vector3.up * 0.5f, "ResourceSpawner.png", true );
+		Transform transform = GetComponent<Transform>();
+
+		Gizmos.matrix = transform.localToWorldMatrix;
+
+		Gizmos.DrawIcon( transform.position + Vector3.up * 0.5f, "ResourceSpawner.png", true );
 
 		Color gizmoColor = Color.yellow;
 
 		Gizmos.color = gizmoColor;
-		Gizmos.DrawWireCube( trans.position, Vector3.one * radius * 2f );
+		Gizmos.DrawWireCube( Vector3.up * radius, Vector3.one * radius * 2f );
 
 		gizmoColor.a = 0.3f;
 		Gizmos.color = gizmoColor;
-		Gizmos.DrawCube( trans.position, Vector3.one * radius * 2f );
+		Gizmos.DrawCube( Vector3.up * radius, Vector3.one * radius * 2f );
 	}
 }

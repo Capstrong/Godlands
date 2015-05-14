@@ -573,6 +573,11 @@ public struct MinMaxF
 	{
 		return ( v < min || max < v );
 	}
+
+	public float Midpoint
+	{
+		get { return ( min + max ) * 0.5f; }
+	}
 }
 
 [System.Serializable]
@@ -600,6 +605,11 @@ public struct MinMaxI
 	public int Random
 	{
 		get { return UnityEngine.Random.Range( min, max ); }
+	}
+
+	public int Midpoint
+	{
+		get { return (int) ( ( min + max ) * 0.5f ); }
 	}
 
 	public bool IsOutside( int v )

@@ -24,7 +24,7 @@ Shader "Custom/EnvironmentAlphaCheap"
 
 		sampler2D _MainTex;
 
-		float _EmissiveStrength;
+		fixed _EmissiveStrength;
 		fixed4 _Color;
 
 		struct Input 
