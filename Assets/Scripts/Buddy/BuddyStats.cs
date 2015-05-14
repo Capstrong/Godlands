@@ -202,7 +202,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			if ( _idealResourcesRange.IsOutside( _resources ) )
+			if ( _resources < _idealResourcesRange.min )
 			{
 				AdjustHappiness( -_nightlyHappinessDecrement );
 			}
@@ -223,7 +223,11 @@ public class BuddyStats : ActorComponent
 
 		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
 
-		actor.animator.SetFloat( "happiness", _happiness );
+		// Hidden buddy is disabled
+		if ( gameObject.activeSelf )
+		{
+			actor.animator.SetFloat( "happiness", _happiness );
+		}
 
 		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
@@ -249,11 +253,15 @@ public class BuddyStats : ActorComponent
 
 	void PlayHappinessSound( AudioSource happinessSound )
 	{
-		if ( _currentHappinessSound )
+		// Sometimes we do this on the hidden buddy which is disabled and can't and shouldn't play sound
+		if ( gameObject.activeSelf )
 		{
-			_currentHappinessSound.Stop();
+			if ( _currentHappinessSound )
+			{
+				_currentHappinessSound.Stop();
+			}
+			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 		}
-		_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 	}
 
 	void RestartEmoteRoutine()
