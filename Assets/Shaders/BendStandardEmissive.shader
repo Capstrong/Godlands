@@ -54,13 +54,7 @@
 			o.Emission = tex2D(_EmissionTex, IN.uv_EmissionTex) * _EmissionColor;
 		}
 		ENDCG
-	} 
-	
-	
+	}
 	
 	FallBack "Diffuse"
-	
-	
-	
-
 }
