@@ -315,6 +315,22 @@ public class PlayerControls : MonoBehaviour
 						}
 					}
 				}
+				else if ( player.controls.holdButton.down )
+				{
+					if ( player.inventory.CheckPutDownBuddy() )
+					{
+						// Buddy was put down
+					}
+					else
+					{
+						RaycastHit hitInfo;
+						if ( player.controls.RaycastForward( out hitInfo )
+						  && player.inventory.CheckPickUpBuddy( hitInfo ) )
+						{
+							// Buddy was picked up
+						}
+					}
+				}
 
 				if ( player.controls.sprintButton )
 				{
@@ -413,7 +429,7 @@ public class PlayerControls : MonoBehaviour
 		Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
 		if ( interactable )
 		{
-			_textBox.SetTextForDuration( interactable.interactText, interactable.duration );
+			_textBox.SetText( interactable.interactText );
 			return true;
 		}
 
@@ -518,8 +534,7 @@ public class PlayerControls : MonoBehaviour
 
 	public void Teleport( Vector3 toPosition, Quaternion toRotation = new Quaternion(), bool snapCamera = true )
 	{
-		transform.position = toPosition;
-		transform.rotation = toRotation;
+		_actor.physics.Teleport( toPosition, toRotation );
 
 		if ( snapCamera )
 		{

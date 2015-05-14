@@ -3,12 +3,6 @@ using System.Collections;
 
 public abstract class TextVolume : MonoBehaviour
 {
-	[SerializeField] bool _fadeOut = true;
-	[SerializeField] float _timeUntilFadeout = 7.0f;
-	[SerializeField] float _fadeoutDuration = 2.0f;
-
-	[SerializeField] bool _triggerOnce = true;
-
 	[ReadOnly]
 	[SerializeField] bool _hasBeenTriggered = false;
 
@@ -40,16 +34,8 @@ public abstract class TextVolume : MonoBehaviour
 	{
 		if ( !_hasBeenTriggered )
 		{
-			if ( _fadeOut )
-			{
-				_textBox.SetTextForDuration( text, _timeUntilFadeout, _fadeoutDuration );
-			}
-			else
-			{
-				_textBox.SetText( text );
-			}
-
-			_hasBeenTriggered = _triggerOnce;
+			_textBox.SetText( text );
+			_hasBeenTriggered = true;
 		}
 	}
 }
