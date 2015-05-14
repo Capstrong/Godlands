@@ -41,7 +41,7 @@ float pnoise( float3 x )
 ///////////////////
 // WORLD BENDING //
 ///////////////////
-
+ 
 fixed _Curvature;			// How fierce is the curve (default is 0.001)
 fixed _MinCurveDistance;	// How far from the camera does the curve start
 
@@ -55,10 +55,10 @@ inline fixed4 CalculateOffset( fixed4 vv )
 	return fixed4( 0.0f, (dist * dist) * -_Curvature, 0.0f, 0.0f );
 }
 
-inline fixed4 CalculateWorldBendOffset( appdata_full v )
+inline fixed4 WorldSpaceCalculateWorldBendOffset( fixed4 vv )
 {
 	// Transform the vertex coordinates from model space into world space
-	fixed4 vv = mul( _Object2World, v.vertex );
+	vv = mul( _Object2World, vv );
 	
 	// Now adjust the coordinates to be relative to the camera position
     // Need to clamp somewhere here so there's a little offset before starting
@@ -77,10 +77,19 @@ struct appdata_t
 	float2 texcoord : TEXCOORD0;
 };
 
-inline fixed4 CalculateWorldBendOffset( fixed4 vv )
+inline fixed4 CameraSpaceCalculateWorldBendOffset( fixed4 vv )
 {
-    return CalculateOffset( vv );
-    //return mul(_World2Object, vv);
+    float4x4 inverseView = transpose( UNITY_MATRIX_V );
+
+    inverseView._m32 *= -1;
+    inverseView._m31 *= -1;
+    inverseView._m30 *= -1;
+    
+    vv = mul( inverseView, vv );
+   	vv = CalculateOffset( vv );
+   	
+    // Now apply the offset back to the vertices in model space
+    return mul( UNITY_MATRIX_V, vv );
 }
 
 //////////////////
