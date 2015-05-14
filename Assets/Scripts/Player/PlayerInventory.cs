@@ -208,10 +208,11 @@ public class PlayerInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (ResourceData) _heldResources[_resourceIndex] );
-		_inventory[_heldResources[_resourceIndex]]--;
-
-		UpdateResourceList();
+		if ( buddyStats.GiveResource( (ResourceData)_heldResources[_resourceIndex] ) )
+		{
+			_inventory[_heldResources[_resourceIndex]]--;
+			UpdateResourceList();
+		}
 	}
 
 	bool SpawnBuddy()

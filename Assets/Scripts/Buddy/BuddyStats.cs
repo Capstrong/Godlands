@@ -147,35 +147,34 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
-	public void GiveResource( ResourceData resourceData )
+	public bool GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
 		DebugUtils.Assert( resourceData, "Trying to give null resource" );
 
-		_resources++;
-
-		if ( _resources < _idealResourcesRange.min )
+		if ( _resources < _idealResourcesRange.max )
 		{
-			// Hungry
-			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			_resources++;
+
+			if ( _resources < _idealResourcesRange.min )
+			{
+				SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			}
+
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
-		}
-		else if ( _resources > _idealResourcesRange.max )
-		{
-			// Overfed
+
+			UpdateHungerEmoteTexture();
+			EmoteHunger( _hungerEmoteMaterial );
+
+			RestartEmoteRoutine();
+
+			return true;
 		}
 		else
 		{
-			// Full
-			AdjustHappiness( _happinessIncrementPerResource );
-			RecalculateStat();
+			return false;
 		}
-
-		UpdateHungerEmoteTexture();
-		EmoteHunger( _hungerEmoteMaterial );
-
-		RestartEmoteRoutine();
 	}
 
 	public void AgeUp()
