@@ -45,26 +45,42 @@ float pnoise( float3 x )
 fixed _Curvature;			// How fierce is the curve (default is 0.001)
 fixed _MinCurveDistance;	// How far from the camera does the curve start
 
-inline float4 CalculateWorldBendOffset( appdata_full v )
+inline fixed4 CalculateOffset( fixed4 vv )
 {
-	// Transform the vertex coordinates from model space into world space
-    fixed4 vv = mul( _Object2World, v.vertex );
-
-    // Now adjust the coordinates to be relative to the camera position
-    // Need to clamp somewhere here so there's a little offset before starting
-    vv.xyz -= _WorldSpaceCameraPos.xyz;
-
-	//vv.z -= _MinCurveDistance * sign(vv.z);
- 
     // Reduce the y coordinate (i.e. lower the "height") of each vertex based
     // on the square of the distance from the camera in the z axis, multiplied
     // by the chosen curvature factor
     fixed dist = sqrt( vv.z * vv.z + vv.x * vv.x );
     dist = clamp(dist - _MinCurveDistance, 0, 100000);
-	vv = fixed4( 0.0f, (dist * dist) * -_Curvature, 0.0f, 0.0f );
+	return fixed4( 0.0f, (dist * dist) * -_Curvature, 0.0f, 0.0f );
+}
+
+inline fixed4 CalculateWorldBendOffset( appdata_full v )
+{
+	// Transform the vertex coordinates from model space into world space
+	fixed4 vv = mul( _Object2World, v.vertex );
+	
+	// Now adjust the coordinates to be relative to the camera position
+    // Need to clamp somewhere here so there's a little offset before starting
+    vv.xyz -= _WorldSpaceCameraPos.xyz;
+    
+   	vv = CalculateOffset( vv );
 
     // Now apply the offset back to the vertices in model space
     return mul(_World2Object, vv);
+}
+
+struct appdata_t 
+{
+	float4 vertex : POSITION;
+	fixed4 color : COLOR;
+	float2 texcoord : TEXCOORD0;
+};
+
+inline fixed4 CalculateWorldBendOffset( fixed4 vv )
+{
+    return CalculateOffset( vv );
+    //return mul(_World2Object, vv);
 }
 
 //////////////////
