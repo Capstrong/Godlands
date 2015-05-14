@@ -281,17 +281,7 @@ public class BuddyStats : ActorComponent
 	private void UpdateHungerEmoteTexture()
 	{
 		// A value from 0 - 1 that is based off how good the buddy feels about its hunger level
-		// Goes up until the midpoint of the ideal range then comes back down.
-		float satisfaction;
-
-		if ( _resources < _idealResourcesRange.max )
-		{
-			satisfaction = (float) _resources / _idealResourcesRange.Midpoint;
-		}
-		else
-		{
-			satisfaction = 1f - (float) ( _resources - _idealResourcesRange.Midpoint ) / _idealResourcesRange.Range;
-		}
+		float satisfaction = (float) _resources / _idealResourcesRange.max;
 
 		satisfaction = Mathf.Clamp( satisfaction, 0f, 1f );
 
