@@ -200,10 +200,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 4286479998
+        rgba: 1764687921
       maxColor:
         serializedVersion: 2
-        rgba: 4287466893
+        rgba: 4286513285
       minMaxState: 2
     startSize:
       scalar: .899999976
@@ -264,6 +264,7 @@ ParticleSystem:
     boxX: 1
     boxY: 1
     boxZ: 1
+    arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
     randomDirection: 0
@@ -1070,15 +1071,19 @@ ParticleSystemRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 33216e277de28f1408404fcb615c41fe, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_RenderMode: 0
@@ -1104,4 +1109,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
