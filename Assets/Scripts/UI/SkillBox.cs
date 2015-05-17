@@ -2,61 +2,50 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SkillBox : MonoBehaviour 
+public class SkillBox : SkillUI 
 {
-	[SerializeField] Stat _stat = 0;	
-	PlayerStats _playerStats = null;
-
 	Text[] _textObjs;
 	Image _statImage = null;
-	StatUIIconTag _icon = null;
 
 	Color _initColor = Color.white;
 
 	[SerializeField] float _statScaleMod = 3f;
 
-	int _prevStatAmount = 0;
-	int _currentStatAmount = 0;
-
-	void Awake()
+	new void Awake()
 	{
-		_playerStats = GameObject.FindObjectOfType<PlayerStats>();
-		_textObjs = GetComponentsInChildren<Text>();
-		_icon = GetComponentInChildren<StatUIIconTag>();
-		
+		base.Awake();
+
+		_textObjs = GetComponentsInChildren<Text>();		
 
 		_statImage = GetComponent<Image>();
 		_initColor = _statImage.color;
 
-		if( _currentStatAmount == 0 )
+		SetStat( 0f );
+		SetMaxStat( 0f );
+	}
+
+	public override void SetStat( float stat )
+	{
+		int currentStatAmount = Mathf.CeilToInt( stat * _statScaleMod );
+
+		if ( currentStatAmount == 0 )
 		{
 			HideStatBox();
 		}
-	}
-
-	void Update()
-	{
-		_currentStatAmount = Mathf.CeilToInt( _playerStats.GetStatValue( _stat ) * _statScaleMod );
-
-		if( _currentStatAmount != _prevStatAmount )
+		else
 		{
-			if( _currentStatAmount == 0 )
-			{
-				HideStatBox();
-			}
-			else
-			{
-				_icon.gameObject.SetActive( true );
+			_icon.gameObject.SetActive( true );
 
-				foreach( Text text in _textObjs )
-				{
-					text.text = _currentStatAmount.ToString();
-				}
-
-				_statImage.color = _initColor;
+			foreach( Text text in _textObjs )
+			{
+				text.text = currentStatAmount.ToString();
 			}
+
+			_statImage.color = _initColor;
 		}
 	}
+
+	public override void SetMaxStat( float stat ) { }
 
 	void HideStatBox()
 	{
@@ -67,6 +56,6 @@ public class SkillBox : MonoBehaviour
 		
 		_icon.gameObject.SetActive( false );
 
-		_statImage.color = Color.white - new Color( 0f, 0f, 0f, 1f );
+		_statImage.color = _statImage.color.SetAlpha( 0f );
 	}
 }
