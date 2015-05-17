@@ -9,6 +9,7 @@ public class SkillBox : MonoBehaviour
 
 	Text[] _textObjs;
 	Image _statImage = null;
+	StatUIIconTag _icon = null;
 
 	Color _initColor = Color.white;
 
@@ -21,6 +22,8 @@ public class SkillBox : MonoBehaviour
 	{
 		_playerStats = GameObject.FindObjectOfType<PlayerStats>();
 		_textObjs = GetComponentsInChildren<Text>();
+		_icon = GetComponentInChildren<StatUIIconTag>();
+		
 
 		_statImage = GetComponent<Image>();
 		_initColor = _statImage.color;
@@ -43,6 +46,8 @@ public class SkillBox : MonoBehaviour
 			}
 			else
 			{
+				_icon.gameObject.SetActive( true );
+
 				foreach( Text text in _textObjs )
 				{
 					text.text = _currentStatAmount.ToString();
@@ -60,6 +65,8 @@ public class SkillBox : MonoBehaviour
 			text.text = "";
 		}
 		
+		_icon.gameObject.SetActive( false );
+
 		_statImage.color = Color.white - new Color( 0f, 0f, 0f, 1f );
 	}
 }
