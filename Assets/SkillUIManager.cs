@@ -8,13 +8,13 @@ public class SkillUIManager : SingletonBehaviour<SkillUIManager>
 
 	[SerializeField] SkillUIDictionary _skillUIDictionary = null;
 
-	public void UpdateStatUI( Stat stat, float statValue )
+	public static void UpdateStatUI( Stat stat, float statValue )
 	{
-		_skillUIDictionary[stat].SetStat( statValue );
+		instance._skillUIDictionary[stat].SetStat( statValue );
 	}
 
-	public void UpdateMaxStatUI( Stat stat, float maxStatValue )
+	public static void UpdateMaxStatUI( Stat stat, float maxStatValue )
 	{
-		_skillUIDictionary[stat].SetMaxStat( maxStatValue );
+		instance._skillUIDictionary[stat].SetMaxStat( maxStatValue );
 	}
 }
