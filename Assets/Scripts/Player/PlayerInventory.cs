@@ -51,6 +51,11 @@ public class PlayerInventory : ActorComponent
 	}
 
 	[SerializeField] float _buddySpawnDistance = 3.0f;
+
+	[SerializeField] float _backBuddyHappinessWaitTime = 0.0f;
+	[SerializeField] float _backBuddyHappinessIncrement = 0.0f;
+
+	Coroutine _backBuddyHappinessRoutine = null;
 	
 	AxisButtons _altScrollButton = new AxisButtons("Alt_Scroll");
 
@@ -202,16 +207,41 @@ public class PlayerInventory : ActorComponent
 			_backBuddy.hiddenBuddy = buddyStats;
 			_backBuddy.hiddenBuddy.gameObject.SetActive( false );
 
+			if ( _backBuddyHappinessRoutine != null )
+			{
+				StopCoroutine( _backBuddyHappinessRoutine );
+			}
+
+			_backBuddyHappinessRoutine = StartCoroutine( BackBuddyHappinessRoutine( _backBuddy.hiddenBuddy ) );
 			_isCarryingBuddy = true;
+		}
+	}
+
+	IEnumerator BackBuddyHappinessRoutine( BuddyStats buddyStats )
+	{
+		while ( true )
+		{
+			// Wait time should be first so that the player cannot spam pick up/put down
+			// to get happiness for free
+			yield return new WaitForSeconds( _backBuddyHappinessWaitTime );
+
+			buddyStats.AdjustHappiness( _backBuddyHappinessIncrement );
+			buddyStats.RecalculateStat();
+
+			if ( buddyStats.happiness >= 1.0f )
+			{
+				yield break;
+			}
 		}
 	}
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		buddyStats.GiveResource( (ResourceData) _heldResources[_resourceIndex] );
-		_inventory[_heldResources[_resourceIndex]]--;
-
-		UpdateResourceList();
+		if ( buddyStats.GiveResource( (ResourceData)_heldResources[_resourceIndex] ) )
+		{
+			_inventory[_heldResources[_resourceIndex]]--;
+			UpdateResourceList();
+		}
 	}
 
 	bool SpawnBuddy()
@@ -247,6 +277,12 @@ public class PlayerInventory : ActorComponent
 		if ( _isCarryingBuddy && _backBuddy.hiddenBuddy.isAlive )
 		{
 			_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+			_backBuddy.hiddenBuddy.BackReset();
+		}
+
+		if ( _backBuddyHappinessRoutine != null )
+		{
+			StopCoroutine( _backBuddyHappinessRoutine );
 		}
 
 		_backBuddy.gameObject.SetActive( false );
@@ -274,9 +310,16 @@ public class PlayerInventory : ActorComponent
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
 		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+		_backBuddy.hiddenBuddy.BackReset();
 		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
 		_backBuddy.gameObject.SetActive( false );
 		_backBuddy.hiddenBuddy = null;
+
+		if ( _backBuddyHappinessRoutine != null )
+		{
+			StopCoroutine( _backBuddyHappinessRoutine );
+		}
+
 		_isCarryingBuddy = false;
 
 		return true;

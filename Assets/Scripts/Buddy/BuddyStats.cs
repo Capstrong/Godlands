@@ -147,35 +147,34 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
-	public void GiveResource( ResourceData resourceData )
+	public bool GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
 		DebugUtils.Assert( resourceData, "Trying to give null resource" );
 
-		_resources++;
-
-		if ( _resources < _idealResourcesRange.min )
+		if ( _resources < _idealResourcesRange.max )
 		{
-			// Hungry
-			SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			_resources++;
+
+			if ( _resources < _idealResourcesRange.min )
+			{
+				SoundManager.Play3DSoundAtPosition( _stomachRumbleSound, transform.position );
+			}
+
 			AdjustHappiness( _happinessIncrementPerResource );
 			RecalculateStat();
-		}
-		else if ( _resources > _idealResourcesRange.max )
-		{
-			// Overfed
+
+			UpdateHungerEmoteTexture();
+			EmoteHunger( _hungerEmoteMaterial );
+
+			RestartEmoteRoutine();
+
+			return true;
 		}
 		else
 		{
-			// Full
-			AdjustHappiness( _happinessIncrementPerResource );
-			RecalculateStat();
+			return false;
 		}
-
-		UpdateHungerEmoteTexture();
-		EmoteHunger( _hungerEmoteMaterial );
-
-		RestartEmoteRoutine();
 	}
 
 	public void AgeUp()
@@ -203,7 +202,7 @@ public class BuddyStats : ActorComponent
 	{
 		if ( !_disableStatDecrease )
 		{
-			if ( _idealResourcesRange.IsOutside( _resources ) )
+			if ( _resources < _idealResourcesRange.min )
 			{
 				AdjustHappiness( -_nightlyHappinessDecrement );
 			}
@@ -224,7 +223,11 @@ public class BuddyStats : ActorComponent
 
 		_happiness = Mathf.Clamp( _happiness, 0f, 1f );
 
-		actor.animator.SetFloat( "happiness", _happiness );
+		// Hidden buddy is disabled
+		if ( gameObject.activeSelf )
+		{
+			actor.animator.SetFloat( "happiness", _happiness );
+		}
 
 		if ( _happiness < _neutralHappinessRange.min
 			 && _currentHappinessState != HappinessState.Sad )
@@ -250,11 +253,15 @@ public class BuddyStats : ActorComponent
 
 	void PlayHappinessSound( AudioSource happinessSound )
 	{
-		if ( _currentHappinessSound )
+		// Sometimes we do this on the hidden buddy which is disabled and can't and shouldn't play sound
+		if ( gameObject.activeSelf )
 		{
-			_currentHappinessSound.Stop();
+			if ( _currentHappinessSound )
+			{
+				_currentHappinessSound.Stop();
+			}
+			_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 		}
-		_currentHappinessSound = SoundManager.Play3DSoundAndFollow( happinessSound, transform );
 	}
 
 	void RestartEmoteRoutine()
@@ -282,17 +289,7 @@ public class BuddyStats : ActorComponent
 	private void UpdateHungerEmoteTexture()
 	{
 		// A value from 0 - 1 that is based off how good the buddy feels about its hunger level
-		// Goes up until the midpoint of the ideal range then comes back down.
-		float satisfaction;
-
-		if ( _resources < _idealResourcesRange.max )
-		{
-			satisfaction = (float) _resources / _idealResourcesRange.Midpoint;
-		}
-		else
-		{
-			satisfaction = 1f - (float) ( _resources - _idealResourcesRange.Midpoint ) / _idealResourcesRange.Range;
-		}
+		float satisfaction = (float) _resources / _idealResourcesRange.max;
 
 		satisfaction = Mathf.Clamp( satisfaction, 0f, 1f );
 
@@ -356,6 +353,15 @@ public class BuddyStats : ActorComponent
 		_state = BuddyState.Adult;
 		gameObject.SetActive( false );
 		Destroy( GetComponent<AIController>() );
+	}
+
+	// This takes care of everything that needs to be updated after the buddy is
+	// put down from being on the player character's back
+	public void BackReset()
+	{
+		// This will update the happiness variable on the animator and
+		// restart the happiness sound
+		AdjustHappiness( 0f );
 	}
 
 	public float hunger

@@ -29,8 +29,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146330}
   m_LocalRotation: {x: 0, y: .999756336, z: 0, w: .0220750105}
-  m_LocalPosition: {x: -15.6700001, y: -.230000004, z: 38.8300018}
-  m_LocalScale: {x: 4.99641037, y: 5.38221884, z: 4.99641037}
+  m_LocalPosition: {x: -17.25, y: 49.5600014, z: 8.01000023}
+  m_LocalScale: {x: 3.16475415, y: 2.81800222, z: 3.16475415}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -231,19 +231,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfc49abb5ec3c14a96c2770cd43474c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingHealth: 1
+  _startingHealth: 1.75
   _hitParticle: {fileID: 19800000, guid: 95dcc758ae0df2940806456ef50c26bb, type: 2}
   _deathParticle: {fileID: 19800000, guid: 52e0d879875f5514db825f0498d6c0d6, type: 2}
   _particleLifetime: 1
-  _particleColor: {r: .900507152, g: .198529422, b: 1, a: 1}
+  _particleColor: {r: .522058845, g: 0, b: .498318702, a: 1}
   _hitSound: {fileID: 8283948}
   _deathSound: {fileID: 8282412}
-  _verticalOffset: 1
+  _verticalOffset: 2
   _maxNumberOfSwipes: 10
   _respawnTime: 10
   _playerLayer:
     serializedVersion: 2
     m_Bits: 3072
+  _alphaCutoffRange:
+    min: .239999995
+    max: .899999976
+  _startingOverlayColor: {r: 1, g: 0, b: 1, a: 1}
+  _endingOverlayColor: {r: .397058845, g: .263041407, b: .0934256017, a: 1}
 --- !u!136 &13646130
 CapsuleCollider:
   m_ObjectHideFlags: 1
