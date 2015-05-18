@@ -51,6 +51,8 @@ public class PlayerStats : ActorComponent
 
 		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = maxValue;
+
+		SkillUIManager.UpdateMaxStatUI( stat, maxValue );
 	}
 
 	public bool CanUseStat( Stat stat )
@@ -96,6 +98,8 @@ public class PlayerStats : ActorComponent
 
 					StopUsingStat( pair.Key );
 				}
+
+				SkillUIManager.UpdateStatUI( pair.Key, pair.Value.currentValue );
 			}
 			else
 			{
@@ -109,6 +113,8 @@ public class PlayerStats : ActorComponent
 					{
 						statObject.currentValue = statObject.currentMax;
 					}
+
+					SkillUIManager.UpdateStatUI( pair.Key, pair.Value.currentValue );
 				}
 			}
 		}

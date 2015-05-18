@@ -15,7 +15,11 @@ public class Cuttable : MonoBehaviour
 	[SerializeField] int _maxNumberOfSwipes = 0;
 	[SerializeField] float _respawnTime = 0.0f;
 	[SerializeField] LayerMask _playerLayer = 0;
+	[SerializeField] MinMaxF _alphaCutoffRange = new MinMaxF();
+	[SerializeField] Color _startingOverlayColor = Color.white;
+	[SerializeField] Color _endingOverlayColor = Color.white;
 
+	[ReadOnly]
 	private float _health = 0.0f;
 	private bool _deactivated = false;
 	private bool _readyToReactivate = false;
@@ -32,7 +36,7 @@ public class Cuttable : MonoBehaviour
 
 	void Start()
 	{
-		_health = _startingHealth;
+		Reactivate();
 	}
 
 	public void Cut( float cuttingLevel )
@@ -48,6 +52,9 @@ public class Cuttable : MonoBehaviour
 			Destroy( particleObj.gameObject, _particleLifetime );
 
 			SoundManager.Play3DSoundAtPosition( _hitSound, transform.position );
+
+			_renderer.material.SetFloat( "_Cutoff", Mathf.Lerp( _alphaCutoffRange.max, _alphaCutoffRange.min, _health / _startingHealth ) );
+			_renderer.material.SetColor( "_ColorOverlayA", Color.Lerp( _endingOverlayColor, _startingOverlayColor, _health / _startingHealth ) );
 
 			if ( _health <= 0 )
 			{
@@ -105,5 +112,7 @@ public class Cuttable : MonoBehaviour
 		_collider.isTrigger = false;
 		_readyToReactivate = false;
 		_health = _startingHealth;
+		_renderer.material.SetFloat( "_Cutoff", _alphaCutoffRange.min );
+		_renderer.material.SetColor( "_ColorOverlayA", _startingOverlayColor );
 	}
 }
