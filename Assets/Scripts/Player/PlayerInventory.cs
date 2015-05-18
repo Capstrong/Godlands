@@ -277,6 +277,7 @@ public class PlayerInventory : ActorComponent
 		if ( _isCarryingBuddy && _backBuddy.hiddenBuddy.isAlive )
 		{
 			_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+			_backBuddy.hiddenBuddy.BackReset();
 		}
 
 		if ( _backBuddyHappinessRoutine != null )
@@ -309,6 +310,7 @@ public class PlayerInventory : ActorComponent
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
 		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+		_backBuddy.hiddenBuddy.BackReset();
 		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
 		_backBuddy.gameObject.SetActive( false );
 		_backBuddy.hiddenBuddy = null;

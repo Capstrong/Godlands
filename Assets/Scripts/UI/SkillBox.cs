@@ -11,7 +11,7 @@ public class SkillBox : SkillUI
 
 	[SerializeField] float _statScaleMod = 3f;
 
-	new void Awake()
+	protected override void Awake()
 	{
 		base.Awake();
 

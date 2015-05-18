@@ -355,6 +355,15 @@ public class BuddyStats : ActorComponent
 		Destroy( GetComponent<AIController>() );
 	}
 
+	// This takes care of everything that needs to be updated after the buddy is
+	// put down from being on the player character's back
+	public void BackReset()
+	{
+		// This will update the happiness variable on the animator and
+		// restart the happiness sound
+		AdjustHappiness( 0f );
+	}
+
 	public float hunger
 	{
 		get

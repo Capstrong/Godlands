@@ -9,9 +9,7 @@ public class SkillUI : MonoBehaviour
 	public virtual void SetStat( float stat ) { } 
 	public virtual void SetMaxStat( float stat ) { }
 
-	public SkillUI() { }
-
-	protected void Awake()
+	protected virtual void Awake()
 	{
 		_icon = GetComponentInChildren<StatUIIconTag>();
 		_playerStats = GameObject.FindObjectOfType<PlayerStats>();

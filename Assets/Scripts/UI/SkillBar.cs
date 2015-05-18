@@ -9,7 +9,7 @@ public class SkillBar : SkillUI
 	RectTransform _uiBarRectFront = null;
 	RectTransform _uiBarRectBack = null;
 
-	new void Awake()
+	protected override void Awake()
 	{
 		base.Awake();
 		_uiBarRectBack = GetComponent<RectTransform>();

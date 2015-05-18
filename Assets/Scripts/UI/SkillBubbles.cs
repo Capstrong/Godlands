@@ -14,7 +14,7 @@ public class SkillBubbles : SkillUI
 
 	static Color _blank = new Color( 0f, 0f, 0f, 0f );
 
-	public new void Awake()
+	protected override void Awake()
 	{
 		base.Awake();
 
