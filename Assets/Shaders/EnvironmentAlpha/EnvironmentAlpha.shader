@@ -44,6 +44,7 @@ Shader "Custom/EnvironmentAlpha"
 
 		void vert ( inout appdata_full v, out Input o )
 		{
+			UNITY_INITIALIZE_OUTPUT(Input,o)
 			v.vertex += WorldSpaceCalculateWorldBendOffset( v.vertex );
 			o.normal = v.normal;
 		}
