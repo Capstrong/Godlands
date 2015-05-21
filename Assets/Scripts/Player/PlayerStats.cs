@@ -26,8 +26,8 @@ public class StatObject
 	public float rechargeTimer = 0.0f;
 
 	public delegate void StatUpdateCallback( float newValue );
-	public StatUpdateCallback UpdateMaxStat = delegate {};
-	public StatUpdateCallback UpdateStat = delegate {};
+	public StatUpdateCallback UpdateMaxStatCallback = delegate {};
+	public StatUpdateCallback UpdateStatCallback = delegate {};
 }
 
 [System.Serializable]
@@ -61,7 +61,7 @@ public class PlayerStats : ActorComponent
 		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = maxValue;
 
-		statObject.UpdateMaxStat( maxValue );
+		statObject.UpdateMaxStatCallback( maxValue );
 	}
 
 	public bool CanUseStat( Stat stat )
@@ -108,7 +108,7 @@ public class PlayerStats : ActorComponent
 					StopUsingStat( pair.Key );
 				}
 
-				statObject.UpdateStat( pair.Value.currentValue );
+				statObject.UpdateStatCallback( pair.Value.currentValue );
 			}
 			else
 			{
@@ -123,7 +123,7 @@ public class PlayerStats : ActorComponent
 						statObject.currentValue = statObject.currentMax;
 					}
 
-					statObject.UpdateStat( pair.Value.currentValue );
+					statObject.UpdateStatCallback( pair.Value.currentValue );
 				}
 			}
 		}

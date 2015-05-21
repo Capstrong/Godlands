@@ -16,7 +16,7 @@ public class SkillUI : MonoBehaviour
 		_icon = GetComponentInChildren<StatUIIconTag>();
 		_playerStats = GameObject.FindObjectOfType<PlayerStats>();
 
-		_playerStats.GetStatObject( _stat ).UpdateStat += SetStat;
-		_playerStats.GetStatObject( _stat ).UpdateMaxStat += SetMaxStat;
+		_playerStats.GetStatObject( _stat ).UpdateStatCallback += SetStat;
+		_playerStats.GetStatObject( _stat ).UpdateMaxStatCallback += SetMaxStat;
 	}
 }
