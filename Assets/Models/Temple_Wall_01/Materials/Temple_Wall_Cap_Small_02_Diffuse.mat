@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Temple_Wall_Cap_Small_02_Diffuse
-  m_Shader: {fileID: 4800000, guid: 0df65694f314348e694dcdbcbc78ae56, type: 3}
+  m_Shader: {fileID: 4800000, guid: f05ca9250ffb146c78f77845dd93ef83, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -92,16 +92,28 @@ Material:
         second: 0
       data:
         first:
+          name: _Glossiness
+        second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Curvature
+        second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
         first:
           name: _ZWrite
         second: 1
-      data:
-        first:
-          name: _Glossiness
-        second: .5
       data:
         first:
           name: _BumpScale
@@ -126,18 +138,6 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _Metallic
-        second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
     m_Colors:
       data:
         first:
