@@ -24,6 +24,10 @@ public class StatObject
 
 	[ReadOnly]
 	public float rechargeTimer = 0.0f;
+
+	public delegate void StatUpdateCallback( float newValue );
+	public StatUpdateCallback UpdateMaxStatCallback = delegate {};
+	public StatUpdateCallback UpdateStatCallback = delegate {};
 }
 
 [System.Serializable]
@@ -45,6 +49,11 @@ public class PlayerStats : ActorComponent
 		}
 	}
 
+	public StatObject GetStatObject( Stat stat )
+	{
+		return _statDictionary[stat];
+	}
+
 	public void SetMaxStat( Stat stat, float maxValue )
 	{
 		DebugUtils.Assert( maxValue >= 0.0f, "Max stat value must be greater than or equal to 0." );
@@ -52,7 +61,7 @@ public class PlayerStats : ActorComponent
 		StatObject statObject = _statDictionary[stat];
 		statObject.currentMax = maxValue;
 
-		SkillUIManager.UpdateMaxStatUI( stat, maxValue );
+		statObject.UpdateMaxStatCallback( maxValue );
 	}
 
 	public bool CanUseStat( Stat stat )
@@ -99,7 +108,7 @@ public class PlayerStats : ActorComponent
 					StopUsingStat( pair.Key );
 				}
 
-				SkillUIManager.UpdateStatUI( pair.Key, pair.Value.currentValue );
+				statObject.UpdateStatCallback( pair.Value.currentValue );
 			}
 			else
 			{
@@ -114,7 +123,7 @@ public class PlayerStats : ActorComponent
 						statObject.currentValue = statObject.currentMax;
 					}
 
-					SkillUIManager.UpdateStatUI( pair.Key, pair.Value.currentValue );
+					statObject.UpdateStatCallback( pair.Value.currentValue );
 				}
 			}
 		}
