@@ -202,6 +202,12 @@ public class PlayerCamera : ActorComponent
 		float turnSpeedMod = Mathf.InverseLerp( _turnAssistMinAngle, 180f, angleDistance );
 		turnSpeedMod = _turnAssistCurve.Evaluate( turnSpeedMod );
 
+		if( float.IsNaN( turnSpeedMod ) )
+		{
+			Debug.Log( "BAD NUMBER" );
+			turnSpeedMod = 1f;
+		}
+
 		cam.transform.RotateAround( transform.position,
 		                            cam.transform.up,
 		                            turnSpeedMod * _turnAssistTurnSpeed * xMoveInput );
