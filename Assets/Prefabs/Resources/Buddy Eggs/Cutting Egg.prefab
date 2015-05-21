@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 67.7687683, y: 50.6845322, z: -14.2369995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 418202}
@@ -147,8 +147,6 @@ MonoBehaviour:
   used: 0
   _internals: {fileID: 139596}
   _textContents: {fileID: 11400000, guid: f167194e29d352045b616869a832ccac, type: 2}
-  _timeUntilFadeout: 7
-  _fadeoutDuration: 2
 --- !u!135 &13578396
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -174,7 +172,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 1
+  moveWithTransform: 0
   InitialModule:
     enabled: 1
     startLifetime:
@@ -211,7 +209,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: .0199999996
+      scalar: .300000012
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -226,7 +224,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .5
+          value: .666666627
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -328,7 +326,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 1
+      scalar: .899999976
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -343,7 +341,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .100000001
+          value: .777777791
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -526,10 +524,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 16739837
+          rgba: 16739819
         key1:
           serializedVersion: 2
-          rgba: 4294443263
+          rgba: 4294901969
         key2:
           serializedVersion: 2
           rgba: 4278190335
@@ -549,7 +547,7 @@ ParticleSystem:
           serializedVersion: 2
           rgba: 0
         ctime0: 0
-        ctime1: 65150
+        ctime1: 65535
         ctime2: 55512
         ctime3: 65535
         ctime4: 65535
