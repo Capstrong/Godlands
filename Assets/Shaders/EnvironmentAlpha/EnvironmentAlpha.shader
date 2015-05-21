@@ -3,7 +3,6 @@ Shader "Custom/EnvironmentAlpha"
 	Properties 
 	{
 		_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
-		_NormalMap ("Normal Map", 2D) = "bump" {}
 		
 		_ColorMask ("Color Mask", 2D) = "white" {}
 		_ColorOverlayA ("Color Overlay White", Color) = (1, 1, 1, 1)
@@ -29,8 +28,7 @@ Shader "Custom/EnvironmentAlpha"
 
 		sampler2D _MainTex;
 		sampler2D _ColorMask;
-		sampler2D _NormalMap;
-
+		
 		fixed _EmissiveStrength;
 		fixed4 _Color;
 		fixed4 _ColorOverlayA;
@@ -41,11 +39,14 @@ Shader "Custom/EnvironmentAlpha"
 			float2 uv_ColorMask;
 			float2 uv_NormalMap;
 			float3 viewDir;
+			float3 normal;
 		}; 
 
-		void vert ( inout appdata_full v )
+		void vert ( inout appdata_full v, out Input o )
 		{
+			UNITY_INITIALIZE_OUTPUT(Input,o)
 			v.vertex += WorldSpaceCalculateWorldBendOffset( v.vertex );
+			o.normal = v.normal;
 		}
 
 		void surf (Input IN, inout SurfaceOutput o) 
@@ -53,8 +54,8 @@ Shader "Custom/EnvironmentAlpha"
 			fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
 			fixed3 mask = tex2D (_ColorMask, IN.uv_ColorMask).rgb;
 			o.Albedo = c * lerp(_Color, _ColorOverlayA, mask.r);
-			o.Normal = UnpackNormal (tex2D (_NormalMap, IN.uv_NormalMap));
 			
+			o.Normal = IN.normal;
 			o.Emission = _EmissiveStrength * o.Albedo;
 			
 			fixed vDotN = dot(IN.viewDir, o.Normal);
