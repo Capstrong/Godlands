@@ -73,11 +73,6 @@ public class PlayerInventory : ActorComponent
 		DebugUtils.Assert( _inventoryBar, "There must be an InventoryScrollBar object in the scene." );
 
 		DayCycleManager.RegisterEndOfDayCallback( ResetBackBuddy );
-
-		if ( _heldResources.Count > 0 )
-		{
-			SpawnResourceObject();
-		}
 	}
 
 	// Update is called once per frame
@@ -113,7 +108,6 @@ public class PlayerInventory : ActorComponent
 		{
 			int nextIndex = _resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
 			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
-			SpawnResourceObject();
 		}
 	}
 
@@ -361,25 +355,7 @@ public class PlayerInventory : ActorComponent
 		}
 		else if ( _heldResources.Count > 0 )
 		{
-			SpawnResourceObject();
 			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
-		}
-	}
-
-	void SpawnResourceObject()
-	{
-		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
-
-		if ( _heldResource )
-		{
-			Destroy( _heldResource );
-		}
-
-		if ( _heldResources[_resourceIndex].prefab )
-		{
-			_heldResource = WadeUtils.Instantiate( _heldResources[_resourceIndex].prefab );
-			_heldResource.transform.parent = actor.GetBoneAtLocation( BoneLocation.RHand );
-			WadeUtils.ResetTransform( _heldResource.transform, true );
 		}
 	}
 
