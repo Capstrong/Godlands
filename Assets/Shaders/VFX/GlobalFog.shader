@@ -127,8 +127,8 @@ Shader "Hidden/GlobalFog"
 			// Compute fog amount
 			half fogFac = ComputeFogFactor (max(0.0,g));
 			// Do not fog skybox
-			if (rawDepth >= 0.999999)
-				fogFac = 1.0;
+			//if (rawDepth >= 0.999999)
+			//	fogFac = 1.0;
 			//return fogFac; // for debugging
 			
 			float2 fogUV = float2( 1 - saturate(fogFac), 0 );
