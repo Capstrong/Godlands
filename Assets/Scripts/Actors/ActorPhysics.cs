@@ -69,7 +69,7 @@ public sealed class ActorPhysics : ActorComponent
 
 	[SerializeField] float _climbMoveSpeed = 6f;
 
-	public float normalizedMoveSpeed
+	public float normalizedGroundSpeed
 	{
 		get
 		{
@@ -78,11 +78,33 @@ public sealed class ActorPhysics : ActorComponent
 		}
 	}
 
-	public float normalizedClimbMoveSpeed
+	public float normalizedClimbSpeed
 	{
 		get
 		{
 			return _rigidbody.velocity.magnitude / _climbMoveSpeed;
+		}
+	}
+
+	/// <summary>
+	/// Returns a value in the range of [-1, 1] based on the actor's vertical movement.
+	/// </summary>
+	public float normalizedVerticalClimbSpeed
+	{
+		get
+		{
+			return _rigidbody.velocity.y / _climbMoveSpeed;
+		}
+	}
+
+	/// <summary>
+	/// Returns a value in the range [0, 1] based on the actor's horizontal movement.
+	/// </summary>
+	public float normalizedHorizontalClimbSpeed
+	{
+		get
+		{
+			return _rigidbody.velocity.SetY( 0.0f ).magnitude / _climbMoveSpeed;
 		}
 	}
 

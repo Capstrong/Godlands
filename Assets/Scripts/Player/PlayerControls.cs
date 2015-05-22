@@ -158,7 +158,7 @@ public class PlayerControls : MonoBehaviour
 				}
 			}
 
-			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 		}
 
 		public override void Exit()
@@ -213,7 +213,7 @@ public class PlayerControls : MonoBehaviour
 				}
 			}
 
-			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 		}
 
 		public override void Exit()
@@ -246,7 +246,9 @@ public class PlayerControls : MonoBehaviour
 			     player.physics.ClimbCheck() )
 			{
 				player.physics.ClimbSurface( player.controls.GetMoveInput() );
-				player.animator.SetFloat( "moveSpeed", player.physics.normalizedClimbMoveSpeed );
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedClimbSpeed );
+				player.animator.SetFloat( "verticalSpeed", player.physics.normalizedVerticalClimbSpeed );
+				player.animator.SetFloat( "horizontalSpeed", player.physics.normalizedHorizontalClimbSpeed );
 			}
 			else
 			{
@@ -347,7 +349,7 @@ public class PlayerControls : MonoBehaviour
 
 				player.physics.GroundMovement( player.controls.GetMoveDirection(), player.controls.sprintButton );
 
-				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 			}
 			else
 			{
