@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Flowers_01_Diffuse
+  m_Name: Ivy_Cap_01_Diffuse
   m_Shader: {fileID: 4800000, guid: f16e9e6729dfb4944bf0a6373b6bed22, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -18,21 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 28ea3bbcf9ee43c42bae087e0908966e, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _NormalMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ColorMask
-        second:
-          m_Texture: {fileID: 2800000, guid: 9ebeec25cd53bff498a7ebb922058540, type: 3}
+          m_Texture: {fileID: 2800000, guid: bba223633a46fbc429c0fbd55b2d217d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -43,7 +29,7 @@ Material:
       data:
         first:
           name: _EmissiveStrength
-        second: .5
+        second: 1
       data:
         first:
           name: _Glossiness
@@ -52,20 +38,8 @@ Material:
         first:
           name: _Metallic
         second: 0
-      data:
-        first:
-          name: _Curvature
-        second: -.00170000002
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _ColorOverlayA
-        second: {r: .579310417, g: 1, b: .5, a: 1}
+        second: {r: .845588207, g: .466317028, b: .466317028, a: 1}

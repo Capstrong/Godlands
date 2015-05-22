@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Mushroom_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: 0df65694f314348e694dcdbcbc78ae56, type: 3}
+  m_Shader: {fileID: 4800000, guid: 69ed3d0ec11524a31807fa07945836e2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -30,12 +30,41 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _NormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionTex
+        second:
+          m_Texture: {fileID: 2800000, guid: a1ec4555fc2e563478c2e20813d0b57d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _Illum
         second:
           m_Texture: {fileID: 2800000, guid: a1ec4555fc2e563478c2e20813d0b57d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _EmissiveStrength
+        second: 1
       data:
         first:
           name: _Glossiness
@@ -59,5 +88,13 @@ Material:
     m_Colors:
       data:
         first:
+          name: _EmissionColor
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
           name: _Color
         second: {r: 1, g: .972413778, b: 0, a: 1}
+      data:
+        first:
+          name: _ColorOverlayA
+        second: {r: 1, g: 1, b: 1, a: 1}
