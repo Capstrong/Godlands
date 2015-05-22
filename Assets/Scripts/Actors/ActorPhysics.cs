@@ -74,7 +74,15 @@ public sealed class ActorPhysics : ActorComponent
 		get
 		{
 			Vector3 horizontalVelocity = _rigidbody.velocity.SetY( 0.0f );
-			return horizontalVelocity.magnitude / sprintMoveSpeed;
+			return horizontalVelocity.magnitude / _sprintMoveSpeed;
+		}
+	}
+
+	public float normalizedClimbMoveSpeed
+	{
+		get
+		{
+			return _rigidbody.velocity.magnitude / _climbMoveSpeed;
 		}
 	}
 

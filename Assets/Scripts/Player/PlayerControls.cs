@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour
 	public float _defaultCameraZoom = 10.0f;
 	public float _glidingCameraZoom = 15.0f;
 	public float _sprintingCameraZoom = 15.0f;
+	public float _climbingCameraZoom = 15.0f;
 
 	[SerializeField] float _fallAnimationDelay = 0.5f;
 
@@ -235,6 +236,7 @@ public class PlayerControls : MonoBehaviour
 			player.animator.SetBool( "isClimbing", true );
 			player.stats.StartUsingStat( Stat.Stamina );
 			player.physics.StartClimbing();
+			player.camera.zoomDistance = player.controls._climbingCameraZoom;
 		}
 
 		public override void Update()
@@ -244,6 +246,7 @@ public class PlayerControls : MonoBehaviour
 			     player.physics.ClimbCheck() )
 			{
 				player.physics.ClimbSurface( player.controls.GetMoveInput() );
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedClimbMoveSpeed );
 			}
 			else
 			{
@@ -257,6 +260,7 @@ public class PlayerControls : MonoBehaviour
 			player.stats.StopUsingStat( Stat.Stamina );
 			player.physics.StopClimbing();
 			player.physics.StartLateJumpTimer();
+			player.camera.zoomDistance = player.controls._defaultCameraZoom;
 		}
 	}
 
