@@ -379,6 +379,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.physics.StartGliding();
 			player.stats.StartUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isInAir", true );
 			player.animator.SetBool( "isGliding", true );
 			player.camera.zoomDistance = player.controls._glidingCameraZoom;
 		}
@@ -416,6 +417,7 @@ public class PlayerControls : MonoBehaviour
 		public override void Exit()
 		{
 			player.stats.StopUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isInAir", false );
 			player.animator.SetBool( "isGliding", false );
 			player.physics.StopGliding();
 			player.camera.zoomDistance = player.controls._defaultCameraZoom;
