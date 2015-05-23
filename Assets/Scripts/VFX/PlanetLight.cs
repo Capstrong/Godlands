@@ -24,18 +24,18 @@ public class PlanetLight : MonoBehaviour
 		_lightDirection = rotation * _lightDirection;
 		_renderer.material.SetVector( "_LightDir", _lightDirection );
 
-		// set min alpha
-		float alphaIntensity =
-			RenderSettingsManager.daylightIntensity
-			* _alphaRange.range
-			+ _alphaRange.min;
-		_renderer.material.SetFloat( "_AlphaIntensity", alphaIntensity );
-
-		// set light intensity
-		float lightIntensity =
-			RenderSettingsManager.daylightIntensity
-			* _lightIntensityRange.range
-			+ _lightIntensityRange.min;
-		_renderer.material.SetFloat( "_LightIntensity", lightIntensity );
+//		// set min alpha
+//		float alphaIntensity =
+//			RenderSettingsManager.daylightIntensity
+//			* _alphaRange.range
+//			+ _alphaRange.min;
+//		_renderer.material.SetFloat( "_AlphaIntensity", alphaIntensity );
+//
+//		// set light intensity
+//		float lightIntensity =
+//			RenderSettingsManager.daylightIntensity
+//			* _lightIntensityRange.range
+//			+ _lightIntensityRange.min;
+//		_renderer.material.SetFloat( "_LightIntensity", lightIntensity );
 	}
 }

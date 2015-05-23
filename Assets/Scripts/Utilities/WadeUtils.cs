@@ -2,6 +2,8 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System;
 
@@ -416,6 +418,29 @@ public static class WadeUtils
 	/////////////////////////////////
 	//////  COLORS           ////////
 	/////////////////////////////////
+
+	public static Gradient Lerp( Gradient a, Gradient b, float t )
+	{
+		Gradient c = new Gradient();
+		Lerp ( a, b, t, ref c );
+		return c;
+	}
+
+	public static void Lerp( Gradient a, Gradient b, float t, ref Gradient c )
+	{
+		List<GradientColorKey> colorKeys = new List<GradientColorKey>();
+		List<GradientAlphaKey> alphaKeys = new List<GradientAlphaKey>();
+
+		for( int i = 0; i < 8; i++ )
+		{
+			Color averageColor = Color.Lerp( a.Evaluate( i/8f ), b.Evaluate( i/8f ), t );
+
+			colorKeys.Add( new GradientColorKey( averageColor, i/8f ) );
+			alphaKeys.Add( new GradientAlphaKey( averageColor.a, i/8f ) );
+		}
+
+		c.SetKeys( colorKeys.ToArray(), alphaKeys.ToArray() );
+	}
 
 	public static HSVColor RGBToHSV( Color color )
 	{

@@ -33,4 +33,10 @@ public class MenuItems
 	{
 		ScriptableObjectUtility.CreateAsset<TextMultiVolumeContents>();
 	}
+
+	[MenuItem( "Assets/Create/Time Render Settings Asset" )]
+	public static void CreateTimeRenderSettingsAsset()
+	{
+		ScriptableObjectUtility.CreateAsset<TimeLightingSettingsData>();
+	}
 }

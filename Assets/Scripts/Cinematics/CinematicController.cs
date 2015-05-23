@@ -54,7 +54,7 @@ public class CinematicController : MonoBehaviour
 	{
 		if( Input.GetButtonDown( "Jump" + PlatformUtils.platformName ) )
 		{
-			Debug.Log("EndCutscene");
+			// TODO: Consider limiting this to after the cutscene has played X seconds or to multiple taps
 			SkipCutscene();
 		}
 	}
@@ -76,29 +76,28 @@ public class CinematicController : MonoBehaviour
 
 	public void FinishCutscene()
 	{
-		if( _playerObj )
+		if( _playIntroCinematic )
 		{
-			_playerObj.SetActive( true );
-		}
-		else
-		{
-			Debug.LogWarning( "No player to set active after cutscene" );
-		}
-
-		if( _uiCanvases.Length > 0 )
-		{
-			foreach( Canvas canvas in _uiCanvases )
+			if( _playerObj )
 			{
-				canvas.enabled = true;
+				_playerObj.SetActive( true );
 			}
-		}
 
-		if( _cinematicDialogue )
-		{
-			_cinematicDialogue.Stop();
-		}
+			if( _uiCanvases.Length > 0 )
+			{
+				foreach( Canvas canvas in _uiCanvases )
+				{
+					canvas.enabled = true;
+				}
+			}
 
-		_cutsceneAnimator.StopPlayback();
-		_cutsceneAnimator.enabled = false;
+			if( _cinematicDialogue )
+			{
+				_cinematicDialogue.Stop();
+			}
+
+			_cutsceneAnimator.StopPlayback();
+			_cutsceneAnimator.enabled = false;
+		}
 	}
 }
