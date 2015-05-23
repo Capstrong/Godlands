@@ -3,15 +3,7 @@ Shader "Hidden/GlobalFog"
 	Properties
 	{
 		_MainTex ( "Base (RGB)", 2D ) = "black" {}
-		
-		_FromDayTex ( "From Day Color (RGB)", 2D ) = "white" {}
-		_FromNightTex ( "From Night Color (RGB)", 2D ) = "white" {}
-		
-		_ToDayTex ( "To Day Color (RGB)", 2D ) = "white" {}
-		_ToNightTex ( "To Night Color (RGB)", 2D ) = "white" {}
-		
-		_TransitionTime ( "Transition Time", float ) = 0
-		_DaylightIntensity ( "Daylight Intensity", float ) = 1
+		_FogGradientTex ( "Fog Gradient Tex (RGB)", 2D ) = "white" {}
 	}
 
 	CGINCLUDE
@@ -19,14 +11,7 @@ Shader "Hidden/GlobalFog"
 		#include "UnityCG.cginc"
 
 		uniform sampler2D _MainTex;
-		
-		uniform sampler2D _FromDayTex;
-		uniform sampler2D _FromNightTex;
-		uniform sampler2D _ToDayTex;
-		uniform sampler2D _ToNightTex;
-		
-		uniform float _TransitionTime;
-		uniform float _DaylightIntensity;
+		uniform sampler2D _FogGradientTex;
 		
 		uniform sampler2D_float _CameraDepthTexture;
 		
@@ -132,16 +117,7 @@ Shader "Hidden/GlobalFog"
 			//return fogFac; // for debugging
 			
 			float2 fogUV = float2( 1 - saturate(fogFac), 0 );
-			
-			float4 fromTex = lerp( tex2D( _FromNightTex, fogUV),
-								   tex2D( _FromDayTex, fogUV), 
-								   _DaylightIntensity );
-								   
-			float4 toTex = lerp( tex2D( _ToNightTex, fogUV),
-								 tex2D( _ToDayTex, fogUV),
-								 _DaylightIntensity );
-			
-			float4 fogCol = lerp( fromTex, toTex, saturate(_TransitionTime) );
+			half4 fogCol = tex2D( _FogGradientTex, fogUV );
 			float4 alphaFogCol = lerp( sceneColor, fogCol, fogCol.a );
 			
 			// Lerp between fog color & original scene color
