@@ -151,8 +151,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	void UpdateRenderSettings()
 	{
-		globalFog.fogMaterial.SetTexture("_FromDayTex", _currentRenderSettingsProperty.daySettings.fogGradientTex );
-		globalFog.fogMaterial.SetTexture("_FromNightTex", _currentRenderSettingsProperty.nightSettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture( "_FromDayTex", _currentRenderSettingsProperty.daySettings.fogGradientTex );
+		globalFog.fogMaterial.SetTexture( "_FromNightTex", _currentRenderSettingsProperty.nightSettings.fogGradientTex );
 		globalFog.fogMaterial.SetFloat( "_DaylightIntensity", daylightIntensity );
 
 		RenderSettings.skybox.SetColor( _curSkyboxTintPropertyID, _currentTimeRenderSettings.skyColor );
@@ -160,5 +160,43 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		_dirLight.color = _currentTimeRenderSettings.lightColor;
 		_dirLight.intensity = _currentTimeRenderSettings.lightIntensity;
+	}
+
+	public static void SetRenderSettings( RenderSettingsData renderSettingsData )
+	{
+		instance._currentRenderSettings = renderSettingsData;
+		instance.UpdateRenderSettings();
+	}
+
+	public static void SetToNearestZone( Vector3 position )
+	{
+		SetRenderSettings( GetNearestRenderSettings( position ) );
+	}
+
+	public static void TransitionToNearestZone( Vector3 position, float time )
+	{
+		TransitionRenderSettings( GetNearestRenderSettings( position ), time );
+	}
+
+	public static RenderSettingsData GetNearestRenderSettings( Vector3 position )
+	{
+		RenderSettingsZone nearestZone = null;
+
+		RenderSettingsZone[] renderSettingsZones = GameObject.FindObjectsOfType<RenderSettingsZone>();
+		if( renderSettingsZones.Length > 0 )
+		{
+			float nearestZoneDist = Mathf.Infinity;
+			foreach( RenderSettingsZone iter in renderSettingsZones )
+			{
+				float zoneDist = Vector3.Distance( iter.GetComponent<Transform>().position, position );
+				if( zoneDist < nearestZoneDist )
+				{
+					nearestZoneDist = zoneDist;
+					nearestZone = iter;
+				}
+			}
+		}
+
+		return nearestZone ? nearestZone.renderSettings : new RenderSettingsData();
 	}
 }

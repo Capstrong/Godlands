@@ -3,14 +3,14 @@ using System.Collections;
 
 public class RenderSettingsZone : MonoBehaviour 
 {
-	[SerializeField] RenderSettingsData _renderSettings = new RenderSettingsData();
+	public RenderSettingsData renderSettings = new RenderSettingsData();
 	[SerializeField] float _shiftTime = 15f;
 	
 	void OnTriggerEnter( Collider otherCol )
 	{
 		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
-			RenderSettingsManager.TransitionRenderSettings( _renderSettings, _shiftTime );
+			RenderSettingsManager.TransitionRenderSettings( renderSettings, _shiftTime );
 		}
 	}
 	
