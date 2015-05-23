@@ -4555,7 +4555,7 @@ Animator:
   m_GameObject: {fileID: 134867932}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0f60b9420146d46e29b1729a29a23931, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0175eb10b33644e89a682c96146e59d1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -20125,7 +20125,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 607301911}
   m_LocalRotation: {x: 0, y: -.906369328, z: 0, w: -.422486335}
-  m_LocalPosition: {x: 128.499969, y: 3.80999827, z: -34.1999741}
+  m_LocalPosition: {x: 128.5, y: 4.36999989, z: -34.2000008}
   m_LocalScale: {x: 1.80852962, y: 1.79202914, z: 2.23306251}
   m_Children: []
   m_Father: {fileID: 2127107263}
@@ -20221,7 +20221,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 180122, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 562cb066185fbf84c92c6d56ebbdbf57, type: 2}
@@ -37776,7 +37776,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400210, guid: c1f96aa2198bf724580710d16e5734d9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.38000011
+      value: 2.31999993
       objectReference: {fileID: 0}
     - target: {fileID: 400210, guid: c1f96aa2198bf724580710d16e5734d9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -37784,7 +37784,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400210, guid: c1f96aa2198bf724580710d16e5734d9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 15.1800003
+      value: 28.4699993
       objectReference: {fileID: 0}
     - target: {fileID: 400210, guid: c1f96aa2198bf724580710d16e5734d9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -66282,31 +66282,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -85.8000031
+      value: -72.9915924
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 258.399994
+      value: 101.474396
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -88
+      value: 49.8949242
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalRotation.x
-      value: .0048614447
+      value: .0431272015
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .984029233
+      value: .908783138
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalRotation.z
-      value: .027204074
+      value: -.0971568823
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -.175848797
+      value: .403501987
       objectReference: {fileID: 0}
     - target: {fileID: 492552, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
       propertyPath: m_RootOrder
@@ -69009,6 +69009,27 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 481570, guid: 35803361e5e64ee448edc811c2590dca, type: 2}
   m_PrefabInternal: {fileID: 132930841}
+--- !u!1 &2129681657
+GameObject:
+  m_PrefabParentObject: {fileID: 117752, guid: 13aad5c0d6a2b684099b41cdca3f0463, type: 2}
+  m_PrefabInternal: {fileID: 20457558}
+--- !u!95 &2129681658
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2129681657}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a4d80fb1e00844dde94ded2b27b65ff0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &2130989374
 Prefab:
   m_ObjectHideFlags: 0
