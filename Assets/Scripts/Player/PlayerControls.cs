@@ -245,10 +245,12 @@ public class PlayerControls : MonoBehaviour
 			     player.stats.CanUseStat( Stat.Stamina ) &&
 			     player.physics.ClimbCheck() )
 			{
-				player.physics.ClimbSurface( player.controls.GetMoveInput() );
-				player.animator.SetFloat( "moveSpeed", player.physics.normalizedClimbSpeed );
-				player.animator.SetFloat( "verticalSpeed", player.physics.normalizedVerticalClimbSpeed );
-				player.animator.SetFloat( "horizontalSpeed", player.physics.normalizedHorizontalClimbSpeed );
+				Vector3 moveInput = player.controls.GetMoveInput();
+				player.physics.ClimbSurface( moveInput );
+				player.animator.SetFloat( "moveSpeed", moveInput.magnitude );
+				player.animator.SetFloat( "verticalSpeed", moveInput.z );
+				player.animator.SetFloat( "horizontalSpeed", moveInput.x );
+				player.animator.SetFloat( "slope", Mathf.Abs( Vector3.Dot( moveInput, Vector3.forward ) ) );
 			}
 			else
 			{

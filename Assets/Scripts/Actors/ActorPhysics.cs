@@ -78,36 +78,6 @@ public sealed class ActorPhysics : ActorComponent
 		}
 	}
 
-	public float normalizedClimbSpeed
-	{
-		get
-		{
-			return _rigidbody.velocity.magnitude / _climbMoveSpeed;
-		}
-	}
-
-	/// <summary>
-	/// Returns a value in the range of [-1, 1] based on the actor's vertical movement.
-	/// </summary>
-	public float normalizedVerticalClimbSpeed
-	{
-		get
-		{
-			return _rigidbody.velocity.y / _climbMoveSpeed;
-		}
-	}
-
-	/// <summary>
-	/// Returns a value in the range [0, 1] based on the actor's horizontal movement.
-	/// </summary>
-	public float normalizedHorizontalClimbSpeed
-	{
-		get
-		{
-			return _rigidbody.velocity.SetY( 0.0f ).magnitude / _climbMoveSpeed;
-		}
-	}
-
 	/**
 	 * The last direction the actor moved in.
 	 *
