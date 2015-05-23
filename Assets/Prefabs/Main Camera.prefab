@@ -12,9 +12,8 @@ GameObject:
   - 92: {fileID: 9222958}
   - 124: {fileID: 12467928}
   - 81: {fileID: 8197658}
-  - 114: {fileID: 11437036}
-  - 114: {fileID: 11420234}
   - 114: {fileID: 11479410}
+  - 114: {fileID: 11420234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -28,8 +27,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115624}
-  m_LocalRotation: {x: 0, y: -.563894629, z: 0, w: .825846732}
-  m_LocalPosition: {x: -3.30999994, y: 52.5499992, z: 13.6400003}
+  m_LocalRotation: {x: .0701384097, y: -.739118636, z: .0778814107, w: .66537112}
+  m_LocalPosition: {x: 162.680038, y: 59.9351425, z: 25.0507259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -91,32 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: .75
-  intensity: .75
+  threshold: .289999992
+  intensity: .550000012
   blurSize: 1
   blurIterations: 1
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
---- !u!114 &11437036
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 115624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0923359e9e352a4b9b11c7b7161ad67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Radius: .400000006
-  m_SampleCount: 0
-  m_OcclusionIntensity: 1.5
-  m_Blur: 2
-  m_Downsampling: 2
-  m_OcclusionAttenuation: 1
-  m_MinZ: .00999999978
-  m_SSAOShader: {fileID: 4800000, guid: 43ca18288c424f645aaa1e9e07f04c50, type: 3}
-  m_RandomTexture: {fileID: 2800000, guid: a181ca8e3c62f3e4b8f183f6c586b032, type: 3}
 --- !u!114 &11479410
 MonoBehaviour:
   m_ObjectHideFlags: 1
