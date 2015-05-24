@@ -288,12 +288,14 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.animator.SetTrigger( "jump" );
 					player.physics.ChangeState( PhysicsStateType.Jumping );
+					return;
 				}
 				else if ( player.controls.holdButton &&
 				          player.stats.CanUseStat( Stat.Stamina ) &&
 				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
+					return;
 				}
 				else if ( player.controls.useButton.down )
 				{
@@ -360,10 +362,7 @@ public class PlayerControls : MonoBehaviour
 			}
 		}
 
-		public override void Exit()
-		{
-			player.camera.zoomDistance = player.controls._defaultCameraZoom;
-		}
+		public override void Exit() { }
 	}
 
 	public class Gliding : PhysicsState
