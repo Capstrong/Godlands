@@ -1,31 +1,38 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
-public struct TimeLightingSettings 
+public class TimeLightingSettings
 {
-	public Color skyColor;
-	public Color lightColor;
-	public float lightIntensity;
-	public float fogDensity;
-	public Gradient fogGradient;
-
-	public TimeLightingSettings( Gradient gradient )
+	public Color skyColor = Color.white;
+	public Color lightColor = Color.white;
+	public float lightIntensity = 1f;
+	public Gradient fogGradient = new Gradient();
+	
+	public TimeLightingSettings()
 	{
 		skyColor = Color.white;
 		lightColor = Color.white;
 		lightIntensity = 1f;
-		fogDensity = 0.05f;
-		fogGradient = gradient;
+		fogGradient = new Gradient();
 	}
-
+	
 	public static void Lerp( TimeLightingSettings a, TimeLightingSettings b, float t, ref TimeLightingSettings c )
 	{
 		c.skyColor = Color.Lerp( a.skyColor, b.skyColor, t );
 		c.lightColor = Color.Lerp( a.lightColor, b.lightColor, t );
 		c.lightIntensity = Mathf.Lerp( a.lightIntensity, b.lightIntensity, t );
-		c.fogDensity = Mathf.Lerp( a.fogDensity, b.fogDensity, t );
-		
 		WadeUtils.Lerp( a.fogGradient, b.fogGradient, t, ref c.fogGradient );
+	}
+	
+	public TimeLightingSettings GetTimeLightingSettings()
+	{
+		TimeLightingSettings t = new TimeLightingSettings( );
+		t.skyColor = skyColor;
+		t.lightColor = lightColor;
+		t.lightIntensity = lightIntensity;
+		t.fogGradient = fogGradient;
+		
+		return t;
 	}
 }

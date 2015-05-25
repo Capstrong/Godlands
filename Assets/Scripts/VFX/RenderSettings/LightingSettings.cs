@@ -4,13 +4,12 @@ using System.Collections;
 [System.Serializable]
 public class LightingSettings 
 {
-	public TimeLightingSettings daySettings = new TimeLightingSettings();
-	public TimeLightingSettings nightSettings = new TimeLightingSettings();
+	public TimeLightingSettings daySettings = null;
+	public TimeLightingSettings nightSettings = null;
 
 	public LightingSettings()
 	{
-		daySettings = new TimeLightingSettings( new Gradient() );
-		nightSettings = new TimeLightingSettings( new Gradient() );
+
 	}
 
 	public LightingSettings( TimeLightingSettings day, TimeLightingSettings night )

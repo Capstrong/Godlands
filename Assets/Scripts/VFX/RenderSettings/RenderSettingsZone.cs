@@ -3,23 +3,25 @@ using System.Collections;
 
 public class RenderSettingsZone : MonoBehaviour 
 {
-	[SerializeField] TimeLightingSettingsData _dayLightingSettings = null;
-	[SerializeField] TimeLightingSettingsData _nightLightingSettings = null;
+	[SerializeField] TimeLightingSettingsData _daySettings = null;
+	[SerializeField] TimeLightingSettingsData _nightSettings = null;
+
+	public LightingSettings lightingSettings
+	{
+		get
+		{
+			return new LightingSettings( _daySettings.timeSettings, _nightSettings.timeSettings );
+		}
+	}
+
 	[SerializeField] float _shiftTime = 15f;
 	
 	void OnTriggerEnter( Collider otherCol )
 	{
 		if ( otherCol.GetComponentInParent<PlayerActor>() )
 		{
-			RenderSettingsManager.TransitionRenderSettings( new LightingSettings( _dayLightingSettings.GetTimeLightingSettings(), 
-			                                                                      _nightLightingSettings.GetTimeLightingSettings() ), _shiftTime );
+			RenderSettingsManager.TransitionRenderSettings( lightingSettings, _shiftTime );
 		}
-	}
-
-	public LightingSettings GetLightingSettings()
-	{
-		return new LightingSettings( _dayLightingSettings.GetTimeLightingSettings(), 
-		                             _nightLightingSettings.GetTimeLightingSettings() );
 	}
 
 	void OnDrawGizmos()
