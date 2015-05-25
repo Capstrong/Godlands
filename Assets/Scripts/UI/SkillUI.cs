@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SkillUI : MonoBehaviour
 {
-	[SerializeField] Stat _stat;
+	[SerializeField] Stat _stat = Stat.Invalid;
 
 	protected StatUIIconTag _icon = null;
 	protected PlayerStats _playerStats = null;
