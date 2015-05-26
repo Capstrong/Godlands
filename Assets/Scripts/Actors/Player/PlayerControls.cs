@@ -318,11 +318,11 @@ public class PlayerControls : MonoBehaviour
 						}
 						else if ( player.inventory.UseItemWithTarget( hitInfo ) )
 						{
-							// item use / buddy spawning was done
+							// Feed buddy.
 						}
 						else if ( player.controls.InteractCheck( hitInfo ) )
 						{
-							// Interaction was done
+							// Interaction was done.
 						}
 					}
 				}
