@@ -31,7 +31,7 @@ public class TimeLightingSettings
 		t.skyColor = skyColor;
 		t.lightColor = lightColor;
 		t.lightIntensity = lightIntensity;
-		t.fogGradient = fogGradient;
+		t.fogGradient = WadeUtils.GetValue( fogGradient );
 		
 		return t;
 	}

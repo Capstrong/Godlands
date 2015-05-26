@@ -155,7 +155,9 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	IEnumerator TransitionRenderSettingsRoutine( LightingSettings newSettings, float settingShiftTime )
 	{
-		LightingSettings oldRenderSettings = _currentLightingSettings;
+		LightingSettings oldRenderSettings = new LightingSettings();
+		oldRenderSettings.daySettings = _currentLightingSettings.daySettings.GetTimeLightingSettings();
+		oldRenderSettings.nightSettings = _currentLightingSettings.nightSettings.GetTimeLightingSettings();
 
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
@@ -169,7 +171,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 			yield return 0;
 		}
 
-		_currentLightingSettings = newSettings;
+		_currentLightingSettings.daySettings = newSettings.daySettings.GetTimeLightingSettings();
+		_currentLightingSettings.nightSettings = newSettings.nightSettings.GetTimeLightingSettings();
 	}
 
 	public static void SetToNearestZone( Vector3 position )

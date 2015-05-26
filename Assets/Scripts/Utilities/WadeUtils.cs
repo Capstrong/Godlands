@@ -429,6 +429,26 @@ public static class WadeUtils
 	// Gradients can have a max of 8 controls for each Color and Alpha
 	public static int MaxGradientControls = 8;
 
+	public static Gradient GetValue( Gradient gradient )
+	{
+		Gradient retVal = new Gradient();
+		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[gradient.alphaKeys.Length];
+		GradientColorKey[] colorKeys = new GradientColorKey[gradient.colorKeys.Length];
+
+		for( int i = 0; i < alphaKeys.Length; i++ )
+		{
+			alphaKeys[i] = gradient.alphaKeys[i];
+		}
+
+		for( int i = 0; i < colorKeys.Length; i++ )
+		{
+			colorKeys[i] = gradient.colorKeys[i];
+		}
+
+		retVal.SetKeys( colorKeys, alphaKeys );
+		return retVal;
+	}
+
 	public static void Lerp( Gradient a, Gradient b, float t, ref Gradient c )
 	{
 		List<GradientColorKey> colorKeys = new List<GradientColorKey>();
