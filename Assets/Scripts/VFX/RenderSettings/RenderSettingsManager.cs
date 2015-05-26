@@ -95,8 +95,11 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		_skyboxRotationPropertyID = Shader.PropertyToID( "_Rotation" );
 		_fogGradientTexturePropertyID = Shader.PropertyToID( "_FogGradientTex" );
 
-		_gradientTexture = new Texture2D( _gradientTextureWidth, _gradientTextureHeight, TextureFormat.ARGB32, false, false );
-		_gradientTexture.filterMode = FilterMode.Point;
+		if( !_gradientTexture )
+		{
+			_gradientTexture = new Texture2D( _gradientTextureWidth, _gradientTextureHeight, TextureFormat.ARGB32, false, false );
+			_gradientTexture.filterMode = FilterMode.Point;
+		}
 
 		RenderSettings.skybox.SetFloat( _skyboxRotationPropertyID, _skyboxInitRotation );
 

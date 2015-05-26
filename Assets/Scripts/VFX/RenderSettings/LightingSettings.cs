@@ -14,8 +14,8 @@ public class LightingSettings
 
 	public LightingSettings( TimeLightingSettings day, TimeLightingSettings night )
 	{
-		daySettings = day;
-		nightSettings = night;
+		daySettings = day.GetTimeLightingSettings();
+		nightSettings = night.GetTimeLightingSettings();
 	}
 
 	public static void Lerp( LightingSettings a, LightingSettings b, float t, ref LightingSettings c )
