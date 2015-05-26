@@ -315,6 +315,12 @@ public sealed class ActorPhysics : ActorComponent
 			_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
 			_climbSurface.up    * ( _climbTag.yMovement ? movement.z : 0.0f );
 
+		if( WadeUtils.IsNotZero( movement.x ) && 
+		    WadeUtils.IsNotZero( movement.z ) )
+		{
+			surfaceRelativeInput *= WadeUtils.DUALINPUTMOD;
+		}
+
 		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 		_rigidbody.velocity = _moveVec;
 

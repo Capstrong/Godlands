@@ -141,6 +141,8 @@ public class PlayerControls : MonoBehaviour
 			}
 			else
 			{
+				player.animator.SetBool( "isInAir", true );
+
 				if ( player.controls.holdButton &&
 				     player.stats.CanUseStat( Stat.Stamina ) &&
 				     player.physics.ClimbCheck() )
@@ -234,6 +236,7 @@ public class PlayerControls : MonoBehaviour
 		public override void Enter()
 		{
 			player.animator.SetBool( "isClimbing", true );
+			player.animator.SetBool( "isInAir", true );
 			player.stats.StartUsingStat( Stat.Stamina );
 			player.physics.StartClimbing();
 			player.camera.zoomDistance = player.controls._climbingCameraZoom;
