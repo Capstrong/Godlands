@@ -16,7 +16,6 @@ public class RenderSettingsManagerEditor : Editor
 		if( GUILayout.Button( "Display nearest render volume" ) )
 		{
 			RenderSettingsManager.SetToNearestZone( Camera.main.GetComponent<Transform>().position );
-			EditorUtility.SetDirty( RenderSettingsManager.instance );
 		}
 
 		EditorGUILayout.Space();
@@ -31,7 +30,6 @@ public class RenderSettingsManagerEditor : Editor
 			if( GUILayout.Button( "Display selected render volume" ) )
 			{
 				RenderSettingsManager.SetRenderSettings( _renderSettingsZone.lightingSettings );
-				EditorUtility.SetDirty( RenderSettingsManager.instance );
 			}
 		}
 
@@ -52,7 +50,6 @@ public class RenderSettingsManagerEditor : Editor
 			if( GUILayout.Button( "Display selected time lighting settings" ) )
 			{
 				RenderSettingsManager.SetRenderSettings( new LightingSettings( _dayLightingSettings.timeSettings, _nightLightingSettings.timeSettings ) );
-				EditorUtility.SetDirty( RenderSettingsManager.instance );
 			}
 		}
 	}

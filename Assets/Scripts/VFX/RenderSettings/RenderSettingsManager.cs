@@ -57,7 +57,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 			if( !_gradientTexture )
 			{
 				_gradientTexture = new Texture2D( _gradientTextureWidth, _gradientTextureHeight, TextureFormat.ARGB32, false, false );
-				_gradientTexture.filterMode = FilterMode.Point;
+				_gradientTexture.filterMode = FilterMode.Bilinear;
 			}
 
 			return _gradientTexture;
@@ -98,7 +98,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 		if( !_gradientTexture )
 		{
 			_gradientTexture = new Texture2D( _gradientTextureWidth, _gradientTextureHeight, TextureFormat.ARGB32, false, false );
-			_gradientTexture.filterMode = FilterMode.Point;
+			_gradientTexture.filterMode = FilterMode.Bilinear;
 		}
 
 		RenderSettings.skybox.SetFloat( _skyboxRotationPropertyID, _skyboxInitRotation );
@@ -155,10 +155,8 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 	IEnumerator TransitionRenderSettingsRoutine( LightingSettings newSettings, float settingShiftTime )
 	{
-		LightingSettings oldRenderSettings = new LightingSettings();
-		oldRenderSettings.daySettings = _currentLightingSettings.daySettings.GetTimeLightingSettings();
-		oldRenderSettings.nightSettings = _currentLightingSettings.nightSettings.GetTimeLightingSettings();
-
+		LightingSettings oldRenderSettings = new LightingSettings( _currentLightingSettings.daySettings,
+		                                                           _currentLightingSettings.nightSettings );
 		float settingShiftTimer = 0f;
 		while ( settingShiftTimer < settingShiftTime )
 		{
@@ -171,8 +169,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 			yield return 0;
 		}
 
-		_currentLightingSettings.daySettings = newSettings.daySettings.GetTimeLightingSettings();
-		_currentLightingSettings.nightSettings = newSettings.nightSettings.GetTimeLightingSettings();
+		newSettings.CopySettingsInto( ref _currentLightingSettings );
 	}
 
 	public static void SetToNearestZone( Vector3 position )
@@ -208,6 +205,11 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 
 		Debug.LogError( "No render zones available. Creating one for temporary use." );
 		return new LightingSettings();
+	}
+
+	void OnEnable()
+	{
+		DestroyImmediate( _gradientTexture );
 	}
 
 	void OnDisable()

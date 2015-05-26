@@ -25,14 +25,11 @@ public class TimeLightingSettings
 		WadeUtils.Lerp( a.fogGradient, b.fogGradient, t, ref c.fogGradient );
 	}
 	
-	public TimeLightingSettings GetTimeLightingSettings()
+	public void CopySettingsInto( ref TimeLightingSettings destination )
 	{
-		TimeLightingSettings t = new TimeLightingSettings( );
-		t.skyColor = skyColor;
-		t.lightColor = lightColor;
-		t.lightIntensity = lightIntensity;
-		t.fogGradient = WadeUtils.GetValue( fogGradient );
-		
-		return t;
+		destination.skyColor = skyColor;
+		destination.lightColor = lightColor;
+		destination.lightIntensity = lightIntensity;
+		WadeUtils.CopyValue( fogGradient, ref destination.fogGradient );
 	}
 }

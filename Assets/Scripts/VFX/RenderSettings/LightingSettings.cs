@@ -14,8 +14,17 @@ public class LightingSettings
 
 	public LightingSettings( TimeLightingSettings day, TimeLightingSettings night )
 	{
-		daySettings = day.GetTimeLightingSettings();
-		nightSettings = night.GetTimeLightingSettings();
+		daySettings = new TimeLightingSettings();
+		nightSettings = new TimeLightingSettings();
+
+		day.CopySettingsInto( ref daySettings );
+		night.CopySettingsInto( ref nightSettings );
+	}
+
+	public void CopySettingsInto( ref LightingSettings destination )
+	{
+		daySettings.CopySettingsInto( ref destination.daySettings );
+		nightSettings.CopySettingsInto( ref destination.nightSettings );
 	}
 
 	public static void Lerp( LightingSettings a, LightingSettings b, float t, ref LightingSettings c )
