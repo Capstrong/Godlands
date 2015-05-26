@@ -157,7 +157,7 @@ ModelImporter:
     400146: Tail_03
     400148: Toe_Left
     400150: Toe_Right
-    7400000: Take 001
+    7400000: Idle
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -174,11 +174,189 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 159
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Base
+        weight: 1
+      - path: Base/Hip_Mid
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Index_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Index_01/L_Index_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Index_01/L_Index_02/L_Index_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Index_01/L_Index_02/L_Index_03/L_Index_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Middle_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Middle_01/L_Middle_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Middle_01/L_Middle_02/L_Middle_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Middle_01/L_Middle_02/L_Middle_03/L_Middle_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Pinky_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Pinky_01/L_Pinky_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Pinky_01/L_Pinky_02/L_Pinky_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Pinky_01/L_Pinky_02/L_Pinky_03/L_Pinky_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Ring_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Ring_01/L_Ring_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Ring_01/L_Ring_02/L_Ring_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Ring_01/L_Ring_02/L_Ring_03/L_Ring_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Thumb_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Thumb_01/L_Thumb_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Thumb_01/L_Thumb_02/L_Thumb_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Left/Shoulder_Left/Left_Elbow/Left_Wrist/L_Thumb_01/L_Thumb_02/L_Thumb_03/L_Thumb_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Index_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Index_01/R_Index_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Index_01/R_Index_02/R_Index_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Index_01/R_Index_02/R_Index_03/R_Index_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Middle_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Middle_01/R_Middle_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Middle_01/R_Middle_02/R_Middle_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Middle_01/R_Middle_02/R_Middle_03/R_Middle_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Pinky_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Pinky_01/R_Pinky_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Pinky_01/R_Pinky_02/R_Pinky_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Pinky_01/R_Pinky_02/R_Pinky_03/R_Pinky_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Ring_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Ring_01/R_Ring_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Ring_01/R_Ring_02/R_Ring_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Ring_01/R_Ring_02/R_Ring_03/R_Ring_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Thumb_01
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Thumb_01/R_Thumb_02
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Thumb_01/R_Thumb_02/R_Thumb_03
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Clavical_Right/Shoulder_Right/Right_Elbow/Right_Wrist/R_Thumb_01/R_Thumb_02/R_Thumb_03/R_Thumb_04
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Left_Ear_Bottom
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Left_Ear_Bottom/Left_Ear_Mid
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Left_Ear_Bottom/Left_Ear_Mid/Left_Ear_Top
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Right_Ear_Bottom
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Right_Ear_Bottom/Right_Ear_Mid
+        weight: 1
+      - path: Base/Hip_Mid/Back_Lower/Back_Mid/Back_Top/Neck_lower/Neck_Top/Head_Top/Right_Ear_Bottom/Right_Ear_Mid/Right_Ear_Top
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Left
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Left/Knee_Left
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Left/Knee_Left/Ankle_Left
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Left/Knee_Left/Ankle_Left/Ball_of_Foot_Left
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Left/Knee_Left/Ankle_Left/Ball_of_Foot_Left/Toe_Left
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Right
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Right/Knee_Right
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Right/Knee_Right/Ankle_Right
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Right/Knee_Right/Ankle_Right/Ball_of_Foot_Right
+        weight: 1
+      - path: Base/Hip_Mid/Hip_Right/Knee_Right/Ankle_Right/Ball_of_Foot_Right/Toe_Right
+        weight: 1
+      - path: Base/Hip_Mid/Tail_01
+        weight: 1
+      - path: Base/Hip_Mid/Tail_01/Tail_02
+        weight: 1
+      - path: Base/Hip_Mid/Tail_01/Tail_02/Tail_03
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

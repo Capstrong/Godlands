@@ -69,12 +69,12 @@ public sealed class ActorPhysics : ActorComponent
 
 	[SerializeField] float _climbMoveSpeed = 6f;
 
-	public float normalizedMoveSpeed
+	public float normalizedGroundSpeed
 	{
 		get
 		{
 			Vector3 horizontalVelocity = _rigidbody.velocity.SetY( 0.0f );
-			return horizontalVelocity.magnitude / sprintMoveSpeed;
+			return horizontalVelocity.magnitude / _sprintMoveSpeed;
 		}
 	}
 

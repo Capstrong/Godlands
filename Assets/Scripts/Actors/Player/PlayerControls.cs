@@ -19,6 +19,7 @@ public class PlayerControls : MonoBehaviour
 	public float _defaultCameraZoom = 10.0f;
 	public float _glidingCameraZoom = 15.0f;
 	public float _sprintingCameraZoom = 15.0f;
+	public float _climbingCameraZoom = 15.0f;
 
 	[SerializeField] float _fallAnimationDelay = 0.5f;
 
@@ -157,7 +158,7 @@ public class PlayerControls : MonoBehaviour
 				}
 			}
 
-			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 		}
 
 		public override void Exit()
@@ -212,7 +213,7 @@ public class PlayerControls : MonoBehaviour
 				}
 			}
 
-			player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+			player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 		}
 
 		public override void Exit()
@@ -235,6 +236,7 @@ public class PlayerControls : MonoBehaviour
 			player.animator.SetBool( "isClimbing", true );
 			player.stats.StartUsingStat( Stat.Stamina );
 			player.physics.StartClimbing();
+			player.camera.zoomDistance = player.controls._climbingCameraZoom;
 		}
 
 		public override void Update()
@@ -243,7 +245,12 @@ public class PlayerControls : MonoBehaviour
 			     player.stats.CanUseStat( Stat.Stamina ) &&
 			     player.physics.ClimbCheck() )
 			{
-				player.physics.ClimbSurface( player.controls.GetMoveInput() );
+				Vector3 moveInput = player.controls.GetMoveInput();
+				player.physics.ClimbSurface( moveInput );
+				player.animator.SetFloat( "moveSpeed", moveInput.magnitude );
+				player.animator.SetFloat( "verticalSpeed", moveInput.z );
+				player.animator.SetFloat( "horizontalSpeed", moveInput.x );
+				player.animator.SetFloat( "slope", Mathf.Abs( Vector3.Dot( moveInput, Vector3.forward ) ) );
 			}
 			else
 			{
@@ -257,6 +264,7 @@ public class PlayerControls : MonoBehaviour
 			player.stats.StopUsingStat( Stat.Stamina );
 			player.physics.StopClimbing();
 			player.physics.StartLateJumpTimer();
+			player.camera.zoomDistance = player.controls._defaultCameraZoom;
 		}
 	}
 
@@ -280,12 +288,14 @@ public class PlayerControls : MonoBehaviour
 				{
 					player.animator.SetTrigger( "jump" );
 					player.physics.ChangeState( PhysicsStateType.Jumping );
+					return;
 				}
 				else if ( player.controls.holdButton &&
 				          player.stats.CanUseStat( Stat.Stamina ) &&
 				          player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
+					return;
 				}
 				else if ( player.controls.useButton.down )
 				{
@@ -343,7 +353,7 @@ public class PlayerControls : MonoBehaviour
 
 				player.physics.GroundMovement( player.controls.GetMoveDirection(), player.controls.sprintButton );
 
-				player.animator.SetFloat( "moveSpeed", player.physics.normalizedMoveSpeed );
+				player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 			}
 			else
 			{
@@ -352,10 +362,7 @@ public class PlayerControls : MonoBehaviour
 			}
 		}
 
-		public override void Exit()
-		{
-			player.camera.zoomDistance = player.controls._defaultCameraZoom;
-		}
+		public override void Exit() { }
 	}
 
 	public class Gliding : PhysicsState
@@ -371,6 +378,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			player.physics.StartGliding();
 			player.stats.StartUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isInAir", true );
 			player.animator.SetBool( "isGliding", true );
 			player.camera.zoomDistance = player.controls._glidingCameraZoom;
 		}
@@ -408,6 +416,7 @@ public class PlayerControls : MonoBehaviour
 		public override void Exit()
 		{
 			player.stats.StopUsingStat( Stat.Gliding );
+			player.animator.SetBool( "isInAir", false );
 			player.animator.SetBool( "isGliding", false );
 			player.physics.StopGliding();
 			player.camera.zoomDistance = player.controls._defaultCameraZoom;
