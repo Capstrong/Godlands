@@ -69,12 +69,12 @@ public sealed class ActorPhysics : ActorComponent
 
 	[SerializeField] float _climbMoveSpeed = 6f;
 
-	public float normalizedMoveSpeed
+	public float normalizedGroundSpeed
 	{
 		get
 		{
 			Vector3 horizontalVelocity = _rigidbody.velocity.SetY( 0.0f );
-			return horizontalVelocity.magnitude / sprintMoveSpeed;
+			return horizontalVelocity.magnitude / _sprintMoveSpeed;
 		}
 	}
 
@@ -314,6 +314,12 @@ public sealed class ActorPhysics : ActorComponent
 		Vector3 surfaceRelativeInput =
 			_climbSurface.right * ( _climbTag.xMovement ? movement.x : 0.0f ) +
 			_climbSurface.up    * ( _climbTag.yMovement ? movement.z : 0.0f );
+
+		if( WadeUtils.IsNotZero( movement.x ) && 
+		    WadeUtils.IsNotZero( movement.z ) )
+		{
+			surfaceRelativeInput *= WadeUtils.DUALINPUTMOD;
+		}
 
 		_moveVec = surfaceRelativeInput * _climbMoveSpeed;
 		_rigidbody.velocity = _moveVec;

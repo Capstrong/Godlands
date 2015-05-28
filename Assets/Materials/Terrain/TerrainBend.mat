@@ -18,7 +18,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 0fbf23bda4c210c44a0fe51c9bbaecc7, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -147,11 +147,18 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ColorMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Cutoff
-        second: .5
+        second: .119999997
       data:
         first:
           name: _Shininess
@@ -236,6 +243,10 @@ Material:
         first:
           name: _MinCurveDistance
         second: 20
+      data:
+        first:
+          name: _EmissiveStrength
+        second: 1
     m_Colors:
       data:
         first:
@@ -256,11 +267,15 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: .772549033, g: 1, b: .188235298, a: .13333334}
+        second: {r: 1, g: 1, b: 1, a: .13333334}
       data:
         first:
           name: _EmisColor
         second: {r: .200000003, g: .200000003, b: .200000003, a: 0}
+      data:
+        first:
+          name: _ColorOverlayA
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _Emission

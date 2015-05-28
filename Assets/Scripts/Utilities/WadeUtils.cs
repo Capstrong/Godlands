@@ -2,6 +2,8 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System;
 
@@ -416,6 +418,51 @@ public static class WadeUtils
 	/////////////////////////////////
 	//////  COLORS           ////////
 	/////////////////////////////////
+
+	public static Gradient Lerp( Gradient a, Gradient b, float t )
+	{
+		Gradient c = new Gradient();
+		Lerp ( a, b, t, ref c );
+		return c;
+	}
+
+	// Gradients can have a max of 8 controls for each Color and Alpha
+	public static int MaxGradientControls = 8;
+
+	public static void CopyValue( Gradient source, ref Gradient destination )
+	{
+		GradientAlphaKey[] alphaKeys = new GradientAlphaKey[source.alphaKeys.Length];
+		GradientColorKey[] colorKeys = new GradientColorKey[source.colorKeys.Length];
+
+		for( int i = 0; i < alphaKeys.Length; i++ )
+		{
+			alphaKeys[i] = source.alphaKeys[i];
+		}
+
+		for( int i = 0; i < colorKeys.Length; i++ )
+		{
+			colorKeys[i] = source.colorKeys[i];
+		}
+
+		destination.SetKeys( colorKeys, alphaKeys );
+	}
+
+	public static void Lerp( Gradient a, Gradient b, float t, ref Gradient c )
+	{
+		List<GradientColorKey> colorKeys = new List<GradientColorKey>();
+		List<GradientAlphaKey> alphaKeys = new List<GradientAlphaKey>();
+
+		for( int i = 0; i < MaxGradientControls; i++ )
+		{
+			float alpha = i/(MaxGradientControls - 1f);
+			Color averageColor = Color.Lerp( a.Evaluate( alpha ), b.Evaluate( alpha ), t );
+
+			colorKeys.Add( new GradientColorKey( averageColor, alpha ) );
+			alphaKeys.Add( new GradientAlphaKey( averageColor.a, alpha ) );
+		}
+
+		c.SetKeys( colorKeys.ToArray(), alphaKeys.ToArray() );
+	}
 
 	public static HSVColor RGBToHSV( Color color )
 	{
