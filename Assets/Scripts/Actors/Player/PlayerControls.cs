@@ -306,25 +306,23 @@ public class PlayerControls : MonoBehaviour
 					{
 						player.inventory.UseItem();
 					}
-					else
+
+					// This allows us to do one raycast for all actions
+					// which is good since we do RaycastAll(), which is expensive.
+					RaycastHit hitInfo;
+					if ( player.controls.RaycastForward( out hitInfo ) )
 					{
-						// This allows us to do one raycast for all actions
-						// which is good since we do RaycastAll(), which is expensive.
-						RaycastHit hitInfo;
-						if ( player.controls.RaycastForward( out hitInfo ) )
+						if ( player.cutting.CutCheck( hitInfo ) )
 						{
-							if ( player.cutting.CutCheck( hitInfo ) )
-							{
-								// cutting was done
-							}
-							else if ( player.inventory.UseItemWithTarget( hitInfo ) )
-							{
-								// item use / buddy spawning was done
-							}
-							else if ( player.controls.InteractCheck( hitInfo ) )
-							{
-								// Interaction was done
-							}
+							player.animator.SetTrigger( "cut" );
+						}
+						else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+						{
+							// Feed buddy.
+						}
+						else if ( player.controls.InteractCheck( hitInfo ) )
+						{
+							// Interaction was done.
 						}
 					}
 				}
