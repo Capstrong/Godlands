@@ -99,6 +99,7 @@ GameObject:
   - 92: {fileID: 864748840}
   - 124: {fileID: 864748839}
   - 81: {fileID: 864748838}
+  - 114: {fileID: 864748843}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -170,7 +171,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
+--- !u!114 &864748843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 864748837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFog: 1
+  useRadialDistance: 1
+  startDistance: 0
+  fogShader: {fileID: 4800000, guid: 9b11c4a942b4c41039461031e11fd7a1, type: 3}
+  fogMaterial: {fileID: 0}
 --- !u!1 &962731115
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +213,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: .831237316, b: .529411793, a: 1}
+  m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -230,7 +247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1001 &1651787084
 Prefab:
   m_ObjectHideFlags: 0
@@ -248,7 +265,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 445154, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 39
+      value: 1566
       objectReference: {fileID: 0}
     - target: {fileID: 445154, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
       propertyPath: m_LocalRotation.x
@@ -270,8 +287,68 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11410210, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1880664697
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522388, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: _daySettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 7fdeeceb69fac485587ec214281dd92a,
+        type: 2}
+    - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
+      propertyPath: _nightSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 05f31fdd2839c4244997aebaa4c8a202,
+        type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2113752539
 Prefab:
@@ -318,27 +395,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.skyColor.g
-      value: 1
+      value: .742190719
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.lightColor.r
-      value: 1
+      value: .97870183
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.lightColor.b
-      value: 1
+      value: .845588207
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.key0.rgba
-      value: 4294967295
+      value: 16770714
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.key1.rgba
-      value: 4294967295
+      value: 2122954751
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.key2.rgba
-      value: 0
+      value: 2063597568
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.key3.rgba
@@ -362,7 +439,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.ctime1
-      value: 65535
+      value: 22937
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.ctime2
@@ -390,11 +467,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.atime1
-      value: 65535
+      value: 38550
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.atime2
-      value: 0
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.atime3
@@ -422,19 +499,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.fogGradient.m_NumAlphaKeys
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.skyColor.r
-      value: 1
+      value: .404411793
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.skyColor.g
-      value: 1
+      value: .176940411
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.skyColor.b
-      value: 1
+      value: .124891877
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.lightColor.r
@@ -442,23 +519,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.lightColor.g
-      value: 1
+      value: .831237316
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.lightIntensity
-      value: 1
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.key0.rgba
-      value: 4294967295
+      value: 16777215
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.key1.rgba
-      value: 4294967295
+      value: 3123273340
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.key2.rgba
-      value: 0
+      value: 3308664470
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.key3.rgba
@@ -482,11 +559,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.ctime1
-      value: 65535
+      value: 14071
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.ctime2
-      value: 0
+      value: 41827
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.ctime3
@@ -510,11 +587,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.atime1
-      value: 65535
+      value: 33153
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.atime2
-      value: 0
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.atime3
@@ -538,11 +615,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.m_NumColorKeys
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.m_NumAlphaKeys
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 161686, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: m_IsActive
@@ -568,6 +645,122 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.skyColor.r
+      value: .404411793
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.skyColor.g
+      value: .176940411
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.skyColor.b
+      value: .124891877
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.lightColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.lightColor.g
+      value: .831237316
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.lightColor.b
+      value: .529411793
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key0.rgba
+      value: 16777215
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key1.rgba
+      value: 879793320
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key2.rgba
+      value: 1747670912
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key3.rgba
+      value: 2620344713
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key4.rgba
+      value: 3140697233
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key5.rgba
+      value: 3191223958
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key6.rgba
+      value: 3241555606
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.fogGradient.key7.rgba
+      value: 3308664470
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentLightingSettings.daySettings.skyColor.b
+      value: .544117689
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentLightingSettings.nightSettings.lightColor.b
+      value: .529411793
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _directionalLight
+      value: 
+      objectReference: {fileID: 962731116}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _dayCycleLength
+      value: 1e+10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _dayStartTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _blackoutDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _lightupDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _currentTimeLightingSettings.lightIntensity
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _daylightIntensity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2145129966 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 190786, guid: 20146c3b706e30c4dad52cc52c7d2f1f, type: 2}
+  m_PrefabInternal: {fileID: 1651787084}
+--- !u!114 &2145129967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2145129966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55f071fa76c8a04aae6df5463583f8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 40
+  _startRotation: 0
+  _endRotation: 180
+  _alphaIntensity: 0
+  _lightIntensity: 1
