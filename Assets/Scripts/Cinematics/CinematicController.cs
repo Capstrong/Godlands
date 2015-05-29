@@ -9,12 +9,14 @@ public class CinematicController : MonoBehaviour
 
 	Transform _transform = null;
 
-	Canvas[] _uiCanvases = null;
+	[SerializeField] Canvas[] _uiCanvases = null;
 	Animator _cutsceneAnimator = null;
 	GameObject _playerObj = null;
 	
 	[SerializeField] AudioSource _cinematicDialoguePrefab = null;
 	AudioSource _cinematicDialogue = null;
+
+	[SerializeField] Text[] _subtitleTexts = null;
 
 	void Awake()
 	{
@@ -37,7 +39,6 @@ public class CinematicController : MonoBehaviour
 				Debug.LogWarning( "No player to set inactive during cutscene." );
 			}
 
-			_uiCanvases = GameObject.FindObjectsOfType<Canvas>();
 			foreach( Canvas canvas in _uiCanvases )
 			{
 				canvas.enabled = false;
@@ -62,6 +63,7 @@ public class CinematicController : MonoBehaviour
 	void SkipCutscene()
 	{
 		FinishCutscene();
+		ClearSubtitle();
 	}
 
 	public void SetToNearestRenderSettings()
@@ -72,6 +74,22 @@ public class CinematicController : MonoBehaviour
 	public void TransitionToNearestRenderSettings( float transitionTime )
 	{
 		RenderSettingsManager.TransitionToNearestZone( _transform.position, transitionTime );
+	}
+
+	public void ShowSubtitle( string text )
+	{
+		foreach( Text subtitleText in _subtitleTexts )
+		{
+			subtitleText.text = text;
+		}
+	}
+
+	public void ClearSubtitle()
+	{
+		foreach( Text subtitleText in _subtitleTexts )
+		{
+			subtitleText.text = string.Empty;
+		}
 	}
 
 	public void FinishCutscene()
