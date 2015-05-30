@@ -6,13 +6,18 @@ public enum Level
 	Invalid,
 	ControlsScreen,
 	MainGame,
+	GoodEnding,
+	BadEnding,
 }
 
 public static class LevelUtils
 {
-	public static string[] levels = { "",
-	                                  "ControlsScreen",
-	                                  "BlockOut"};
+	public
+	static string[] levels = {"",
+	                          "ControlsScreen",
+	                          "BlockOut",
+	                          "goodEnding",
+	                          "badEnding"};
 
 	public static void LoadLevel( Level level )
 	{

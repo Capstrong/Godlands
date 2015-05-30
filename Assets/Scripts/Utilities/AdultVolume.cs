@@ -25,7 +25,7 @@ public class AdultVolume : MonoBehaviour
 
 			if ( buddy && buddy.isOfAge )
 			{
-				// TODO: Do any vfx for indicating the buddy is an adult.
+				// TODO: Do any effects and animations for turning the buddy into an adult
 
 				AdultManager.SpawnAdult( buddy );
 				player.inventory.ResetBackBuddy();
