@@ -11,19 +11,20 @@ public class TextAdultBuddyVolume : TextVolume
 
 	public override void TriggerText( PlayerActor player )
 	{
-		if ( player
-			&& player.inventory
-			&& player.inventory.backBuddy
-			&& player.inventory.backBuddy.hiddenBuddy
-			&& player.inventory.backBuddy.hiddenBuddy.isOfAge )
+		if ( player )
 		{
-			DisplayText( _adultBuddyText );
-			Reactivate();
-		}
-		else
-		{
-			DisplayText( _noAdultBuddyText );
-			Reactivate();
+			if ( player.inventory.backBuddy 
+				&& player.inventory.backBuddy.hiddenBuddy 
+				&& player.inventory.backBuddy.hiddenBuddy.isOfAge )
+			{
+				DisplayText( _adultBuddyText );
+				Reactivate();
+			}
+			else
+			{
+				DisplayText( _noAdultBuddyText );
+				Reactivate();
+			}
 		}
 	}
 }
