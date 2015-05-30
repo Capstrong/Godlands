@@ -14,6 +14,8 @@ GameObject:
   - 81: {fileID: 8197658}
   - 114: {fileID: 11479410}
   - 114: {fileID: 11420234}
+  - 95: {fileID: 9520144}
+  - 114: {fileID: 11451370}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -27,8 +29,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115624}
-  m_LocalRotation: {x: .0701384097, y: -.739118636, z: .0778814107, w: .66537112}
-  m_LocalPosition: {x: 162.680038, y: 59.9351425, z: 25.0507259}
+  m_LocalRotation: {x: .0163607243, y: .962581992, z: -.0807687342, w: .258156151}
+  m_LocalPosition: {x: 49.9399986, y: 172.759995, z: 41.7000008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +56,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -79,6 +81,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115624}
   m_Enabled: 1
+--- !u!95 &9520144
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115624}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0175eb10b33644e89a682c96146e59d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11420234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,12 +109,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  threshold: .289999992
-  intensity: .550000012
+  threshold: .5
+  intensity: .5
   blurSize: 1
   blurIterations: 1
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
+--- !u!114 &11451370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05d80a123e8dd4175af32979721d561b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playIntroCinematic: 1
+  _uiCanvases:
+  - {fileID: 0}
+  _cinematicDialoguePrefab: {fileID: 8283550, guid: beb61127c53f24b4392a04184f2bb8d0,
+    type: 2}
+  _subtitleTexts:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11479410
 MonoBehaviour:
   m_ObjectHideFlags: 1

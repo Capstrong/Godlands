@@ -24,6 +24,7 @@ public class DebugUtils
 		{
 			// throw an exception to ensure that exection
 			// does not continue after assert is hit.
+			Debug.LogError( message );
 			throw new AssertException( message );
 			// Debug.Break(); // Uncomment if you want to pause the editor when an assert is hit.
 		}
