@@ -19,7 +19,7 @@ public static class LevelUtils
 	                          "BlockOut",
 	                          "goodEnding",
 	                          "badEnding",
-	                          "ControlsScreen"};
+	                          "MainMenu"};
 
 	public static void LoadLevel( Level level )
 	{
