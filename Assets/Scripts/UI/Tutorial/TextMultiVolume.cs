@@ -5,7 +5,7 @@ public class TextMultiVolume : TextVolume
 {
 	[SerializeField] TextMultiVolumeContents _textContents = null;
 
-	public override void TriggerText()
+	public override void TriggerText( PlayerActor player )
 	{
 		if ( !_textContents.hasBeenDisplayed )
 		{

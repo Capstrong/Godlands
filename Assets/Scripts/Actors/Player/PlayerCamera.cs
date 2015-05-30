@@ -204,7 +204,7 @@ public class PlayerCamera : ActorComponent
 
 		if( float.IsNaN( turnSpeedMod ) )
 		{
-			Debug.Log( "BAD NUMBER" );
+			Debug.LogWarning( "PlayerCamera.turnSpeedMod is NaN, setting it to 1" );
 			turnSpeedMod = 1f;
 		}
 
