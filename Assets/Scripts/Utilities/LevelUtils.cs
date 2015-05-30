@@ -8,6 +8,7 @@ public enum Level
 	MainGame,
 	GoodEnding,
 	BadEnding,
+	MainMenu,
 }
 
 public static class LevelUtils
@@ -17,7 +18,8 @@ public static class LevelUtils
 	                          "ControlsScreen",
 	                          "BlockOut",
 	                          "goodEnding",
-	                          "badEnding"};
+	                          "badEnding",
+	                          "ControlsScreen"};
 
 	public static void LoadLevel( Level level )
 	{
