@@ -6760,8 +6760,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: .765940249, g: .992376268, b: .696179569, a: 1}
-  m_Intensity: .991899788
+  m_Color: {r: .765720069, g: 1, b: .691176474, a: 1}
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -8747,7 +8747,7 @@ Prefab:
     - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: _nightSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 73ce121da2b6849f2ac63d589f6b203e,
+      objectReference: {fileID: 11400000, guid: aed44f414f04440d19cc56a045c6595f,
         type: 2}
     - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: _shiftTime
@@ -29311,6 +29311,18 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 112962, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 186860, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 186854, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ec2b6a5b28f3574ebeb493216045d48, type: 2}
   m_IsPrefabParent: 0
@@ -30597,6 +30609,10 @@ Prefab:
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.nightSettings.fogGradient.m_NumColorKeys
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11407950, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
+      propertyPath: _dayCycleLength
+      value: 999999
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
