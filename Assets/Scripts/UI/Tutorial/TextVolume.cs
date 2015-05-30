@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent( typeof( BoxCollider ) )]
 public abstract class TextVolume : MonoBehaviour
 {
 	[ReadOnly]
@@ -23,11 +24,11 @@ public abstract class TextVolume : MonoBehaviour
 		Gizmos.DrawWireCube( collider.center, collider.size );
 	}
 
-	public abstract void TriggerText();
+	public abstract void TriggerText( PlayerActor player );
 
 	public void OnTriggerStay( Collider other )
 	{
-		TriggerText();
+		TriggerText( other.gameObject.GetComponent<PlayerActor>() );
 	}
 
 	public void DisplayText( string text )
@@ -37,5 +38,10 @@ public abstract class TextVolume : MonoBehaviour
 			_textBox.SetText( text );
 			_hasBeenTriggered = true;
 		}
+	}
+
+	public void Reactivate()
+	{
+		_hasBeenTriggered = false;
 	}
 }
