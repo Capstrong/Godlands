@@ -13,6 +13,19 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	private List<AdultSpawnTag> _goodBuddySpawnPoints = new List<AdultSpawnTag>();
 	private List<ResourceSpawner> _resourceSpawners = new List<ResourceSpawner>();
 
+	[Tooltip( "The number of adult buddies at which point the game ends." )]
+	[SerializeField] int _numGoalBuddies = 0;
+
+	[ReadOnly]
+	[SerializeField] int _numGoodBuddies = 0;
+	[ReadOnly]
+	[SerializeField] int _numBadBuddies = 0;
+
+	int numTotalBuddies
+	{
+		get { return _numBadBuddies + _numGoodBuddies; }
+	}
+
 	void Start()
 	{
 		// Populate list of spawn points.
@@ -39,6 +52,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, spawnTransform.rotation );
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
+
+			_numGoodBuddies++;
 		}
 		else
 		{
@@ -55,8 +70,27 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, Quaternion.identity );
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
+
+			_numBadBuddies++;
 		}
 
 		buddyStats.BecomeAdult();
+
+		CheckForEnding();
+	}
+
+	void CheckForEnding()
+	{
+		if ( numTotalBuddies >= _numGoalBuddies )
+		{
+			if ( _numGoodBuddies >= _numBadBuddies )
+			{
+				LevelUtils.LoadLevel( Level.GoodEnding );
+			}
+			else
+			{
+				LevelUtils.LoadLevel( Level.BadEnding );
+			}
+		}
 	}
 }

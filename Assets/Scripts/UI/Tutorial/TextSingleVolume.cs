@@ -10,7 +10,7 @@ public class TextSingleVolume : TextVolume
 		get { return _text; }
 	}
 
-	public override void TriggerText()
+	public override void TriggerText( PlayerActor player )
 	{
 		DisplayText( text );
 	}

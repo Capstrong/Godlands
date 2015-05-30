@@ -1,22 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent( typeof( BoxCollider ) )]
 public class AdultVolume : MonoBehaviour
 {
-	void OnTriggerEnter( Collider other )
+	void OnDrawGizmos()
 	{
-		var player = other.GetComponentInParent<PlayerInventory>();
+		Gizmos.color = Color.magenta;
+		Transform transform = GetComponent<Transform>();
+		Gizmos.matrix = transform.localToWorldMatrix;
 
-		if ( player && player.isCarryingBuddy )
+		BoxCollider collider = GetComponent<BoxCollider>();
+		Gizmos.DrawWireCube( collider.center, collider.size );
+	}
+
+	void OnTriggerStay( Collider other )
+	{
+		PlayerActor player = other.GetComponentInParent<PlayerActor>();
+
+		if ( player 
+			&& player.controls.holdButton )
 		{
-			BuddyStats buddy = player.backBuddy.hiddenBuddy;
+			BuddyStats buddy = player.inventory.backBuddy.hiddenBuddy;
 
-			if ( buddy.isOfAge )
+			if ( buddy && buddy.isOfAge )
 			{
-				// TODO: Do any vfx for indicating the buddy is an adult.
+				// TODO: Do any effects and animations for turning the buddy into an adult
 
 				AdultManager.SpawnAdult( buddy );
-				player.ResetBackBuddy();
+				player.inventory.ResetBackBuddy();
 			}
 		}
 	}
