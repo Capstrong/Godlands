@@ -125,15 +125,14 @@ public class BuddyShaper : MonoBehaviour
 
 	void AdjustColor()
 	{
-		if( _buddyStats.itemData )
-		{
-			int statNum = (int)_buddyStats.itemData.stat;
-			int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
-			int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
+		// If the buddy has an itemData, color it accordingly, otherwise, color it randomly
+		int statNum = ( _buddyStats.itemData ? (int) _buddyStats.itemData.stat : Random.Range(0,3) );
 
-			skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
-			skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
-		}
+		int topBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].topBodyColors.Length );
+		int bottomBodyColorIndex = Random.Range( 0, _buddyTypeFashions[statNum].bottomBodyColors.Length );
+
+		skinnedMeshRend.material.SetColor( "_TintColor1", _buddyTypeFashions[statNum].topBodyColors[topBodyColorIndex] );
+		skinnedMeshRend.material.SetColor( "_TintColor2", _buddyTypeFashions[statNum].bottomBodyColors[bottomBodyColorIndex] );
 
 		skinnedMeshRend.material.SetTexture( "_SkinTex", _skinColors[Random.Range( 0, _skinColors.Length )] );
 	}

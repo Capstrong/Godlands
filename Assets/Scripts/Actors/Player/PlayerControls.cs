@@ -79,15 +79,12 @@ public class PlayerControls : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if ( Input.GetKeyDown( KeyCode.Escape ) )
-		{
-			Application.Quit();
-		}
-
+#if UNITY_EDITOR
 		if ( Input.GetKeyDown( KeyCode.Y ) )
 		{
 			Respawn();
 		}
+#endif
 
 		_holdButton.Update();
 		_useButton.Update();

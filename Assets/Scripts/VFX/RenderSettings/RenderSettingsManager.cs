@@ -122,7 +122,7 @@ public class RenderSettingsManager : SingletonBehaviour<RenderSettingsManager>
 			                           daylightIntensity,
 			                           ref _currentTimeLightingSettings );
 
-			if( globalFog.fogMaterial != null )
+			if( globalFog && globalFog.fogMaterial != null )
 			{
 				Color[] gradientColors = new Color[_gradientTextureWidth];
 				for( int i = 0; i < _gradientTextureWidth; i++ )
