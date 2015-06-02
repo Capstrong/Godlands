@@ -109,6 +109,8 @@ public class PlayerInventory : ActorComponent
 			int nextIndex = _resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
 			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
 		}
+
+		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
 	}
 
 	public bool CanUseItemWithoutTarget()
