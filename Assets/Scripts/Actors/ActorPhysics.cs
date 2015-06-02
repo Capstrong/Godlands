@@ -417,6 +417,13 @@ public sealed class ActorPhysics : ActorComponent
 		CalculateDesiredLook();
 	}
 
+	public void DeadMovement()
+	{
+		FollowBumper();
+		FollowLifter();
+		ComeToStop();
+	}
+
 	public void OverrideLook( Vector3 lookDir, float time )
 	{
 		_lookOverride = lookDir;
