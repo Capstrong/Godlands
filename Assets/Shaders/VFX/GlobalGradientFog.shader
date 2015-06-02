@@ -104,7 +104,6 @@ Shader "Hidden/GlobalGradientFog"
 			float2 fogUV = float2( 1 - saturate(fogFac), 0 );
 			half4 fogCol = tex2D( _FogGradientTex, fogUV );
 			float4 alphaFogCol = lerp( sceneColor, fogCol, fogCol.a );
-;
 			return alphaFogCol;
 		}
 
