@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 // types and current count
-[System.Serializable] public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
+[System.Serializable] 
+public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
 
-    [RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )] public class PlayerInventory : ActorComponent
+[RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )]
+public class PlayerInventory : ActorComponent
 {
 	InventoryScrollBar _inventoryBar;
 
