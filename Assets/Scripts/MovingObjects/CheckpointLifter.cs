@@ -8,7 +8,8 @@ public class CheckpointLifter : MonoBehaviour
 {
 	[SerializeField] float _moveSpeed = 5f;
 
-	[ReadOnly("Initial Position")] Vector3 _initPos = Vector3.zero;
+	[ReadOnly]
+	[SerializeField] Vector3 _initPos = Vector3.zero;
 	[SerializeField] float _maxHeightOffset = 25f;
 
 	[SerializeField] bool _isActive = false;
@@ -17,7 +18,8 @@ public class CheckpointLifter : MonoBehaviour
 		get { return _isActive; }
 	}
 
-	[ReadOnly("Is Rising")] bool _isRising = false;
+	[ReadOnly]
+	[SerializeField] bool _isRising = false;
 
 	Renderer _renderer = null;
 	Transform _transform = null;
@@ -30,12 +32,6 @@ public class CheckpointLifter : MonoBehaviour
 
 		// Start the lifter at the top of its range
 		_transform.position = _transform.position.SetY( _initPos.y + _maxHeightOffset );
-
-		TextVolume textVolume = GetComponentInChildren<TextVolume>();
-		textVolume.gameObject.transform.position = _transform.position;
-
-		CheckpointVolume checkpointVolume = GetComponentInChildren<CheckpointVolume>();
-		checkpointVolume.gameObject.transform.position = _transform.position;
 
 		_renderer = GetComponentInChildren<Renderer>();
 		_renderer.material.SetColor( "_EmissionColor", Color.black);
@@ -78,20 +74,14 @@ public class CheckpointLifter : MonoBehaviour
 		_renderer.material.SetColor( "_EmissionColor", Color.white );
 	}
 
-	void OnTriggerStay( Collider otherCol )
+	public void Stay()
 	{
-		if ( otherCol.GetComponentInParent<PlayerActor>() )
-		{
-			_isRising = true;
-		}
+		_isRising = true;
 	}
 
-	void OnTriggerExit( Collider otherCol )
+	public void Exit()
 	{
-		if ( otherCol.GetComponentInParent<PlayerActor>() )
-		{
-			_isRising = false;
-		}
+		_isRising = false;
 	}
 
 	void OnDrawGizmos()

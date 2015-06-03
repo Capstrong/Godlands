@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckpointVolume : MonoBehaviour {
+public class CheckpointActivationVolume : MonoBehaviour {
 
 	CheckpointLifter _lifter;
 
