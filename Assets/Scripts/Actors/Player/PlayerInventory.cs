@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// types and current count
+[System.Serializable] 
+public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
+
 [RequireComponent( typeof( PlayerCamera ), typeof( PlayerStats ) )]
 public class PlayerInventory : ActorComponent
 {
@@ -16,10 +20,6 @@ public class PlayerInventory : ActorComponent
 	}
 
 	[SerializeField] float _lookOverrideDuration = 0.5f;
-
-	// types and current count
-	[System.Serializable]
-	public class InventoryDictionary : SerializableDictionary<InventoryItemData, int> { }
 
 	[ReadOnly("Inventory")]
 	[SerializeField] InventoryDictionary _inventory = new InventoryDictionary();
@@ -110,7 +110,8 @@ public class PlayerInventory : ActorComponent
 			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
 		}
 
-		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
+		_inventoryBar.UpdateScrollArrows( scrollAmount );
+		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray(), _inventory );
 	}
 
 	public bool CanUseItemWithoutTarget()
@@ -357,7 +358,7 @@ public class PlayerInventory : ActorComponent
 		}
 		else if ( _heldResources.Count > 0 )
 		{
-			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray() );
+			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray(), _inventory );
 		}
 	}
 
