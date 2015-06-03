@@ -8,23 +8,32 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] Image currentItemIcon = null;
 	[SerializeField] Image nextItemIcon = null;
 
-	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData )
+	[SerializeField] Text prevItemCountText = null;
+	[SerializeField] Text currentItemCountText = null;
+	[SerializeField] Text nextItemCountText = null;
+
+	[SerializeField] Color uiColor = Color.white;
+
+	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
 	{
 		DebugUtils.Assert( inventoryItemData.Length > 0 );
 
 		NullInventoryBar();
 		SetIcon( currentItemIcon, inventoryItemData[MathUtils.Mod( currentIndex, inventoryItemData.Length )].icon );
+		SetCountText( currentItemCountText, inventory[inventoryItemData[currentIndex]] );
 
 		if ( inventoryItemData.Length > 1 )
 		{
 			int prevIndex = MathUtils.Mod( ( currentIndex - 1 ), inventoryItemData.Length );
 			SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
+			SetCountText( prevItemCountText, inventory[inventoryItemData[prevIndex]] );
 		}
 
 		if ( inventoryItemData.Length > 2 )
 		{
 			int nextIndex = MathUtils.Mod( ( currentIndex + 1 ), inventoryItemData.Length );
 			SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
+			SetCountText( nextItemCountText, inventory[inventoryItemData[nextIndex]] );
 		}
 	}
 
@@ -33,20 +42,24 @@ public class InventoryScrollBar : MonoBehaviour
 		SetIcon( prevItemIcon );
 		SetIcon( currentItemIcon );
 		SetIcon( nextItemIcon );
+
+		SetCountText( prevItemCountText );
+		SetCountText( currentItemCountText );
+		SetCountText( nextItemCountText );
 	}
 
 	void SetIcon( Image image, Sprite icon = null )
 	{
 		image.sprite = icon;
 
-		if( !icon )
-		{
-			image.color = image.color.SetAlpha( 0f );
-		}
-		else
-		{
-			image.color = Color.white;
-		}
+		image.color = ( icon ? uiColor : image.color.SetAlpha( 0f ) );
+	}
+
+	void SetCountText( Text countText, int count = 0 )
+	{
+		countText.text = count.ToString();
+
+		countText.color = ( count != 0 ? uiColor : countText.color.SetAlpha( 0f ) );
 	}
 
 	public void Disable()
