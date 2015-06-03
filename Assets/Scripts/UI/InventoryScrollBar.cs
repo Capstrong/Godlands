@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryScrollBar : MonoBehaviour
 {
+	[SerializeField] Color uiColor = Color.white;
+
 	[SerializeField] Image prevItemIcon = null;
 	[SerializeField] Image currentItemIcon = null;
 	[SerializeField] Image nextItemIcon = null;
@@ -12,7 +14,12 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] Text currentItemCountText = null;
 	[SerializeField] Text nextItemCountText = null;
 
-	[SerializeField] Color uiColor = Color.white;
+	[SerializeField] InventoryArrow _leftArrow = null;
+	[SerializeField] InventoryArrow _rightArrow = null;
+
+	[SerializeField] int _highlightFrameCount = 0;
+
+	Coroutine _highlightRoutine = null;
 
 	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
 	{
@@ -70,5 +77,46 @@ public class InventoryScrollBar : MonoBehaviour
 	public void Enable()
 	{
 		gameObject.SetActive( true );
+	}
+
+	public void UpdateScrollArrows( float scrollAmount )
+	{
+		if ( WadeUtils.IsZero( scrollAmount ) )
+		{
+			if ( _highlightRoutine == null )
+			{
+				UnhighlightArrows();
+			}
+		}
+		else
+		{
+			if ( _highlightRoutine != null )
+			{
+				StopCoroutine( _highlightRoutine );
+			}
+
+			_highlightRoutine = StartCoroutine( HighlightArrowRoutine( scrollAmount < 0f ) );
+		}
+	}
+
+	public IEnumerator HighlightArrowRoutine( bool highlightLeft )
+	{
+		InventoryArrow highlightArrow = ( highlightLeft ? _leftArrow : _rightArrow );
+		InventoryArrow normalArrow = ( highlightLeft ? _rightArrow : _leftArrow );
+
+		for ( int i = 0; i < _highlightFrameCount; i++ )
+		{
+			highlightArrow.Highlight();
+			normalArrow.Normal();
+			yield return null;
+		}
+
+		_highlightRoutine = null;
+	}
+
+	public void UnhighlightArrows()
+	{
+		_rightArrow.Normal();
+		_leftArrow.Normal();
 	}
 }

@@ -108,6 +108,7 @@ using System.Collections.Generic;
 			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
 		}
 
+		_inventoryBar.UpdateScrollArrows( scrollAmount );
 		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray(), _inventory );
 	}
 
