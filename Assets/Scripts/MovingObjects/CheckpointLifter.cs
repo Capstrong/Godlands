@@ -12,6 +12,11 @@ public class CheckpointLifter : MonoBehaviour
 	[SerializeField] float _maxHeightOffset = 25f;
 
 	[SerializeField] bool _isActive = false;
+	public bool isActive
+	{
+		get { return _isActive; }
+	}
+
 	[ReadOnly("Is Rising")] bool _isRising = false;
 
 	Renderer _renderer = null;
@@ -22,6 +27,15 @@ public class CheckpointLifter : MonoBehaviour
 		_transform = GetComponent<Transform>();
 
 		_initPos = _transform.position;
+
+		// Start the lifter at the top of its range
+		_transform.position = _transform.position.SetY( _initPos.y + _maxHeightOffset );
+
+		TextVolume textVolume = GetComponentInChildren<TextVolume>();
+		textVolume.gameObject.transform.position = _transform.position;
+
+		CheckpointVolume checkpointVolume = GetComponentInChildren<CheckpointVolume>();
+		checkpointVolume.gameObject.transform.position = _transform.position;
 
 		_renderer = GetComponentInChildren<Renderer>();
 		_renderer.material.SetColor( "_EmissionColor", Color.black);
