@@ -69,7 +69,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 #if UNITY_EDITOR
 		if ( Input.GetKey( _midnightTrigget ) && _midnightCoroutine == null )
 		{
-			_TriggerMidnight();
+			_TriggerMidnight( 2.0f );
 		}
 #endif
 	}
@@ -83,15 +83,15 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
 	}
 
-	public static void TriggerMidnight()
+	public static void TriggerMidnight( float overlayTime )
 	{
-		instance._TriggerMidnight();
+		instance._TriggerMidnight( overlayTime );
 	}
 
-	void _TriggerMidnight()
+	void _TriggerMidnight( float overlayTime )
 	{
 		CancelInvoke( "StartMidnightOverlay" );
-		StartMidnightOverlay();
+		StartMidnightOverlay( overlayTime );
 	}
 
 	// This returns percentage [0 to 1] along day, with start offset removed
@@ -113,22 +113,27 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay()
 	{
-		_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay() );
+		StartMidnightOverlay( _blackoutDuration );
+	}
+
+	void StartMidnightOverlay( float overlayTime )
+	{
+		_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay( overlayTime ) );
 	}
 
 	/**
 	 * Used to fade to black at midnight.
 	 */
-	IEnumerator FadeInMidnightOverlay()
+	IEnumerator FadeInMidnightOverlay( float overlayTime )
 	{
 		float elapsedTime = 0.0f;
 		while ( true )
 		{
-			if ( elapsedTime < _blackoutDuration )
+			if ( elapsedTime < overlayTime )
 			{
 				elapsedTime += Time.deltaTime;
 				Color overlayColor = _midnightOverlay.color;
-				overlayColor.a = elapsedTime / _blackoutDuration;
+				overlayColor.a = elapsedTime / overlayTime;
 				_midnightOverlay.color = overlayColor;
 				yield return null;
 			}
