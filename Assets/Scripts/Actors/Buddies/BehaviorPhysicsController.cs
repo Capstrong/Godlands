@@ -53,7 +53,7 @@ public class BehaviorPhysicsController : MonoBehaviour
 
 		public override void Update()
 		{
-			actor.physics.ComeToStop();
+			actor.physics.DeadMovement();
 		}
 
 		public override void Exit() { }
