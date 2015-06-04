@@ -331,11 +331,7 @@ public class BuddyStats : ActorComponent
 		EmoteDeath();
 		actor.physics.ChangeState( PhysicsStateType.Dead );
 
-		// Debug spawned buddies don't have eggs to respawn
-		if ( itemData && itemData.respawnItem )
-		{
-			itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
-		}
+		RespawnEgg();
 
 		StopCoroutine( _currentEmoteRoutine );
 
@@ -348,11 +344,22 @@ public class BuddyStats : ActorComponent
 		}
 	}
 
+	void RespawnEgg()
+	{
+		// Debug spawned buddies don't have eggs to respawn
+		if ( itemData && itemData.respawnItem )
+		{
+			// Respawn the egg in the world to be gathered again
+			itemData.respawnItem.Enable();
+		}
+	}
+
 	public void BecomeAdult()
 	{
 		_state = BuddyState.Adult;
 		gameObject.SetActive( false );
 		Destroy( GetComponent<AIController>() );
+		RespawnEgg();
 	}
 
 	// This takes care of everything that needs to be updated after the buddy is
