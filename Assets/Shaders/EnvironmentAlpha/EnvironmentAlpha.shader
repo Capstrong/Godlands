@@ -21,7 +21,7 @@ Shader "Custom/EnvironmentAlpha"
 		
 		CGPROGRAM
 		#pragma vertex vert
-		#pragma surface surf Lambert alphatest:_Cutoff addshadow fullforwardshadows
+		#pragma surface surf Lambert alphatest:_Cutoff addshadow
 		#pragma target 3.0
 		
 		#include "../GodlandsShaderUtils.cginc"

@@ -113,12 +113,18 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay()
 	{
-		StartMidnightOverlay( _blackoutDuration );
+		if( _midnightOverlay )
+		{
+			StartMidnightOverlay( _blackoutDuration );
+		}
 	}
 
 	void StartMidnightOverlay( float overlayTime )
 	{
-		_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay( overlayTime ) );
+		if( _midnightOverlay )
+		{
+			_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay( overlayTime ) );
+		}
 	}
 
 	/**
