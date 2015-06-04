@@ -30,7 +30,7 @@ public class InventoryItem : MonoBehaviour
 		}
 	}
 
-	public void Enable()
+	public virtual void Enable()
 	{
 		used = false;
 		_renderer.enabled = true;
