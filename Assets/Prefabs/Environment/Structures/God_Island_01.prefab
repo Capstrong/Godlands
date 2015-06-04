@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3390030}
   - 23: {fileID: 2342162}
   - 64: {fileID: 6416064}
+  - 95: {fileID: 9544628}
   m_Layer: 0
   m_Name: God_Island_01
   m_TagString: Untagged
@@ -24,9 +25,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 117752}
-  m_LocalRotation: {x: 0, y: .926986277, z: 0, w: .375095457}
-  m_LocalPosition: {x: 8.20095825, y: -30.8940582, z: 8.79631805}
-  m_LocalScale: {x: .827573538, y: .827573597, z: .827573597}
+  m_LocalRotation: {x: 0, y: .828940868, z: 0, w: .559336364}
+  m_LocalPosition: {x: 10, y: -.699999988, z: 4.30000019}
+  m_LocalScale: {x: .632736146, y: .632736206, z: .632736206}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,7 +41,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ef567752bd2cd4ebcb6f12470670af51, type: 2}
+  - {fileID: 2100000, guid: ce157628de74880468b577231d030d97, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -72,7 +73,24 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: ae5ccf2563dae48a78f9d7c811a05732, type: 3}
+  m_Mesh: {fileID: 4300002, guid: ae5ccf2563dae48a78f9d7c811a05732, type: 3}
+--- !u!95 &9544628
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
