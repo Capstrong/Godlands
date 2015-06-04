@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DayCycleManager : SingletonBehaviour<DayCycleManager> 
+public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 {
 	public delegate void EndOfDayCallback();
 
@@ -69,8 +69,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 #if UNITY_EDITOR
 		if ( Input.GetKey( _midnightTrigget ) && _midnightCoroutine == null )
 		{
-			CancelInvoke( "StartMidnightOverlay" );
-			StartMidnightOverlay();
+			_TriggerMidnight();
 		}
 #endif
 	}
@@ -82,6 +81,17 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 		CancelInvoke( "StartMidnightOverlay" );
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
+	}
+
+	public static void TriggerMidnight()
+	{
+		instance._TriggerMidnight();
+	}
+
+	void _TriggerMidnight()
+	{
+		CancelInvoke( "StartMidnightOverlay" );
+		StartMidnightOverlay();
 	}
 
 	// This returns percentage [0 to 1] along day, with start offset removed
