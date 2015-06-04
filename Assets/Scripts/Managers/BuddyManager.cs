@@ -71,7 +71,7 @@ public class BuddyManager : SingletonBehaviour<BuddyManager>
 					}
 				}
 
-				_buddyStatsDictionary[statKey].RemoveAll( buddyStat => buddyStat.isAlive == false );
+				_buddyStatsDictionary[statKey].RemoveAll( buddyStat => buddyStat.isAlive == false  && buddyStat.isAdult == false );
 
 				RecalculateStat( statKey );
 			}

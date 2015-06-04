@@ -59,6 +59,8 @@ public class BuddyStats : ActorComponent
 	[SerializeField] ParticleSystem _adultParticles = null;
 	Renderer _particlesRenderer = null;
 
+	[SerializeField] AudioSource _readyToGrowUpSong = null;
+
 	[ReadOnly( "Buddy Item Data" )]
 	public BuddyItemData itemData = null;
 
@@ -100,6 +102,11 @@ public class BuddyStats : ActorComponent
 	public bool isAlive
 	{
 		get { return _state == BuddyState.Normal; }
+	}
+
+	public bool isAdult
+	{
+		get { return _state == BuddyState.Adult; }
 	}
 
 	[Space( 10 ), Header( "Debug Settings" )]
@@ -180,11 +187,12 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( _age >= _adultAge )
+		if ( isOfAge )
 		{
 			_adultParticles.enableEmission = true;
 			_adultParticles.Play();
 			_adultText.gameObject.SetActive( true );
+			SoundManager.Play2DSound( _readyToGrowUpSong );
 		}
 	}
 

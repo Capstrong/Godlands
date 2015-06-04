@@ -16,6 +16,9 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[Tooltip( "The number of adult buddies at which point the game ends." )]
 	[SerializeField] int _numGoalBuddies = 0;
 
+	[SerializeField] AudioSource _goodBuddySong = null;
+	[SerializeField] AudioSource _badBuddySong = null;
+
 	[ReadOnly]
 	[SerializeField] int _numGoodBuddies = 0;
 	[ReadOnly]
@@ -53,6 +56,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
 
+			SoundManager.Play2DSound( _goodBuddySong );
+
 			_numGoodBuddies++;
 		}
 		else
@@ -70,6 +75,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, Quaternion.identity );
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
+
+			SoundManager.Play2DSound( _badBuddySong );
 
 			_numBadBuddies++;
 		}
