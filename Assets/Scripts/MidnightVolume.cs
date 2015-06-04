@@ -5,8 +5,11 @@ public class MidnightVolume : MonoBehaviour
 {
 	[SerializeField] float _midnightFadeTime = 2.0f;
 
-	void OnTriggerEnter()
+	void OnTriggerEnter( Collider other )
 	{
-		DayCycleManager.TriggerMidnight( _midnightFadeTime );
+		if ( other.GetComponent<PlayerActor>() )
+		{
+			DayCycleManager.TriggerMidnight( _midnightFadeTime );
+		}
 	}
 }
