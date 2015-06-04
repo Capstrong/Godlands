@@ -271,7 +271,7 @@ public class PlayerInventory : ActorComponent
 
 	public void ResetBackBuddy()
 	{
-		if ( _isCarryingBuddy && _backBuddy.hiddenBuddy.isAlive )
+		if ( _isCarryingBuddy )
 		{
 			_backBuddy.hiddenBuddy.gameObject.SetActive( true );
 			_backBuddy.hiddenBuddy.BackReset();
