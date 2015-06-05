@@ -506,6 +506,10 @@ public class PlayerControls : MonoBehaviour
 					highlightedBuddy.SetHighlight();
 					_prevHighlightedBuddy = highlightedBuddy;
 				}
+				else if( _prevHighlightedBuddy )
+				{
+					_prevHighlightedBuddy.RemoveHighlight();
+				}
 			}
 			else if( _prevHighlightedBuddy )
 			{
