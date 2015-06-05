@@ -35,7 +35,7 @@ Shader "Nature/Terrain/Standard"
 		CGPROGRAM
 		// As we can't blend normals in g-buffer, this shader will not work in standard deferred path. 
 		// So we use exclude_path:deferred to force it to only use the forward path.
-		#pragma surface surf Standard vertex:SplatmapVertBent addshadow fullforwardshadows finalcolor:myfinal exclude_path:prepass exclude_path:deferred nofog
+		#pragma surface surf Standard vertex:SplatmapVertBent addshadow  finalcolor:myfinal exclude_path:prepass exclude_path:deferred nofog
 		//#pragma multi_compile_fog
 		#pragma target 3.0
 		// needs more than 8 texcoords

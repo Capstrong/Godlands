@@ -9,6 +9,7 @@ public class PlayerActor : Actor
 	PlayerInventory _playerActorResources = null;
 	PlayerControls _controls = null;
 	Cutting _cutting = null;
+	ParachuteControl _parachuteControl = null;
 
 	public new PlayerCamera camera
 	{
@@ -35,6 +36,11 @@ public class PlayerActor : Actor
 		get { return _cutting; }
 	}
 
+	public ParachuteControl parachuteControl
+	{
+		get { return _parachuteControl; }
+	}
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -44,5 +50,6 @@ public class PlayerActor : Actor
 		_playerActorResources = GetComponent<PlayerInventory>();
 		_controls = GetComponent<PlayerControls>();
 		_cutting = GetComponent<Cutting>();
+		_parachuteControl = GetComponentInChildren<ParachuteControl>();
 	}
 }
