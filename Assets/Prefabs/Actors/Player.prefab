@@ -3151,8 +3151,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .853655219, z: 0, w: -.520838618}
-  m_LocalPosition: {x: 151.990005, y: 52.3100014, z: 26.1200008}
+  m_LocalRotation: {x: 0, y: .800290287, z: 0, w: -.599612832}
+  m_LocalPosition: {x: -14.3599997, y: 48.9199982, z: 8.09000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404084}
@@ -4051,10 +4051,13 @@ MonoBehaviour:
   _buddySpawnDistance: 3
   _backBuddyHappinessWaitTime: 5
   _backBuddyHappinessIncrement: .00167000003
-  _pickupBuddyTime: 3.5
-  _putDownBuddyTime: 3
+  _pickupBuddyDelay: 1
+  _pickupBuddyTime: 2
+  _putDownBuddyDelay: 1
+  _putDownBuddyTime: 2
   _spawnBuddyTime: 10
   _placeBuddyOnAltarTime: 3
+  _handTransform: {fileID: 494710}
   _scrollTutorialText: {fileID: 11400000, guid: 06788468fd928294eaf97f222b4b90e3,
     type: 2}
 --- !u!114 &11480134
@@ -4125,11 +4128,11 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _groundedMoveSpeed: 6
+  _groundedMoveSpeed: 4
   _sprintMoveSpeed: 8.5
   _jumpMoveSpeedChangeRate: 1
   _rollMoveSpeed: 6
-  _climbMoveSpeed: 2
+  _climbMoveSpeed: 2.5
   _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
   lifter: {fileID: 13678400}
