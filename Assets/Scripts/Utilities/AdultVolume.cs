@@ -28,7 +28,7 @@ public class AdultVolume : MonoBehaviour
 				// TODO: Do any effects and animations for turning the buddy into an adult
 
 				AdultManager.SpawnAdult( buddy );
-				player.inventory.ResetBackBuddy();
+				player.inventory.HideBackBuddy();
 			}
 		}
 	}

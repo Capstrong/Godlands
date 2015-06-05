@@ -56,6 +56,9 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _backBuddyHappinessWaitTime = 0.0f;
 	[SerializeField] float _backBuddyHappinessIncrement = 0.0f;
 
+	[SerializeField] float _buddyPickupTime = 3.5f;
+	[SerializeField] float _buddyPutDownTime = 3f;
+
 	Coroutine _backBuddyHappinessRoutine = null;
 	
 	AxisButtons _altScrollButton = new AxisButtons("Alt_Scroll");
@@ -175,7 +178,7 @@ public class PlayerInventory : ActorComponent
 			  && buddyStats.isAlive
 			  && !_isCarryingBuddy )
 			{
-				PickUpBuddy( buddyStats );
+				StartCoroutine( PickUpBuddyRoutine( buddyStats ) );
 				return true;
 			}
 		}
@@ -183,8 +186,16 @@ public class PlayerInventory : ActorComponent
 		return false;
 	}
 
-	void PickUpBuddy( BuddyStats buddyStats )
+	IEnumerator PickUpBuddyRoutine( BuddyStats buddyStats )
 	{
+		_isCarryingBuddy = true;
+
+		_playerActor.physics.OverrideLook( buddyStats.GetComponent<Transform>().position - _playerActor.transform.position, _lookOverrideDuration );
+		_playerActor.controls.TimedControlLoss( _buddyPickupTime );
+		_playerActor.animator.Play( "PickupBuddy" );
+
+		yield return new WaitForSeconds( _buddyPickupTime );
+
 		BuddyShaper buddyShaper = buddyStats.GetComponentInChildren<BuddyShaper>();
 		if ( buddyShaper )
 		{
@@ -198,7 +209,6 @@ public class PlayerInventory : ActorComponent
 			}
 
 			_backBuddyHappinessRoutine = StartCoroutine( BackBuddyHappinessRoutine( _backBuddy.hiddenBuddy ) );
-			_isCarryingBuddy = true;
 		}
 	}
 
@@ -217,6 +227,45 @@ public class PlayerInventory : ActorComponent
 			{
 				yield break;
 			}
+		}
+	}
+
+	public bool CheckPutDownBuddy()
+	{
+		if ( !_isCarryingBuddy || 							// If not carrying a buddy
+		     !_backBuddy.hiddenBuddy.isAlive || 			// If cloned buddy has died
+		     !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
+		{
+			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+			return false;
+		}
+
+		StartCoroutine( PutDownBuddyRoutine() );
+		return true;
+	}
+
+	IEnumerator PutDownBuddyRoutine()
+	{
+		_isCarryingBuddy = false;
+
+		_playerActor.controls.TimedControlLoss( _buddyPutDownTime );
+		_playerActor.animator.Play( "PutDownBuddy" );
+
+		yield return new WaitForSeconds( _buddyPutDownTime );
+
+		RaycastHit hitInfo;
+		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
+		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
+		
+		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+		_backBuddy.hiddenBuddy.BackReset();
+		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
+		_backBuddy.gameObject.SetActive( false );
+		_backBuddy.hiddenBuddy = null;
+		
+		if ( _backBuddyHappinessRoutine != null )
+		{
+			StopCoroutine( _backBuddyHappinessRoutine );
 		}
 	}
 
@@ -280,39 +329,21 @@ public class PlayerInventory : ActorComponent
 		}
 	}
 
-	public bool CheckPutDownBuddy()
+	public void HideBackBuddy()
 	{
-		if ( !_isCarryingBuddy || !_backBuddy.hiddenBuddy.isAlive )
+		if ( _isCarryingBuddy )
 		{
-			return false;
+			//_backBuddy.hiddenBuddy.gameObject.SetActive( true );
+			_backBuddy.Reset();
+			_backBuddy.gameObject.SetActive( false );
+			
+			if ( _backBuddyHappinessRoutine != null )
+			{
+				StopCoroutine( _backBuddyHappinessRoutine );
+			}
+			
+			_isCarryingBuddy = false;
 		}
-
-		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
-		{
-			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
-			return false;
-		}
-
-		RaycastHit hitInfo;
-
-		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
-
-		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
-
-		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
-		_backBuddy.hiddenBuddy.BackReset();
-		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
-		_backBuddy.gameObject.SetActive( false );
-		_backBuddy.hiddenBuddy = null;
-
-		if ( _backBuddyHappinessRoutine != null )
-		{
-			StopCoroutine( _backBuddyHappinessRoutine );
-		}
-
-		_isCarryingBuddy = false;
-
-		return true;
 	}
 
 	public void PickupItem( InventoryItemData itemData )
