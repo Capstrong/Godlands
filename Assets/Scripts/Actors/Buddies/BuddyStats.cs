@@ -25,6 +25,9 @@ public class BuddyStats : ActorComponent
 		}
 	}
 
+	// A flag used to catch the first edge of when a buddy flips to being ready to become an adult
+	bool isReadyToAgeUp = false;
+
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
@@ -203,8 +206,9 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( isOfAge )
+		if ( isOfAge && !isReadyToAgeUp )
 		{
+			isReadyToAgeUp = true;
 			_adultParticles.enableEmission = true;
 			_adultParticles.Play();
 			_adultText.gameObject.SetActive( true );
@@ -365,6 +369,11 @@ public class BuddyStats : ActorComponent
 		if ( animator )
 		{
 			animator.SetTrigger( "isDead" );
+		}
+
+		if ( isOfAge )
+		{
+			_adultParticles.Stop();
 		}
 	}
 

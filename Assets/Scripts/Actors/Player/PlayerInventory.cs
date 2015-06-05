@@ -189,8 +189,7 @@ public class PlayerInventory : ActorComponent
 		if ( buddyShaper )
 		{
 			_backBuddy.gameObject.SetActive( true );             // Buddy is always on back, we just hide it
-			_backBuddy.CopyBuddy( buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
-			_backBuddy.hiddenBuddy = buddyStats;
+			_backBuddy.CopyBuddy( buddyStats, buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
 			_backBuddy.hiddenBuddy.gameObject.SetActive( false );
 
 			if ( _backBuddyHappinessRoutine != null )
@@ -265,20 +264,20 @@ public class PlayerInventory : ActorComponent
 
 	public void ResetBackBuddy()
 	{
-		if ( _isCarryingBuddy && _backBuddy.hiddenBuddy.isAlive )
+		if ( _isCarryingBuddy )
 		{
 			_backBuddy.hiddenBuddy.gameObject.SetActive( true );
-			_backBuddy.hiddenBuddy.BackReset();
-		}
+			_backBuddy.Reset();
 
-		if ( _backBuddyHappinessRoutine != null )
-		{
-			StopCoroutine( _backBuddyHappinessRoutine );
-		}
+			_backBuddy.gameObject.SetActive( false );
 
-		_backBuddy.gameObject.SetActive( false );
-		_backBuddy.hiddenBuddy = null;
-		_isCarryingBuddy = false;
+			if ( _backBuddyHappinessRoutine != null )
+			{
+				StopCoroutine( _backBuddyHappinessRoutine );
+			}
+
+			_isCarryingBuddy = false;
+		}
 	}
 
 	public bool CheckPutDownBuddy()

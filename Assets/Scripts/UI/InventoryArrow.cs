@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryArrow : MonoBehaviour
 {
-	[SerializeField] Sprite _normalSprite;
-	[SerializeField] Sprite _highlightSprite;
+	[SerializeField] Sprite _normalSprite = null;
+	[SerializeField] Sprite _highlightSprite = null;
 
 	Image _image;
 
