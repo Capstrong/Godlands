@@ -56,12 +56,15 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _backBuddyHappinessWaitTime = 0.0f;
 	[SerializeField] float _backBuddyHappinessIncrement = 0.0f;
 
-	float _buddySpawnScale = 0.05f;
-
-	[SerializeField] float _pickupBuddyTime = 3.5f;
-	[SerializeField] float _putDownBuddyTime = 3f;
+	[Space( 10 ), Header( "Animtion Settings" )]
+	[SerializeField] float _pickupBuddyDelay = 1.0f;
+	[SerializeField] float _pickupBuddyTime = 2.0f;
+	[SerializeField] float _putDownBuddyDelay = 1.0f;
+	[SerializeField] float _putDownBuddyTime = 2.0f;
 	[SerializeField] float _spawnBuddyTime = 7f;
 	[SerializeField] float _placeBuddyOnAltarTime = 3f;
+	[SerializeField] Transform _handTransform = null;
+	float _buddySpawnScale = 0.05f;
 
 	[SerializeField] TextMultiVolumeContents _scrollTutorialText = null;
 
@@ -203,11 +206,31 @@ public class PlayerInventory : ActorComponent
 	{
 		_isCarryingBuddy = true;
 
-		_playerActor.physics.OverrideLook( buddyStats.GetComponent<Transform>().position - _playerActor.transform.position, _lookOverrideDuration );
+		Transform buddyTransform = buddyStats.GetComponent<Transform>();
+		List<Collider> buddyColliders = new List<Collider>();
+		foreach ( Collider collider in buddyTransform.GetComponentsInChildren<Collider>() )
+		{
+			collider.gameObject.SetActive( false );
+			buddyColliders.Add( collider );
+		}
+
+		_playerActor.physics.OverrideLook( buddyTransform.position - _playerActor.transform.position, _lookOverrideDuration );
 		_playerActor.controls.TimedControlLoss( _pickupBuddyTime );
 		_playerActor.animator.Play( "PickupBuddy" );
 
-		yield return new WaitForSeconds( _pickupBuddyTime );
+		// Don't start moving the buddy until the right point in the animation.
+		yield return new WaitForSeconds( _pickupBuddyDelay );
+
+		float timer = 0.0f;
+		Vector3 buddyStartPos = buddyTransform.position;
+		while ( timer < _pickupBuddyTime )
+		{
+			timer += Time.deltaTime;
+
+			buddyTransform.position = Vector3.Lerp( buddyStartPos, _handTransform.position, timer / _pickupBuddyTime );
+
+			yield return 0;
+		}
 
 		BuddyShaper buddyShaper = buddyStats.GetComponentInChildren<BuddyShaper>();
 		if ( buddyShaper )
@@ -222,6 +245,11 @@ public class PlayerInventory : ActorComponent
 			}
 
 			_backBuddyHappinessRoutine = StartCoroutine( BackBuddyHappinessRoutine( _backBuddy.hiddenBuddy ) );
+		}
+
+		foreach ( Collider collider in buddyColliders )
+		{
+			collider.gameObject.SetActive( true );
 		}
 	}
 
@@ -264,21 +292,45 @@ public class PlayerInventory : ActorComponent
 		_playerActor.controls.TimedControlLoss( _putDownBuddyTime );
 		_playerActor.animator.Play( "PutDownBuddy" );
 
+		Transform buddyTransform = _backBuddy.hiddenBuddy.GetComponent<Transform>();
+
 		RaycastHit hitInfo;
 		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
-		yield return new WaitForSeconds( _putDownBuddyTime );
-		
+		yield return new WaitForSeconds( _putDownBuddyDelay );
+
 		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
 		_backBuddy.hiddenBuddy.BackReset();
 		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
 		_backBuddy.gameObject.SetActive( false );
 		_backBuddy.hiddenBuddy = null;
+
+		List<Collider> buddyColliders = new List<Collider>();
+		foreach ( Collider collider in buddyTransform.GetComponentsInChildren<Collider>() )
+		{
+			collider.gameObject.SetActive( false );
+			buddyColliders.Add( collider );
+		}
+
+		float timer = 0.0f;
+		while ( timer < _putDownBuddyTime )
+		{
+			timer += Time.deltaTime;
+
+			buddyTransform.position = _handTransform.position;
+
+			yield return null;
+		}
 		
 		if ( _backBuddyHappinessRoutine != null )
 		{
 			StopCoroutine( _backBuddyHappinessRoutine );
+		}
+
+		foreach ( Collider collider in buddyColliders )
+		{
+			collider.gameObject.SetActive( true );
 		}
 	}
 
@@ -311,12 +363,9 @@ public class PlayerInventory : ActorComponent
 	{
 		_playerActor.controls.TimedControlLoss( _spawnBuddyTime );
 		_playerActor.animator.Play( "CreateBuddy" );
+		_playerActor.physics.OverrideLook( transform.forward, _spawnBuddyTime );
 
-		// Spawn buddy and set scale to 0
-		RaycastHit hitInfo;
-		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
-		
-		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
+		Vector3 spawnLocation = transform.position + transform.forward * 0.75f + Vector3.up * 0.25f;
 
 		BuddyItemData buddyItemData = (BuddyItemData)_heldInventoryItems[_resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
@@ -339,7 +388,7 @@ public class PlayerInventory : ActorComponent
 		float spawnBuddyTimer = 0f;
 		while( spawnBuddyTimer < _spawnBuddyTime )
 		{
-			newBuddyTransform.localScale = Vector3.Lerp( spawnScale, Vector3.one, spawnBuddyTimer/_spawnBuddyTime );
+			newBuddyTransform.localScale = Vector3.Lerp( spawnScale, Vector3.one, spawnBuddyTimer / _spawnBuddyTime );
 
 			spawnBuddyTimer += Time.deltaTime;
 			yield return 0;
