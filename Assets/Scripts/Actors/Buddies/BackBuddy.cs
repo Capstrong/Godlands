@@ -5,6 +5,8 @@ public class BackBuddy : MonoBehaviour
 {
 	public BuddyStats hiddenBuddy; // The buddy that is currently on the back.
 
+	ParticleSystem adultParticles;
+
 	Animator _animator = null;
 	Animator animator
 	{
@@ -24,6 +26,8 @@ public class BackBuddy : MonoBehaviour
 	void Awake()
 	{
 		mySkinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
+
+		adultParticles = GetComponentInChildren<ParticleSystem>();
 	}
 
 	public void PlayEvent( string eventName )
@@ -33,8 +37,22 @@ public class BackBuddy : MonoBehaviour
 		animator.Play( eventName, 1 );
 	}
 
-	public void CopyBuddy( SkinnedMeshRenderer sourceMesh )
+	public void CopyBuddy( BuddyStats buddyStats, SkinnedMeshRenderer sourceMesh )
 	{
+		hiddenBuddy = buddyStats;
 		BuddyShaper.CopyBuddy( mySkinnedMesh, sourceMesh );
+
+		if ( buddyStats.isOfAge )
+		{
+			adultParticles.enableEmission = true;
+			adultParticles.Play();
+		}
+	}
+
+	public void Reset()
+	{
+		adultParticles.Stop();
+		hiddenBuddy.BackReset();
+		hiddenBuddy = null;
 	}
 }
