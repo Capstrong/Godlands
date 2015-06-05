@@ -79,11 +79,8 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		_currentTime = morningTime;
 		StartCoroutine( FadeOutMidnightOverlay() );
 
-		if( _midnightOverlay )
-		{
-			CancelInvoke( "StartMidnightOverlay" );
-			Invoke( "StartMidnightOverlay", timeUntilBlackout );
-		}
+		CancelInvoke( "StartMidnightOverlay" );
+		Invoke( "StartMidnightOverlay", timeUntilBlackout );
 	}
 
 	public static void TriggerMidnight( float overlayTime )
@@ -121,7 +118,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay( float overlayTime )
 	{
-		if( _midnightOverlay )
+		if( this.isActiveAndEnabled )
 		{
 			_midnightCoroutine = StartCoroutine( FadeInMidnightOverlay( overlayTime ) );
 		}
@@ -138,8 +135,12 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 			if ( elapsedTime < overlayTime )
 			{
 				elapsedTime += Time.deltaTime;
-				Color overlayColor = _midnightOverlay.color;
-				_midnightOverlay.color = _midnightOverlay.color.SetAlpha( elapsedTime / overlayTime);
+
+				if( _midnightOverlay )
+				{
+					_midnightOverlay.color = _midnightOverlay.color.SetAlpha( elapsedTime / overlayTime);
+				}
+
 				yield return null;
 			}
 			else
@@ -164,9 +165,14 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 			if ( elapsedTime < _lightupDuration )
 			{
 				elapsedTime += Time.deltaTime;
-				Color overlayColor = _midnightOverlay.color;
-				overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
-				_midnightOverlay.color = overlayColor;
+
+				if( _midnightOverlay )
+				{
+					Color overlayColor = _midnightOverlay.color;
+					overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
+					_midnightOverlay.color = overlayColor;
+				}
+
 				yield return null;
 			}
 			else
