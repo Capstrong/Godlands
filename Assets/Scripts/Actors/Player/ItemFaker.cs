@@ -14,9 +14,9 @@ public class ItemFaker : MonoBehaviour
 		_inventory = GetComponent<PlayerInventory>();
 	}
 	
-	void Update() 
+	void Update()
 	{
-		if ( Input.GetKeyDown( _triggerKey ) )
+		if ( Input.GetKey( KeyCode.LeftAlt ) && Input.GetKeyDown( _triggerKey ) )
 		{
 			_inventory.PickupItem( _itemData );
 		}
