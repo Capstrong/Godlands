@@ -56,9 +56,13 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _backBuddyHappinessWaitTime = 0.0f;
 	[SerializeField] float _backBuddyHappinessIncrement = 0.0f;
 
+	[SerializeField] TextMultiVolumeContents _scrollTutorialText = null;
+
 	Coroutine _backBuddyHappinessRoutine = null;
 	
 	AxisButtons _altScrollButton = new AxisButtons("Alt_Scroll");
+
+	private TextBox _textBox;
 
 	public override void Awake()
 	{
@@ -71,6 +75,8 @@ public class PlayerInventory : ActorComponent
 		DebugUtils.Assert( _inventoryBar, "There must be an InventoryScrollBar object in the scene." );
 
 		UpdateResourceList();
+
+		_textBox = FindObjectOfType<TextBox>();
 	}
 
 	// Use this for initialization
@@ -324,6 +330,12 @@ public class PlayerInventory : ActorComponent
 
 		_inventory[itemData]++;
 		UpdateResourceList();
+
+		if ( _heldInventoryItems.Count > 1 && !_scrollTutorialText.hasBeenDisplayed )
+		{
+			_scrollTutorialText.hasBeenDisplayed = true;
+			_textBox.SetText( _scrollTutorialText.text );
+		}
 	}
 
 	void UpdateResourceList()

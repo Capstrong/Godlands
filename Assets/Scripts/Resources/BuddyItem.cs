@@ -25,7 +25,7 @@ public class BuddyItem : InventoryPickupItem
 		if ( !_textContents.hasBeenDisplayed )
 		{
 			_textContents.hasBeenDisplayed = true;
-			FindObjectOfType<TextBox>().SetText( _textContents.text );
+			FindObjectOfType<TextBox>().OverrideText( _textContents.text );
 		}
 	}
 
