@@ -7,12 +7,12 @@ public class InventoryItemData : ScriptableObject
 	public bool needsTarget = true;
 	public bool showNumber = true;
 
-	public virtual bool CanUseItem( PlayerActor player, RaycastHit hitInfo )
+	public virtual bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		return false;
 	}
 
-	public virtual bool UseItem( PlayerActor player, RaycastHit hitInfo )
+	public virtual bool UseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		return false;
 	}

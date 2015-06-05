@@ -3,13 +3,20 @@ using System.Collections;
 
 public class ResourceData : InventoryItemData
 {
-	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo )
+	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
-		BuddyStats buddy = hitInfo.transform.GetComponentInChildren<BuddyStats>();
-		return buddy && buddy.IsHungry();
+		if( hitInfo.transform )
+		{
+			BuddyStats buddy = hitInfo.transform.GetComponentInChildren<BuddyStats>();
+			return buddy && buddy.IsHungry();
+		}
+		else
+		{
+			return false;
+		}
 	}
 
-	public override bool UseItem( PlayerActor player, RaycastHit hitInfo )
+	public override bool UseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		return player.inventory.CheckGiveResources( hitInfo );
 	}

@@ -20,8 +20,21 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] int _highlightFrameCount = 0;
 
 	Coroutine _highlightRoutine = null;
+	Animator _currentIconAnimator = null;
+	Animator currentIconAnimator
+	{
+		get
+		{
+			if( !_currentIconAnimator )
+			{
+				_currentIconAnimator = currentItemIcon.GetComponent<Animator>();
+			}
 
-	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
+			return _currentIconAnimator;
+		}
+	}
+
+	public void UpdateInventoryBar( PlayerActor player, int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
 	{
 		DebugUtils.Assert( inventoryItemData.Length > 0 );
 
@@ -30,6 +43,9 @@ public class InventoryScrollBar : MonoBehaviour
 
 		int resourceCount = inventoryItemData[currentIndex].showNumber ? inventory[inventoryItemData[currentIndex]] : -1;
 		SetCountText( currentItemCountText, resourceCount );
+
+		bool animateIcon = inventoryItemData[currentIndex] is BuddyItemData && inventoryItemData[currentIndex].CanUseItem( player, new RaycastHit() );
+		currentIconAnimator.SetBool( "CanUse", animateIcon );
 
 		if ( inventoryItemData.Length > 1 )
 		{

@@ -122,7 +122,7 @@ public class PlayerInventory : ActorComponent
 		}
 
 		_inventoryBar.UpdateScrollArrows( scrollAmount );
-		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
+		_inventoryBar.UpdateInventoryBar( _playerActor, _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
 	}
 
 	public bool CanUseItemWithoutTarget()
@@ -132,7 +132,10 @@ public class PlayerInventory : ActorComponent
 
 	public void UseItem()
 	{
-		_heldInventoryItems[_resourceIndex].UseItem( _playerActor, new RaycastHit() );
+		if( _heldInventoryItems[_resourceIndex].CanUseItem( _playerActor ) )
+		{
+			_heldInventoryItems[_resourceIndex].UseItem( _playerActor );
+		}
 	}
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
@@ -289,14 +292,13 @@ public class PlayerInventory : ActorComponent
 
 	public bool SpawnBuddy()
 	{
-		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
-		{
-			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
-			return false;
-		}
-
 		StartCoroutine( SpawnBuddyRoutine() );
 		return true;
+	}
+
+	public Vector3 GetBuddySpawnPosition()
+	{
+		return transform.position + transform.forward * _buddySpawnDistance;
 	}
 
 	IEnumerator SpawnBuddyRoutine()
@@ -416,7 +418,7 @@ public class PlayerInventory : ActorComponent
 		}
 		else if ( _heldInventoryItems.Count > 0 )
 		{
-			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
+			_inventoryBar.UpdateInventoryBar( _playerActor, _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
 		}
 	}
 

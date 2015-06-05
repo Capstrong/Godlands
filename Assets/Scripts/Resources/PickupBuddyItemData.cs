@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PickupBuddyItemData : InventoryItemData
 {
-	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo )
+	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		if( needsTarget )
 		{
@@ -15,7 +15,7 @@ public class PickupBuddyItemData : InventoryItemData
 		}
 	}
 
-	public override bool UseItem( PlayerActor player, RaycastHit hitInfo )
+	public override bool UseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		if( player.inventory.isCarryingBuddy )
 		{
