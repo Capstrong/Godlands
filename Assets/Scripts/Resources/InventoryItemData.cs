@@ -4,7 +4,15 @@ using System.Collections;
 public class InventoryItemData : ScriptableObject
 {
 	public Sprite icon;
-	public GameObject prefab;
-
 	public bool needsTarget = true;
+
+	public virtual bool CanUseItem( PlayerActor player, RaycastHit hitInfo )
+	{
+		return false;
+	}
+
+	public virtual bool UseItem( PlayerActor player, RaycastHit hitInfo )
+	{
+		return false;
+	}
 }

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class ResourceItem : InventoryItem
+public class ResourceItem : InventoryPickupItem
 {
 	[Tooltip( "In seconds" )]
 	[SerializeField] float _respawnTime = 600f;

@@ -22,6 +22,12 @@ public class MenuItems
 		ScriptableObjectUtility.CreateAsset<BuddyItemData>();
 	}
 
+	[MenuItem( "Assets/Create/Pickup Buddy Item" )]
+	public static void CreatePickupBuddyItem()
+	{
+		ScriptableObjectUtility.CreateAsset<PickupBuddyItemData>();
+	}
+
 	[MenuItem( "Assets/Create/Travel Sound Player" )]
 	public static void CreateTravelSoundPlayerAsset()
 	{

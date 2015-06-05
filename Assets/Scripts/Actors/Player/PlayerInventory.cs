@@ -19,13 +19,14 @@ public class PlayerInventory : ActorComponent
 		get { return _buddies; }
 	}
 
+	[SerializeField] PickupBuddyItemData _pickupBuddyItemData = null;
 	[SerializeField] float _lookOverrideDuration = 0.5f;
 
 	[ReadOnly("Inventory")]
 	[SerializeField] InventoryDictionary _inventory = new InventoryDictionary();
 
 	// currently held types to show on UI bar
-	List<InventoryItemData> _heldResources = new List<InventoryItemData>();
+	List<InventoryItemData> _heldInventoryItems = new List<InventoryItemData>();
 
 	int _resourceIndex = 0; // Currently selected resource on UI bar
 	GameObject _heldResource = null; 
@@ -64,14 +65,17 @@ public class PlayerInventory : ActorComponent
 		base.Awake();
 
 		_playerActor = GetComponent<PlayerActor>();
+		_inventory.Add( Instantiate<PickupBuddyItemData>( _pickupBuddyItemData ), 1 );
+
+		_inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
+		DebugUtils.Assert( _inventoryBar, "There must be an InventoryScrollBar object in the scene." );
+
+		UpdateResourceList();
 	}
 
 	// Use this for initialization
 	void Start()
 	{
-		_inventoryBar = GameObject.FindObjectOfType<InventoryScrollBar>();
-		DebugUtils.Assert( _inventoryBar, "There must be an InventoryScrollBar object in the scene." );
-
 		DayCycleManager.RegisterEndOfDayCallback( ResetBackBuddy );
 	}
 
@@ -84,7 +88,7 @@ public class PlayerInventory : ActorComponent
 
 	void CheckScroll()
 	{
-		if ( _heldResources.Count <= 1 )
+		if ( _heldInventoryItems.Count <= 1 )
 		{
 			// Nothing to scroll
 			return;
@@ -96,58 +100,42 @@ public class PlayerInventory : ActorComponent
 		{
 			if ( _altScrollButton.positiveDown )
 			{
-				scrollAmount = 1f;
+				scrollAmount = -1f;
 			}
 			else if ( _altScrollButton.negativeDown )
 			{
-				scrollAmount = -1f;
+				scrollAmount = 1f;
 			}
 		}
 
 		if ( !WadeUtils.IsZero( scrollAmount ) )
 		{
 			int nextIndex = _resourceIndex + ( scrollAmount < 0f ? -1 : 1 );
-			_resourceIndex = MathUtils.Mod( nextIndex, _heldResources.Count );
+			_resourceIndex = MathUtils.Mod( nextIndex, _heldInventoryItems.Count );
 		}
 
 		_inventoryBar.UpdateScrollArrows( scrollAmount );
-		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray(), _inventory );
+		_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
 	}
 
 	public bool CanUseItemWithoutTarget()
 	{
-		return _heldResources.Count > 0 &&
-		       !_heldResources[_resourceIndex].needsTarget;
+		return !_heldInventoryItems[_resourceIndex].needsTarget;
 	}
 
 	public void UseItem()
 	{
-		DebugUtils.Assert( _heldResources[_resourceIndex] is BuddyItemData, "Cannot use item without target." );
-
-		SpawnBuddy();
+		_heldInventoryItems[_resourceIndex].UseItem( _playerActor, new RaycastHit() );
 	}
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
-		if ( _heldResources.Count > 0 )
-		{
-			if ( _heldResources[_resourceIndex] is ResourceData )
-			{
-				return CheckGiveResources( hitInfo );
-			}
-			else
-			{
-				return SpawnBuddy();
-			}
-		}
-		
-		return false;
+		return _heldInventoryItems[_resourceIndex].UseItem( _playerActor, hitInfo );
 	}
 
-	bool CheckGiveResources( RaycastHit hitInfo )
+	public bool CheckGiveResources( RaycastHit hitInfo )
 	{
 		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
-
 		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
 
 		if ( CheckGiveResources( buddyStats ) )
@@ -179,16 +167,17 @@ public class PlayerInventory : ActorComponent
 
 	public bool CheckPickUpBuddy( RaycastHit hitInfo )
 	{
-		DebugUtils.Assert( hitInfo.transform != null, "hitInfo must have data." );
-
-		BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
-
-		if ( buddyStats
-		  && buddyStats.isAlive
-		  && !_isCarryingBuddy )
+		if( hitInfo.transform )
 		{
-			PickUpBuddy( buddyStats );
-			return true;
+			BuddyStats buddyStats = hitInfo.transform.GetComponent<BuddyStats>();
+
+			if ( buddyStats
+			  && buddyStats.isAlive
+			  && !_isCarryingBuddy )
+			{
+				PickUpBuddy( buddyStats );
+				return true;
+			}
 		}
 
 		return false;
@@ -233,14 +222,19 @@ public class PlayerInventory : ActorComponent
 
 	void GiveResource( BuddyStats buddyStats )
 	{
-		if ( buddyStats.GiveResource( (ResourceData)_heldResources[_resourceIndex] ) )
+		if ( buddyStats.GiveResource( (ResourceData)_heldInventoryItems[_resourceIndex] ) )
 		{
-			_inventory[_heldResources[_resourceIndex]]--;
+			_inventory[_heldInventoryItems[_resourceIndex]]--;
 			UpdateResourceList();
 		}
 	}
 
-	bool SpawnBuddy()
+	public InventoryItemData GetCurrentItemData()
+	{
+		return _heldInventoryItems[_resourceIndex];
+	}
+
+	public bool SpawnBuddy()
 	{
 		if ( !MathUtils.IsWithinInfiniteVerticalCylinders( transform.position + transform.forward * _buddySpawnDistance, LimitsManager.colliders ) )
 		{
@@ -254,7 +248,7 @@ public class PlayerInventory : ActorComponent
 
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
-		BuddyItemData buddyItemData = (BuddyItemData)_heldResources[_resourceIndex];
+		BuddyItemData buddyItemData = (BuddyItemData)_heldInventoryItems[_resourceIndex];
 		BuddyStats newBuddy = ( Instantiate( buddyItemData.buddyPrefab,
 		                                     spawnLocation,
 		                                     Quaternion.identity ) as GameObject ).GetComponent<BuddyStats>();
@@ -262,7 +256,7 @@ public class PlayerInventory : ActorComponent
 
 		_buddies.Add( newBuddy.GetComponent<BuddyTag>() );
 
-		_inventory[_heldResources[_resourceIndex]]--;
+		_inventory[_heldInventoryItems[_resourceIndex]]--;
 		UpdateResourceList();
 		newBuddy.RecalculateStat();
 		return true;
@@ -334,19 +328,19 @@ public class PlayerInventory : ActorComponent
 
 	void UpdateResourceList()
 	{
-		_heldResources.Clear();
+		_heldInventoryItems.Clear();
 
 		foreach ( InventoryItemData itemData in _inventory.Keys )
 		{
 			if ( _inventory[itemData] > 0 )
 			{
-				_heldResources.Add( itemData );
+				_heldInventoryItems.Add( itemData );
 			}
 		}
 
-		_resourceIndex = ( _heldResources.Count > 0 ? _resourceIndex % _heldResources.Count : 0 );
+		_resourceIndex = ( _heldInventoryItems.Count > 0 ? _resourceIndex % _heldInventoryItems.Count : 0 );
 
-		if ( _heldResources.Count == 0 )
+		if ( _heldInventoryItems.Count == 0 )
 		{
 			if ( _heldResource )
 			{
@@ -355,15 +349,15 @@ public class PlayerInventory : ActorComponent
 
 			_inventoryBar.NullInventoryBar();
 		}
-		else if ( _heldResources.Count > 0 )
+		else if ( _heldInventoryItems.Count > 0 )
 		{
-			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldResources.ToArray(), _inventory );
+			_inventoryBar.UpdateInventoryBar( _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
 		}
 	}
 
 	void OnTriggerEnter( Collider other )
 	{
-		InventoryItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryItem>();
+		InventoryPickupItem inventoryItem = other.gameObject.GetComponentInChildren<InventoryPickupItem>();
 		if ( inventoryItem && !inventoryItem.used )
 		{
 			inventoryItem.Use();

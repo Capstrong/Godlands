@@ -7,5 +7,15 @@ public class BuddyItemData : InventoryItemData
 	public Stat stat;
 	public Color statColor;
 	[ReadOnly( "Respawn Item" ), Tooltip( "This is so that the item can be re-enabled if the buddy dies" )]
-	public InventoryItem respawnItem;
+	public InventoryPickupItem respawnItem;
+
+	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo )
+	{
+		return true;
+	}
+
+	public override bool UseItem( PlayerActor player, RaycastHit hitInfo )
+	{
+		return player.inventory.SpawnBuddy();
+	}
 }

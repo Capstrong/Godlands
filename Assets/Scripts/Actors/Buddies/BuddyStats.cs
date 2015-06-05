@@ -115,6 +115,17 @@ public class BuddyStats : ActorComponent
 	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
+
+	// Highlighting
+
+	float _defaultRimPower = 4f;
+	Color _defaultRimColor = new Color( 0.15f, 0.15f, 0.15f, 1f );
+
+	float _highlightRimPower = 2f;
+	Color _highlightRimColor = Color.green;
+
+	bool _isHighlighted = false;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -155,6 +166,11 @@ public class BuddyStats : ActorComponent
 		int randIndex = Random.Range( 0, names.Length );
 
 		return names[randIndex] + ID;
+	}
+
+	public bool IsHungry()
+	{
+		return _resources < _idealResourcesRange.max;
 	}
 
 	public bool GiveResource( ResourceData resourceData )
@@ -393,6 +409,28 @@ public class BuddyStats : ActorComponent
 		get
 		{
 			return (float)_resources / (float)_idealResourcesRange.max;
+		}
+	}
+
+	public void SetHighlight()
+	{
+		if( !_isHighlighted )
+		{
+			bodyRenderer.material.SetFloat( "_RimPower", _highlightRimPower );
+			bodyRenderer.material.SetColor( "_RimColor", _highlightRimColor );
+
+			_isHighlighted = true;
+		}
+	}
+
+	public void RemoveHighlight()
+	{
+		if( _isHighlighted )
+		{
+			bodyRenderer.material.SetFloat( "_RimPower", _defaultRimPower );
+			bodyRenderer.material.SetColor( "_RimColor", _defaultRimColor );
+
+			_isHighlighted = false;
 		}
 	}
 }

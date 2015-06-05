@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ResourceHolder : MonoBehaviour
@@ -21,7 +21,7 @@ public class ResourceHolder : MonoBehaviour
 		_resourceParticles = resource.GetComponentsInChildren<ParticleSystem>( true );
 		_resourceMesh = resource.GetComponent<MeshRenderer>();
 
-		resource.GetComponent<InventoryItem>().Initialize( this );
+		resource.GetComponent<InventoryPickupItem>().Initialize( this );
 	}
 
 	public void Disable()
