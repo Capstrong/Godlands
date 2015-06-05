@@ -41,7 +41,7 @@ public class TextBox : MonoBehaviour
 		DisplayNext();
 	}
 
-	public void DisplayNext()
+	void DisplayNext()
 	{
 		if ( _textFade != null )
 		{
