@@ -97,6 +97,11 @@ public class PlayerControls : MonoBehaviour
 		}
 #endif
 
+		if( Input.GetKey( KeyCode.LeftAlt ) && Input.GetKey( KeyCode.C ) )
+		{
+			Application.LoadLevel( "Credits" );
+		}
+
 		_holdButton.Update();
 		_holdButton2.Update();
 		_useButton.Update();
