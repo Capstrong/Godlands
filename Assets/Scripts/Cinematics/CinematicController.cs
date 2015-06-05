@@ -39,10 +39,8 @@ public class CinematicController : MonoBehaviour
 				Debug.LogWarning( "No player to set inactive during cutscene." );
 			}
 
-			foreach( Canvas canvas in _uiCanvases )
-			{
-				canvas.enabled = false;
-			}
+			_uiCanvases[0].enabled = false;
+			_uiCanvases[1].enabled = true;
 
 			_cutsceneAnimator.enabled = true;
 			_cutsceneAnimator.Play( "EarthToGodlandsShot" );
@@ -116,6 +114,9 @@ public class CinematicController : MonoBehaviour
 
 			_cutsceneAnimator.StopPlayback();
 			_cutsceneAnimator.enabled = false;
+
+			_uiCanvases[0].enabled = true;
+			_uiCanvases[1].enabled = false;
 		}
 	}
 }

@@ -16,7 +16,7 @@ QualitySettings:
     shadowDistance: 25
     shadowCascade2Split: .333333343
     shadowCascade4Split: {x: .0666666701, y: .200000003, z: .466666669}
-    blendWeights: 1
+    blendWeights: 4
     textureQuality: 1
     anisotropicTextures: 0
     antiAliasing: 0
@@ -111,7 +111,7 @@ QualitySettings:
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 0
-    antiAliasing: 2
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 0
@@ -121,4 +121,10 @@ QualitySettings:
     maximumLODLevel: 0
     particleRaycastBudget: 4096
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality: {}
+  m_PerPlatformDefaultQuality:
+    Android: 0
+    BlackBerry: 0
+    Standalone: 0
+    Web: 0
+    WebGL: 0
+    iPhone: 0

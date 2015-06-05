@@ -355,6 +355,48 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1001 &849869623
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -80.1999969
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 129.180008
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 442200, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8cded8d1f6ba4474a8e84290782ac185, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &864748837
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +523,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: .831237316, b: .529411793, a: 1}
+  m_Color: {r: .0681228414, g: .163599193, b: .514705896, a: 1}
   m_Intensity: .5
   m_Range: 10
   m_SpotAngle: 30
@@ -599,7 +641,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 439154, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6522388, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: m_Size.x
@@ -655,7 +697,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 484490, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11459164, guid: 33b0830813dbf4a7ab622e6ea23fa61e, type: 2}
       propertyPath: _currentLightingSettings.daySettings.skyColor.r

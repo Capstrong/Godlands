@@ -28,4 +28,11 @@ public class BuddyItem : InventoryItem
 			FindObjectOfType<TextBox>().SetText( _textContents.text );
 		}
 	}
+
+	public override void Enable()
+	{
+		base.Enable();
+
+		_internals.SetActive( true );
+	}
 }

@@ -17,7 +17,7 @@
 
 		CGPROGRAM
 		#pragma vertex vert
-		#pragma surface surf BlinnPhong vertex:vert addshadow fullforwardshadows
+		#pragma surface surf BlinnPhong vertex:vert addshadow 
 
 		#include "../GodlandsShaderUtils.cginc"
 

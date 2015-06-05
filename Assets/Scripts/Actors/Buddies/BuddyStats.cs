@@ -59,6 +59,8 @@ public class BuddyStats : ActorComponent
 	[SerializeField] ParticleSystem _adultParticles = null;
 	Renderer _particlesRenderer = null;
 
+	[SerializeField] AudioSource _readyToGrowUpSong = null;
+
 	[ReadOnly( "Buddy Item Data" )]
 	public BuddyItemData itemData = null;
 
@@ -100,6 +102,11 @@ public class BuddyStats : ActorComponent
 	public bool isAlive
 	{
 		get { return _state == BuddyState.Normal; }
+	}
+
+	public bool isAdult
+	{
+		get { return _state == BuddyState.Adult; }
 	}
 
 	[Space( 10 ), Header( "Debug Settings" )]
@@ -180,11 +187,12 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( _age >= _adultAge )
+		if ( isOfAge )
 		{
 			_adultParticles.enableEmission = true;
 			_adultParticles.Play();
 			_adultText.gameObject.SetActive( true );
+			SoundManager.Play2DSound( _readyToGrowUpSong );
 		}
 	}
 
@@ -331,11 +339,7 @@ public class BuddyStats : ActorComponent
 		EmoteDeath();
 		actor.physics.ChangeState( PhysicsStateType.Dead );
 
-		// Debug spawned buddies don't have eggs to respawn
-		if ( itemData && itemData.respawnItem )
-		{
-			itemData.respawnItem.Enable(); // Respawn the egg in the world to be gathered again
-		}
+		RespawnEgg();
 
 		StopCoroutine( _currentEmoteRoutine );
 
@@ -348,11 +352,22 @@ public class BuddyStats : ActorComponent
 		}
 	}
 
+	void RespawnEgg()
+	{
+		// Debug spawned buddies don't have eggs to respawn
+		if ( itemData && itemData.respawnItem )
+		{
+			// Respawn the egg in the world to be gathered again
+			itemData.respawnItem.Enable();
+		}
+	}
+
 	public void BecomeAdult()
 	{
 		_state = BuddyState.Adult;
 		gameObject.SetActive( false );
 		Destroy( GetComponent<AIController>() );
+		RespawnEgg();
 	}
 
 	// This takes care of everything that needs to be updated after the buddy is

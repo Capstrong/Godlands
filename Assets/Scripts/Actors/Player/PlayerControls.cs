@@ -378,6 +378,7 @@ public class PlayerControls : MonoBehaviour
 			player.stats.StartUsingStat( Stat.Gliding );
 			player.animator.SetBool( "isInAir", true );
 			player.animator.SetBool( "isGliding", true );
+			player.parachuteControl.SetParachuteEnabled( true );
 			player.camera.zoomDistance = player.controls._glidingCameraZoom;
 		}
 
@@ -417,6 +418,7 @@ public class PlayerControls : MonoBehaviour
 			player.animator.SetBool( "isInAir", false );
 			player.animator.SetBool( "isGliding", false );
 			player.physics.StopGliding();
+			player.parachuteControl.SetParachuteEnabled( false );
 			player.camera.zoomDistance = player.controls._defaultCameraZoom;
 		}
 	}
