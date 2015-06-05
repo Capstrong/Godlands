@@ -116,8 +116,12 @@ public class PlayerInventory : ActorComponent
 
 	public bool CanUseItemWithoutTarget()
 	{
-		return _heldResources.Count > 0 &&
-		       !_heldResources[_resourceIndex].needsTarget;
+		return HasItem() && !_heldResources[_resourceIndex].needsTarget;
+	}
+
+	public bool HasItem()
+	{
+		return _heldResources.Count > 0;
 	}
 
 	public void UseItem()

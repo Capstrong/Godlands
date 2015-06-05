@@ -337,14 +337,24 @@ public class PlayerControls : MonoBehaviour
 						}
 					}
 
-					// Adds rim glow to buddy when looked at
-					// TODO: This glow should only happen if holding an item that can be used on a buddy
-					player.controls.HighlightBuddy( hitInfo );
-
-					if( player.controls.useButton.down && 
-					    player.inventory.CanUseItemWithoutTarget() )
+					if( player.inventory.CanUseItemWithoutTarget() )
 					{
-						player.inventory.UseItem();
+						if( player.controls.useButton.down )
+						{
+							player.inventory.UseItem();
+						}
+
+						player.controls.RemoveBuddyHighlight();
+					}
+					else if( !player.inventory.HasItem() )
+					{
+						player.controls.RemoveBuddyHighlight();
+					}
+					else
+					{
+						// Adds rim glow to buddy when looked at
+						// TODO: This glow should only happen if holding an item that can be used on a buddy
+						player.controls.HighlightBuddy( hitInfo );
 					}
 				}
 
@@ -473,6 +483,14 @@ public class PlayerControls : MonoBehaviour
 			}
 		}
 		else if( _prevHighlightedBuddy )
+		{
+			_prevHighlightedBuddy.RemoveHighlight();
+		}
+	}
+
+	public void RemoveBuddyHighlight()
+	{
+		if( _prevHighlightedBuddy )
 		{
 			_prevHighlightedBuddy.RemoveHighlight();
 		}
