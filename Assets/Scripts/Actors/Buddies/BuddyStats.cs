@@ -165,6 +165,11 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
+	public bool IsHungry()
+	{
+		return _resources < _idealResourcesRange.max;
+	}
+
 	public bool GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );

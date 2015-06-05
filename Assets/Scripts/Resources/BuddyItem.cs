@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyItem : InventoryItem
+public class BuddyItem : InventoryPickupItem
 {
 	[SerializeField] GameObject _internals = null;
 	[SerializeField] TextMultiVolumeContents _textContents = null;

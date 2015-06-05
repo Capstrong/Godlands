@@ -321,20 +321,6 @@ public class PlayerControls : MonoBehaviour
 								return;
 							}
 						}
-						else if( player.controls.holdButton.down )
-						{
-							// TODO: Convert this to an inventory item
-							if ( player.inventory.CheckPutDownBuddy() )
-							{
-								// Buddy was put down
-								return;
-							}
-							else if ( player.inventory.CheckPickUpBuddy( hitInfo ) )
-							{
-								// Buddy was picked up
-								return;
-							}
-						}
 					}
 
 					if( player.inventory.CanUseItemWithoutTarget() )
@@ -344,17 +330,12 @@ public class PlayerControls : MonoBehaviour
 							player.inventory.UseItem();
 						}
 
-						player.controls.RemoveBuddyHighlight();
-					}
-					else if( !player.inventory.HasItem() )
-					{
+						// Remove buddy highlight since the current item doesn't need a target
 						player.controls.RemoveBuddyHighlight();
 					}
 					else
 					{
-						// Adds rim glow to buddy when looked at
-						// TODO: This glow should only happen if holding an item that can be used on a buddy
-						player.controls.HighlightBuddy( hitInfo );
+						player.controls.CheckBuddyHighlight( hitInfo );
 					}
 				}
 
@@ -462,7 +443,15 @@ public class PlayerControls : MonoBehaviour
 		return false;
 	}
 
-	public void HighlightBuddy( RaycastHit hitInfo )
+	public void RemoveBuddyHighlight()
+	{
+		if( _prevHighlightedBuddy )
+		{
+			_prevHighlightedBuddy.RemoveHighlight();
+		}
+	}
+
+	public void CheckBuddyHighlight( RaycastHit hitInfo )
 	{
 		if( hitInfo.transform )
 		{
@@ -471,27 +460,26 @@ public class PlayerControls : MonoBehaviour
 			{
 				if( _prevHighlightedBuddy && highlightedBuddy != _prevHighlightedBuddy )
 				{
+					// Remove highlight from old buddy
 					_prevHighlightedBuddy.RemoveHighlight();
 				}
-				
-				highlightedBuddy.SetHighlight();
-				_prevHighlightedBuddy = highlightedBuddy;
+
+				if ( _actor.inventory.GetCurrentItemData().CanUseItem( _actor, hitInfo ) )
+				{
+					// Set highlight and save reference to buddy
+					highlightedBuddy.SetHighlight();
+					_prevHighlightedBuddy = highlightedBuddy;
+				}
 			}
 			else if( _prevHighlightedBuddy )
 			{
+				// Remove highlight if we aren't looking at a buddy
 				_prevHighlightedBuddy.RemoveHighlight();
 			}
 		}
 		else if( _prevHighlightedBuddy )
 		{
-			_prevHighlightedBuddy.RemoveHighlight();
-		}
-	}
-
-	public void RemoveBuddyHighlight()
-	{
-		if( _prevHighlightedBuddy )
-		{
+			// Remove highlight if we aren't looking at anything
 			_prevHighlightedBuddy.RemoveHighlight();
 		}
 	}
