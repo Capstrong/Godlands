@@ -34,6 +34,7 @@ public class Planter : MonoBehaviour
 	void PlantSingle()
 	{
 		Transform transform = GetComponent<Transform>();
+		transform.localScale = Vector3.one;
 
 		for ( int resourceSpawnTries = 0; resourceSpawnTries < 100; resourceSpawnTries++ )
 		{
@@ -68,10 +69,6 @@ public class Planter : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		Transform transform = GetComponent<Transform>();
-
-		Gizmos.matrix = transform.localToWorldMatrix;
-
 		Color gizmoColor = Color.green;
 
 		Gizmos.color = gizmoColor;
