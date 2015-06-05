@@ -5,13 +5,14 @@ public class PickupBuddyItemData : InventoryItemData
 {
 	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
-		if( needsTarget )
-		{
-			return !player.inventory.isCarryingBuddy;
+		if( player.inventory.isCarryingBuddy )
+		{	
+			// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+			return MathUtils.IsWithinInfiniteVerticalCylinders( player.inventory.GetBuddySpawnPosition(), LimitsManager.colliders );
 		}
 		else
 		{
-			return player.inventory.isCarryingBuddy;
+			return hitInfo.transform && hitInfo.transform.GetComponentInChildren<BuddyStats>();
 		}
 	}
 

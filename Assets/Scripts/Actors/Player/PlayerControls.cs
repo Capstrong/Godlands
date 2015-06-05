@@ -42,9 +42,13 @@ public class PlayerControls : MonoBehaviour
 	}
 
 	Button _holdButton = new Button( "Hold" );
+	Button _holdButton2 = new Button( "Hold2" );
 	public Button holdButton
 	{
-		get { return _holdButton; }
+		get 
+		{ 
+			return _holdButton ? _holdButton : _holdButton2;
+		}
 	}
 
 	Button _useButton  = new Button( "Use" );
@@ -94,6 +98,7 @@ public class PlayerControls : MonoBehaviour
 #endif
 
 		_holdButton.Update();
+		_holdButton2.Update();
 		_useButton.Update();
 		_jumpButton.Update();
 		_sprintButton.Update();

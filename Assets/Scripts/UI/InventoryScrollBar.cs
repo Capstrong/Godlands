@@ -44,7 +44,8 @@ public class InventoryScrollBar : MonoBehaviour
 		int resourceCount = inventoryItemData[currentIndex].showNumber ? inventory[inventoryItemData[currentIndex]] : -1;
 		SetCountText( currentItemCountText, resourceCount );
 
-		bool animateIcon = inventoryItemData[currentIndex] is BuddyItemData && inventoryItemData[currentIndex].CanUseItem( player, new RaycastHit() );
+		bool animateIcon = ( inventoryItemData[currentIndex] is BuddyItemData || ( inventoryItemData[currentIndex] is PickupBuddyItemData ) ) &&
+						   inventoryItemData[currentIndex].CanUseItem( player, new RaycastHit() );
 		currentIconAnimator.SetBool( "CanUse", animateIcon );
 
 		if ( inventoryItemData.Length > 1 )
