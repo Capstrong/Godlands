@@ -100,11 +100,11 @@ public class PlayerInventory : ActorComponent
 		{
 			if ( _altScrollButton.positiveDown )
 			{
-				scrollAmount = 1f;
+				scrollAmount = -1f;
 			}
 			else if ( _altScrollButton.negativeDown )
 			{
-				scrollAmount = -1f;
+				scrollAmount = 1f;
 			}
 		}
 

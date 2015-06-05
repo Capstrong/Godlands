@@ -95,7 +95,7 @@ public class InventoryScrollBar : MonoBehaviour
 				StopCoroutine( _highlightRoutine );
 			}
 
-			_highlightRoutine = StartCoroutine( HighlightArrowRoutine( scrollAmount < 0f ) );
+			_highlightRoutine = StartCoroutine( HighlightArrowRoutine( scrollAmount > 0f ) );
 		}
 	}
 
