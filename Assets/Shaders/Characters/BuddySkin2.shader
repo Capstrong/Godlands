@@ -6,21 +6,20 @@
 		_ClothesTex ("Clothes Tex (RGB)", 2D) = "white" {}
 		_TintTex ("Tint Map (RGB)", 2D) = "white" {}
 		
-		
 		_TintColor1 ("Tint Color 1", Color) = (0.2, 0.2, 0.2, 1)
 		_TintColor2 ("Tint Color 2", Color) = (0,0,0,1)
 		
 		_AmbientColor ("Ambient Color", Color) = (0.23, 0.23, 0.23, 1)
 		
-		_Glossiness ("Smoothness", Range(0,1)) = 0.0
-		_Metallic ("Metallic", Range(0,1)) = 0.0
-		
+		_RimPower ("Rim Power", Range(0.1,8.0)) = 3.0
 		_RimColor ("Rim Color", Color) = ( 0.2, 0.2, 0.2, 1)
-		_RimPower ("Rim Power", Range(0.5,8.0)) = 3.0
+		
 		_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
 		
 		_HeightCutoff( "Height Cutoff", Range(-1,1) ) = 0.1
 		
+		_Glossiness ("Smoothness", Range(0,1)) = 0.0
+		_Metallic ("Metallic", Range(0,1)) = 0.0
 	}
 	SubShader 
 	{
@@ -56,9 +55,9 @@
 		
 		half _RimPower;
 		half _HeightCutoff;
-		
+
 		fixed4 _AmbientColor;
-		
+
 		fixed4 _TintColor1;
 		fixed4 _TintColor2;
 		
@@ -92,7 +91,9 @@
 			o.Alpha = c.a;
 			
 			half rim = 1.0 - saturate(dot (normalize(IN.viewDir), o.Normal));
-          	o.Emission = c.rgb * pow (rim, _RimPower) * _RimColor + c.rgb * _AmbientColor;
+			
+			half4 emissionColor = pow (rim, _RimPower) * _RimColor;
+          	o.Emission = emissionColor + c.rgb * _AmbientColor;
 			
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;

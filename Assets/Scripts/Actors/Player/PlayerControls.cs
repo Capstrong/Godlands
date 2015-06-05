@@ -24,6 +24,7 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _fallAnimationDelay = 0.5f;
 
 	PlayerActor _actor;
+	BuddyStats _prevHighlightedBuddy = null;
 
 	[ReadOnly( "Respawn Position" )]
 	[SerializeField] Transform _respawnTransform = null;
@@ -297,46 +298,53 @@ public class PlayerControls : MonoBehaviour
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 					return;
 				}
-				else if ( player.controls.useButton.down )
+				else
 				{
-					if ( player.inventory.CanUseItemWithoutTarget() )
-					{
-						player.inventory.UseItem();
-					}
-
-					// This allows us to do one raycast for all actions
-					// which is good since we do RaycastAll(), which is expensive.
 					RaycastHit hitInfo;
 					if ( player.controls.RaycastForward( out hitInfo ) )
 					{
-						if ( player.cutting.CutCheck( hitInfo ) )
+						if( player.controls.useButton.down )
 						{
-							player.animator.SetTrigger( "cut" );
+							if ( player.cutting.CutCheck( hitInfo ) )
+							{
+								player.animator.SetTrigger( "cut" );
+								return;
+							}
+							else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+							{
+								// Feed buddy.
+								return;
+							}
+							else if ( player.controls.InteractCheck( hitInfo ) )
+							{
+								// Interaction was done.
+								return;
+							}
 						}
-						else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+						else if( player.controls.holdButton.down )
 						{
-							// Feed buddy.
-						}
-						else if ( player.controls.InteractCheck( hitInfo ) )
-						{
-							// Interaction was done.
+							// TODO: Convert this to an inventory item
+							if ( player.inventory.CheckPutDownBuddy() )
+							{
+								// Buddy was put down
+								return;
+							}
+							else if ( player.inventory.CheckPickUpBuddy( hitInfo ) )
+							{
+								// Buddy was picked up
+								return;
+							}
 						}
 					}
-				}
-				else if ( player.controls.holdButton.down )
-				{
-					if ( player.inventory.CheckPutDownBuddy() )
+
+					// Adds rim glow to buddy when looked at
+					// TODO: This glow should only happen if holding an item that can be used on a buddy
+					player.controls.HighlightBuddy( hitInfo );
+
+					if( player.controls.useButton.down && 
+					    player.inventory.CanUseItemWithoutTarget() )
 					{
-						// Buddy was put down
-					}
-					else
-					{
-						RaycastHit hitInfo;
-						if ( player.controls.RaycastForward( out hitInfo )
-						  && player.inventory.CheckPickUpBuddy( hitInfo ) )
-						{
-							// Buddy was picked up
-						}
+						player.inventory.UseItem();
 					}
 				}
 
@@ -350,7 +358,6 @@ public class PlayerControls : MonoBehaviour
 				}
 
 				player.physics.GroundMovement( player.controls.GetMoveDirection(), player.controls.sprintButton );
-
 				player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 			}
 			else
@@ -443,6 +450,32 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public void HighlightBuddy( RaycastHit hitInfo )
+	{
+		if( hitInfo.transform )
+		{
+			BuddyStats highlightedBuddy = hitInfo.transform.GetComponentInChildren<BuddyStats>();
+			if( highlightedBuddy )
+			{
+				if( _prevHighlightedBuddy && highlightedBuddy != _prevHighlightedBuddy )
+				{
+					_prevHighlightedBuddy.RemoveHighlight();
+				}
+				
+				highlightedBuddy.SetHighlight();
+				_prevHighlightedBuddy = highlightedBuddy;
+			}
+			else if( _prevHighlightedBuddy )
+			{
+				_prevHighlightedBuddy.RemoveHighlight();
+			}
+		}
+		else if( _prevHighlightedBuddy )
+		{
+			_prevHighlightedBuddy.RemoveHighlight();
+		}
 	}
 
 	public void SetFallAnimation( bool state )
