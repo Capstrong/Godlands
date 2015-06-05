@@ -292,21 +292,45 @@ public class PlayerInventory : ActorComponent
 		_playerActor.controls.TimedControlLoss( _putDownBuddyTime );
 		_playerActor.animator.Play( "PutDownBuddy" );
 
+		Transform buddyTransform = _backBuddy.hiddenBuddy.GetComponent<Transform>();
+
 		RaycastHit hitInfo;
 		Physics.Raycast( new Ray( transform.position, transform.forward), out hitInfo, _buddySpawnDistance );
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
-		yield return new WaitForSeconds( _putDownBuddyTime );
-		
+		yield return new WaitForSeconds( _putDownBuddyDelay );
+
 		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
 		_backBuddy.hiddenBuddy.BackReset();
 		_backBuddy.hiddenBuddy.gameObject.transform.position = spawnLocation;
 		_backBuddy.gameObject.SetActive( false );
 		_backBuddy.hiddenBuddy = null;
+
+		List<Collider> buddyColliders = new List<Collider>();
+		foreach ( Collider collider in buddyTransform.GetComponentsInChildren<Collider>() )
+		{
+			collider.gameObject.SetActive( false );
+			buddyColliders.Add( collider );
+		}
+
+		float timer = 0.0f;
+		while ( timer < _putDownBuddyTime )
+		{
+			timer += Time.deltaTime;
+
+			buddyTransform.position = _handTransform.position;
+
+			yield return null;
+		}
 		
 		if ( _backBuddyHappinessRoutine != null )
 		{
 			StopCoroutine( _backBuddyHappinessRoutine );
+		}
+
+		foreach ( Collider collider in buddyColliders )
+		{
+			collider.gameObject.SetActive( true );
 		}
 	}
 
