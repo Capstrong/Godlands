@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 446920}
   - 33: {fileID: 3348606}
   - 23: {fileID: 2345748}
-  - 64: {fileID: 6443560}
+  - 64: {fileID: 6408038}
   m_Layer: 0
   m_Name: Main Tree
   m_TagString: Untagged
@@ -24,9 +24,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5999999, y: -8.70000172, z: -14.8999996}
-  m_LocalScale: {x: .0225639697, y: .0225639828, z: .0225639828}
+  m_LocalRotation: {x: -.0384000652, y: 0, z: 0, w: .999262512}
+  m_LocalPosition: {x: -6.5999999, y: -6.71000004, z: -14.9200001}
+  m_LocalScale: {x: 1.16549993, y: 1.16549993, z: 1.16549993}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,7 +62,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100442}
   m_Mesh: {fileID: 4300000, guid: 38869a8bbf04dbc4ab1df50eda3aaeb7, type: 3}
---- !u!64 &6443560
+--- !u!64 &6408038
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,7 +72,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: e0882720acd13274a9bca19588187667, type: 3}
 --- !u!1001 &100100000
 Prefab:
