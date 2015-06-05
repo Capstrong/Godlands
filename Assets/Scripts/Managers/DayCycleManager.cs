@@ -79,8 +79,11 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		_currentTime = morningTime;
 		StartCoroutine( FadeOutMidnightOverlay() );
 
-		CancelInvoke( "StartMidnightOverlay" );
-		Invoke( "StartMidnightOverlay", timeUntilBlackout );
+		if( _midnightOverlay )
+		{
+			CancelInvoke( "StartMidnightOverlay" );
+			Invoke( "StartMidnightOverlay", timeUntilBlackout );
+		}
 	}
 
 	public static void TriggerMidnight( float overlayTime )
@@ -113,10 +116,7 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void StartMidnightOverlay()
 	{
-		if( _midnightOverlay )
-		{
-			StartMidnightOverlay( _blackoutDuration );
-		}
+		StartMidnightOverlay( _blackoutDuration );
 	}
 
 	void StartMidnightOverlay( float overlayTime )
