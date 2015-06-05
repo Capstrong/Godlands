@@ -56,9 +56,12 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _backBuddyHappinessWaitTime = 0.0f;
 	[SerializeField] float _backBuddyHappinessIncrement = 0.0f;
 
+	float _buddySpawnScale = 0.05f;
+
 	[SerializeField] float _pickupBuddyTime = 3.5f;
 	[SerializeField] float _putDownBuddyTime = 3f;
 	[SerializeField] float _spawnBuddyTime = 7f;
+	[SerializeField] float _placeBuddyOnAltarTime = 3f;
 
 	Coroutine _backBuddyHappinessRoutine = null;
 	
@@ -320,13 +323,15 @@ public class PlayerInventory : ActorComponent
 		newBuddy.RecalculateStat();
 
 		Transform newBuddyTransform = newBuddy.GetComponent<Transform>();
-		newBuddyTransform.localScale = Vector3.zero;
+
+		Vector3 spawnScale = Vector3.one * _buddySpawnScale;
+		newBuddyTransform.localScale = spawnScale;
 
 		// Scale buddy up to true size
 		float spawnBuddyTimer = 0f;
 		while( spawnBuddyTimer < _spawnBuddyTime )
 		{
-			newBuddyTransform.localScale = Vector3.Lerp( Vector3.zero, Vector3.one, spawnBuddyTimer/_spawnBuddyTime );
+			newBuddyTransform.localScale = Vector3.Lerp( spawnScale, Vector3.one, spawnBuddyTimer/_spawnBuddyTime );
 
 			spawnBuddyTimer += Time.deltaTime;
 			yield return 0;
@@ -352,22 +357,27 @@ public class PlayerInventory : ActorComponent
 			_isCarryingBuddy = false;
 		}
 	}
-
-	public void HideBackBuddy()
+	
+	public void PutBuddyOnAltar()
 	{
-		if ( _isCarryingBuddy )
+		StartCoroutine( PutBuddyOnAltarRoutine() );
+	}
+
+	IEnumerator PutBuddyOnAltarRoutine()
+	{
+		_playerActor.controls.TimedControlLoss( _placeBuddyOnAltarTime );
+		_playerActor.animator.Play( "PlaceBuddyOnAltar" );
+
+		yield return new WaitForSeconds( _placeBuddyOnAltarTime );
+
+		_backBuddy.gameObject.SetActive( false );
+		
+		if ( _backBuddyHappinessRoutine != null )
 		{
-			//_backBuddy.hiddenBuddy.gameObject.SetActive( true );
-			_backBuddy.Reset();
-			_backBuddy.gameObject.SetActive( false );
-			
-			if ( _backBuddyHappinessRoutine != null )
-			{
-				StopCoroutine( _backBuddyHappinessRoutine );
-			}
-			
-			_isCarryingBuddy = false;
+			StopCoroutine( _backBuddyHappinessRoutine );
 		}
+		
+		_isCarryingBuddy = false;
 	}
 
 	public void PickupItem( InventoryItemData itemData )

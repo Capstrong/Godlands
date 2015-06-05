@@ -18,17 +18,17 @@ public class AdultVolume : MonoBehaviour
 	{
 		PlayerActor player = other.GetComponentInParent<PlayerActor>();
 
-		if ( player 
-			&& player.controls.holdButton )
+		if ( player && 
+		     player.controls.isInControl && 
+		     player.controls.holdButton.down )
 		{
 			BuddyStats buddy = player.inventory.backBuddy.hiddenBuddy;
-
 			if ( buddy && buddy.isOfAge )
 			{
 				// TODO: Do any effects and animations for turning the buddy into an adult
 
 				AdultManager.SpawnAdult( buddy );
-				player.inventory.HideBackBuddy();
+				player.inventory.PutBuddyOnAltar();
 			}
 		}
 	}
