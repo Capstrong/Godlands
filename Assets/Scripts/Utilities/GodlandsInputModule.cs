@@ -29,7 +29,7 @@
 		{
 			get
 			{
-				return m_SubmitButton + PlatformUtils.platformName;
+				return m_SubmitButton;
 			}
 		}
 
