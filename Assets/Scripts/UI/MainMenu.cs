@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
 		LevelUtils.LoadLevel( Level.MainGame );
 	}
 
+	public void Credits()
+	{
+		LevelUtils.LoadLevel( Level.Credits );
+	}
+
 	public void QuitGame()
 	{
 		Application.Quit();

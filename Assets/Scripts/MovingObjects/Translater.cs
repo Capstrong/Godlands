@@ -18,6 +18,6 @@ public class Translater : MonoBehaviour
 	
 	void Update () 
 	{
-		transform.Translate( _velocity );
+		transform.Translate( _velocity * Time.deltaTime );
 	}
 }
