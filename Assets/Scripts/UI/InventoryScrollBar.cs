@@ -17,7 +17,7 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] InventoryArrow _leftArrow = null;
 	[SerializeField] InventoryArrow _rightArrow = null;
 
-	[SerializeField] int _highlightFrameCount = 0;
+	[SerializeField] float _arrowHighlightTime = 0f;
 
 	Coroutine _highlightRoutine = null;
 	Animator _currentIconAnimator = null;
@@ -134,7 +134,9 @@ public class InventoryScrollBar : MonoBehaviour
 		InventoryArrow highlightArrow = ( highlightLeft ? _leftArrow : _rightArrow );
 		InventoryArrow normalArrow = ( highlightLeft ? _rightArrow : _leftArrow );
 
-		for ( int i = 0; i < _highlightFrameCount; i++ )
+		float startTime = Time.time;
+
+		while ( Time.time < startTime + _arrowHighlightTime )
 		{
 			highlightArrow.Highlight();
 			normalArrow.Normal();
