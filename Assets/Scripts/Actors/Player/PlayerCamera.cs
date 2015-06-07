@@ -83,14 +83,7 @@ public class PlayerCamera : ActorComponent
 
 	void Update()
 	{
-		//Lock cursor
-		if ( Input.GetMouseButtonDown( 0 ) )
-		{
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
-		}
-
-		if ( Input.GetKeyDown( KeyCode.T ) )
+		if ( Input.GetKeyDown( KeyCode.LeftAlt ) && Input.GetKeyDown( KeyCode.T ) )
 		{
 			Application.CaptureScreenshot( "Screenshot_" + System.DateTime.Now.ToString( "yyyy.MM.dd.HH.mm.ss" ) + ".png", 4 );
 		}
