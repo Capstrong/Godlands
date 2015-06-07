@@ -17,7 +17,7 @@ public class ResourceItem : InventoryPickupItem
 	public override void Use()
 	{
 		base.Use();
-
-		Invoke( "Enable", _respawnTime );
+	
+		// Do stuff to notify resource spawner.
 	}
 }
