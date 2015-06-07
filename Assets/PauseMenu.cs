@@ -9,8 +9,10 @@ public class PauseMenu : MonoBehaviour
 	[ReadOnly]
 	[SerializeField] bool isPaused = false;
 
-	Image _controlsImage = null;
+	Image _overlayImage = null;
 	Text[] _controlsTexts = null;
+	Image[] _controlsImages = null;
+	UnityEngine.UI.Button _mainMenuButton = null;
 
 	[SerializeField] float _fadeTime = 0f;
 	[Tooltip( "The color that the overlay will be when it is in full effect" )]
@@ -20,14 +22,25 @@ public class PauseMenu : MonoBehaviour
 
 	void Start()
 	{
-		_controlsImage = GetComponent<Image>();
-		_controlsImage.color = Color.clear;
+		_overlayImage = GetComponent<Image>();
+		_overlayImage.color = Color.clear;
+
+		_controlsImages = GetComponentsInChildren<Image>();
+
+		foreach ( Image image in _controlsImages )
+		{
+			image.enabled = false;
+		}
+
 		_controlsTexts = GetComponentsInChildren<Text>();
 
 		foreach ( Text text in _controlsTexts )
 		{
 			text.enabled = false;
 		}
+
+		_mainMenuButton = GetComponentInChildren<UnityEngine.UI.Button>();
+		_mainMenuButton.enabled = false;
 	}
 
 	void Update()
@@ -55,12 +68,23 @@ public class PauseMenu : MonoBehaviour
 			StopCoroutine( _imageFadeRoutine );
 		}
 
-		_imageFadeRoutine = StartCoroutine( FadeImage( _controlsImage, _fullImageColor, _fadeTime ) );
+		_imageFadeRoutine = StartCoroutine( FadeImage( _overlayImage, _fullImageColor, _fadeTime ) );
+
+		foreach ( Image image in _controlsImages )
+		{
+			image.enabled = true;
+		}
+
 
 		foreach ( Text text in _controlsTexts )
 		{
 			text.enabled = true;
 		}
+
+		_mainMenuButton.enabled = true;
+
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	public void Unpause()
@@ -73,12 +97,23 @@ public class PauseMenu : MonoBehaviour
 			StopCoroutine( _imageFadeRoutine );
 		}
 
-		_imageFadeRoutine = StartCoroutine( FadeImage( _controlsImage, Color.clear, _fadeTime ) );
+		_imageFadeRoutine = StartCoroutine( FadeImage( _overlayImage, Color.clear, _fadeTime ) );
 		
+		foreach ( Image image in _controlsImages )
+		{
+			image.enabled = false;
+		}
+
+
 		foreach ( Text text in _controlsTexts )
 		{
 			text.enabled = false;
 		}
+
+		_mainMenuButton.enabled = false;
+
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	}
 
 	IEnumerator FadeImage( Image image, Color endColor, float duration )
@@ -92,5 +127,10 @@ public class PauseMenu : MonoBehaviour
 
 			yield return null;
 		}
+	}
+
+	void OnDestroy()
+	{
+		Time.timeScale = 1f;
 	}
 }
