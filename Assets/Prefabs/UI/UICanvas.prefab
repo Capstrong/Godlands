@@ -1100,7 +1100,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6e53ce6e60e5310428ed9a6ab9a4cfb4, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -1109,7 +1109,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Move around
+  m_Text: 'Move character
 
 
     Move camera
@@ -1362,8 +1362,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseKey: 27
   isPaused: 0
-  _fadeTime: 0
-  _fullImageColor: {r: 1, g: 1, b: 1, a: 1}
+  _fadeTime: .5
+  _fullImageColor: {r: .20588237, g: .20588237, b: .20588237, a: .835294127}
 --- !u!114 &11427046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1480,13 +1480,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: .87843138}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Sprite: {fileID: 21300000, guid: 283b1e1250a0f1b498e7f7965daece81, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6e53ce6e60e5310428ed9a6ab9a4cfb4, type: 3}
     m_FontSize: 14
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
@@ -1914,27 +1914,27 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WASD
+  m_Text: '- - - - - - - - - - - - WASD
 
 
-    Mouse
+    - - - - - - - - - - - - -  Mouse
 
 
-    Scrollwheel / Q & E
+    - Scrollwheel / Q & E
 
 
-    Spacebar
+    - - - - - - - - - - - - - - - - Spacebar
 
 
-    Hold Shift
+    - - - - - - - - - - - - - -  Hold Shift
 
 
-    Left Click
+    - - - Left Click
 
 
 
 
-    Hold Right Click'
+    - - - - - - Hold Right Click'
 --- !u!114 &11469900
 MonoBehaviour:
   m_ObjectHideFlags: 1
