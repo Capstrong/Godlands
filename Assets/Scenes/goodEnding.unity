@@ -1353,11 +1353,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 418918, guid: d4f9d8a9b28eb7144bd627b09fa4b301, type: 2}
   m_PrefabInternal: {fileID: 106197134}
---- !u!223 &110591271 stripped
-Canvas:
-  m_PrefabParentObject: {fileID: 22386852, guid: 9ec2b6a5b28f3574ebeb493216045d48,
-    type: 2}
-  m_PrefabInternal: {fileID: 1761808608}
 --- !u!1 &111455353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,25 +1801,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &134867934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 134867932}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d80a123e8dd4175af32979721d561b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playIntroCinematic: 1
-  _uiCanvases:
-  - {fileID: 110591271}
-  _cinematicDialoguePrefab: {fileID: 8283550, guid: beb61127c53f24b4392a04184f2bb8d0,
-    type: 2}
-  _subtitleTexts:
-  - {fileID: 1171328292}
-  - {fileID: 766943894}
 --- !u!1 &138577248
 GameObject:
   m_ObjectHideFlags: 0
@@ -12584,7 +12560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac28bf942764076428f71260817112a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _level: 5
+  _level: 6
 --- !u!114 &743842850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12598,6 +12574,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delegates:
   - eventID: 15
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 743842849}
+          m_MethodName: LoadLevel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 16
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -12966,12 +12960,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 461822, guid: 571b9750cc53faf48a7d48966b67f1cc, type: 2}
   m_PrefabInternal: {fileID: 761479332}
---- !u!114 &766943894 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11489248, guid: ec6382b7f5d244fc88ee72b14946059a,
-    type: 2}
-  m_PrefabInternal: {fileID: 493702752}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &779472102
 Prefab:
   m_ObjectHideFlags: 0
@@ -19575,12 +19563,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168447595}
   m_Mesh: {fileID: 4300000, guid: bd04fc452ec326c47937810a315e0785, type: 3}
---- !u!114 &1171328292 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11403140, guid: ec6382b7f5d244fc88ee72b14946059a,
-    type: 2}
-  m_PrefabInternal: {fileID: 493702752}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1171863622
 Prefab:
   m_ObjectHideFlags: 0
@@ -35069,7 +35051,8 @@ Prefab:
       propertyPath: intensity
       value: .5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11451370, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: fa5709fe586fb7f4f93f13fa119d8fd5, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2047615382

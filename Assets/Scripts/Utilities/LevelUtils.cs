@@ -9,6 +9,7 @@ public enum Level
 	GoodEnding,
 	BadEnding,
 	MainMenu,
+	Credits,
 }
 
 public static class LevelUtils
@@ -19,7 +20,8 @@ public static class LevelUtils
 	                          "BlockOut",
 	                          "goodEnding",
 	                          "badEnding",
-	                          "MainMenu"};
+	                          "MainMenu",
+	                          "Credits",};
 
 	public static void LoadLevel( Level level )
 	{
