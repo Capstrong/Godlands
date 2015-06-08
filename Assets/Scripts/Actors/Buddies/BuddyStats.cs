@@ -363,17 +363,15 @@ public class BuddyStats : ActorComponent
 
 		StopCoroutine( _currentEmoteRoutine );
 
-		// The check is needed because this is sometimes called when the game object is disabled,
-		// and GetComponentInChildren() returns null when the object in disabled.
-		Animator animator = GetComponentInChildren<Animator>();
-		if ( animator )
+		if ( actor.animator.isActiveAndEnabled )
 		{
-			animator.SetTrigger( "isDead" );
+			actor.animator.SetTrigger( "isDead" );
 		}
 
 		if ( isOfAge )
 		{
 			_adultParticles.Stop();
+			_adultParticles.enableEmission = false;
 		}
 	}
 
@@ -401,7 +399,19 @@ public class BuddyStats : ActorComponent
 	{
 		// This will update the happiness variable on the animator and
 		// restart the happiness sound
-		AdjustHappiness( 0f );
+		if ( isAlive )
+		{
+			// Don't do this for dead buddies or else they will start up an animation
+			AdjustHappiness( 0f );
+		}
+		else
+		{
+			// Have to do this here because the animator is not enabled for the hidden buddy when Kill() is called
+			if ( actor.animator.isActiveAndEnabled )
+			{
+				actor.animator.SetTrigger( "isDead" );
+			}
+		}
 	}
 
 	public float hunger
