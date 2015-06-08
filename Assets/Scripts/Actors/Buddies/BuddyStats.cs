@@ -206,7 +206,7 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( isOfAge && !isReadyToAgeUp )
+		if ( isOfAge && !isReadyToAgeUp && isAlive )
 		{
 			isReadyToAgeUp = true;
 			_adultParticles.enableEmission = true;
