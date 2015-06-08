@@ -134,9 +134,9 @@ public class PlayerInventory : ActorComponent
 		_inventoryBar.UpdateInventoryBar( _playerActor, _resourceIndex, _heldInventoryItems.ToArray(), _inventory );
 	}
 
-	public bool CanUseItemWithoutTarget()
+	public bool CurrentItemNeedsTarget()
 	{
-		return !_heldInventoryItems[_resourceIndex].needsTarget;
+		return _heldInventoryItems[_resourceIndex].needsTarget;
 	}
 
 	public void UseItem()
@@ -149,7 +149,14 @@ public class PlayerInventory : ActorComponent
 
 	public bool UseItemWithTarget( RaycastHit hitInfo )
 	{
-		return _heldInventoryItems[_resourceIndex].UseItem( _playerActor, hitInfo );
+		if ( _heldInventoryItems[_resourceIndex].CanUseItem( _playerActor, hitInfo ) )
+		{
+			return _heldInventoryItems[_resourceIndex].UseItem( _playerActor, hitInfo );
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public bool CheckGiveResources( RaycastHit hitInfo )

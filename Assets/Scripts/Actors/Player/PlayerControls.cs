@@ -344,7 +344,8 @@ public class PlayerControls : MonoBehaviour
 									player.animator.SetTrigger( "cut" );
 									return;
 								}
-								else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+								else if ( player.inventory.CurrentItemNeedsTarget()
+									&& player.inventory.UseItemWithTarget( hitInfo ) )
 								{
 									// Feed buddy or use resource or pickup buddy
 									return;
@@ -357,7 +358,7 @@ public class PlayerControls : MonoBehaviour
 							}
 						}
 
-						if( player.inventory.CanUseItemWithoutTarget() )
+						if( !player.inventory.CurrentItemNeedsTarget() )
 						{
 							if( player.controls.useButton.down )
 							{
