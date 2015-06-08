@@ -7,11 +7,13 @@ public abstract class TextVolume : MonoBehaviour
 	[ReadOnly]
 	[SerializeField] bool _hasBeenTriggered = false;
 
-	private TextBox _textBox;
+	private TextBox _textBox = null;
+	Collider _collider = null;
 
 	void Awake()
 	{
 		_textBox = FindObjectOfType<TextBox>();
+		_collider = GetComponent<Collider>();
 	}
 
 	void OnDrawGizmos()
@@ -37,11 +39,13 @@ public abstract class TextVolume : MonoBehaviour
 		{
 			_textBox.SetText( text );
 			_hasBeenTriggered = true;
+			_collider.enabled = false;
 		}
 	}
 
 	public void Reactivate()
 	{
 		_hasBeenTriggered = false;
+		_collider.enabled = true;
 	}
 }

@@ -3151,8 +3151,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180122}
-  m_LocalRotation: {x: 0, y: .853655219, z: 0, w: -.520838618}
-  m_LocalPosition: {x: 151.990005, y: 52.3100014, z: 26.1200008}
+  m_LocalRotation: {x: 0, y: .800290287, z: 0, w: -.599612832}
+  m_LocalPosition: {x: -14.3599997, y: 48.9199982, z: 8.09000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 404084}
@@ -3765,7 +3765,7 @@ Rigidbody:
   m_GameObject: {fileID: 180122}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: .400000006
   m_AngularDrag: .0500000007
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -4038,6 +4038,8 @@ MonoBehaviour:
   actor: {fileID: 0}
   _resourcePopPrefab: {fileID: 114790, guid: ace8fda18e2b34e1fa40da280587ba7f, type: 2}
   _buddies: []
+  _pickupBuddyItemData: {fileID: 11400000, guid: ca7ace2a15e11411b8106ca6cf4f06eb,
+    type: 2}
   _lookOverrideDuration: .5
   _inventory:
     keys: []
@@ -4049,6 +4051,15 @@ MonoBehaviour:
   _buddySpawnDistance: 3
   _backBuddyHappinessWaitTime: 5
   _backBuddyHappinessIncrement: .00167000003
+  _pickupBuddyDelay: 1
+  _pickupBuddyTime: 2
+  _putDownBuddyDelay: 1
+  _putDownBuddyTime: 1
+  _spawnBuddyTime: 10
+  _placeBuddyOnAltarTime: 3
+  _handTransform: {fileID: 494710}
+  _scrollTutorialText: {fileID: 11400000, guid: 06788468fd928294eaf97f222b4b90e3,
+    type: 2}
 --- !u!114 &11480134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4117,11 +4128,11 @@ MonoBehaviour:
   actor: {fileID: 0}
   _currentStateType: 1
   _stoppingSpeed: .00100000005
-  _groundedMoveSpeed: 6
+  _groundedMoveSpeed: 4
   _sprintMoveSpeed: 8.5
   _jumpMoveSpeedChangeRate: 1
   _rollMoveSpeed: 6
-  _climbMoveSpeed: 2
+  _climbMoveSpeed: 2.5
   _moveVec: {x: 0, y: 0, z: 0}
   bumper: {fileID: 13615418}
   lifter: {fileID: 13678400}

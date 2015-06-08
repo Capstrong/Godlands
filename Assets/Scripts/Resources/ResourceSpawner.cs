@@ -1,15 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ResourceSpawner : MonoBehaviour
 {
-	public ResourceHolder resourceHolderPrefab;
-	public Collider resourcePrefab;
+	[SerializeField] ResourceHolder resourceHolderPrefab;
+	[SerializeField] Collider resourcePrefab;
+
+	[SerializeField] int total;
+	[SerializeField] float radius;
+
+	[SerializeField] int _daysToRespawnItems = 2;
 
 	float _groundCheckDist = 7f;
 
-	public int total;
-	public float radius;
+	class ResourceRespawnData
+	{
+		public ResourceItem resourceItem;
+		public int daysTillRespawn;
+
+		public ResourceRespawnData( ResourceItem item, int days)
+		{
+			resourceItem = item;
+			daysTillRespawn = days;
+		}
+	}
+
+	List<ResourceRespawnData> _respawnData = new List<ResourceRespawnData>();
 
 	private static int _maxResourceSpawnTries = 100;
 
@@ -52,7 +69,7 @@ public class ResourceSpawner : MonoBehaviour
 			{
 				Quaternion spawnRotation = Quaternion.Euler( 0f, Random.Range( -180f, 180f ) , 0f );
 				ResourceHolder resourceHolderInstance = (ResourceHolder) Instantiate( resourceHolderPrefab, spawnPosition, spawnRotation );
-				resourceHolderInstance.gameObject.transform.parent = transform;
+				resourceHolderInstance.Initialize( this );
 			}
 			else
 			{
@@ -60,6 +77,28 @@ public class ResourceSpawner : MonoBehaviour
 				              + " at " + transform.position + " Consider moving or deleting it");
 			}
 		}
+
+		DayCycleManager.RegisterEndOfDayCallback( CheckRespawnResources );
+	}
+
+	public void MarkForRespawn( ResourceItem item )
+	{
+		_respawnData.Add( new ResourceRespawnData( item, _daysToRespawnItems ) );
+	}
+
+	void CheckRespawnResources()
+	{
+		foreach ( ResourceRespawnData data in _respawnData )
+		{
+			data.daysTillRespawn--;
+
+			if ( data.daysTillRespawn <= 0 )
+			{
+				data.resourceItem.Enable();
+			}
+		}
+
+		_respawnData.RemoveAll( data => ( data.daysTillRespawn <= 0 ) );
 	}
 
 	void OnDrawGizmos()

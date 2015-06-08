@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class ResourceItem : InventoryItem
+public class ResourceItem : InventoryPickupItem
 {
-	[Tooltip( "In seconds" )]
-	[SerializeField] float _respawnTime = 600f;
+	ResourceSpawner _resourceSpawner = null;
+
+	public void Initialize( ResourceSpawner spawner )
+	{
+		_resourceSpawner = spawner;
+	}
 
 	public override void Use()
 	{
 		base.Use();
-
-		Invoke( "Enable", _respawnTime );
+	
+		_resourceSpawner.MarkForRespawn( this );
 	}
 }

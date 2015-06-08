@@ -17,30 +17,53 @@ public class InventoryScrollBar : MonoBehaviour
 	[SerializeField] InventoryArrow _leftArrow = null;
 	[SerializeField] InventoryArrow _rightArrow = null;
 
-	[SerializeField] int _highlightFrameCount = 0;
+	[SerializeField] float _arrowHighlightTime = 0f;
 
 	Coroutine _highlightRoutine = null;
+	Animator _currentIconAnimator = null;
+	Animator currentIconAnimator
+	{
+		get
+		{
+			if( !_currentIconAnimator )
+			{
+				_currentIconAnimator = currentItemIcon.GetComponent<Animator>();
+			}
 
-	public void UpdateInventoryBar( int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
+			return _currentIconAnimator;
+		}
+	}
+
+	public void UpdateInventoryBar( PlayerActor player, int currentIndex, InventoryItemData[] inventoryItemData, InventoryDictionary inventory )
 	{
 		DebugUtils.Assert( inventoryItemData.Length > 0 );
 
 		NullInventoryBar();
 		SetIcon( currentItemIcon, inventoryItemData[MathUtils.Mod( currentIndex, inventoryItemData.Length )].icon );
-		SetCountText( currentItemCountText, inventory[inventoryItemData[currentIndex]] );
+
+		int resourceCount = inventoryItemData[currentIndex].showNumber ? inventory[inventoryItemData[currentIndex]] : -1;
+		SetCountText( currentItemCountText, resourceCount );
+
+		bool animateIcon = ( inventoryItemData[currentIndex] is BuddyItemData || ( inventoryItemData[currentIndex] is PickupBuddyItemData ) ) &&
+						   inventoryItemData[currentIndex].CanUseItem( player, new RaycastHit() );
+		currentIconAnimator.SetBool( "CanUse", animateIcon );
 
 		if ( inventoryItemData.Length > 1 )
 		{
 			int prevIndex = MathUtils.Mod( ( currentIndex - 1 ), inventoryItemData.Length );
 			SetIcon( prevItemIcon, inventoryItemData[prevIndex].icon );
-			SetCountText( prevItemCountText, inventory[inventoryItemData[prevIndex]] );
+
+			resourceCount = inventoryItemData[prevIndex].showNumber ? inventory[inventoryItemData[prevIndex]] : -1;
+			SetCountText( prevItemCountText, resourceCount );
 		}
 
 		if ( inventoryItemData.Length > 2 )
 		{
 			int nextIndex = MathUtils.Mod( ( currentIndex + 1 ), inventoryItemData.Length );
 			SetIcon( nextItemIcon, inventoryItemData[nextIndex].icon );
-			SetCountText( nextItemCountText, inventory[inventoryItemData[nextIndex]] );
+
+			resourceCount = inventoryItemData[nextIndex].showNumber ? inventory[inventoryItemData[nextIndex]] : -1;
+			SetCountText( nextItemCountText, resourceCount );
 		}
 	}
 
@@ -64,7 +87,14 @@ public class InventoryScrollBar : MonoBehaviour
 
 	void SetCountText( Text countText, int count = 0 )
 	{
-		countText.text = count.ToString();
+		if( count == -1 )
+		{
+			countText.text = string.Empty;
+		}
+		else
+		{
+			countText.text = count.ToString();
+		}
 
 		countText.color = ( count != 0 ? uiColor : countText.color.SetAlpha( 0f ) );
 	}
@@ -95,7 +125,7 @@ public class InventoryScrollBar : MonoBehaviour
 				StopCoroutine( _highlightRoutine );
 			}
 
-			_highlightRoutine = StartCoroutine( HighlightArrowRoutine( scrollAmount < 0f ) );
+			_highlightRoutine = StartCoroutine( HighlightArrowRoutine( scrollAmount > 0f ) );
 		}
 	}
 
@@ -104,7 +134,9 @@ public class InventoryScrollBar : MonoBehaviour
 		InventoryArrow highlightArrow = ( highlightLeft ? _leftArrow : _rightArrow );
 		InventoryArrow normalArrow = ( highlightLeft ? _rightArrow : _leftArrow );
 
-		for ( int i = 0; i < _highlightFrameCount; i++ )
+		float startTime = Time.time;
+
+		while ( Time.time < startTime + _arrowHighlightTime )
 		{
 			highlightArrow.Highlight();
 			normalArrow.Normal();

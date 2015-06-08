@@ -17,7 +17,7 @@ public class SkillFaker : MonoBehaviour
 	
 	void Update() 
 	{
-		if ( Input.GetKeyDown( _triggerKey ) )
+		if ( Input.GetKey( KeyCode.LeftAlt ) && Input.GetKeyDown( _triggerKey ) )
 		{
 			_actorStats.SetMaxStat( _statToIncrease, _actorStats.GetStatMaxValue( _statToIncrease ) + _changeAmount );
 		}

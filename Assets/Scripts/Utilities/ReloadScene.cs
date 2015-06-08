@@ -10,10 +10,5 @@ public class ReloadScene : MonoBehaviour
 		{
 			Application.LoadLevel( Application.loadedLevel );
 		}
-
-		if ( Input.GetKeyDown( KeyCode.Escape ) )
-		{
-			LevelUtils.LoadLevel( Level.MainMenu );
-		}
 	}
 }

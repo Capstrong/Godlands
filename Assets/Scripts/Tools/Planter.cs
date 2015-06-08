@@ -69,13 +69,15 @@ public class Planter : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
+		Transform transform = GetComponent<Transform>();
+
 		Color gizmoColor = Color.green;
 
 		Gizmos.color = gizmoColor;
-		Gizmos.DrawWireCube( Vector3.up * bounds.y * 0.5f, bounds );
+		Gizmos.DrawWireCube( transform.position + Vector3.up * bounds.y * 0.5f, bounds );
 
 		gizmoColor.a = 0.3f;
 		Gizmos.color = gizmoColor;
-		Gizmos.DrawCube( Vector3.up * bounds.y * 0.5f, bounds );
+		Gizmos.DrawCube( transform.position + Vector3.up * bounds.y * 0.5f, bounds );
 	}
 }

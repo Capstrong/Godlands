@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ResourceHolder : MonoBehaviour
@@ -21,7 +21,20 @@ public class ResourceHolder : MonoBehaviour
 		_resourceParticles = resource.GetComponentsInChildren<ParticleSystem>( true );
 		_resourceMesh = resource.GetComponent<MeshRenderer>();
 
-		resource.GetComponent<InventoryItem>().Initialize( this );
+		resource.GetComponent<InventoryPickupItem>().Initialize( this );
+	}
+
+	// Only called by the resource spawner so the resource holder should only have resources in it, not eggs
+	public void Initialize( ResourceSpawner spawner )
+	{
+		transform.parent = spawner.transform;
+
+		ResourceItem resourceItem = resource.GetComponent<ResourceItem>();
+
+		if ( resourceItem )
+		{
+			resourceItem.Initialize( spawner );
+		}
 	}
 
 	public void Disable()

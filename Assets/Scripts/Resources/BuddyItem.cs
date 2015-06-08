@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuddyItem : InventoryItem
+public class BuddyItem : InventoryPickupItem
 {
 	[SerializeField] GameObject _internals = null;
 	[SerializeField] TextMultiVolumeContents _textContents = null;
@@ -25,7 +25,7 @@ public class BuddyItem : InventoryItem
 		if ( !_textContents.hasBeenDisplayed )
 		{
 			_textContents.hasBeenDisplayed = true;
-			FindObjectOfType<TextBox>().SetText( _textContents.text );
+			FindObjectOfType<TextBox>().OverrideText( _textContents.text );
 		}
 	}
 

@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class TextBox : MonoBehaviour {
-
+public class TextBox : MonoBehaviour
+{
 	Text _UIText = null;
 	[SerializeField] Image _backgroundImage = null;
 
-	[SerializeField] KeyCode _clearKey = 0;
 	[Range( 0.0f, 1.0f )]
 	[SerializeField] float _maxBackgroundOpacity = 0.75f;
 
 	[SerializeField] float _textDisplayDuration = 7.0f;
 	[SerializeField] float _textFadeOutDuration = 1.0f;
 
+	Queue<string> _textQueue = new Queue<string>();
+	bool _isTextDisplayed = false;
 	Coroutine _textFade;
 
 	void Awake()
@@ -21,39 +23,50 @@ public class TextBox : MonoBehaviour {
 		_UIText = GetComponent<Text>();
 	}
 
-	void Update()
+	public void SetText( string textString )
 	{
-		if ( Input.GetKeyDown( _clearKey ) )
+		_textQueue.Enqueue( textString );
+
+		if ( !_isTextDisplayed )
 		{
-			ClearText();
+			DisplayNext();
 		}
 	}
 
-	public void SetText( string textString )
+	public void OverrideText( string textString )
 	{
-		ClearText();
-		_UIText.color = _UIText.color.SetAlpha( 1.0f );
-		_backgroundImage.color = _backgroundImage.color.SetAlpha( _maxBackgroundOpacity );
-		_UIText.text = textString;
-
-		_textFade = StartCoroutine( Fadeout( _textDisplayDuration, _textFadeOutDuration ) );
+		_textQueue.Clear();
+		_textQueue.Enqueue( textString );
+		CancelInvoke( "DisplayNext" );
+		DisplayNext();
 	}
 
-	public void ClearText()
+	void DisplayNext()
 	{
-		_UIText.text = "";
-		_backgroundImage.color = _backgroundImage.color.SetAlpha( 0.0f );
 		if ( _textFade != null )
 		{
 			StopCoroutine( _textFade );
 		}
+
+		if ( _textQueue.Count > 0 )
+		{
+			_UIText.text = "";
+			_UIText.color = _UIText.color.SetAlpha( 1.0f );
+			_backgroundImage.color = _backgroundImage.color.SetAlpha( 1.0f );
+			_UIText.text = _textQueue.Dequeue();
+
+			Invoke( "DisplayNext", _textDisplayDuration );
+			_isTextDisplayed = true;
+		}
+		else
+		{
+			_textFade = StartCoroutine( Fadeout( _textFadeOutDuration ) );
+			_isTextDisplayed = false;
+		}
 	}
 
-	IEnumerator Fadeout( float delay, float duration )
+	IEnumerator Fadeout( float duration )
 	{
-		// Initially wait for the amount of time needed until text should fade.
-		yield return new WaitForSeconds( delay );
-
 		float elapsedTime = 0.0f;
 
 		// Perform text fade.
@@ -69,6 +82,5 @@ public class TextBox : MonoBehaviour {
 
 		// Clear the text.
 		_textFade = null;
-		ClearText();
 	}
 }

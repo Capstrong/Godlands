@@ -25,6 +25,9 @@ public class BuddyStats : ActorComponent
 		}
 	}
 
+	// A flag used to catch the first edge of when a buddy flips to being ready to become an adult
+	bool isReadyToAgeUp = false;
+
 	[SerializeField] float _startingHappiness = 0f;
 	[ReadOnly,Tooltip( "Ranges from 0 to 1" )]
 	[SerializeField] float _happiness = 0f;
@@ -112,6 +115,17 @@ public class BuddyStats : ActorComponent
 	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
 
+
+	// Highlighting
+
+	float _defaultRimPower = 4f;
+	Color _defaultRimColor = new Color( 0.15f, 0.15f, 0.15f, 1f );
+
+	float _highlightRimPower = 2f;
+	Color _highlightRimColor = Color.green;
+
+	bool _isHighlighted = false;
+
 	public override void Awake()
 	{
 		base.Awake();
@@ -154,6 +168,11 @@ public class BuddyStats : ActorComponent
 		return names[randIndex] + ID;
 	}
 
+	public bool IsHungry()
+	{
+		return _resources < _idealResourcesRange.max;
+	}
+
 	public bool GiveResource( ResourceData resourceData )
 	{
 		DebugUtils.Assert( isAlive, "Cannot give a dead buddy resources." );
@@ -187,8 +206,9 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( isOfAge )
+		if ( isOfAge && !isReadyToAgeUp )
 		{
+			isReadyToAgeUp = true;
 			_adultParticles.enableEmission = true;
 			_adultParticles.Play();
 			_adultText.gameObject.SetActive( true );
@@ -350,6 +370,11 @@ public class BuddyStats : ActorComponent
 		{
 			animator.SetTrigger( "isDead" );
 		}
+
+		if ( isOfAge )
+		{
+			_adultParticles.Stop();
+		}
 	}
 
 	void RespawnEgg()
@@ -384,6 +409,28 @@ public class BuddyStats : ActorComponent
 		get
 		{
 			return (float)_resources / (float)_idealResourcesRange.max;
+		}
+	}
+
+	public void SetHighlight()
+	{
+		if( !_isHighlighted )
+		{
+			bodyRenderer.material.SetFloat( "_RimPower", _highlightRimPower );
+			bodyRenderer.material.SetColor( "_RimColor", _highlightRimColor );
+
+			_isHighlighted = true;
+		}
+	}
+
+	public void RemoveHighlight()
+	{
+		if( _isHighlighted )
+		{
+			bodyRenderer.material.SetFloat( "_RimPower", _defaultRimPower );
+			bodyRenderer.material.SetColor( "_RimColor", _defaultRimColor );
+
+			_isHighlighted = false;
 		}
 	}
 }

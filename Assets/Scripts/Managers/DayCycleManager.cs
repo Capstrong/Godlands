@@ -66,12 +66,10 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	{
 		_currentTime = ( _currentTime + Time.deltaTime ) % dayCycleLength;
 
-#if UNITY_EDITOR
-		if ( Input.GetKey( _midnightTriggerKey ) && _midnightCoroutine == null )
+		if ( Input.GetKey( KeyCode.LeftAlt ) && Input.GetKeyDown( _midnightTriggerKey ) && _midnightCoroutine == null )
 		{
 			_TriggerMidnight( 2.0f );
 		}
-#endif
 	}
 
 	void MorningReset()

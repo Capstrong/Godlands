@@ -24,6 +24,7 @@ public class PlayerControls : MonoBehaviour
 	[SerializeField] float _fallAnimationDelay = 0.5f;
 
 	PlayerActor _actor;
+	BuddyStats _prevHighlightedBuddy = null;
 
 	[ReadOnly( "Respawn Position" )]
 	[SerializeField] Transform _respawnTransform = null;
@@ -41,9 +42,13 @@ public class PlayerControls : MonoBehaviour
 	}
 
 	Button _holdButton = new Button( "Hold" );
+	Button _holdButton2 = new Button( "Hold2" );
 	public Button holdButton
 	{
-		get { return _holdButton; }
+		get 
+		{ 
+			return _holdButton ? _holdButton : _holdButton2;
+		}
 	}
 
 	Button _useButton  = new Button( "Use" );
@@ -62,6 +67,12 @@ public class PlayerControls : MonoBehaviour
 	public Button sprintButton
 	{
 		get { return _sprintButton; }
+	}
+
+	bool _isInControl = true;
+	public bool isInControl
+	{
+		get{ return _isInControl; }
 	}
 
 	void Awake()
@@ -87,9 +98,22 @@ public class PlayerControls : MonoBehaviour
 #endif
 
 		_holdButton.Update();
+		_holdButton2.Update();
 		_useButton.Update();
 		_jumpButton.Update();
 		_sprintButton.Update();
+	}
+
+	public void TimedControlLoss( float time )
+	{
+		StartCoroutine( TimedControlLossRoutine( time ) );
+	}
+
+	IEnumerator TimedControlLossRoutine( float time )
+	{
+		_isInControl = false;
+		yield return new WaitForSeconds( time );
+		_isInControl = true;
 	}
 
 	#region Physics States
@@ -126,7 +150,8 @@ public class PlayerControls : MonoBehaviour
 
 			if ( player.physics.GroundedCheck() )
 			{
-				if ( player.controls.jumpButton.down &&
+				if ( player.controls.isInControl &&
+				     player.controls.jumpButton.down &&
 				     player.physics.JumpCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Jumping );
@@ -140,14 +165,17 @@ public class PlayerControls : MonoBehaviour
 			{
 				player.animator.SetBool( "isInAir", true );
 
-				if ( player.controls.holdButton &&
+				if ( player.controls.isInControl &&
+				     player.controls.holdButton &&
 				     player.stats.CanUseStat( Stat.Stamina ) &&
 				     player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
 
-				if ( player.controls.holdButton.down && player.stats.CanUseStat( Stat.Gliding ) )
+				if ( player.controls.isInControl && 
+				     player.controls.holdButton.down && 
+				     player.stats.CanUseStat( Stat.Gliding ) )
 				{
 					player.physics.ChangeState( PhysicsStateType.Gliding );
 				}
@@ -188,21 +216,25 @@ public class PlayerControls : MonoBehaviour
 			{
 				player.physics.ChangeState( PhysicsStateType.Grounded );
 			}
-			else if ( player.controls.jumpButton.down &&
+			else if ( player.controls.isInControl &&
+			          player.controls.jumpButton.down &&
 			          player.physics.JumpCheck() )
 			{
 				player.physics.ChangeState( PhysicsStateType.Jumping );
 			}
 			else
 			{
-				if ( player.controls.holdButton &&
+				if ( player.controls.isInControl &&
+				     player.controls.holdButton &&
 				     player.stats.CanUseStat( Stat.Stamina ) &&
 				     player.physics.ClimbCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Climbing );
 				}
 
-				if ( player.controls.holdButton.down && player.stats.CanUseStat( Stat.Gliding ) )
+				if ( player.controls.isInControl &&
+				     player.controls.holdButton.down && 
+				     player.stats.CanUseStat( Stat.Gliding ) )
 				{
 					player.physics.ChangeState( PhysicsStateType.Gliding );
 				}
@@ -241,7 +273,8 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Update()
 		{
-			if ( player.controls.holdButton &&
+			if ( player.controls.isInControl &&
+			     player.controls.holdButton &&
 			     player.stats.CanUseStat( Stat.Stamina ) &&
 			     player.physics.ClimbCheck() )
 			{
@@ -283,64 +316,67 @@ public class PlayerControls : MonoBehaviour
 		{
 			if ( player.physics.GroundedCheck() )
 			{
-				if ( player.controls.jumpButton.down &&
-				     player.physics.JumpCheck() )
+				if( player.controls.isInControl )
 				{
-					player.animator.SetTrigger( "jump" );
-					player.physics.ChangeState( PhysicsStateType.Jumping );
-					return;
-				}
-				else if ( player.controls.holdButton &&
-				          player.stats.CanUseStat( Stat.Stamina ) &&
-				          player.physics.ClimbCheck() )
-				{
-					player.physics.ChangeState( PhysicsStateType.Climbing );
-					return;
-				}
-				else if ( player.controls.useButton.down )
-				{
-					if ( player.inventory.CanUseItemWithoutTarget() )
+					if ( player.controls.jumpButton.down &&
+					     player.physics.JumpCheck() )
 					{
-						player.inventory.UseItem();
+						player.animator.SetTrigger( "jump" );
+						player.physics.ChangeState( PhysicsStateType.Jumping );
+						return;
 					}
-
-					// This allows us to do one raycast for all actions
-					// which is good since we do RaycastAll(), which is expensive.
-					RaycastHit hitInfo;
-					if ( player.controls.RaycastForward( out hitInfo ) )
+					else if ( player.controls.holdButton &&
+					          player.stats.CanUseStat( Stat.Stamina ) &&
+					          player.physics.ClimbCheck() )
 					{
-						if ( player.cutting.CutCheck( hitInfo ) )
-						{
-							player.animator.SetTrigger( "cut" );
-						}
-						else if ( player.inventory.UseItemWithTarget( hitInfo ) )
-						{
-							// Feed buddy.
-						}
-						else if ( player.controls.InteractCheck( hitInfo ) )
-						{
-							// Interaction was done.
-						}
-					}
-				}
-				else if ( player.controls.holdButton.down )
-				{
-					if ( player.inventory.CheckPutDownBuddy() )
-					{
-						// Buddy was put down
+						player.physics.ChangeState( PhysicsStateType.Climbing );
+						return;
 					}
 					else
 					{
 						RaycastHit hitInfo;
-						if ( player.controls.RaycastForward( out hitInfo )
-						  && player.inventory.CheckPickUpBuddy( hitInfo ) )
+						if ( player.controls.RaycastForward( out hitInfo ) )
 						{
-							// Buddy was picked up
+							if( player.controls.useButton.down )
+							{
+								if ( player.cutting.CutCheck( hitInfo ) )
+								{
+									player.animator.SetTrigger( "cut" );
+									return;
+								}
+								else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+								{
+									// Feed buddy or use resource or pickup buddy
+									return;
+								}
+								else if ( player.controls.InteractCheck( hitInfo ) )
+								{
+									// Interaction was done.
+									return;
+								}
+							}
+						}
+
+						if( player.inventory.CanUseItemWithoutTarget() )
+						{
+							if( player.controls.useButton.down )
+							{
+								// Spawn or put down buddy
+								player.inventory.UseItem();
+							}
+
+							// Remove buddy highlight since the current item doesn't need a target
+							player.controls.RemoveBuddyHighlight();
+						}
+						else
+						{
+							player.controls.CheckBuddyHighlight( hitInfo );
 						}
 					}
 				}
 
-				if ( player.controls.sprintButton )
+				if ( player.controls.isInControl &&
+				     player.controls.sprintButton )
 				{
 					player.camera.zoomDistance = player.controls._sprintingCameraZoom;
 				}
@@ -349,8 +385,8 @@ public class PlayerControls : MonoBehaviour
 					player.camera.zoomDistance = player.controls._defaultCameraZoom;
 				}
 
-				player.physics.GroundMovement( player.controls.GetMoveDirection(), player.controls.sprintButton );
-
+				Vector3 groundMoveVec = player.controls.isInControl ? player.controls.GetMoveDirection() : Vector3.zero;
+				player.physics.GroundMovement( groundMoveVec, player.controls.sprintButton );
 				player.animator.SetFloat( "moveSpeed", player.physics.normalizedGroundSpeed );
 			}
 			else
@@ -384,14 +420,16 @@ public class PlayerControls : MonoBehaviour
 
 		public override void Update()
 		{
-			if ( player.controls.holdButton &&
+			if ( player.controls.isInControl &&
+			     player.controls.holdButton &&
 			     player.physics.ClimbCheck() )
 			{
 				player.physics.ChangeState( PhysicsStateType.Climbing );
 			}
 			else if ( player.physics.GroundedCheck() )
 			{
-				if ( player.controls.jumpButton.down &&
+				if ( player.controls.isInControl &&
+				     player.controls.jumpButton.down &&
 				     player.physics.JumpCheck() )
 				{
 					player.physics.ChangeState( PhysicsStateType.Jumping );
@@ -401,7 +439,8 @@ public class PlayerControls : MonoBehaviour
 					player.physics.ChangeState( PhysicsStateType.Grounded );
 				}
 			}
-			else if ( player.controls.holdButton &&
+			else if ( player.controls.isInControl &&
+			          player.controls.holdButton &&
 			          player.stats.CanUseStat( Stat.Gliding ) )
 			{
 				player.physics.GlideMovement( player.controls.GetMoveDirection() );
@@ -443,6 +482,51 @@ public class PlayerControls : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	public void RemoveBuddyHighlight()
+	{
+		if( _prevHighlightedBuddy )
+		{
+			_prevHighlightedBuddy.RemoveHighlight();
+		}
+	}
+
+	public void CheckBuddyHighlight( RaycastHit hitInfo )
+	{
+		if( hitInfo.transform )
+		{
+			BuddyStats highlightedBuddy = hitInfo.transform.GetComponentInChildren<BuddyStats>();
+			if( highlightedBuddy )
+			{
+				if( _prevHighlightedBuddy && highlightedBuddy != _prevHighlightedBuddy )
+				{
+					// Remove highlight from old buddy
+					_prevHighlightedBuddy.RemoveHighlight();
+				}
+
+				if ( _actor.inventory.GetCurrentItemData().CanUseItem( _actor, hitInfo ) )
+				{
+					// Set highlight and save reference to buddy
+					highlightedBuddy.SetHighlight();
+					_prevHighlightedBuddy = highlightedBuddy;
+				}
+				else if( _prevHighlightedBuddy )
+				{
+					_prevHighlightedBuddy.RemoveHighlight();
+				}
+			}
+			else if( _prevHighlightedBuddy )
+			{
+				// Remove highlight if we aren't looking at a buddy
+				_prevHighlightedBuddy.RemoveHighlight();
+			}
+		}
+		else if( _prevHighlightedBuddy )
+		{
+			// Remove highlight if we aren't looking at anything
+			_prevHighlightedBuddy.RemoveHighlight();
+		}
 	}
 
 	public void SetFallAnimation( bool state )

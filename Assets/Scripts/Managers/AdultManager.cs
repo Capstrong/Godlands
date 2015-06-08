@@ -24,6 +24,16 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[ReadOnly]
 	[SerializeField] int _numBadBuddies = 0;
 
+	[SerializeField] Color _goodColorA = Color.white;
+	[SerializeField] Color _goodColorB = Color.white;
+	[SerializeField] Color _goodRimColor = Color.white;
+	[SerializeField] float _goodRimPower = 1f;
+
+	[SerializeField] Color _badColorA = Color.white;
+	[SerializeField] Color _badColorB = Color.white;
+	[SerializeField] Color _badRimColor = Color.white;
+	[SerializeField] float _badRimPower = 1f;
+
 	int numTotalBuddies
 	{
 		get { return _numBadBuddies + _numGoodBuddies; }
@@ -56,6 +66,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
 
+			newBuddy.GetComponentInChildren<AdultBuddyShaper>().SetBuddyStyle( _goodColorA, _goodColorB, _goodRimColor, _goodRimPower );
+
 			SoundManager.Play2DSound( _goodBuddySong );
 
 			_numGoodBuddies++;
@@ -75,6 +87,8 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 			GameObject newBuddy = (GameObject)Instantiate( _adultPrefab, spawnTransform.position, Quaternion.identity );
 
 			BuddyShaper.CopyBuddy( newBuddy.GetComponentInChildren<SkinnedMeshRenderer>(), buddyStats.bodyRenderer );
+
+			newBuddy.GetComponentInChildren<AdultBuddyShaper>().SetBuddyStyle( _badColorA, _badColorB, _badRimColor, _badRimPower );
 
 			SoundManager.Play2DSound( _badBuddySong );
 

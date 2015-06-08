@@ -7,5 +7,16 @@ public class BuddyItemData : InventoryItemData
 	public Stat stat;
 	public Color statColor;
 	[ReadOnly( "Respawn Item" ), Tooltip( "This is so that the item can be re-enabled if the buddy dies" )]
-	public InventoryItem respawnItem;
+	public InventoryPickupItem respawnItem;
+
+	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
+	{
+		// TODO: Feedback and effect to explain why the buddy can't be spawned outside the garden
+		return MathUtils.IsWithinInfiniteVerticalCylinders( player.inventory.GetBuddySpawnPosition(), LimitsManager.colliders ) ;
+	}
+
+	public override bool UseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
+	{
+		return player.inventory.SpawnBuddy();
+	}
 }

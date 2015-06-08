@@ -18,6 +18,8 @@ public class CinematicController : MonoBehaviour
 
 	[SerializeField] Text[] _subtitleTexts = null;
 
+	PauseMenu _pauseMenu = null;
+
 	void Awake()
 	{
 		_transform = GetComponent<Transform>();
@@ -46,6 +48,13 @@ public class CinematicController : MonoBehaviour
 			_cutsceneAnimator.Play( "EarthToGodlandsShot" );
 
 			_cinematicDialogue = SoundManager.Play2DSound( _cinematicDialoguePrefab );
+
+			_pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
+
+			if ( _pauseMenu )
+			{
+				_pauseMenu.enabled = false;
+			}
 		}
 	}
 
@@ -110,6 +119,11 @@ public class CinematicController : MonoBehaviour
 			if( _cinematicDialogue )
 			{
 				_cinematicDialogue.Stop();
+			}
+
+			if ( _pauseMenu )
+			{
+				_pauseMenu.enabled = true;
 			}
 
 			_cutsceneAnimator.StopPlayback();
