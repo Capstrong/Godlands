@@ -222,7 +222,7 @@ public class PlayerInventory : ActorComponent
 		}
 
 		_playerActor.physics.OverrideLook( buddyTransform.position - _playerActor.transform.position, _lookOverrideDuration );
-		_playerActor.controls.TimedControlLoss( _pickupBuddyTime );
+		_playerActor.controls.SetControlLoss( false );
 		_playerActor.animator.Play( "PickupBuddy" );
 
 		// Don't start moving the buddy until the right point in the animation.
@@ -258,6 +258,16 @@ public class PlayerInventory : ActorComponent
 		{
 			collider.gameObject.SetActive( true );
 		}
+
+		AnimatorStateInfo info = _playerActor.animator.GetCurrentAnimatorStateInfo( 0 );
+
+		while ( info.IsName( "PickupBuddy" ) )
+		{
+			info = _playerActor.animator.GetCurrentAnimatorStateInfo( 0 );
+			yield return null;
+		}
+
+		_playerActor.controls.SetControlLoss( true );
 	}
 
 	IEnumerator BackBuddyHappinessRoutine( BuddyStats buddyStats )
@@ -296,7 +306,7 @@ public class PlayerInventory : ActorComponent
 	{
 		_isCarryingBuddy = false;
 
-		_playerActor.controls.TimedControlLoss( _putDownBuddyTime );
+		_playerActor.controls.SetControlLoss( false );
 		_playerActor.animator.Play( "PutDownBuddy" );
 
 		Transform buddyTransform = _backBuddy.hiddenBuddy.GetComponent<Transform>();
@@ -339,6 +349,16 @@ public class PlayerInventory : ActorComponent
 		{
 			collider.gameObject.SetActive( true );
 		}
+
+		AnimatorStateInfo info = _playerActor.animator.GetCurrentAnimatorStateInfo( 0 );
+
+		while ( info.IsName( "PutDownBuddy" ) )
+		{
+			info = _playerActor.animator.GetCurrentAnimatorStateInfo( 0 );
+			yield return null;
+		}
+
+		_playerActor.controls.SetControlLoss( true );
 	}
 
 	void GiveResource( BuddyStats buddyStats )

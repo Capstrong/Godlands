@@ -111,9 +111,14 @@ public class PlayerControls : MonoBehaviour
 
 	IEnumerator TimedControlLossRoutine( float time )
 	{
-		_isInControl = false;
+		SetControlLoss( false );
 		yield return new WaitForSeconds( time );
-		_isInControl = true;
+		SetControlLoss( true );
+	}
+
+	public void SetControlLoss( bool hasControl )
+	{
+		_isInControl = hasControl;
 	}
 
 	#region Physics States
