@@ -424,7 +424,7 @@ public class BuddyStats : ActorComponent
 
 	public void SetHighlight()
 	{
-		if( !_isHighlighted )
+		if( !_isHighlighted && isAlive )
 		{
 			bodyRenderer.material.SetFloat( "_RimPower", _highlightRimPower );
 			bodyRenderer.material.SetColor( "_RimColor", _highlightRimColor );
