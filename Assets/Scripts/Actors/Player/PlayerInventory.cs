@@ -227,7 +227,7 @@ public class PlayerInventory : ActorComponent
 		}
 
 		_playerActor.physics.OverrideLook( buddyTransform.position - _playerActor.transform.position, _lookOverrideDuration );
-		_playerActor.controls.SetControlLoss( false );
+		_playerActor.controls.SetHasControl( false );
 		_playerActor.animator.Play( "PickupBuddy" );
 
 		// Don't start moving the buddy until the right point in the animation.
@@ -274,7 +274,7 @@ public class PlayerInventory : ActorComponent
 			yield return null;
 		}
 
-		_playerActor.controls.SetControlLoss( true );
+		_playerActor.controls.SetHasControl( true );
 	}
 
 	IEnumerator BackBuddyHappinessRoutine( BuddyStats buddyStats )
@@ -313,7 +313,7 @@ public class PlayerInventory : ActorComponent
 	{
 		_isCarryingBuddy = false;
 
-		_playerActor.controls.SetControlLoss( false );
+		_playerActor.controls.SetHasControl( false );
 		_playerActor.animator.Play( "PutDownBuddy" );
 
 		Transform buddyTransform = _backBuddy.hiddenBuddy.GetComponent<Transform>();
@@ -367,7 +367,7 @@ public class PlayerInventory : ActorComponent
 			yield return null;
 		}
 
-		_playerActor.controls.SetControlLoss( true );
+		_playerActor.controls.SetHasControl( true );
 	}
 
 	void GiveResource( BuddyStats buddyStats )

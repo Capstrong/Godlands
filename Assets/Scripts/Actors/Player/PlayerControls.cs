@@ -111,12 +111,12 @@ public class PlayerControls : MonoBehaviour
 
 	IEnumerator TimedControlLossRoutine( float time )
 	{
-		SetControlLoss( false );
+		SetHasControl( false );
 		yield return new WaitForSeconds( time );
-		SetControlLoss( true );
+		SetHasControl( true );
 	}
 
-	public void SetControlLoss( bool hasControl )
+	public void SetHasControl( bool hasControl )
 	{
 		_isInControl = hasControl;
 	}
