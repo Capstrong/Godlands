@@ -7,9 +7,6 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[SerializeField] GameObject _adultPrefab = null;
 	[SerializeField] TextVolume _adultTextVolume = null;
 
-	[Range( 0.0f, 1.0f )]
-	[SerializeField] float _goodBadCutoff = 0.5f;
-
 	private List<AdultSpawnTag> _goodBuddySpawnPoints = new List<AdultSpawnTag>();
 	private List<ResourceSpawner> _resourceSpawners = new List<ResourceSpawner>();
 
@@ -51,7 +48,7 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 		// Make sure the text volume is active.
 		_adultTextVolume.gameObject.SetActive( true );
 
-		if ( buddyStats.happiness > _goodBadCutoff )
+		if (buddyStats.isGoodAdult )
 		{
 			// Spawn good buddy.
 			AdultSpawnTag spawnTag = _goodBuddySpawnPoints[Random.Range( 0, _goodBuddySpawnPoints.Count )];
