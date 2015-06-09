@@ -17,6 +17,13 @@ public class BuddyItemData : InventoryItemData
 
 	public override bool UseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
-		return player.inventory.SpawnBuddy();
+		if ( hitInfo.collider )
+		{
+			return false;
+		}
+		else
+		{
+			return player.inventory.SpawnBuddy();
+		}
 	}
 }
