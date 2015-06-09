@@ -47,12 +47,31 @@ public class BackBuddy : MonoBehaviour
 		{
 			_adultParticles.enableEmission = true;
 			_adultParticles.Play();
+
+			if ( buddyStats.isGoodAdult )
+			{
+				_cheerParticles.enableEmission = true;
+				_cheerParticles.Play();
+			}
+			else
+			{
+				_tearsParticles.enableEmission = true;
+				_tearsParticles.Play();
+			}
 		}
 	}
 
 	public void Reset()
 	{
+		_adultParticles.enableEmission = false;
 		_adultParticles.Stop();
+
+		_cheerParticles.enableEmission = false;
+		_cheerParticles.Stop();
+
+		_tearsParticles.enableEmission = false;
+		_tearsParticles.Stop();
+
 		hiddenBuddy.BackReset();
 		hiddenBuddy = null;
 	}
