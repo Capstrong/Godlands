@@ -541,8 +541,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: .0681228414, g: .163599193, b: .514705896, a: 1}
-  m_Intensity: .5
+  m_Color: {r: 1, g: .572549045, b: 1, a: 1}
+  m_Intensity: .699999988
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -668,12 +668,12 @@ Prefab:
     - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: _daySettings
       value: 
-      objectReference: {fileID: 11400000, guid: 7fdeeceb69fac485587ec214281dd92a,
+      objectReference: {fileID: 11400000, guid: 1fdf97b68fb2ca54689738a414280143,
         type: 2}
     - target: {fileID: 11492844, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
       propertyPath: _nightSettings
       value: 
-      objectReference: {fileID: 11400000, guid: 05f31fdd2839c4244997aebaa4c8a202,
+      objectReference: {fileID: 11400000, guid: 1fdf97b68fb2ca54689738a414280143,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7e41e4d173544722a5eb6dd575eea5b, type: 2}
@@ -1102,8 +1102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55f071fa76c8a04aae6df5463583f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationSpeed: 40
+  _rotationSpeed: 20
   _startRotation: 0
   _endRotation: 180
   _alphaIntensity: 0
-  _lightIntensity: 1
+  _lightIntensity: 3.28999996
