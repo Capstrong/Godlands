@@ -34,11 +34,6 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[SerializeField] Color _badRimColor = Color.white;
 	[SerializeField] float _badRimPower = 1f;
 
-	int numTotalBuddies
-	{
-		get { return _numBadBuddies + _numGoodBuddies; }
-	}
-
 	void Start()
 	{
 		// Populate list of spawn points.
@@ -100,18 +95,22 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 		CheckForEnding();
 	}
 
+	public static void CountDeadBuddy()
+	{
+		instance._numBadBuddies++;
+
+		instance.CheckForEnding();
+	}
+
 	void CheckForEnding()
 	{
-		if ( numTotalBuddies >= _numGoalBuddies )
+		if ( _numGoodBuddies >= _numGoalBuddies )
 		{
-			if ( _numGoodBuddies >= _numBadBuddies )
-			{
-				LevelUtils.LoadLevel( Level.GoodEnding );
-			}
-			else
-			{
-				LevelUtils.LoadLevel( Level.BadEnding );
-			}
+			LevelUtils.LoadLevel( Level.GoodEnding );
+		}
+		else if ( _numBadBuddies >= _numGoalBuddies )
+		{
+			LevelUtils.LoadLevel( Level.BadEnding );
 		}
 	}
 }

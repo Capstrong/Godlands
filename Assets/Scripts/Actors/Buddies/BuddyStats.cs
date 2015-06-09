@@ -373,6 +373,8 @@ public class BuddyStats : ActorComponent
 			_adultParticles.Stop();
 			_adultParticles.enableEmission = false;
 		}
+
+		AdultManager.CountDeadBuddy();
 	}
 
 	void RespawnEgg()
