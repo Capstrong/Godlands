@@ -59,6 +59,11 @@ public class BackBuddy : MonoBehaviour
 				_tearsParticles.Play();
 			}
 		}
+		else
+		{
+			_heartParticles.enableEmission = true;
+			_heartParticles.Play();
+		}
 	}
 
 	public void Reset()
@@ -71,6 +76,9 @@ public class BackBuddy : MonoBehaviour
 
 		_tearsParticles.enableEmission = false;
 		_tearsParticles.Stop();
+
+		_heartParticles.enableEmission = false;
+		_heartParticles.Stop();
 
 		hiddenBuddy.BackReset();
 		hiddenBuddy = null;
