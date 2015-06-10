@@ -65,9 +65,7 @@ public class PlayerInventory : ActorComponent
 	[SerializeField] float _placeBuddyOnAltarTime = 3f;
 	[SerializeField] Transform _handTransform = null;
 	[SerializeField] float _buddySpawnScale = 0.05f;
-
-	// Calculated in Awake()
-	Vector3 _backBuddyScale = Vector3.zero;
+	[SerializeField] float _backBuddyScale = 0.0f;
 
 	[SerializeField] TextMultiVolumeContents _scrollTutorialText = null;
 
@@ -90,8 +88,6 @@ public class PlayerInventory : ActorComponent
 		UpdateResourceList();
 
 		_textBox = FindObjectOfType<TextBox>();
-
-		_backBuddyScale = _backBuddy.transform.localScale;
 	}
 
 	// Use this for initialization
@@ -236,12 +232,13 @@ public class PlayerInventory : ActorComponent
 		float timer = 0.0f;
 		Vector3 buddyStartPos = buddyTransform.position;
 		Vector3 buddyStartScale = buddyTransform.localScale;
+		Vector3 buddyEndScale = Vector3.one * _backBuddyScale;
 		while ( timer < _pickupBuddyTime )
 		{
 			timer += Time.deltaTime;
 
 			buddyTransform.position = Vector3.Lerp( buddyStartPos, _handTransform.position, timer / _pickupBuddyTime );
-			buddyTransform.localScale = Vector3.Lerp( buddyStartScale, _backBuddyScale, timer / _pickupBuddyTime );
+			buddyTransform.localScale = Vector3.Lerp( buddyStartScale, buddyEndScale, timer / _pickupBuddyTime );
 
 			yield return 0;
 		}

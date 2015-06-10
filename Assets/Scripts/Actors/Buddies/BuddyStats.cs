@@ -112,9 +112,18 @@ public class BuddyStats : ActorComponent
 		get { return _state == BuddyState.Adult; }
 	}
 
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float _goodBadHappinessCutoff = 0.5f;
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float _goodBadHungerCutoff = 0.5f;
+
+	public bool isGoodAdult
+	{
+		get { return happiness > _goodBadHappinessCutoff && hunger > _goodBadHungerCutoff; }
+	}
+
 	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
-
 
 	// Highlighting
 
@@ -373,6 +382,8 @@ public class BuddyStats : ActorComponent
 			_adultParticles.Stop();
 			_adultParticles.enableEmission = false;
 		}
+
+		AdultManager.CountDeadBuddy();
 	}
 
 	void RespawnEgg()

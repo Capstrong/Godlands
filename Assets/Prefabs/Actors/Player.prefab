@@ -3552,7 +3552,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127248}
   m_LocalRotation: {x: -.655488312, y: 1.19829096e-07, z: -2.21148497e-07, w: .755205393}
-  m_LocalPosition: {x: 0, y: .0659999996, z: .301999986}
+  m_LocalPosition: {x: 0, y: -.00999999978, z: .301999986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 415768}
@@ -4088,11 +4088,12 @@ MonoBehaviour:
   _pickupBuddyDelay: 1
   _pickupBuddyTime: 2
   _putDownBuddyDelay: 1
-  _putDownBuddyTime: 1
+  _putDownBuddyTime: 1.20000005
   _spawnBuddyTime: 10
   _placeBuddyOnAltarTime: 3
   _handTransform: {fileID: 494710}
   _buddySpawnScale: .0500000007
+  _backBuddyScale: .5
   _scrollTutorialText: {fileID: 11400000, guid: 06788468fd928294eaf97f222b4b90e3,
     type: 2}
 --- !u!114 &11480134
@@ -5574,18 +5575,18 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127248}
-  lengthInSec: 1.5
+  lengthInSec: 5
   startDelay: 0
   speed: 1
   randomSeed: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   moveWithTransform: 0
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 2
+      scalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5811,7 +5812,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 7
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5843,15 +5844,15 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 30
-    cnt1: 30
-    cnt2: 30
-    cnt3: 30
+    cnt0: 5
+    cnt1: 5
+    cnt2: 5
+    cnt3: 5
     time0: 0
-    time1: 0
-    time2: 0
-    time3: 0
-    m_BurstCount: 0
+    time1: .25
+    time2: .5
+    time3: .75
+    m_BurstCount: 4
   SizeModule:
     enabled: 0
     curve:
@@ -7655,11 +7656,11 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100932}
-  lengthInSec: 1.5
+  lengthInSec: 5
   startDelay: 0
   speed: 1
   randomSeed: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   moveWithTransform: 0
@@ -7708,11 +7709,6 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
       minCurve:
@@ -7723,14 +7719,9 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 3
     startColor:
       maxGradient:
         key0:
@@ -7878,8 +7869,8 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 4
-    radius: .363169551
-    angle: 22.4663982
+    radius: .699999988
+    angle: 25.3999996
     length: 5
     boxX: .354741693
     boxY: .153856814
@@ -7892,7 +7883,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 10
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7932,7 +7923,7 @@ ParticleSystem:
     time1: 0
     time2: 0
     time3: 0
-    m_BurstCount: 0
+    m_BurstCount: 1
   SizeModule:
     enabled: 1
     curve:
