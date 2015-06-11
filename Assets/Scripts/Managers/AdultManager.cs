@@ -7,9 +7,6 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[SerializeField] GameObject _adultPrefab = null;
 	[SerializeField] TextVolume _adultTextVolume = null;
 
-	[Range( 0.0f, 1.0f )]
-	[SerializeField] float _goodBadCutoff = 0.5f;
-
 	private List<AdultSpawnTag> _goodBuddySpawnPoints = new List<AdultSpawnTag>();
 	private List<ResourceSpawner> _resourceSpawners = new List<ResourceSpawner>();
 
@@ -34,11 +31,6 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 	[SerializeField] Color _badRimColor = Color.white;
 	[SerializeField] float _badRimPower = 1f;
 
-	int numTotalBuddies
-	{
-		get { return _numBadBuddies + _numGoodBuddies; }
-	}
-
 	void Start()
 	{
 		// Populate list of spawn points.
@@ -56,7 +48,7 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 		// Make sure the text volume is active.
 		_adultTextVolume.gameObject.SetActive( true );
 
-		if ( buddyStats.happiness > _goodBadCutoff )
+		if (buddyStats.isGoodAdult )
 		{
 			// Spawn good buddy.
 			AdultSpawnTag spawnTag = _goodBuddySpawnPoints[Random.Range( 0, _goodBuddySpawnPoints.Count )];
@@ -100,18 +92,22 @@ public class AdultManager : SingletonBehaviour<AdultManager>
 		CheckForEnding();
 	}
 
+	public static void CountDeadBuddy()
+	{
+		instance._numBadBuddies++;
+
+		instance.CheckForEnding();
+	}
+
 	void CheckForEnding()
 	{
-		if ( numTotalBuddies >= _numGoalBuddies )
+		if ( _numGoodBuddies >= _numGoalBuddies )
 		{
-			if ( _numGoodBuddies >= _numBadBuddies )
-			{
-				LevelUtils.LoadLevel( Level.GoodEnding );
-			}
-			else
-			{
-				LevelUtils.LoadLevel( Level.BadEnding );
-			}
+			LevelUtils.LoadLevel( Level.GoodEnding );
+		}
+		else if ( _numBadBuddies >= _numGoalBuddies )
+		{
+			LevelUtils.LoadLevel( Level.BadEnding );
 		}
 	}
 }

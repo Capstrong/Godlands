@@ -5,7 +5,10 @@ public class BackBuddy : MonoBehaviour
 {
 	public BuddyStats hiddenBuddy; // The buddy that is currently on the back.
 
-	ParticleSystem adultParticles;
+	[SerializeField] ParticleSystem _adultParticles = null;
+	[SerializeField] ParticleSystem _tearsParticles = null;
+	[SerializeField] ParticleSystem _heartParticles = null;
+	[SerializeField] ParticleSystem _cheerParticles = null;
 
 	Animator _animator = null;
 	Animator animator
@@ -26,8 +29,6 @@ public class BackBuddy : MonoBehaviour
 	void Awake()
 	{
 		mySkinnedMesh = GetComponentInChildren<SkinnedMeshRenderer>();
-
-		adultParticles = GetComponentInChildren<ParticleSystem>();
 	}
 
 	public void PlayEvent( string eventName )
@@ -44,14 +45,41 @@ public class BackBuddy : MonoBehaviour
 
 		if ( buddyStats.isOfAge )
 		{
-			adultParticles.enableEmission = true;
-			adultParticles.Play();
+			_adultParticles.enableEmission = true;
+			_adultParticles.Play();
+
+			if ( buddyStats.isGoodAdult )
+			{
+				_cheerParticles.enableEmission = true;
+				_cheerParticles.Play();
+			}
+			else
+			{
+				_tearsParticles.enableEmission = true;
+				_tearsParticles.Play();
+			}
+		}
+		else
+		{
+			_heartParticles.enableEmission = true;
+			_heartParticles.Play();
 		}
 	}
 
 	public void Reset()
 	{
-		adultParticles.Stop();
+		_adultParticles.enableEmission = false;
+		_adultParticles.Stop();
+
+		_cheerParticles.enableEmission = false;
+		_cheerParticles.Stop();
+
+		_tearsParticles.enableEmission = false;
+		_tearsParticles.Stop();
+
+		_heartParticles.enableEmission = false;
+		_heartParticles.Stop();
+
 		hiddenBuddy.BackReset();
 		hiddenBuddy = null;
 	}

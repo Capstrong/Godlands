@@ -111,9 +111,14 @@ public class PlayerControls : MonoBehaviour
 
 	IEnumerator TimedControlLossRoutine( float time )
 	{
-		_isInControl = false;
+		SetHasControl( false );
 		yield return new WaitForSeconds( time );
-		_isInControl = true;
+		SetHasControl( true );
+	}
+
+	public void SetHasControl( bool hasControl )
+	{
+		_isInControl = hasControl;
 	}
 
 	#region Physics States
@@ -344,7 +349,8 @@ public class PlayerControls : MonoBehaviour
 									player.animator.SetTrigger( "cut" );
 									return;
 								}
-								else if ( player.inventory.UseItemWithTarget( hitInfo ) )
+								else if ( player.inventory.CurrentItemNeedsTarget()
+									&& player.inventory.UseItemWithTarget( hitInfo ) )
 								{
 									// Feed buddy or use resource or pickup buddy
 									return;
@@ -357,7 +363,7 @@ public class PlayerControls : MonoBehaviour
 							}
 						}
 
-						if( player.inventory.CanUseItemWithoutTarget() )
+						if( !player.inventory.CurrentItemNeedsTarget() )
 						{
 							if( player.controls.useButton.down )
 							{

@@ -112,9 +112,18 @@ public class BuddyStats : ActorComponent
 		get { return _state == BuddyState.Adult; }
 	}
 
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float _goodBadHappinessCutoff = 0.5f;
+	[Range( 0.0f, 1.0f )]
+	[SerializeField] float _goodBadHungerCutoff = 0.5f;
+
+	public bool isGoodAdult
+	{
+		get { return happiness > _goodBadHappinessCutoff && hunger > _goodBadHungerCutoff; }
+	}
+
 	[Space( 10 ), Header( "Debug Settings" )]
 	[SerializeField] bool _disableStatDecrease = false;
-
 
 	// Highlighting
 
@@ -206,7 +215,7 @@ public class BuddyStats : ActorComponent
 	public void AgeUp()
 	{
 		++_age;
-		if ( isOfAge && !isReadyToAgeUp )
+		if ( isOfAge && !isReadyToAgeUp && isAlive )
 		{
 			isReadyToAgeUp = true;
 			_adultParticles.enableEmission = true;
@@ -363,18 +372,18 @@ public class BuddyStats : ActorComponent
 
 		StopCoroutine( _currentEmoteRoutine );
 
-		// The check is needed because this is sometimes called when the game object is disabled,
-		// and GetComponentInChildren() returns null when the object in disabled.
-		Animator animator = GetComponentInChildren<Animator>();
-		if ( animator )
+		if ( actor.animator.isActiveAndEnabled )
 		{
-			animator.SetTrigger( "isDead" );
+			actor.animator.SetTrigger( "isDead" );
 		}
 
 		if ( isOfAge )
 		{
 			_adultParticles.Stop();
+			_adultParticles.enableEmission = false;
 		}
+
+		AdultManager.CountDeadBuddy();
 	}
 
 	void RespawnEgg()
@@ -401,7 +410,19 @@ public class BuddyStats : ActorComponent
 	{
 		// This will update the happiness variable on the animator and
 		// restart the happiness sound
-		AdjustHappiness( 0f );
+		if ( isAlive )
+		{
+			// Don't do this for dead buddies or else they will start up an animation
+			AdjustHappiness( 0f );
+		}
+		else
+		{
+			// Have to do this here because the animator is not enabled for the hidden buddy when Kill() is called
+			if ( actor.animator.isActiveAndEnabled )
+			{
+				actor.animator.SetTrigger( "isDead" );
+			}
+		}
 	}
 
 	public float hunger
@@ -414,7 +435,7 @@ public class BuddyStats : ActorComponent
 
 	public void SetHighlight()
 	{
-		if( !_isHighlighted )
+		if( !_isHighlighted && isAlive )
 		{
 			bodyRenderer.material.SetFloat( "_RimPower", _highlightRimPower );
 			bodyRenderer.material.SetColor( "_RimColor", _highlightRimColor );
