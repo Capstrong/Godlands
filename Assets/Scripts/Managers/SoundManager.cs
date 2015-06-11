@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class SoundManager : SingletonBehaviour<SoundManager>
 {
-	[HideInInspector] public GameObject audioObjHolder = null;
-	[HideInInspector] public GameObject loopObjHolder = null;
-	public List<AudioSource> audioObjs = new List<AudioSource>();
+	[SerializeField] int _startingPoolSize = 0;
+
+	GameObject audioObjHolder = null;
+	List<AudioSource> audioObjs = new List<AudioSource>();
 
 	AudioSource defaultSource;
 
@@ -24,8 +25,11 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		audioObjHolder = new GameObject( "AudioPool" );
 		audioObjHolder.transform.parent = soundManagerObj.transform;
 
-		loopObjHolder = new GameObject( "AudioPool_Loops" );
-		loopObjHolder.transform.parent = soundManagerObj.transform;
+		// Start the audio pool with some objects in it
+		for ( int i = 0; i < _startingPoolSize; i++ )
+		{
+			CreateAudioObj();
+		}
 	}
 
 	AudioSource CreateAudioObj()
@@ -62,7 +66,6 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		source.transform.parent = audioObjHolder.transform;
 		source.transform.position = position;
 		PlayAudioObj( sourceData, source );
-		audioObjs.Add( source );
 
 		return source;
 	}
@@ -74,7 +77,6 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		source.transform.position = target.position;
 		source.transform.parent = target;
 		PlayAudioObj( sourceData, source );
-		audioObjs.Add( source );
 
 		return source;
 	}
@@ -85,31 +87,23 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
 		source.transform.parent = audioObjHolder.transform;
 		PlayAudioObj( sourceData, source );
-		audioObjs.Add( source );
 
 		return source;
 	}
 
 	AudioSource GetSource()
 	{
-		audioObjs.RemoveAll(item => item == null);
-
-		AudioSource returnSource = null;
+		audioObjs.RemoveAll( item => item == null );
 
 		foreach ( AudioSource audioSource in audioObjs )
 		{
 			if ( !audioSource.isPlaying )
 			{
-				returnSource = audioSource;
+				return audioSource;
 			}
 		}
 
-		if ( !returnSource )
-		{
-			returnSource = CreateAudioObj();
-		}
-
-		return returnSource;
+		return CreateAudioObj();
 	}
 
 	void PlayAudioObj( AudioSource sourceData, AudioSource source )

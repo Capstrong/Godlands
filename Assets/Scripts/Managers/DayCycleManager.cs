@@ -41,12 +41,15 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		get { return ( _dayCycleLength - _blackoutDuration ) - _currentTime; }
 	}
 
+	[SerializeField] AudioSource _timeRunningOutMusic = null;
+
 	[Space( 10 ), Header( "Debug" )]
 	[Tooltip( "Disable the midnight overlay and reseting the player's position." )]
 	[SerializeField] bool _disableMidnight = false;
 	[SerializeField] KeyCode _midnightTriggerKey = KeyCode.M;
 
-	private Coroutine _midnightCoroutine = null;
+	Coroutine _midnightCoroutine = null;
+	AudioSource _currentMusic = null;
 
 	void Start()
 	{
@@ -79,6 +82,14 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 		CancelInvoke( "StartMidnightOverlay" );
 		Invoke( "StartMidnightOverlay", timeUntilBlackout );
+
+		if ( _currentMusic )
+		{
+			_currentMusic.Stop();
+		}
+
+		CancelInvoke( "StartTimeRunningOutMusic" );
+		Invoke( "StartTimeRunningOutMusic", dayCycleLength - _currentTime - _timeRunningOutMusic.clip.length );
 	}
 
 	public static void TriggerMidnight( float overlayTime )
@@ -109,6 +120,11 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 		instance._endOfDayCallback -= callback;
 	}
 
+	void StartTimeRunningOutMusic()
+	{
+		_currentMusic = SoundManager.Play2DSound( _timeRunningOutMusic );
+	}
+
 	void StartMidnightOverlay()
 	{
 		StartMidnightOverlay( _blackoutDuration );
@@ -128,26 +144,20 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	IEnumerator FadeInMidnightOverlay( float overlayTime )
 	{
 		float elapsedTime = 0.0f;
-		while ( true )
+		while ( elapsedTime < overlayTime )
 		{
-			if ( elapsedTime < overlayTime )
-			{
-				elapsedTime += Time.deltaTime;
+			elapsedTime += Time.deltaTime;
 
-				if( _midnightOverlay )
-				{
-					_midnightOverlay.color = _midnightOverlay.color.SetAlpha( elapsedTime / overlayTime);
-				}
-
-				yield return null;
-			}
-			else
+			if ( _midnightOverlay )
 			{
-				MorningReset();
-				_endOfDayCallback();
-				break;
+				_midnightOverlay.color = _midnightOverlay.color.SetAlpha( elapsedTime / overlayTime );
 			}
+
+			yield return null;
 		}
+
+		MorningReset();
+		_endOfDayCallback();
 
 		_midnightCoroutine = null;
 	}
@@ -158,25 +168,18 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 	IEnumerator FadeOutMidnightOverlay()
 	{
 		float elapsedTime = 0.0f;
-		while ( true )
+		while ( elapsedTime < _lightupDuration )
 		{
-			if ( elapsedTime < _lightupDuration )
-			{
-				elapsedTime += Time.deltaTime;
+			elapsedTime += Time.deltaTime;
 
-				if( _midnightOverlay )
-				{
-					Color overlayColor = _midnightOverlay.color;
-					overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
-					_midnightOverlay.color = overlayColor;
-				}
-
-				yield return null;
-			}
-			else
+			if ( _midnightOverlay )
 			{
-				break;
+				Color overlayColor = _midnightOverlay.color;
+				overlayColor.a = 1.0f - ( elapsedTime / _lightupDuration );
+				_midnightOverlay.color = overlayColor;
 			}
+
+			yield return null;
 		}
 	}
 }
