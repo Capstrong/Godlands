@@ -137,7 +137,7 @@ public class PlayerInventory : ActorComponent
 
 	public bool CurrentItemNeedsTarget()
 	{
-		return _heldInventoryItems[_resourceIndex].needsTarget;
+		return _heldInventoryItems[_resourceIndex].NeedsTarget( _playerActor );
 	}
 
 	public void UseItem()

@@ -423,6 +423,8 @@ public class BuddyStats : ActorComponent
 				actor.animator.SetTrigger( "isDead" );
 			}
 		}
+
+		transform.localScale = Vector3.one;
 	}
 
 	public float hunger
