@@ -383,6 +383,11 @@ public class BuddyStats : ActorComponent
 			_adultParticles.enableEmission = false;
 		}
 
+		if ( _currentHappinessSound )
+		{
+			_currentHappinessSound.Stop();
+		}
+
 		AdultManager.CountDeadBuddy();
 	}
 
