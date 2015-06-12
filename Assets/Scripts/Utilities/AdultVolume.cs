@@ -20,7 +20,7 @@ public class AdultVolume : MonoBehaviour
 
 		if ( player && 
 		     player.controls.isInControl && 
-		     player.controls.holdButton.down )
+		     player.controls.useButton.down )
 		{
 			BuddyStats buddy = player.inventory.backBuddy.hiddenBuddy;
 			if ( buddy && buddy.isOfAge )

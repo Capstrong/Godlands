@@ -383,6 +383,11 @@ public class BuddyStats : ActorComponent
 			_adultParticles.enableEmission = false;
 		}
 
+		if ( _currentHappinessSound )
+		{
+			_currentHappinessSound.Stop();
+		}
+
 		AdultManager.CountDeadBuddy();
 	}
 
@@ -423,6 +428,8 @@ public class BuddyStats : ActorComponent
 				actor.animator.SetTrigger( "isDead" );
 			}
 		}
+
+		transform.localScale = Vector3.one;
 	}
 
 	public float hunger

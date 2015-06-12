@@ -3,6 +3,11 @@ using System.Collections;
 
 public class PickupBuddyItemData : InventoryItemData
 {
+	public override bool NeedsTarget( PlayerActor player )
+	{
+		return !player.inventory.isCarryingBuddy;
+	}
+
 	public override bool CanUseItem( PlayerActor player, RaycastHit hitInfo = new RaycastHit() )
 	{
 		if( player.inventory.isCarryingBuddy )
@@ -20,12 +25,10 @@ public class PickupBuddyItemData : InventoryItemData
 	{
 		if( player.inventory.isCarryingBuddy )
 		{
-			needsTarget = true;
 			return player.inventory.CheckPutDownBuddy();
 		}
 		else
 		{
-			needsTarget = false;
 			return player.inventory.CheckPickUpBuddy( hitInfo );
 		}
 	}
