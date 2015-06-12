@@ -33,6 +33,9 @@ public class PlayerControls : MonoBehaviour
 
 	Transform _cameraTransform = null;
 
+	[SerializeField] ParticleSystem[] _climbEffects = null;
+	[SerializeField] ParticleSystem _glideEffect = null;
+
 	TextBox _textBox = null;
 
 	[SerializeField] LayerMask _interactableLayer = 0;
@@ -119,6 +122,21 @@ public class PlayerControls : MonoBehaviour
 	public void SetHasControl( bool hasControl )
 	{
 		_isInControl = hasControl;
+	}
+
+	public void SetClimbEffectsActive( bool setActive )
+	{
+		foreach( ParticleSystem ps in _climbEffects )
+		{
+			ps.enableEmission = setActive;
+			ps.Play();
+		}
+	}
+
+	public void SetGlideEffectsActive( bool setActive )
+	{
+		_glideEffect.enableEmission = setActive;
+		_glideEffect.Play();
 	}
 
 	#region Physics States
@@ -274,6 +292,7 @@ public class PlayerControls : MonoBehaviour
 			player.stats.StartUsingStat( Stat.Stamina );
 			player.physics.StartClimbing();
 			player.camera.zoomDistance = player.controls._climbingCameraZoom;
+			player.controls.SetClimbEffectsActive( true );
 		}
 
 		public override void Update()
@@ -303,6 +322,7 @@ public class PlayerControls : MonoBehaviour
 			player.physics.StopClimbing();
 			player.physics.StartLateJumpTimer();
 			player.camera.zoomDistance = player.controls._defaultCameraZoom;
+			player.controls.SetClimbEffectsActive( false );
 		}
 	}
 
@@ -422,6 +442,7 @@ public class PlayerControls : MonoBehaviour
 			player.animator.SetBool( "isGliding", true );
 			player.parachuteControl.SetParachuteEnabled( true );
 			player.camera.zoomDistance = player.controls._glidingCameraZoom;
+			player.controls.SetGlideEffectsActive( true );
 		}
 
 		public override void Update()
@@ -465,6 +486,7 @@ public class PlayerControls : MonoBehaviour
 			player.physics.StopGliding();
 			player.parachuteControl.SetParachuteEnabled( false );
 			player.camera.zoomDistance = player.controls._defaultCameraZoom;
+			player.controls.SetGlideEffectsActive( false );
 		}
 	}
 
