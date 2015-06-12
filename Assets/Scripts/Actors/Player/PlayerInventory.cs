@@ -39,6 +39,10 @@ public class PlayerInventory : ActorComponent
 		get { return _backBuddy; }
 	}
 
+	public delegate void BuddyCallback( BuddyStats buddy );
+	public BuddyCallback BuddyPickupCallback = delegate {};
+	public BuddyCallback BuddyPutDownCallback = delegate {};
+
 	bool _isCarryingBuddy = false;
 	public bool isCarryingBuddy
 	{
@@ -246,6 +250,8 @@ public class PlayerInventory : ActorComponent
 		BuddyShaper buddyShaper = buddyStats.GetComponentInChildren<BuddyShaper>();
 		if ( buddyShaper )
 		{
+			BuddyPickupCallback( buddyStats );
+
 			_backBuddy.gameObject.SetActive( true );             // Buddy is always on back, we just hide it
 			_backBuddy.CopyBuddy( buddyStats, buddyShaper.skinnedMeshRend ); // Copy buddy style to backBuddy prototype
 			_backBuddy.hiddenBuddy.gameObject.SetActive( false );
@@ -320,6 +326,8 @@ public class PlayerInventory : ActorComponent
 		Vector3 spawnLocation = ( hitInfo.transform ? hitInfo.point : transform.position + transform.forward * _buddySpawnDistance );
 
 		yield return new WaitForSeconds( _putDownBuddyDelay );
+
+		BuddyPutDownCallback( _backBuddy.hiddenBuddy );
 
 		_backBuddy.hiddenBuddy.gameObject.SetActive( true );
 		_backBuddy.hiddenBuddy.BackReset();

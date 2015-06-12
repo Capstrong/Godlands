@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Shrine_01_Diffuse
-  m_Shader: {fileID: 4800000, guid: f05ca9250ffb146c78f77845dd93ef83, type: 3}
+  m_Shader: {fileID: 4800000, guid: 69ed3d0ec11524a31807fa07945836e2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -28,6 +28,13 @@ Material:
           m_Texture: {fileID: 2800000, guid: 0177baaf6d218415b9f3b003f460a807, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1a7e890f4b50d614b8baf10877e26910, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -38,6 +45,10 @@ Material:
           name: _Metallic
         second: 0
     m_Colors:
+      data:
+        first:
+          name: _EmissionColor
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
