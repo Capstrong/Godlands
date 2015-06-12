@@ -88,8 +88,11 @@ public class DayCycleManager : SingletonBehaviour<DayCycleManager>
 
 	void _TriggerMidnight( float overlayTime )
 	{
-		CancelInvoke( "StartMidnightOverlay" );
-		StartMidnightOverlay( overlayTime );
+		if ( _midnightCoroutine == null )
+		{
+			CancelInvoke( "StartMidnightOverlay" );
+			StartMidnightOverlay( overlayTime );
+		}
 	}
 
 	// This returns percentage [0 to 1] along day, with start offset removed
