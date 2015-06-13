@@ -5,6 +5,6 @@ public class CreditScroll : Translater
 {
 	void OnDestroy()
 	{
-		LevelUtils.LoadLevel( Level.MainMenu );
+		//LevelUtils.LoadLevel( Level.MainMenu );
 	}
 }
