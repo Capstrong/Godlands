@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CutEffect
-  m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -143,12 +143,16 @@ Material:
         second: 1
       data:
         first:
-          name: _ColorMask
-        second: 15
-      data:
-        first:
           name: _Curvature
         second: -.00170000002
+      data:
+        first:
+          name: _MinCurveDistance
+        second: 20
+      data:
+        first:
+          name: _ColorMask
+        second: 15
       data:
         first:
           name: _EmissionLM
@@ -173,10 +177,6 @@ Material:
         first:
           name: _StencilWriteMask
         second: 255
-      data:
-        first:
-          name: _MinCurveDistance
-        second: 20
     m_Colors:
       data:
         first:
@@ -193,4 +193,4 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: 1, g: 1, b: 1, a: .501960814}
+        second: {r: 1, g: .00735294819, b: .931541681, a: .501960814}
