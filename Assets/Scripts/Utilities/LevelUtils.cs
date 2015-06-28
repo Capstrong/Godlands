@@ -21,7 +21,12 @@ public static class LevelUtils
 	                          "goodEnding",
 	                          "badEnding",
 	                          "MainMenu",
-	                          "Credits",};
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX // Disable credits on mac because they don't work for some reason
+	                          "MainMenu",
+#else
+	                          "Credits",
+#endif
+	                          };
 
 	public static void LoadLevel( Level level )
 	{
